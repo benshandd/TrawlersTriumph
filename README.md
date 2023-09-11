@@ -6,7 +6,7 @@ SWEN225 Group Project
 
 
 ## Todo List
-- [] Test
+- [ ] Test
 - [ ] JavaDocs **Required**
 - [ ] JUnit Testing **Required**
 
