@@ -1,29 +1,7 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.32.1.6535.66c005ced modeling language!*/
+package nz.ac.wgtn.swen225.lc.domain;
 
-
-// line 39 "model.ump"
-// line 71 "model.ump"
 public class Exit extends Free {
-
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
-
-    //------------------------
-    // CONSTRUCTOR
-    //------------------------
-
-    public Exit(Chap aChap) {
-        super(aChap);
+    public Exit(Chap chap) {
+        super(chap);
     }
-
-    //------------------------
-    // INTERFACE
-    //------------------------
-
-    public void delete() {
-        super.delete();
-    }
-
 }
