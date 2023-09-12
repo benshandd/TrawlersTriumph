@@ -1,0 +1,44 @@
+class Game {
+  
+}
+
+interface Tile {
+  
+}
+
+class Wall {
+  isA Tile;
+}
+
+class Free {
+  isA Tile;
+  Chap chap;
+}
+
+class Door {
+  isA Wall;
+}
+
+class ExitLock {
+  isA Wall;
+}
+
+class Key {
+  isA Free;
+}
+
+class InfoField {
+  isA Free;
+}
+
+class Treasure {
+  isA Free;
+}
+
+class Exit {
+  isA Free;
+}
+
+class Chap {
+  
+}
