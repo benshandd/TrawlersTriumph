@@ -2,9 +2,9 @@
 
 | Module      | Team Member Name | Team Member gitlab account |
 | ----------- | ---------------- | -------------------------- |
-| Domain      |      Anthony            |                            |
-| App         |      Matt            |                            |
-| Renderer    |        Alex          |                            |
-| Persistance |          Ben        |                            |
-| Recorder    |          Matthias        |                            |
+| Domain      |      Anthony            |        kendreanth                    |
+| App         |      Matt            |                  kerrmatt2          |
+| Renderer    |        Alex          |                      manninalex      |
+| Persistance |          Ben        |                         shandbenj   |
+| Recorder    |          Matthias        |                      streetmath      |
 | Fuzz        |                  |                            |
