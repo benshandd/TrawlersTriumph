@@ -5,6 +5,6 @@
 | Domain      |      Anthony            |        kendreanth                    |
 | App         |      Matt            |                  kerrmatt2          |
 | Renderer    |        Alex          |                      manninalex      |
-| Persistance |          Ben        |                         shandbenj   |
+| Persistency |          Ben        |                         shandbenj   |
 | Recorder    |          Mathias        |                      streetmath      |
 | Fuzz        |       ❌           |           ❌                 |
