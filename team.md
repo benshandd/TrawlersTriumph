@@ -7,4 +7,4 @@
 | Renderer    |        Alex          |                      manninalex      |
 | Persistance |          Ben        |                         shandbenj   |
 | Recorder    |          Mathias        |                      streetmath      |
-| Fuzz        |                  |                            |
+| Fuzz        |       ❌           |           ❌                 |
