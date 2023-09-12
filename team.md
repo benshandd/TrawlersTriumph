@@ -6,5 +6,5 @@
 | App         |      Matt            |                  kerrmatt2          |
 | Renderer    |        Alex          |                      manninalex      |
 | Persistance |          Ben        |                         shandbenj   |
-| Recorder    |          Matthias        |                      streetmath      |
+| Recorder    |          Mathias        |                      streetmath      |
 | Fuzz        |                  |                            |
