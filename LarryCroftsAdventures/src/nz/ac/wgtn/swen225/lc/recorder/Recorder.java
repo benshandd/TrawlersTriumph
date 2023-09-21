@@ -96,7 +96,7 @@ public class Recorder {
     }
 
     public Chap runParse(Scanner scan){
-
+        return new Chap();
     }
 
 
