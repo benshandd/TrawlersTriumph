@@ -18,8 +18,8 @@ public class HelpDialog extends JDialog {
 
         // Add game rules and instructions to the text area
         String helpText = "Game Rules:\n" +
-                "1. Chip's Challenge is a puzzle game where you control Chip McCallahan.\n" +
-                "2. The objective is to collect all computer chips in each level to open the exit door.\n" +
+                "1. Larry Crofts Adventures is a puzzle game where you control Chap.\n" +
+                "2. The objective is to collect all keys in each level to open the exit door.\n" +
                 "3. You must also reach the exit door to complete the level.\n" +
                 "4. Avoid hazards such as water, fire, and monsters.\n" +
                 "5. Use tools and power-ups to overcome obstacles.\n" +
