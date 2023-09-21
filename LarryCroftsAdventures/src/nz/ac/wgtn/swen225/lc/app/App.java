@@ -1,5 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
+import nz.ac.wgtn.swen225.lc.app.input.KeyboardListener;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,9 +19,8 @@ public class App extends JPanel implements ActionListener {
 
     public void setup(){
         JPanel leftPanel = new JPanel();
-        JPanel rightPanel = new JPanel(new GridLayout(10, 0, 0, 10));
+        JPanel rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
-
 
         createTimer();
 
@@ -40,28 +41,31 @@ public class App extends JPanel implements ActionListener {
         rightPanel.add(timeLabel);
         rightPanel.add(createLabel("CHIPS LEFT", font, Color.lightGray, Color.red));
         rightPanel.add(createLabel("3", font, Color.black, Color.green)); //get the chips left
-        rightPanel.add(createInventory());
+        rightPanel.add(createInventory(0));
+        rightPanel.add(createInventory(1));
+
 
 
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
     }
 
-    public JPanel createInventory() {
-        JPanel grid = new JPanel(new GridLayout(2, 4, 5, 5));
+    public JPanel createInventory(int index) {
+        JPanel grid = new JPanel(new GridLayout(1, 4, 5, 5));
+        grid.setPreferredSize(new Dimension(200, 100)); // Increase the width to accommodate square slots
+
         inventorySlots = new JLabel[2][4];
 
-
-        for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {
-                inventorySlots[i][j] = new JLabel();
-                inventorySlots[i][j].setPreferredSize(new Dimension(50, 50)); // Set the size of each slot
-                inventorySlots[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Add a border
-                grid.add(inventorySlots[i][j]);
+                inventorySlots[index][j] = new JLabel();
+                inventorySlots[index][j].setPreferredSize(new Dimension(100, 100)); // Make each slot a square
+                inventorySlots[index][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                grid.add(inventorySlots[index][j]);
             }
-        }
+
         return grid;
     }
+
 
     public void updateInventory(boolean[][] items) {
         for (int i = 0; i < 2; i++) {

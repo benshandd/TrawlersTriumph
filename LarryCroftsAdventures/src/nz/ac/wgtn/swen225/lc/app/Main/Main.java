@@ -1,10 +1,9 @@
 package nz.ac.wgtn.swen225.lc.app.Main;
 
-
 import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.app.input.KeyboardListener;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,11 +11,15 @@ import java.awt.event.ActionListener;
 public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
+    private KeyboardListener keyboardListener;
 
-    public static void main(String[] args) {
+    public Main() {
         System.out.println("Hello world");
         f = new JFrame("Larry Croft's Adventures");
         l = new JLabel("Welcome");
+
+        f.setLocationRelativeTo(null);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,17 +29,13 @@ public class Main extends JFrame {
 
         f.setJMenuBar(createMenuBar());
 
-
         f.getContentPane().setLayout(new BorderLayout());
         f.getContentPane().add(applicationWindow, BorderLayout.CENTER);
         f.setLocationByPlatform(true);
         f.pack();
         f.setVisible(true);
-
-
-
-
     }
+
 
     private static JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -71,4 +70,12 @@ public class Main extends JFrame {
 
         return menuBar;
     }
+
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new Main(); // Create an instance of Main
+        });
+    }
+
 }
