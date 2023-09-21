@@ -6,4 +6,9 @@ public class Free implements Tile {
     public Free(Chap chap) {
         this.chap = chap;
     }
+
+    @Override
+    public boolean traversable() {
+        return true;
+    }
 }
