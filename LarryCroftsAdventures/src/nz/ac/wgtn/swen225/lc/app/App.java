@@ -1,18 +1,15 @@
 package nz.ac.wgtn.swen225.lc.app;
 
-import nz.ac.wgtn.swen225.lc.app.input.KeyboardListener;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 public class App extends JPanel implements ActionListener {
 
     private JLabel timeLabel;
     JLabel[][] inventorySlots;
-    private int time = 100;
+    private int time = 10;
     public App(){
         setup();
     }
@@ -110,6 +107,16 @@ public class App extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(time > 0) {
             time--;
+        } else {
+            //end the game
+
+            JOptionPane.showMessageDialog(null,
+                    "Time's up! Do you want to replay the current level?",
+                    "Game Over",
+                    JOptionPane.PLAIN_MESSAGE);
+            time = 50;
+
+            //replay level
         }
         timeLabel.setText("" + time);
     }

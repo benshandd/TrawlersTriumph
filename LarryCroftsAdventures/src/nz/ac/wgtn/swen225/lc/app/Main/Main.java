@@ -1,17 +1,19 @@
 package nz.ac.wgtn.swen225.lc.app.Main;
 
 import nz.ac.wgtn.swen225.lc.app.App;
-import nz.ac.wgtn.swen225.lc.app.input.KeyboardListener;
+import nz.ac.wgtn.swen225.lc.app.HelpDialog;
+import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
-    private KeyboardListener keyboardListener;
 
     public Main() {
         System.out.println("Hello world");
@@ -26,8 +28,15 @@ public class Main extends JFrame {
 
 
         App applicationWindow = new App();
+        new KeyboardInputHandler(applicationWindow);
 
         f.setJMenuBar(createMenuBar());
+        f.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave the game?", "Closing game", JOptionPane.YES_NO_OPTION);
+                if (response == 0) { System.exit(0); }
+            }
+        });
 
         f.getContentPane().setLayout(new BorderLayout());
         f.getContentPane().add(applicationWindow, BorderLayout.CENTER);
@@ -49,7 +58,8 @@ public class Main extends JFrame {
 
 
         exitMenuItem.setToolTipText("Exit the game");
-        exitMenuItem.addActionListener((event) -> System.exit(0));
+        exitMenuItem.addActionListener((event) -> {int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave the game?", "Closing game", JOptionPane.YES_NO_OPTION);
+        if (response == 0) { System.exit(0); }});
 
         saveMenuItem.setToolTipText("Save the game state");
 //        saveMenuItem.addActionListener((event) -> persistency.save());
@@ -58,8 +68,14 @@ public class Main extends JFrame {
 //        resumeMenuItem.addActionListener((event) -> persistency.resume();
 
         helpMenuItem.setToolTipText("Help page with game rules");
-//        helpMenuItem.addActionListener((event) -> displayHelpMenu));
-
+        helpMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Display the help dialog when the "Help" menu item is clicked
+                HelpDialog helpDialog = new HelpDialog(f);
+                helpDialog.setVisible(true);
+            }
+        });
 
         fileMenu.add(exitMenuItem);
         fileMenu.add(saveMenuItem);
