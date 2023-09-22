@@ -26,12 +26,13 @@ public class Recorder {
     private int x;
     private int y;
 
-    public Recorder(int timeStamp, int level, String game, int x, int y) {
+    public Recorder(int timeStamp, int level, String game, int x, int y, Stack<Chap> actions) {
         this.timeStamp = timeStamp;
         this.level = level;
         this.game = game;
         this.x = x;
         this.y =y;
+        this.actions = actions;
     }
 
     /**
@@ -50,7 +51,7 @@ public class Recorder {
         if (newFile.createNewFile()){
             FileWriter fW = new FileWriter(newFile);
             Gson gson = new Gson();
-            Recorder r = new Recorder(11,1,"game",5,7);
+            Recorder r = new Recorder(11,1,"game",5,7,actions);
             String jsonStr = gson.toJson(r);
             fW.write(jsonStr);
             fW.close();
