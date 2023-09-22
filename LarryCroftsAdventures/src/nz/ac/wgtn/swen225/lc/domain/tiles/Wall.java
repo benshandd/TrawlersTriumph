@@ -1,4 +1,4 @@
-package nz.ac.wgtn.swen225.lc.domain;
+package nz.ac.wgtn.swen225.lc.domain.tiles;
 
 public class Wall implements Tile {
     public Wall() {
