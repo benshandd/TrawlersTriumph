@@ -22,17 +22,17 @@ public class Recorder {
 
     private int timeStamp;
     private int level;
-//    private Game game;
+    private String game;
     private int x;
     private int y;
 
-//    public Recorder(int timeStamp, int level, Game game, int x, int y) {
-//        this.timeStamp = timeStamp;
-//        this.level = level;
-//        this.game = game;
-//        this.x = x;
-//        this.y =y;
-//    }
+    public Recorder(int timeStamp, int level, String game, int x, int y) {
+        this.timeStamp = timeStamp;
+        this.level = level;
+        this.game = game;
+        this.x = x;
+        this.y =y;
+    }
 
     /**
      * starts recording the gameplay when the button is pressed
@@ -49,21 +49,14 @@ public class Recorder {
     public void stopRecordingGameplay() throws IOException {
         if (newFile.createNewFile()){
             FileWriter fW = new FileWriter(newFile);
-            fW.write("{\n");
-            fW.write(TAB.pattern() + "Time Stamp: " + timeStamp + "," + "\n");
-            fW.write(TAB.pattern() + "Level: " + level + "," +"\n");
-            fW.write(TAB.pattern() + "Game State: " + "playing" + "," + "\n");
-            fW.write(TAB.pattern() + "x position: " + x + "," + "\n");
-            fW.write(TAB.pattern() + "y position: " + y + "," + "\n");
-            fW.write(TAB.pattern() + "actions: [\n");
-            while (!actions.empty()){
-                fW.write(TAB.pattern() + HALF_TAB.pattern() + actions.pop().toString() + ",\n");
-            }
-            fW.write(TAB.pattern() + "]\n");
-            fW.write("}");
+            Gson gson = new Gson();
+            Recorder r = new Recorder(11,1,"game",5,7);
+            String jsonStr = gson.toJson(r);
+            fW.write(jsonStr);
             fW.close();
         }
     }
+
 
     /**
      * adds an action to the stack only if the global variable "record" is true.
@@ -72,38 +65,4 @@ public class Recorder {
     public void addAction(Chap chap){
         actions.push(new Chap());
     }
-
-
-    /**
-     * parses the file to be able to replay what the player has done.
-     */
-    public void initParse() throws FileNotFoundException {
-        List<Chap> actionsList = new ArrayList<Chap>();
-        JFileChooser fc = new JFileChooser();
-        int retVal = fc.showOpenDialog(null);
-        File file;
-
-        if (retVal == JFileChooser.APPROVE_OPTION){
-            System.out.println("File opened successfully called: " + fc.getSelectedFile().getName());
-            file = fc.getSelectedFile();
-        } else{
-            throw new FileNotFoundException();
-        }
-
-        Scanner scan = new Scanner(file);
-        while (scan.hasNext()){
-            actionsList.add(runParse(scan));
-        }
-    }
-
-    public Chap runParse(Scanner scan){
-
-
-        return new Chap();
-    }
-
-
-
-
-
 }
