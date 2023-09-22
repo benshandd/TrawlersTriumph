@@ -27,14 +27,6 @@ public class Persistency {
     private int x;
     private int y;
 
-    public Persistency(int timeLeft, int level, int x, int y, Stack<Chap> actions) {
-        this.timeLeft = timeLeft;
-        this.level = level;
-        this.x = x;
-        this.y = y;
-        this.actions = actions;
-    }
-
     public void saveGame(int newFileNum) throws IOException {
         newFile = new File("saved-game_" + newFileNum + ".json");
         FileWriter fileWriter = new FileWriter(newFile);
@@ -45,7 +37,7 @@ public class Persistency {
 
         playerObject.addProperty("x", x);
         playerObject.addProperty("y", y);
-        originalObject.add("player", playerObject);
+        //originalObject.add("player", playerObject);
         originalObject.addProperty("timeLeft", "100"); // Time left
         originalObject.addProperty("level", level); // Level
         JsonArray boardArray = new JsonArray();
@@ -53,7 +45,7 @@ public class Persistency {
         JsonArray rowArray = new JsonArray();
         rowObject.add("row", rowArray);
 
-        for (int i = 0; i < 15; i++) { //15cols
+        for (int i = 0; i < 15; i++) { //15rows
             JsonObject cellObject = new JsonObject();
             cellObject.addProperty("type", "Wall");
             cellObject.addProperty("item", "none");
