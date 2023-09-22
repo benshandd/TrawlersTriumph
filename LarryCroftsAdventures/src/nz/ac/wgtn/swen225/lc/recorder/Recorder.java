@@ -1,4 +1,5 @@
 package nz.ac.wgtn.swen225.lc.recorder;
+import com.google.gson.Gson;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.Game;
 import javax.swing.*;
@@ -12,18 +13,19 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
+
 public class Recorder {
 
     static final Pattern TAB = Pattern.compile("    "); // four white spaces
     static final Pattern HALF_TAB = Pattern.compile("  ");
-    Stack<Chap> actions;
-    File newFile;
+    private Stack<Chap> actions;
+    private File newFile;
 
-    int timeStamp;
-    int level;
-    Game game;
-    int x;
-    int y;
+    private int timeStamp;
+    private int level;
+    private Game game;
+    private int x;
+    private int y;
 
     public Recorder(int timeStamp, int level, Game game, int x, int y) {
         this.timeStamp = timeStamp;
@@ -51,14 +53,14 @@ public class Recorder {
             fW.write("{\n");
             fW.write(TAB.pattern() + "Time Stamp: " + timeStamp + "," + "\n");
             fW.write(TAB.pattern() + "Level: " + level + "," +"\n");
-            fW.write(TAB.pattern() + "Game State: " + game.toString() + "," + "\n");
+            fW.write(TAB.pattern() + "Game State: " + "playing" + "," + "\n");
             fW.write(TAB.pattern() + "x position: " + x + "," + "\n");
             fW.write(TAB.pattern() + "y position: " + y + "," + "\n");
             fW.write(TAB.pattern() + "actions: [\n");
             while (!actions.empty()){
-                fW.write(HALF_TAB.pattern() + actions.pop().toString() + ",\n");
+                fW.write(TAB.pattern() + HALF_TAB.pattern() + actions.pop().toString() + ",\n");
             }
-            fW.write(TAB.pattern() + "]");
+            fW.write(TAB.pattern() + "]\n");
             fW.write("}");
             fW.close();
         }
@@ -69,7 +71,7 @@ public class Recorder {
      * @param chap the action needing to be added to the stack
      */
     public void addAction(Chap chap){
-        actions.push(chap);
+        actions.push(new Chap());
     }
 
 
@@ -96,6 +98,8 @@ public class Recorder {
     }
 
     public Chap runParse(Scanner scan){
+
+
         return new Chap();
     }
 
