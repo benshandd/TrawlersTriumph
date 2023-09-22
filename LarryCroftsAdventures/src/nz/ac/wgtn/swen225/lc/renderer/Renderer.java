@@ -7,7 +7,8 @@ import java.awt.*;
 
 public class Renderer {
 
-    public static TestMaze maze = new TestMaze();
+    TestMaze maze = new TestMaze();
+    Camera camera = new Camera();
     public Renderer(){
 
     }
@@ -17,11 +18,11 @@ public class Renderer {
      * @param mazePanel
      * @param g
      */
-    public static void draw(JPanel mazePanel, Graphics g){
+    public void draw(JPanel mazePanel, Graphics g){
         int mazePanelWidth = mazePanel.getWidth();
         int mazePanelHeight = mazePanel.getHeight();
         int tileWidth = mazePanelWidth/maze.grid.length;
-        int tileHeight = mazePanelHeight/maze.grid.length;
+        int tileHeight = mazePanelHeight/maze.grid[0].length;
 
         // Set background colour
         g.setColor(new Color(232, 220, 202));
@@ -29,9 +30,10 @@ public class Renderer {
 
         int clampedValue = Math.max(0, Math.min(tileWidth, tileHeight));
         int distanceFromLeftBorder = mazePanelWidth/2 - (clampedValue*maze.grid.length/2);
-        int distanceFromTopBorder = mazePanelHeight/2 - (clampedValue*maze.grid.length/2);
+        int distanceFromTopBorder = mazePanelHeight/2 - (clampedValue*maze.grid[0].length/2);
+
         for (int x = 0; x < maze.grid.length; x++){
-            for (int y = 0; y < maze.grid.length; y++){
+            for (int y = 0; y < maze.grid[x].length; y++){
                 g.setColor(Color.BLACK);
                 g.drawRect(x*clampedValue + distanceFromLeftBorder, y*clampedValue + distanceFromTopBorder, clampedValue, clampedValue);
                 g.setColor(maze.grid[x][y].color);

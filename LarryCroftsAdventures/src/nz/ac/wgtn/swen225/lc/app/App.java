@@ -17,12 +17,13 @@ public class App extends JPanel implements ActionListener {
     }
 
     public void setup(){
+        Renderer renderer = new Renderer();
         JPanel leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         JPanel rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
         JPanel centrePanel = new JPanel(){
             @Override
             public void paint(Graphics g) {
-                Renderer.draw(this, g);
+                renderer.draw(this, g);
             }
         };
         centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));
