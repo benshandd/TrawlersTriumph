@@ -15,11 +15,13 @@ public class App extends JPanel implements ActionListener {
     }
 
     public void setup(){
-        JPanel leftPanel = new JPanel();
+        JPanel leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         JPanel rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
         JPanel centrePanel = new JPanel();
         centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+        leftPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+
 
         createTimer();
 
@@ -27,6 +29,7 @@ public class App extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(1400,800));
         leftPanel.setPreferredSize(new Dimension(300, 700));
         leftPanel.setBackground(Color.red);
+        leftPanel.add(new RecorderPanel());
 
         rightPanel.setPreferredSize(new Dimension(300, 700));
         rightPanel.setBackground(Color.lightGray);
