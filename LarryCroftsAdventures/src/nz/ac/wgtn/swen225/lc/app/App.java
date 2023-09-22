@@ -1,5 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
+import nz.ac.wgtn.swen225.lc.renderer.Renderer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +19,12 @@ public class App extends JPanel implements ActionListener {
     public void setup(){
         JPanel leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         JPanel rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
-        JPanel centrePanel = new JPanel();
+        JPanel centrePanel = new JPanel(){
+            @Override
+            public void paint(Graphics g) {
+                Renderer.draw(this, g);
+            }
+        };
         centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));

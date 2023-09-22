@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class Renderer {
 
-    TestMaze maze = new TestMaze();
+    public static TestMaze maze = new TestMaze();
     public Renderer(){
 
     }
@@ -17,7 +17,7 @@ public class Renderer {
      * @param mazePanel
      * @param g
      */
-    public void draw(JPanel mazePanel, Graphics g){
+    public static void draw(JPanel mazePanel, Graphics g){
         int mazePanelWidth = mazePanel.getWidth();
         int mazePanelHeight = mazePanel.getHeight();
         int tileWidth = mazePanelWidth/maze.grid.length;
