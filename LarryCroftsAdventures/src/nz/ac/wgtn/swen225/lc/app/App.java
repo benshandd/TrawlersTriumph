@@ -17,6 +17,8 @@ public class App extends JPanel implements ActionListener {
     public void setup(){
         JPanel leftPanel = new JPanel();
         JPanel rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
+        JPanel centrePanel = new JPanel();
+        centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
         createTimer();
@@ -42,7 +44,7 @@ public class App extends JPanel implements ActionListener {
         rightPanel.add(createInventory(1));
 
 
-
+        this.add(centrePanel, BorderLayout.CENTER);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
     }

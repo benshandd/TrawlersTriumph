@@ -1,7 +1,6 @@
 package nz.ac.wgtn.swen225.lc.recorder;
 import com.google.gson.Gson;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
-import nz.ac.wgtn.swen225.lc.domain.Game;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,17 +22,17 @@ public class Recorder {
 
     private int timeStamp;
     private int level;
-    private Game game;
+//    private Game game;
     private int x;
     private int y;
 
-    public Recorder(int timeStamp, int level, Game game, int x, int y) {
-        this.timeStamp = timeStamp;
-        this.level = level;
-        this.game = game;
-        this.x = x;
-        this.y =y;
-    }
+//    public Recorder(int timeStamp, int level, Game game, int x, int y) {
+//        this.timeStamp = timeStamp;
+//        this.level = level;
+//        this.game = game;
+//        this.x = x;
+//        this.y =y;
+//    }
 
     /**
      * starts recording the gameplay when the button is pressed
