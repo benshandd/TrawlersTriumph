@@ -1,5 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app.input;
 
+import nz.ac.wgtn.swen225.lc.app.App;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,9 +26,9 @@ public class KeyboardInputHandler {
 
 
 
-    private JComponent component;
+    private App component;
 
-    public KeyboardInputHandler(JComponent component) {
+    public KeyboardInputHandler(App component) {
         this.component = component;
         setupKeyBindings();
     }
@@ -93,6 +95,10 @@ public class KeyboardInputHandler {
             // Handle movement based on 'direction'
             // Implement your move logic here
             System.out.println(direction);
+            component.getRenderer().moveCameraDown();
+            System.out.println("X: " + component.getRenderer().camera.getX() + " Y: " + component.getRenderer().camera.getY());
+
+
         }
     }
 
