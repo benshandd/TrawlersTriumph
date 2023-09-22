@@ -1,14 +1,4 @@
 package nz.ac.wgtn.swen225.lc.recorder;
-import com.google.gson.Gson;
-import nz.ac.wgtn.swen225.lc.domain.Chap;
-import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
@@ -17,53 +7,46 @@ public class Recorder {
 
     static final Pattern TAB = Pattern.compile("    "); // four white spaces
     static final Pattern HALF_TAB = Pattern.compile("  ");
-    private Stack<Chap> actions;
-    private File newFile;
-
+    private Stack<String> actions;
     private int timeStamp;
     private int level;
-    private String game;
     private int x;
     private int y;
+    private boolean rec;
 
-    public Recorder(int timeStamp, int level, String game, int x, int y, Stack<Chap> actions) {
+    public Recorder(int timeStamp, int level, int x, int y, boolean rec) {
         this.timeStamp = timeStamp;
         this.level = level;
-        this.game = game;
         this.x = x;
-        this.y =y;
-        this.actions = actions;
-    }
-
-    /**
-     * starts recording the gameplay when the button is pressed
-     * @param newFileNum to add to the end of the file name for when making a new recorded gameplay
-     */
-    public void startRecordingGameplay(int newFileNum) {
-        actions = new Stack<Chap>();
-        newFile = new File("Recorded_Gameplay_" + newFileNum + ".json");
-    }
-
-    /**
-     * when the button is pressed again will stop it recording and a json file will be made
-     */
-    public void stopRecordingGameplay() throws IOException {
-        if (newFile.createNewFile()){
-            FileWriter fW = new FileWriter(newFile);
-            Gson gson = new Gson();
-            Recorder r = new Recorder(11,1,"game",5,7,actions);
-            String jsonStr = gson.toJson(r);
-            fW.write(jsonStr);
-            fW.close();
-        }
+        this.y = y;
+        this.rec = rec;
     }
 
 
+    public void record(){
+        actions = new Stack<>();
+
+    }
+    public void stopRecord(){
+        // call method in persistency passing all the values in this class to it, so it can make a JSON
+        // file out of it.
+    }
+    public void stepByStep(){
+        //load the file
+    }
+    public void replaySpeed(int speed) throws InterruptedException {
+        Thread.sleep(speed * 100);
+        actions.pop();
+    }
+    public void replay(){
+        //load the file eg Recorder recorder = getRecorderFromFile();
+
+    }
     /**
      * adds an action to the stack only if the global variable "record" is true.
-     * @param chap the action needing to be added to the stack
+     * @param str the action needing to be added to the stack
      */
-    public void addAction(Chap chap){
-        actions.push(new Chap());
+    public void addAction(String str){
+        actions.push(str);
     }
 }
