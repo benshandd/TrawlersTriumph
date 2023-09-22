@@ -1,0 +1,79 @@
+{
+  "player": { "x": 8, "y": 8 },
+  "timeLeft": "100",
+  "level": 1,
+  "board": [
+    {
+      "row": [
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "key"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        },
+        {
+          "type": "Wall",
+          "item": "none"
+        }
+      ]
+    }
+  ]
+}
