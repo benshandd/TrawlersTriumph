@@ -7,29 +7,29 @@ public class Recorder {
 
     static final Pattern TAB = Pattern.compile("    "); // four white spaces
     static final Pattern HALF_TAB = Pattern.compile("  ");
-    private Stack<String> actions;
+    private static Stack<String> actions;
     private int timeStamp;
     private int level;
     private int x;
     private int y;
-    private boolean rec;
+    private static boolean rec;
 
     public Recorder(int timeStamp, int level, int x, int y, boolean rec) {
-        this.timeStamp = timeStamp;
-        this.level = level;
-        this.x = x;
-        this.y = y;
-        this.rec = rec;
+
     }
 
 
     public void record(){
         actions = new Stack<>();
-
+        if(!rec){
+            stopRecord();
+        }
     }
     public void stopRecord(){
         // call method in persistency passing all the values in this class to it, so it can make a JSON
         // file out of it.
+
+
     }
     public void stepByStep(){
         //load the file
@@ -46,7 +46,13 @@ public class Recorder {
      * adds an action to the stack only if the global variable "record" is true.
      * @param str the action needing to be added to the stack
      */
-    public void addAction(String str){
-        actions.push(str);
+    public static void addAction(String str){
+        if (rec){
+            actions.push(str);
+        }
+    }
+
+    public void setRec(){
+        rec = !rec;
     }
 }
