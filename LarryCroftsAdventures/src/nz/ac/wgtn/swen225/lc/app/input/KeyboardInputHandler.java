@@ -95,7 +95,23 @@ public class KeyboardInputHandler {
             // Handle movement based on 'direction'
             // Implement your move logic here
             System.out.println(direction);
-            component.getRenderer().moveCameraDown();
+            switch (direction) {
+                case "UP":
+                    component.getRenderer().moveCameraUp();
+                    break;
+                case "DOWN":
+                    component.getRenderer().moveCameraDown();
+                    break;
+                case "LEFT":
+                    component.getRenderer().moveCameraLeft();
+                    break;
+                case "RIGHT":
+                    component.getRenderer().moveCameraRight();
+                    break;
+                default:
+                    break;
+            }
+            component.repaint();
             System.out.println("X: " + component.getRenderer().camera.getX() + " Y: " + component.getRenderer().camera.getY());
 
 

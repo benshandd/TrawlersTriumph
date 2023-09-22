@@ -28,6 +28,7 @@ public class Main extends JFrame {
 
 
         App applicationWindow = new App();
+        new KeyboardInputHandler(applicationWindow);
         f.setJMenuBar(createMenuBar());
         f.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
