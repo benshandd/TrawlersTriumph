@@ -2,12 +2,15 @@ package nz.ac.wgtn.swen225.lc.persistency;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.google.gson.JsonArray;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +19,8 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
-//TODO:implement loading 
-//TODO:implement saving 
+//TODO:implement loadGame() method
+//TODO:implement saveGame() method
 
 public class Persistency {
     private Stack<Chap> actions;
@@ -26,6 +29,36 @@ public class Persistency {
     private int level;
     private int x;
     private int y;
+
+    public void loadGame(int fileNum) throws FileNotFoundException {
+        File loadedFile = new File("saved-game_" + fileNum + ".json");
+        if (!loadedFile.exists()) {
+            return; //exit
+        }
+
+        try (JsonReader reader = new JsonReader(new FileReader(loadedFile))) {
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+            JsonObject playerObject = jsonObject.getAsJsonObject("player");
+            int loadedX = playerObject.get("x").getAsInt();
+            int loadedY = playerObject.get("y").getAsInt();
+            int loadedTimeLeft = jsonObject.get("timeLeft").getAsInt();
+            int loadedLevel = jsonObject.get("level").getAsInt();
+            JsonArray boardArray = jsonObject.getAsJsonArray("board");
+            JsonArray actionsArray = jsonObject.getAsJsonArray("actions");
+            x = loadedX;
+            y = loadedY;
+            timeLeft = loadedTimeLeft;
+            level = loadedLevel;
+            actions.clear();
+            Gson gson = new Gson();
+            for (int i = 0; i < actionsArray.size(); i++) {
+                Chap chap = gson.fromJson(actionsArray.get(i), Chap.class);
+                actions.push(chap);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void saveGame(int newFileNum) throws IOException {
         newFile = new File("saved-game_" + newFileNum + ".json");
@@ -37,7 +70,7 @@ public class Persistency {
 
         playerObject.addProperty("x", x);
         playerObject.addProperty("y", y);
-        //originalObject.add("player", playerObject);
+        originalObject.add("player", playerObject);
         originalObject.addProperty("timeLeft", "100"); // Time left
         originalObject.addProperty("level", level); // Level
         JsonArray boardArray = new JsonArray();
@@ -45,7 +78,7 @@ public class Persistency {
         JsonArray rowArray = new JsonArray();
         rowObject.add("row", rowArray);
 
-        for (int i = 0; i < 15; i++) { //15rows
+        for (int i = 0; i < 15; i++) { // 15rows
             JsonObject cellObject = new JsonObject();
             cellObject.addProperty("type", "Wall");
             cellObject.addProperty("item", "none");
