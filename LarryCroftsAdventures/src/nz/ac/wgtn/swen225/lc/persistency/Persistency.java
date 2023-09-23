@@ -1,13 +1,14 @@
 package nz.ac.wgtn.swen225.lc.persistency;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.google.gson.JsonArray;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
-import javax.swing.*;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,12 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Stack;
-import java.util.regex.Pattern;
-
-//TODO:implement loadGame() method
-//TODO:implement saveGame() method
 
 public class Persistency {
     private Stack<Chap> actions;
@@ -30,10 +26,10 @@ public class Persistency {
     private int x;
     private int y;
 
-    public void loadGame(int fileNum) throws FileNotFoundException {
-        File loadedFile = new File("saved-game_" + fileNum + ".json");
+    public void loadGame(String fileName, Tile[][] mazeObject) throws FileNotFoundException {
+        File loadedFile = new File(fileName);
         if (!loadedFile.exists()) {
-            return; //exit
+            return; // Exit if the file doesn't exist
         }
 
         try (JsonReader reader = new JsonReader(new FileReader(loadedFile))) {
@@ -54,6 +50,15 @@ public class Persistency {
             for (int i = 0; i < actionsArray.size(); i++) {
                 Chap chap = gson.fromJson(actionsArray.get(i), Chap.class);
                 actions.push(chap);
+            }
+            for (int row = 0; row < boardArray.size(); row++) {
+                JsonArray rowArray = boardArray.get(row).getAsJsonArray();
+                for (int col = 0; col < rowArray.size(); col++) {
+                    JsonObject cellObject = rowArray.get(col).getAsJsonObject();
+                    String type = cellObject.get("type").getAsString();
+                    String item = cellObject.get("item").getAsString();
+                    //mazeObject[row][col] = new Free(type, item);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,7 +83,7 @@ public class Persistency {
         JsonArray rowArray = new JsonArray();
         rowObject.add("row", rowArray);
 
-        for (int i = 0; i < 15; i++) { // 15rows
+        for (int i = 0; i < 15; i++) { // 15 rows
             JsonObject cellObject = new JsonObject();
             cellObject.addProperty("type", "Wall");
             cellObject.addProperty("item", "none");
