@@ -12,17 +12,22 @@ public class App extends JPanel implements ActionListener {
     private JLabel timeLabel;
     JLabel[][] inventorySlots;
     private int time = 10;
+    private Renderer renderer;
+    JPanel leftPanel;
+    JPanel rightPanel;
+    JPanel centrePanel;
     public App(){
         setup();
     }
 
     public void setup(){
-        JPanel leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
-        JPanel rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
-        JPanel centrePanel = new JPanel(){
+        renderer = new Renderer();
+        leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
+        rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
+        centrePanel = new JPanel(){
             @Override
             public void paint(Graphics g) {
-                Renderer.draw(this, g);
+                renderer.draw(this, g);
             }
         };
         centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -131,5 +136,9 @@ public class App extends JPanel implements ActionListener {
             //replay level
         }
         timeLabel.setText("" + time);
+    }
+
+    public Renderer getRenderer(){
+        return this.renderer;
     }
 }
