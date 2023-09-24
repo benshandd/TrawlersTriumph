@@ -61,10 +61,10 @@ public class Main extends JFrame {
         if (response == 0) { System.exit(0); }});
 
         saveMenuItem.setToolTipText("Save the game state");
-//        saveMenuItem.addActionListener((event) -> persistency.save());
+//        saveMenuItem.addActionListener((event) -> persistency.saveGame());
 
         resumeMenuItem.setToolTipText("Resume the game");
-//        resumeMenuItem.addActionListener((event) -> persistency.resume();
+//        resumeMenuItem.addActionListener((event) -> persistency.resumeGame();
 
         helpMenuItem.setToolTipText("Help page with game rules");
         helpMenuItem.addActionListener(new ActionListener() {
