@@ -14,7 +14,7 @@ public class TestMaze {
         for (int x = 0; x < grid.length; x++){
             for (int y = 0; y < grid[x].length; y++){
                 if (x % 2 == 0){
-                    grid[x][y] = new Free(null);
+                    grid[x][y] = new Free();
                 }
                 else {
                     grid[x][y] = new Wall();
