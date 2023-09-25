@@ -65,7 +65,7 @@ public class Persistency {
         }
     }
 
-    public void saveGame(int newFileNum) throws IOException {
+    public void saveGame(int newFileNum,Stack<String> moves, int x, int y) throws IOException {
         newFile = new File("saved-game_" + newFileNum + ".json");
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);

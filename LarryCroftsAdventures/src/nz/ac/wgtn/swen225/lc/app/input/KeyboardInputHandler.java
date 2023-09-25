@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app.input;
 
 import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -98,15 +99,27 @@ public class KeyboardInputHandler {
             switch (direction) {
                 case "UP":
                     component.getRenderer().moveCameraUp();
+                    if (RecorderPanel.recording){
+                        RecorderPanel.reversedMoves.push("DOWN");
+                    }
                     break;
                 case "DOWN":
                     component.getRenderer().moveCameraDown();
+                    if (RecorderPanel.recording){
+                        RecorderPanel.reversedMoves.push("UP");
+                    }
                     break;
                 case "LEFT":
                     component.getRenderer().moveCameraLeft();
+                    if (RecorderPanel.recording){
+                        RecorderPanel.reversedMoves.push("RIGHT");
+                    }
                     break;
                 case "RIGHT":
                     component.getRenderer().moveCameraRight();
+                    if (RecorderPanel.recording){
+                        RecorderPanel.reversedMoves.push("LEFT");
+                    }
                     break;
                 default:
                     break;
@@ -115,7 +128,12 @@ public class KeyboardInputHandler {
             System.out.println("X: " + component.getRenderer().camera.getX() + " Y: " + component.getRenderer().camera.getY());
 
 
+
         }
+        public String getDirection(){
+            return direction;
+        }
+
     }
 
     private class ExitAction extends AbstractAction {
