@@ -4,5 +4,5 @@ import com.google.gson.JsonObject;
 
 public interface Tile {
     boolean traversable();
-
+    
 }

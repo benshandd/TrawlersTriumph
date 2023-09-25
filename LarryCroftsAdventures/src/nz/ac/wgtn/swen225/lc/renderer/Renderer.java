@@ -36,7 +36,7 @@ public class Renderer {
             for (int y = camera.getY(); y < camera.getY() + camera.getHeight(); y++){
                 int cameraX = camera.worldXToCameraX(x);
                 int cameraY = camera.worldYToCameraY(y);
-                System.out.println(cameraX + " " + cameraY);
+                //System.out.println(cameraX + " " + cameraY);
                 g.setColor(Color.BLACK);
                 g.drawRect(cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue);
                 g.setColor(maze.grid[x][y].color);
