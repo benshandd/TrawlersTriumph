@@ -54,8 +54,8 @@ public class RecorderPanel extends JPanel {
                 } else {
                     recordButton.setText("Record");
                     // Implement stop recording logic here
-
-                    Recorder r = new Recorder(new ArrayList<String>(reversedMoves),8,7); // random values for now
+                    // need what level so we can just load the level and place the character where they were
+                    Recorder r = new Recorder(new ArrayList<String>(reversedMoves),8,8,1); // random values for now
                     reversedMoves.clear();
                     try {
                         r.saveRecorder(count);
@@ -80,6 +80,7 @@ public class RecorderPanel extends JPanel {
                 }
 
 
+
             }
         });
 
@@ -92,6 +93,8 @@ public class RecorderPanel extends JPanel {
                             "You need to load a file first!",
                             "File not chosen!",
                             JOptionPane.PLAIN_MESSAGE);
+                } else{
+
                 }
 
 
@@ -107,6 +110,8 @@ public class RecorderPanel extends JPanel {
                             "You need to load a file first!",
                             "File not chosen!",
                             JOptionPane.PLAIN_MESSAGE);
+                } else{
+
                 }
             }
         });

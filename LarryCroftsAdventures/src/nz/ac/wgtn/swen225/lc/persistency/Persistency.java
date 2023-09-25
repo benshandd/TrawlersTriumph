@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.*;
 
 public class Persistency {
-    private Stack<Chap> actions;
+   // private Stack<String> actions;
     private File newFile;
     private int timeLeft;
     private int level;
@@ -110,7 +110,7 @@ public class Persistency {
         return mazeObject;
     }
 
-    public void saveGame(int newFileNum,Stack<String> moves, int x, int y) throws IOException {
+    public void saveGame(int newFileNum, ArrayList<String> actions,int x, int y, int level) throws IOException {
         newFile = new File("saved-game_" + newFileNum + ".json");
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
@@ -138,9 +138,8 @@ public class Persistency {
         boardArray.add(rowObject);
         originalObject.add("board", boardArray);
         JsonArray actionsArray = new JsonArray();
-        for (Chap chap : actions) {
-            JsonObject chapObject = gson.toJsonTree(chap).getAsJsonObject();
-            actionsArray.add(chapObject);
+        for (String a : actions) {
+            actionsArray.add(a);
         }
         originalObject.add("actions", actionsArray);
 

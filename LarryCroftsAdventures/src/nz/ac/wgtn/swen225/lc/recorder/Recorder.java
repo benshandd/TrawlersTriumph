@@ -9,11 +9,13 @@ public class Recorder {
     private ArrayList<String> reversedMoves;
     private int x;
     private int y;
+    int initLevel;
 
-    public Recorder(ArrayList<String> reversedMoves, int x, int y) {
+    public Recorder(ArrayList<String> reversedMoves, int x, int y, int initLevel) {
         this.reversedMoves = reversedMoves;
         this.x = x;
         this.y =y;
+        this.initLevel = initLevel;
     }
 
     /**
@@ -22,7 +24,7 @@ public class Recorder {
      * @throws IOException for the file writer
      */
     public void saveRecorder(int count) throws IOException {
-       // new Persistency().saveGame(count,this.reversedMoves,this.x, this.y);
+       new Persistency().saveGame(count,this.reversedMoves,this.x, this.y, this.initLevel);
     }
 
     /**
@@ -38,4 +40,6 @@ public class Recorder {
     public void step(){
 
     }
+
+
 }
