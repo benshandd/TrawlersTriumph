@@ -1,11 +1,16 @@
 package nz.ac.wgtn.swen225.lc.app;
 
+import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
+import nz.ac.wgtn.swen225.lc.recorder.Recorder;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.Stack;
 
 public class RecorderPanel extends JPanel {
 
@@ -15,6 +20,9 @@ public class RecorderPanel extends JPanel {
     private JButton autoReplayButton;
     private JSlider replaySpeedSlider;
 
+    public static Stack<String> reversedMoves;
+    public static boolean recording = false;
+    private int count = 0;
     public RecorderPanel() {
         initializeComponents();
         addComponentsToPanel();
@@ -29,7 +37,6 @@ public class RecorderPanel extends JPanel {
 
         // Add action listeners to buttons
         recordButton.addActionListener(new ActionListener() {
-            private boolean recording = false;
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,9 +44,18 @@ public class RecorderPanel extends JPanel {
                 if (recording) {
                     recordButton.setText("Stop Recording");
                     // Implement recording logic here
+                    count++;
+                    reversedMoves = new Stack<>();
                 } else {
                     recordButton.setText("Record");
                     // Implement stop recording logic here
+                    Recorder r = new Recorder(reversedMoves,8,7); // random values for now
+                    try {
+                        r.saveRecorder(count);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    reversedMoves.clear();
                 }
             }
         });
@@ -77,6 +93,7 @@ public class RecorderPanel extends JPanel {
                 int speed = replaySpeedSlider.getValue();
                 // Use the 'speed' value to adjust your game's replay speed
                 // Implement your replay speed adjustment logic here
+
             }
         });
     }
