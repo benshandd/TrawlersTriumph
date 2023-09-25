@@ -1,5 +1,6 @@
 package nz.ac.wgtn.swen225.lc.renderer;
 
+import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 
@@ -12,7 +13,8 @@ import java.io.IOException;
 
 public class Renderer {
 
-    TestMaze maze = new TestMaze();
+    Board baord = new Board();
+    Tile[][] grid = baord.getTiles();
     public Camera camera = new Camera(3, 3, 9, 9);
     public Renderer(){
 
@@ -41,13 +43,9 @@ public class Renderer {
             for (int y = camera.getY(); y < camera.getY() + camera.getHeight(); y++){
                 int cameraX = camera.worldXToCameraX(x);
                 int cameraY = camera.worldYToCameraY(y);
-//                g.setColor(Color.BLACK);
-//                g.drawRect(cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue);
-//                g.setColor(maze.grid[x][y].color);
-//                g.fillRect(cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue);
-                //drawTileImageAt(maze.grid[x][y], cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder , clampedValue, clampedValue, g);
-                Image image = null;
-                image = getTileImage(maze.grid[x][y]);
+                Tile tile = grid[x][y];
+                System.out.println("X: " + x  + "Y: " + y + "Class: " + tile.getClass());
+                Image image = getTileImage(tile);
                 g.drawImage(image, cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
             }
         }
@@ -56,8 +54,11 @@ public class Renderer {
     private Image getTileImage(Tile tile){
         File file = null;
         try {
-            if (tile instanceof Door) {
-                file = new File("LarryCroftsAdventures/assets/Door.png");
+            if (tile instanceof Door d) {
+                if (d.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures/assets/Door_Blue.png");}
+                else if (d.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures/assets/Door_Green.png");}
+                else if (d.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures/assets/Door_Red.png");}
+                else if (d.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures/assets/Door_Yellow.png");}
             }
             else if (tile instanceof Exit){
                 file = new File("LarryCroftsAdventures/assets/Exit.png");
