@@ -1,9 +1,14 @@
 package nz.ac.wgtn.swen225.lc.renderer;
 
-import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
+import nz.ac.wgtn.swen225.lc.domain.items.Key;
+import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Renderer {
 
@@ -36,12 +41,64 @@ public class Renderer {
             for (int y = camera.getY(); y < camera.getY() + camera.getHeight(); y++){
                 int cameraX = camera.worldXToCameraX(x);
                 int cameraY = camera.worldYToCameraY(y);
-                //System.out.println(cameraX + " " + cameraY);
-                g.setColor(Color.BLACK);
-                g.drawRect(cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue);
-                g.setColor(maze.grid[x][y].color);
-                g.fillRect(cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue);
+//                g.setColor(Color.BLACK);
+//                g.drawRect(cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue);
+//                g.setColor(maze.grid[x][y].color);
+//                g.fillRect(cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue);
+                //drawTileImageAt(maze.grid[x][y], cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder , clampedValue, clampedValue, g);
+                Image image = null;
+                image = getTileImage(maze.grid[x][y]);
+                g.drawImage(image, cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
             }
+        }
+    }
+
+    private Image getTileImage(Tile tile){
+        File file = null;
+        try {
+            if (tile instanceof Door) {
+                file = new File("LarryCroftsAdventures/assets/Door.png");
+            }
+            else if (tile instanceof Exit){
+                file = new File("LarryCroftsAdventures/assets/Exit.png");
+            }
+            else if (tile instanceof ExitLock){
+                file = new File("LarryCroftsAdventures/assets/Exit.png");
+            }
+            else if (tile instanceof Free){
+                if (tile instanceof Treasure){
+                    file = new File("LarryCroftsAdventures/assets/Treasure.png");
+                }
+                else if (tile instanceof InfoField){
+                    file = new File("LarryCroftsAdventures/assets/InfoBox.png");
+                }
+                else if (tile instanceof KeyTile kt){
+                    if (kt.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures/assets/Key_Blue.png");}
+                    else if (kt.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures/assets/Key_Green.png");}
+                    else if (kt.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures/assets/Key_Red.png");}
+                    else if (kt.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures/assets/Key_Yellow.png");}
+                }
+                else {
+                    file = new File("LarryCroftsAdventures/assets/Free.png");
+                }
+            }
+            else if (tile instanceof Wall){
+                file = new File("LarryCroftsAdventures/assets/Wall.png");
+            }
+            else{
+                return null;
+            }
+            // Load the PNG image from a file
+            BufferedImage bufferedImage = ImageIO.read(file);
+
+            // Create an Image object from the BufferedImage
+            Image image = bufferedImage;
+
+            return image;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
