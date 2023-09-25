@@ -7,15 +7,12 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 public class Persistency {
@@ -65,7 +62,7 @@ public class Persistency {
         }
     }
 
-    public void saveGame(int newFileNum,Stack<String> moves, int x, int y) throws IOException {
+    public void saveGame(int newFileNum) throws IOException {
         newFile = new File("saved-game_" + newFileNum + ".json");
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
