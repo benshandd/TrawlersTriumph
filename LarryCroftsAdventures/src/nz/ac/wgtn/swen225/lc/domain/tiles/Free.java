@@ -1,7 +1,5 @@
 package nz.ac.wgtn.swen225.lc.domain.tiles;
 
-import com.google.gson.JsonObject;
-
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 
 public class Free implements Tile {
@@ -14,5 +12,17 @@ public class Free implements Tile {
     @Override
     public boolean traversable() {
         return true;
+    }
+
+    public void addChap(Chap chap) {
+        this.chap = chap;
+    }
+
+    public void removeChap() {
+        this.chap = null;
+    }
+
+    public Chap getChap() {
+        return chap;
     }
 }
