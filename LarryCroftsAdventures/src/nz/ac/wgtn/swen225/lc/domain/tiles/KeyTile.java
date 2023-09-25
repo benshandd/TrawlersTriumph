@@ -6,8 +6,8 @@ import nz.ac.wgtn.swen225.lc.domain.items.Key;
 public class KeyTile extends Free {
     private final Key.Colour colour;
 
-    public KeyTile(Chap chap, Key.Colour colour) {
-        super(chap);
+    public KeyTile(Chap chap, Key.Colour colour, String type, String item) {
+        super();
         this.colour = colour;
     }
 

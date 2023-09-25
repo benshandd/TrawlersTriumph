@@ -22,7 +22,7 @@ public class Board {
                 testBoard[i][j] = switch (rand) {
                     case 0 -> new Wall();
                     case 1 -> new Door(Key.Colour.YELLOW);
-                    default -> new Free(null);
+                    default -> new Free();
                 };
             }
         }

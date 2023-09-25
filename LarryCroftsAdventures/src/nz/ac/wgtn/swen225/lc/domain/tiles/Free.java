@@ -4,9 +4,11 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 
 public class Free implements Tile {
     private Chap chap;
+    private String tile;
+    private String item;
 
-    public Free(Chap chap) {
-        this.chap = chap;
+    public Free() {
+
     }
 
     @Override

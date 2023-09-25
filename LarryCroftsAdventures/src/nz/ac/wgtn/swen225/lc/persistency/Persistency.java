@@ -1,19 +1,12 @@
 package nz.ac.wgtn.swen225.lc.persistency;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.google.gson.*;
+import com.google.gson.stream.*;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Stack;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Wall;
+import java.io.*;
+import java.util.*;
 
 public class Persistency {
     private Stack<Chap> actions;
@@ -23,46 +16,101 @@ public class Persistency {
     private int x;
     private int y;
 
-    public void loadGame(String fileName, Tile[][] mazeObject) throws FileNotFoundException {
+    public Tile[][] loadGame(String fileName, Tile[][] mazeObject) throws FileNotFoundException {
         File loadedFile = new File(fileName);
         if (!loadedFile.exists()) {
-            return; // Exit if the file doesn't exist
+            System.out.println("File not found: " + fileName);
+            return mazeObject;
         }
 
         try (JsonReader reader = new JsonReader(new FileReader(loadedFile))) {
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
-            JsonObject playerObject = jsonObject.getAsJsonObject("player");
-            int loadedX = playerObject.get("x").getAsInt();
-            int loadedY = playerObject.get("y").getAsInt();
-            int loadedTimeLeft = jsonObject.get("timeLeft").getAsInt();
-            int loadedLevel = jsonObject.get("level").getAsInt();
             JsonArray boardArray = jsonObject.getAsJsonArray("board");
-            JsonArray actionsArray = jsonObject.getAsJsonArray("actions");
-            x = loadedX;
-            y = loadedY;
-            timeLeft = loadedTimeLeft;
-            level = loadedLevel;
-            actions.clear();
-            Gson gson = new Gson();
-            for (int i = 0; i < actionsArray.size(); i++) {
-                Chap chap = gson.fromJson(actionsArray.get(i), Chap.class);
-                actions.push(chap);
+
+            if (boardArray.size() != 15) {
+                System.out.println(boardArray.size());
+                throw new IllegalStateException("Invalid board dimensions.");
             }
-            for (int row = 0; row < boardArray.size(); row++) {
-                JsonArray rowArray = boardArray.get(row).getAsJsonArray();
-                for (int col = 0; col < rowArray.size(); col++) {
-                    JsonObject cellObject = rowArray.get(col).getAsJsonObject();
-                    String type = cellObject.get("type").getAsString();
-                    String item = cellObject.get("item").getAsString();
-                    //mazeObject[row][col] = new Free(type, item);
+
+            Tile[][] maze = new Tile[15][15];
+
+            for (int i = 0; i < 15; i++) {
+                JsonArray rowArray = boardArray.get(i).getAsJsonArray();
+
+                if (rowArray.size() != 15) {
+                    System.out.println(rowArray.size());
+                    throw new IllegalStateException("Invalid row dimensions.");
+                }
+
+                for (int j = 0; j < 15; j++) {
+                    JsonObject tileObject = rowArray.get(j).getAsJsonObject();
+                    String tileType = tileObject.get("tile").getAsString();
+                    String item = tileObject.get("item").getAsString();
+
+                    if (tileType.startsWith("Door_")) {
+                        String color = tileType.substring(5);
+                        maze[j][i] = new Free();
+                    } else {
+                        switch (tileType) {
+                            case "Free":
+                                maze[j][i] = new Free();
+                                break;
+                            case "Door_Exit":
+                                maze[j][i] = new Free();
+                                break;
+                            case "Door":
+                                maze[j][i] = new Free();
+                                break;
+                            case "Wall":
+                                maze[j][i] = new Wall();
+                                break;
+                            case "Exit":
+                                maze[j][i] = new Free();
+                                break;
+                            default:
+                                throw new IllegalStateException("Unknown tile type: " + tileType);
+                        }
+                    }
+                    if (item.startsWith("Key_")) {
+                        String color = tileType.substring(4);
+                        maze[j][i] = new Free();
+                    } else {
+                        switch (item) {
+                            case "Treasure":
+                                maze[j][i] = new Free();
+                                break;
+                            case "none":
+                                maze[j][i] = new Free();
+                                break;
+                            case "InfoBox":
+                                maze[j][i] = new Free();
+                                break;
+                            default:
+                                throw new IllegalStateException("Unknown tile type: " + item);
+                        }
+                    }
                 }
             }
+            x = jsonObject.getAsJsonObject("player").get("x").getAsInt();
+            y = jsonObject.getAsJsonObject("player").get("y").getAsInt();
+            timeLeft = jsonObject.get("timeLeft").getAsInt();
+            level = jsonObject.get("level").getAsInt();
+
+            System.out.println("Loaded X: " + x);
+            System.out.println("Loaded Y: " + y);
+            System.out.println("Loaded Time Left: " + timeLeft);
+            System.out.println("Loaded Level: " + level);
+            System.out.println("Board: " + boardArray);
+
+            return maze;
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return mazeObject;
     }
 
-    public void saveGame(int newFileNum) throws IOException {
+    public void saveGame(int newFileNum,Stack<String> moves, int x, int y) throws IOException {
         newFile = new File("saved-game_" + newFileNum + ".json");
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
