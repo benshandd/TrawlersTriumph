@@ -43,7 +43,14 @@ public class Renderer {
             for (int y = camera.getY(); y < camera.getY() + camera.getHeight(); y++){
                 int cameraX = camera.worldXToCameraX(x);
                 int cameraY = camera.worldYToCameraY(y);
-                Tile tile = grid[x][y];
+                Tile tile;
+                // If coord trying to be drawn is out of bounds of board then just draw a wall tile.
+                if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length){
+                    tile = new Wall();
+                }
+                else {
+                    tile = grid[x][y];
+                }
                 System.out.println("X: " + x  + "Y: " + y + "Class: " + tile.getClass());
                 Image image = getTileImage(tile);
                 g.drawImage(image, cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
@@ -103,9 +110,17 @@ public class Renderer {
         }
     }
 
-    public void moveCameraLeft(){ camera.setX(camera.getX()-1); }
-    public void moveCameraRight(){ camera.setX(camera.getX()+1); }
-    public void moveCameraUp(){ camera.setY(camera.getY()-1); }
-    public void moveCameraDown(){ camera.setY(camera.getY()+1); }
+    public void moveCameraLeft(){
+        camera.setX(camera.getX()-1);
+    }
+    public void moveCameraRight(){
+        camera.setX(camera.getX()+1);
+    }
+    public void moveCameraUp(){
+        camera.setY(camera.getY()-1);
+    }
+    public void moveCameraDown(){
+        camera.setY(camera.getY()+1);
+    }
 
 }
