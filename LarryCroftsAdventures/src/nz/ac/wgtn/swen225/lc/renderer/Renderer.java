@@ -60,7 +60,7 @@ public class Renderer {
 
         // draw Chap
         File chapFile;
-        chapFile = new File("LarryCroftsAdventures/assets/Chap.png");
+        chapFile = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Chap.png");
 
         Image chapImage = ImageIO.read(chapFile);
         int chapX = camera.worldXToCameraX(board.getChap().getX());
@@ -72,36 +72,36 @@ public class Renderer {
     private Image getTileImage(Tile tile) throws IOException {
         File file = null;
         if (tile instanceof Door d) {
-            if (d.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures/assets/Door_Blue.png");}
-            else if (d.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures/assets/Door_Green.png");}
-            else if (d.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures/assets/Door_Red.png");}
-            else if (d.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures/assets/Door_Yellow.png");}
+            if (d.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Blue.png");}
+            else if (d.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Green.png");}
+            else if (d.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Red.png");}
+            else if (d.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Yellow.png");}
         }
         else if (tile instanceof Exit){
-            file = new File("LarryCroftsAdventures/assets/Exit.png");
+            file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Exit.png");
         }
         else if (tile instanceof ExitLock){
-            file = new File("LarryCroftsAdventures/assets/Exit.png");
+            file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Exit.png");
         }
         else if (tile instanceof Free){
             if (tile instanceof Treasure){
-                file = new File("LarryCroftsAdventures/assets/Treasure.png");
+                file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Treasure.png");
             }
             else if (tile instanceof InfoField){
-                file = new File("LarryCroftsAdventures/assets/InfoBox.png");
+                file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "InfoBox.png");
             }
             else if (tile instanceof KeyTile kt){
-                if (kt.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures/assets/Key_Blue.png");}
-                else if (kt.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures/assets/Key_Green.png");}
-                else if (kt.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures/assets/Key_Red.png");}
-                else if (kt.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures/assets/Key_Yellow.png");}
+                if (kt.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Blue.png");}
+                else if (kt.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Green.png");}
+                else if (kt.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Red.png");}
+                else if (kt.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Yellow.png");}
             }
             else {
-                file = new File("LarryCroftsAdventures/assets/Free.png");
+                file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Free.png");
             }
         }
         else if (tile instanceof Wall){
-            file = new File("LarryCroftsAdventures/assets/Wall.png");
+            file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Wall.png");
         }
         else{
             return null;
