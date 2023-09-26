@@ -13,8 +13,8 @@ import java.io.IOException;
 
 public class Renderer {
 
-    Board baord = new Board();
-    Tile[][] grid = baord.getTiles();
+    Board board = new Board();
+    Tile[][] grid = board.getTiles();
     public Camera camera = new Camera(3, 3, 9, 9);
     public Renderer(){
 
