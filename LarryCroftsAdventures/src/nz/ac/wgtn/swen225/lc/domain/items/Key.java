@@ -4,6 +4,7 @@ public class Key {
     private Key.Colour colour;
 
     public Key(Key.Colour colour) {
+        super();
         this.colour = colour;
     }
 
@@ -11,5 +12,7 @@ public class Key {
         return colour;
     }
 
-    public enum Colour {BLUE, GREEN, YELLOW, RED}
+    public enum Colour {
+        BLUE, GREEN, YELLOW, RED
+    }
 }

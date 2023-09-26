@@ -1,15 +1,18 @@
 package nz.ac.wgtn.swen225.lc.persistency;
+
 import com.google.gson.*;
 import com.google.gson.stream.*;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Wall;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Door;
 import java.io.*;
 import java.util.*;
 
 public class Persistency {
-   // private Stack<String> actions;
+    // private Stack<String> actions;
     private File newFile;
     private int timeLeft;
     private int level;
@@ -48,17 +51,12 @@ public class Persistency {
                     String item = tileObject.get("item").getAsString();
 
                     if (tileType.startsWith("Door_")) {
-                        String color = tileType.substring(5);
-                        maze[j][i] = new Free();
+                        String colour = tileType.substring(5);
+                        Key.Colour doorKeyColour = Key.Colour.valueOf(colour.toUpperCase());
+                        maze[j][i] = new Door(doorKeyColour);
                     } else {
                         switch (tileType) {
                             case "Free":
-                                maze[j][i] = new Free();
-                                break;
-                            case "Door_Exit":
-                                maze[j][i] = new Free();
-                                break;
-                            case "Door":
                                 maze[j][i] = new Free();
                                 break;
                             case "Wall":
@@ -67,19 +65,23 @@ public class Persistency {
                             case "Exit":
                                 maze[j][i] = new Free();
                                 break;
+                            case "Exit_Door":
+                                maze[j][i] = new Free();
+                                break;
                             default:
                                 throw new IllegalStateException("Unknown tile type: " + tileType);
                         }
                     }
                     if (item.startsWith("Key_")) {
-                        String color = tileType.substring(4);
-                        maze[j][i] = new Free();
+                        String colour = item.substring(4);
+                        // Key.Colour keyColour = Key.Colour.valueOf(colour.toUpperCase());
+                        // maze[j][i] = new Key(keyColour);
                     } else {
                         switch (item) {
                             case "Treasure":
                                 maze[j][i] = new Free();
                                 break;
-                            case "none":
+                            case ("none"):
                                 maze[j][i] = new Free();
                                 break;
                             case "InfoBox":
@@ -110,7 +112,7 @@ public class Persistency {
         return mazeObject;
     }
 
-    public void saveGame(int newFileNum, ArrayList<String> actions,int x, int y, int level) throws IOException {
+    public void saveGame(int newFileNum, ArrayList<String> actions, int x, int y, int level) throws IOException {
         newFile = new File("saved-game_" + newFileNum + ".json");
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
