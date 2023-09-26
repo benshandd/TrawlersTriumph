@@ -111,7 +111,7 @@ public class Persistency {
     }
 
     public void saveGame(int newFileNum, ArrayList<String> actions,int x, int y, int level) throws IOException {
-        newFile = new File("saved-game_" + newFileNum + ".json");
+        newFile = new File("LarryCroftsAdventures/Saves/saved-game_" + newFileNum + ".json");
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
         Gson gson = new Gson();

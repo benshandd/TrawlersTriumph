@@ -100,25 +100,25 @@ public class KeyboardInputHandler {
                 case "UP":
                     component.getRenderer().moveCameraUp();
                     if (RecorderPanel.recording){
-                        RecorderPanel.reversedMoves.push("UP");
+                        RecorderPanel.moves.add("UP");
                     }
                     break;
                 case "DOWN":
                     component.getRenderer().moveCameraDown();
                     if (RecorderPanel.recording){
-                        RecorderPanel.reversedMoves.push("DOWN");
+                        RecorderPanel.moves.add("DOWN");
                     }
                     break;
                 case "LEFT":
                     component.getRenderer().moveCameraLeft();
                     if (RecorderPanel.recording){
-                        RecorderPanel.reversedMoves.push("LEFT");
+                        RecorderPanel.moves.add("LEFT");
                     }
                     break;
                 case "RIGHT":
                     component.getRenderer().moveCameraRight();
                     if (RecorderPanel.recording){
-                        RecorderPanel.reversedMoves.push("RIGHT");
+                        RecorderPanel.moves.add("RIGHT");
                     }
                     break;
                 default:

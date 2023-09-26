@@ -24,7 +24,7 @@ public class RecorderPanel extends JPanel {
     private JButton autoReplayButton;
     private JSlider replaySpeedSlider;
 
-    public static Stack<String> reversedMoves;
+    public static ArrayList<String> moves;
     public static boolean recording = false;
     private int count = 0;
     File file = null;
@@ -50,13 +50,13 @@ public class RecorderPanel extends JPanel {
                     recordButton.setText("Stop Recording");
                     // Implement recording logic here
                     count++;
-                    reversedMoves = new Stack<>();
+                    moves = new ArrayList<>();
                 } else {
                     recordButton.setText("Record");
                     // Implement stop recording logic here
                     // need what level so we can just load the level and place the character where they were
-                    Recorder r = new Recorder(new ArrayList<String>(reversedMoves),8,8,1); // random values for now
-                    reversedMoves.clear();
+                    Recorder r = new Recorder(new ArrayList<String>(moves),8,8,1); // random values for now
+                    moves.clear();
                     try {
                         r.saveRecorder(count);
                     } catch (IOException ex) {
@@ -71,16 +71,15 @@ public class RecorderPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Implement load recorded game logic here
-                JFileChooser fc = new JFileChooser();
+                JFileChooser fc = new JFileChooser("LarryCroftsAdventures/Saves");
                 fc.setDialogTitle("Choose a saved game");
                 int retVal = fc.showOpenDialog(null);
 
                 if (retVal == JFileChooser.APPROVE_OPTION){
                     file = fc.getSelectedFile();
                 }
-
-
-
+                //getting the moves out of the loaded file
+                moves = new Recorder().loadSave(file);
             }
         });
 
@@ -94,7 +93,7 @@ public class RecorderPanel extends JPanel {
                             "File not chosen!",
                             JOptionPane.PLAIN_MESSAGE);
                 } else{
-
+                    new Recorder().step(moves);
                 }
 
 
