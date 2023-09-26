@@ -14,6 +14,11 @@ public class Board {
     private Tile[][] board;
     private Chap chap;
 
+    private int time;
+    private int level;
+
+    private int treasure;
+
     public Board() {
         Persistency persistency = new Persistency();
         try {
@@ -23,6 +28,8 @@ public class Board {
         } catch (Exception e) {
             System.err.println("An error occurred while loading the game: " + e.getMessage());
         }
+        time = persistency.timeLeft;
+        level = persistency.level;
         chap = new Chap(this);
         board[7][7] = new Free(chap);
     }
@@ -60,6 +67,18 @@ public class Board {
 
     public Chap getChap() {
         return chap;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getTime(){
+        return time;
+    }
+
+    public int getTreasure(){
+        return treasure;
     }
 
 

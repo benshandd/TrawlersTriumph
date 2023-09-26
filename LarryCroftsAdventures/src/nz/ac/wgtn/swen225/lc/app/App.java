@@ -13,7 +13,7 @@ public class App extends JPanel implements ActionListener {
 
     private JLabel timeLabel;
     JLabel[][] inventorySlots;
-    private int time = 10;
+    private int time = 5;
     private Renderer renderer;
     JPanel leftPanel;
     JPanel rightPanel;
@@ -59,7 +59,7 @@ public class App extends JPanel implements ActionListener {
 
 
         rightPanel.add(createLabel("LEVEL", font, Color.lightGray, Color.red));
-        rightPanel.add(createLabel("1", font, Color.black, Color.green)); // get the level to display eventually
+        rightPanel.add(createLabel("" + board.getLevel(), font, Color.black, Color.green)); // get the level to display eventually
         rightPanel.add(createLabel("TIME", font, Color.lightGray, Color.red));
         rightPanel.add(timeLabel);
         rightPanel.add(createLabel("CHIPS LEFT", font, Color.lightGray, Color.red));
@@ -144,7 +144,7 @@ public class App extends JPanel implements ActionListener {
                     "Time's up! Do you want to replay the current level?",
                     "Game Over",
                     JOptionPane.PLAIN_MESSAGE);
-            time = 50;
+            time = board.getTime();
 
             //replay level
         }
