@@ -4,10 +4,8 @@ import com.google.gson.*;
 import com.google.gson.stream.*;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Wall;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Door;
+import nz.ac.wgtn.swen225.lc.domain.tiles.*;
+
 import java.io.*;
 import java.util.*;
 
@@ -19,98 +17,45 @@ public class Persistency {
     private int x;
     private int y;
 
-    public Tile[][] loadGame(String fileName, Tile[][] mazeObject) throws FileNotFoundException {
+    public Tile[][] loadGame(String fileName) throws FileNotFoundException {
         File loadedFile = new File(fileName);
-        if (!loadedFile.exists()) {
-            System.out.println("File not found: " + fileName);
-            return mazeObject;
-        }
-
+        Tile[][] maze = new Tile[15][15];
         try (JsonReader reader = new JsonReader(new FileReader(loadedFile))) {
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             JsonArray boardArray = jsonObject.getAsJsonArray("board");
 
-            if (boardArray.size() != 15) {
-                System.out.println(boardArray.size());
-                throw new IllegalStateException("Invalid board dimensions.");
-            }
-
-            Tile[][] maze = new Tile[15][15];
-
             for (int i = 0; i < 15; i++) {
-                JsonArray rowArray = boardArray.get(i).getAsJsonArray();
-
-                if (rowArray.size() != 15) {
-                    System.out.println(rowArray.size());
-                    throw new IllegalStateException("Invalid row dimensions.");
-                }
-
+                JsonArray columnArray = boardArray.get(i).getAsJsonArray(); // Loop through columns
                 for (int j = 0; j < 15; j++) {
-                    JsonObject tileObject = rowArray.get(j).getAsJsonObject();
-                    String tileType = tileObject.get("tile").getAsString();
-                    String item = tileObject.get("item").getAsString();
+                    JsonObject cellObject = columnArray.get(j).getAsJsonObject(); // Access cell data
 
-                    if (tileType.startsWith("Door_")) {
-                        String colour = tileType.substring(5);
-                        Key.Colour doorKeyColour = Key.Colour.valueOf(colour.toUpperCase());
-                        maze[j][i] = new Door(doorKeyColour);
-                    } else {
-                        switch (tileType) {
-                            case "Free":
-                                maze[j][i] = new Free();
-                                break;
-                            case "Wall":
-                                maze[j][i] = new Wall();
-                                break;
-                            case "Exit":
-                                maze[j][i] = new Free();
-                                break;
-                            case "Exit_Door":
-                                maze[j][i] = new Free();
-                                break;
-                            default:
-                                throw new IllegalStateException("Unknown tile type: " + tileType);
-                        }
-                    }
-                    if (item.startsWith("Key_")) {
-                        String colour = item.substring(4);
-                        // Key.Colour keyColour = Key.Colour.valueOf(colour.toUpperCase());
-                        // maze[j][i] = new Key(keyColour);
-                    } else {
-                        switch (item) {
-                            case "Treasure":
-                                maze[j][i] = new Free();
-                                break;
-                            case ("none"):
-                                maze[j][i] = new Free();
-                                break;
-                            case "InfoBox":
-                                maze[j][i] = new Free();
-                                break;
-                            default:
-                                throw new IllegalStateException("Unknown tile type: " + item);
-                        }
-                    }
+                    // Extract tile and item information from JSON
+                    String tileType = cellObject.get("tile").getAsString();
+                    String item = cellObject.get("item").getAsString();
+
+                    // Create the appropriate tile based on tileType and item
+                    maze[i][j] = switch (tileType) {
+                        case "Free" -> new Free();
+                        case "Wall" -> new Wall();
+                        case "Door_Yellow" -> new Door(Key.Colour.YELLOW);
+                        case "Door_Red" -> new Door(Key.Colour.RED);
+                        case "Door_Green" -> new Door(Key.Colour.GREEN);
+                        case "Door_Blue" -> new Door(Key.Colour.BLUE);
+                        default -> new Free();
+                    };
+                    /*maze[i][j] = switch (item) {
+                        case "Treasure" -> new Treasure();
+                        case "none" -> new Free();
+                        default -> throw new IllegalStateException("Unknown tile type: " + item);
+                    };*/
                 }
             }
-            x = jsonObject.getAsJsonObject("player").get("x").getAsInt();
-            y = jsonObject.getAsJsonObject("player").get("y").getAsInt();
-            timeLeft = jsonObject.get("timeLeft").getAsInt();
-            level = jsonObject.get("level").getAsInt();
-
-            System.out.println("Loaded X: " + x);
-            System.out.println("Loaded Y: " + y);
-            System.out.println("Loaded Time Left: " + timeLeft);
-            System.out.println("Loaded Level: " + level);
-            System.out.println("Board: " + boardArray);
-
-            return maze;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return mazeObject;
+        return maze;
     }
+
 
     public void saveGame(int newFileNum, ArrayList<String> actions, int x, int y, int level) throws IOException {
         newFile = new File("LarryCroftsAdventures" + File.separator + "Saves");
@@ -155,4 +100,5 @@ public class Persistency {
         jsonWriter.close();
         fileWriter.close();
     }
+
 }

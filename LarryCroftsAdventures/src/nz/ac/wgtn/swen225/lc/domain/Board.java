@@ -15,14 +15,16 @@ public class Board {
     private Chap chap;
 
     public Board() {
-//        Persistency persistency = new Persistency();
-            Tile[][] mazeObject = new Tile[15][15];
-//            try {
-//                board = persistency.loadGame("LarryCroftsAdventures/levels/level1.json", mazeObject);
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-        board = testBoard(); //should call Persistency class
+        Persistency persistency = new Persistency();
+        try {
+            board = persistency.loadGame("LarryCroftsAdventures/levels/level1.json");
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("An error occurred while loading the game: " + e.getMessage());
+        }
+        chap = new Chap(this);
+        board[7][7] = new Free(chap);
     }
 
     private Tile[][] testBoard() {
@@ -59,4 +61,6 @@ public class Board {
     public Chap getChap() {
         return chap;
     }
+
+
 }
