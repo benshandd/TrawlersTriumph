@@ -26,7 +26,20 @@ public class Board {
                 };
             }
         }
+        int x = tempRand();
+        int y = tempRand();
+        while (!testBoard[x][y].getClass().equals(Free.class)) {
+            x = tempRand();
+            y = tempRand();
+        }
+        Free tile = (Free) testBoard[x][y];
+        tile.addChap(new Chap(this));
+
         return testBoard;
+    }
+
+    private int tempRand() {
+        return (int) (Math.random() * 10);
     }
 
     public Tile getTile(int x, int y) {

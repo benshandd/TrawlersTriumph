@@ -8,7 +8,11 @@ public class Free implements Tile {
     private String item;
 
     public Free() {
+        chap = null;
+    }
 
+    public Free(Chap chap) {
+        this.chap = chap;
     }
 
     @Override
