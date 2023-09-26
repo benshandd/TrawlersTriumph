@@ -25,7 +25,7 @@ public class Renderer {
      * @param mazePanel
      * @param g
      */
-    public void draw(JPanel mazePanel, Graphics g){
+    public void draw(JPanel mazePanel, Graphics g) throws IOException {
         int mazePanelWidth = mazePanel.getWidth();
         int mazePanelHeight = mazePanel.getHeight();
         int tileWidth = mazePanelWidth/ camera.getWidth();
@@ -56,58 +56,59 @@ public class Renderer {
                 g.drawImage(image, cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
             }
         }
+
+        // draw Chap
+        File chapFile;
+        chapFile = new File("LarryCroftsAdventures/assets/Chap.png");
+
+        Image chapImage = ImageIO.read(chapFile);
+        int chapX = camera.worldXToCameraX(board.getChap().getX());
+        int chapY = camera.worldYToCameraY(board.getChap().getY());
+
+        g.drawImage(chapImage, chapX*clampedValue + distanceFromLeftBorder, chapY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
     }
 
-    private Image getTileImage(Tile tile){
+    private Image getTileImage(Tile tile) throws IOException {
         File file = null;
-        try {
-            if (tile instanceof Door d) {
-                if (d.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures/assets/Door_Blue.png");}
-                else if (d.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures/assets/Door_Green.png");}
-                else if (d.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures/assets/Door_Red.png");}
-                else if (d.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures/assets/Door_Yellow.png");}
+        if (tile instanceof Door d) {
+            if (d.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures/assets/Door_Blue.png");}
+            else if (d.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures/assets/Door_Green.png");}
+            else if (d.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures/assets/Door_Red.png");}
+            else if (d.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures/assets/Door_Yellow.png");}
+        }
+        else if (tile instanceof Exit){
+            file = new File("LarryCroftsAdventures/assets/Exit.png");
+        }
+        else if (tile instanceof ExitLock){
+            file = new File("LarryCroftsAdventures/assets/Exit.png");
+        }
+        else if (tile instanceof Free){
+            if (tile instanceof Treasure){
+                file = new File("LarryCroftsAdventures/assets/Treasure.png");
             }
-            else if (tile instanceof Exit){
-                file = new File("LarryCroftsAdventures/assets/Exit.png");
+            else if (tile instanceof InfoField){
+                file = new File("LarryCroftsAdventures/assets/InfoBox.png");
             }
-            else if (tile instanceof ExitLock){
-                file = new File("LarryCroftsAdventures/assets/Exit.png");
+            else if (tile instanceof KeyTile kt){
+                if (kt.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures/assets/Key_Blue.png");}
+                else if (kt.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures/assets/Key_Green.png");}
+                else if (kt.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures/assets/Key_Red.png");}
+                else if (kt.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures/assets/Key_Yellow.png");}
             }
-            else if (tile instanceof Free){
-                if (tile instanceof Treasure){
-                    file = new File("LarryCroftsAdventures/assets/Treasure.png");
-                }
-                else if (tile instanceof InfoField){
-                    file = new File("LarryCroftsAdventures/assets/InfoBox.png");
-                }
-                else if (tile instanceof KeyTile kt){
-                    if (kt.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures/assets/Key_Blue.png");}
-                    else if (kt.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures/assets/Key_Green.png");}
-                    else if (kt.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures/assets/Key_Red.png");}
-                    else if (kt.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures/assets/Key_Yellow.png");}
-                }
-                else {
-                    file = new File("LarryCroftsAdventures/assets/Free.png");
-                }
+            else {
+                file = new File("LarryCroftsAdventures/assets/Free.png");
             }
-            else if (tile instanceof Wall){
-                file = new File("LarryCroftsAdventures/assets/Wall.png");
-            }
-            else{
-                return null;
-            }
-            // Load the PNG image from a file
-            BufferedImage bufferedImage = ImageIO.read(file);
-
-            // Create an Image object from the BufferedImage
-            Image image = bufferedImage;
-
-            return image;
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        else if (tile instanceof Wall){
+            file = new File("LarryCroftsAdventures/assets/Wall.png");
+        }
+        else{
             return null;
         }
+
+            // Create an Image object from the BufferedImage
+        assert file != null;
+        return ImageIO.read(file);
     }
 
     public void moveCameraLeft(){

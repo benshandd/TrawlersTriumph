@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class App extends JPanel implements ActionListener {
 
@@ -27,7 +28,11 @@ public class App extends JPanel implements ActionListener {
         centrePanel = new JPanel(){
             @Override
             public void paint(Graphics g) {
-                renderer.draw(this, g);
+                try {
+                    renderer.draw(this, g);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         };
         centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));

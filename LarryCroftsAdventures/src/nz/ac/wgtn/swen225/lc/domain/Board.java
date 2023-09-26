@@ -9,6 +9,7 @@ import nz.ac.wgtn.swen225.lc.domain.tiles.Wall;
 public class Board {
     private static final int SIZE = 15;
     private Tile[][] board;
+    private Chap chap;
 
     public Board() {
         board = testBoard();// should call Persistency class
@@ -33,7 +34,8 @@ public class Board {
             y = tempRand();
         }
         Free tile = (Free) testBoard[x][y];
-        tile.addChap(new Chap(this));
+        chap = new Chap(this);
+        tile.addChap(chap);
 
         return testBoard;
     }
@@ -48,5 +50,9 @@ public class Board {
 
     public Tile[][] getTiles() {
         return board;
+    }
+
+    public Chap getChap() {
+        return chap;
     }
 }

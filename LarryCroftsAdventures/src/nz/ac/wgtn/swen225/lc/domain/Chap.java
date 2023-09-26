@@ -65,4 +65,7 @@ public class Chap {
     }
 
     public enum Direction {UP, DOWN, LEFT, RIGHT}
+
+    public int getX(){ return x; }
+    public int getY(){ return y; }
 }
