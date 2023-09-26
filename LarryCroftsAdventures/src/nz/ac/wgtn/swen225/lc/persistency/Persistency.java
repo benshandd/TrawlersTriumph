@@ -59,10 +59,7 @@ public class Persistency {
 
     public void saveGame(int newFileNum, ArrayList<String> actions, int x, int y, int level) throws IOException {
         newFile = new File("LarryCroftsAdventures" + File.separator + "Saves");
-        boolean madeFolder = newFile.mkdir();
-        if (!madeFolder){
-            throw new RuntimeException();
-        }
+        newFile.mkdir();
         newFile = new File("LarryCroftsAdventures" + File.separator + "Saves" + File.separator + "saved-game_"+newFileNum+".json");
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
