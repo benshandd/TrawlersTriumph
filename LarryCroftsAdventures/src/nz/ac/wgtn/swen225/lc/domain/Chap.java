@@ -10,8 +10,8 @@ public class Chap {
     private static final int MAX_INVENTORY = 8;
     private final Item[][] inventory = new Item[2][4];
     private final Board board;
-    private int x;
-    private int y;
+    private int x = 7;
+    private int y = 7;
 
     public Chap(Board board) {
         this.board = board;
