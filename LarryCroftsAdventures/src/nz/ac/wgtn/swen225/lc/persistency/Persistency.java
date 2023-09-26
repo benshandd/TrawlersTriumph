@@ -12,8 +12,8 @@ import java.util.*;
 public class Persistency {
     // private Stack<String> actions;
     private File newFile;
-    private int timeLeft;
-    private int level;
+    public int timeLeft;
+    public int level;
     private int x;
     private int y;
 
@@ -24,6 +24,9 @@ public class Persistency {
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             JsonArray boardArray = jsonObject.getAsJsonArray("board");
 
+            timeLeft = jsonObject.get("timeLeft").getAsInt();
+            level = jsonObject.get("level").getAsInt();
+
             for (int i = 0; i < 15; i++) {
                 JsonArray columnArray = boardArray.get(i).getAsJsonArray(); // Loop through columns
                 for (int j = 0; j < 15; j++) {
@@ -32,6 +35,8 @@ public class Persistency {
                     // Extract tile and item information from JSON
                     String tileType = cellObject.get("tile").getAsString();
                     String item = cellObject.get("item").getAsString();
+
+
 
                     // Create the appropriate tile based on tileType and item
                     maze[j][i] = switch (tileType) {

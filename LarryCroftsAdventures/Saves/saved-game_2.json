@@ -72,14 +72,9 @@
         }
     ],
     "actions": [
-        "LEFT",
-        "LEFT",
-        "LEFT",
-        "UP",
-        "RIGHT",
-        "RIGHT",
-        "RIGHT",
-        "UP",
-        "UP"
+        "DOWN",
+        "DOWN",
+        "DOWN",
+        "DOWN"
     ]
 }
