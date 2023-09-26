@@ -105,47 +105,45 @@ public class KeyboardInputHandler {
             switch (direction) {
                 case "UP":
                     try {
-                        chap.move(Chap.Direction.UP);
+                        if(chap.move(Chap.Direction.UP)){
+                            component.getRenderer().moveCameraUp();
+                        };
                     } catch (IllegalMove ex) {
                         throw new RuntimeException(ex);
                     }
-
                     if (RecorderPanel.recording){
                         RecorderPanel.moves.add("UP");
                     }
-                    component.getRenderer().moveCameraUp();
-
                     break;
                 case "DOWN":
-                    component.getRenderer().moveCameraDown();
-
                     try {
-                        chap.move(Chap.Direction.DOWN);
+                        if(chap.move(Chap.Direction.DOWN)){
+                            component.getRenderer().moveCameraDown();
+                        }
                     } catch (IllegalMove ex) {
                         throw new RuntimeException(ex);
                     }
                     if (RecorderPanel.recording){
                         RecorderPanel.moves.add("DOWN");
                     }
-
                     break;
-
                 case "LEFT":
-                    component.getRenderer().moveCameraLeft();
                     try {
-                        chap.move(Chap.Direction.LEFT);
+                        if(chap.move(Chap.Direction.LEFT)){
+                            component.getRenderer().moveCameraLeft();
+                        }
                     } catch (IllegalMove ex) {
                         throw new RuntimeException(ex);
                     }
-
                     if (RecorderPanel.recording){
                         RecorderPanel.moves.add("LEFT");
                     }
                     break;
                 case "RIGHT":
-                    component.getRenderer().moveCameraRight();
                     try {
-                        chap.move(Chap.Direction.RIGHT);
+                        if(chap.move(Chap.Direction.RIGHT)){
+                            component.getRenderer().moveCameraRight();
+                        }
                     } catch (IllegalMove ex) {
                         throw new RuntimeException(ex);
                     }

@@ -16,7 +16,7 @@ public class Board {
 
     public Board() {
 //        Persistency persistency = new Persistency();
-//            Tile[][] mazeObject = new Tile[15][15];
+            Tile[][] mazeObject = new Tile[15][15];
 //            try {
 //                board = persistency.loadGame("LarryCroftsAdventures/levels/level1.json", mazeObject);
 //            } catch (FileNotFoundException e) {

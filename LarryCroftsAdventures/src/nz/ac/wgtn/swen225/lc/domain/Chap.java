@@ -18,7 +18,7 @@ public class Chap {
 
     }
 
-    public void move(Direction direction) throws IllegalMove {
+    public boolean move(Direction direction) throws IllegalMove {
         Tile next;
         try {
             next = switch (direction) {
@@ -28,11 +28,13 @@ public class Chap {
                 case RIGHT -> board.getTile(x + 1, y);
             };
         } catch (IndexOutOfBoundsException e) {
-            throw new IllegalMove("Edge of the board to the " + direction.toString());
+            //throw new IllegalMove("Edge of the board to the " + direction.toString());
+            return false;
         }
 
         if (!next.traversable()) {
-            throw new IllegalMove("Not traversable to the " + direction.toString());
+            //throw new IllegalMove("Not traversable to the " + direction.toString());
+            return false;
         }
 
         Free currentTile = (Free) board.getTile(x, y);
@@ -49,6 +51,7 @@ public class Chap {
             case DOWN -> y + 1;
             default -> y;
         };
+        return true;
     }
 
     public Item addItem(Item item) throws InventoryFull {
