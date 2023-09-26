@@ -13,11 +13,12 @@ import java.io.IOException;
 
 public class Renderer {
 
-    Board board = new Board();
-    Tile[][] grid = board.getTiles();
+    Board board;
+    Tile[][] grid;
     public Camera camera = new Camera(3, 3, 9, 9);
-    public Renderer(){
-
+    public Renderer(Board board){
+        this.board = board;
+        grid = board.getTiles();
     }
 
     /**

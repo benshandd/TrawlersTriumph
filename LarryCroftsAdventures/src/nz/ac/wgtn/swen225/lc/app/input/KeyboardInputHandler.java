@@ -2,6 +2,8 @@ package nz.ac.wgtn.swen225.lc.app.input;
 
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
+import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.domain.exceptions.IllegalMove;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +30,7 @@ public class KeyboardInputHandler {
 
 
     private App component;
+
 
     public KeyboardInputHandler(App component) {
         this.component = component;
@@ -96,27 +99,56 @@ public class KeyboardInputHandler {
             // Handle movement based on 'direction'
             // Implement your move logic here
             System.out.println(direction);
+            Chap chap = component.getBoard().getChap();
+
+
             switch (direction) {
                 case "UP":
-                    component.getRenderer().moveCameraUp();
+                    try {
+                        chap.move(Chap.Direction.UP);
+                    } catch (IllegalMove ex) {
+                        throw new RuntimeException(ex);
+                    }
+
                     if (RecorderPanel.recording){
                         RecorderPanel.moves.add("UP");
                     }
+                    component.getRenderer().moveCameraUp();
+
                     break;
                 case "DOWN":
                     component.getRenderer().moveCameraDown();
+
+                    try {
+                        chap.move(Chap.Direction.DOWN);
+                    } catch (IllegalMove ex) {
+                        throw new RuntimeException(ex);
+                    }
                     if (RecorderPanel.recording){
                         RecorderPanel.moves.add("DOWN");
                     }
+
                     break;
+
                 case "LEFT":
                     component.getRenderer().moveCameraLeft();
+                    try {
+                        chap.move(Chap.Direction.LEFT);
+                    } catch (IllegalMove ex) {
+                        throw new RuntimeException(ex);
+                    }
+
                     if (RecorderPanel.recording){
                         RecorderPanel.moves.add("LEFT");
                     }
                     break;
                 case "RIGHT":
                     component.getRenderer().moveCameraRight();
+                    try {
+                        chap.move(Chap.Direction.RIGHT);
+                    } catch (IllegalMove ex) {
+                        throw new RuntimeException(ex);
+                    }
                     if (RecorderPanel.recording){
                         RecorderPanel.moves.add("RIGHT");
                     }

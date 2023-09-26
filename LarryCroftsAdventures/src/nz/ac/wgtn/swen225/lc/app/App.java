@@ -1,5 +1,6 @@
 package nz.ac.wgtn.swen225.lc.app;
 
+import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import javax.swing.*;
@@ -17,12 +18,15 @@ public class App extends JPanel implements ActionListener {
     JPanel leftPanel;
     JPanel rightPanel;
     JPanel centrePanel;
+    Board board;
+
     public App(){
         setup();
     }
 
     public void setup(){
-        renderer = new Renderer();
+        board = new Board();
+        renderer = new Renderer(board);
         leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
         centrePanel = new JPanel(){
@@ -149,5 +153,9 @@ public class App extends JPanel implements ActionListener {
 
     public Renderer getRenderer(){
         return this.renderer;
+    }
+
+    public Board getBoard(){
+        return board;
     }
 }

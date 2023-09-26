@@ -15,14 +15,14 @@ public class Board {
     private Chap chap;
 
     public Board() {
-        Persistency persistency = new Persistency();
-            Tile[][] mazeObject = new Tile[15][15];
-            try {
-                board = persistency.loadGame("LarryCroftsAdventures/levels/level1.json", mazeObject);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        //board = testBoard(); should call Persistency class
+//        Persistency persistency = new Persistency();
+//            Tile[][] mazeObject = new Tile[15][15];
+//            try {
+//                board = persistency.loadGame("LarryCroftsAdventures/levels/level1.json", mazeObject);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+        board = testBoard(); //should call Persistency class
     }
 
     private Tile[][] testBoard() {
@@ -37,15 +37,9 @@ public class Board {
                 };
             }
         }
-        int x = tempRand();
-        int y = tempRand();
-        while (!testBoard[x][y].getClass().equals(Free.class)) {
-            x = tempRand();
-            y = tempRand();
-        }
-        Free tile = (Free) testBoard[x][y];
+
         chap = new Chap(this);
-        tile.addChap(chap);
+        testBoard[7][7] = new Free(chap);
 
         return testBoard;
     }

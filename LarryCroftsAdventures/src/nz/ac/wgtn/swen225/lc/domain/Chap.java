@@ -15,6 +15,7 @@ public class Chap {
 
     public Chap(Board board) {
         this.board = board;
+
     }
 
     public void move(Direction direction) throws IllegalMove {
@@ -38,6 +39,16 @@ public class Chap {
         Free nextTile = (Free) next;
         currentTile.removeChap();
         nextTile.addChap(this);
+        x = switch (direction) {
+            case LEFT -> x - 1;
+            case RIGHT -> x + 1;
+            default -> x;
+        };
+        y = switch (direction) {
+            case UP -> y - 1;
+            case DOWN -> y + 1;
+            default -> y;
+        };
     }
 
     public Item addItem(Item item) throws InventoryFull {
@@ -68,4 +79,6 @@ public class Chap {
 
     public int getX(){ return x; }
     public int getY(){ return y; }
+
+
 }
