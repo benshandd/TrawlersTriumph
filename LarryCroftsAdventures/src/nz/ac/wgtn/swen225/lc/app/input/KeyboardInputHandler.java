@@ -107,48 +107,48 @@ public class KeyboardInputHandler {
                     try {
                         if(chap.move(Chap.Direction.UP)){
                             component.getRenderer().moveCameraUp();
+                            if (RecorderPanel.recording){
+                                RecorderPanel.moves.add("UP");
+                            }
                         };
                     } catch (IllegalMove ex) {
                         throw new RuntimeException(ex);
-                    }
-                    if (RecorderPanel.recording){
-                        RecorderPanel.moves.add("UP");
                     }
                     break;
                 case "DOWN":
                     try {
                         if(chap.move(Chap.Direction.DOWN)){
                             component.getRenderer().moveCameraDown();
+                            if (RecorderPanel.recording){
+                                RecorderPanel.moves.add("DOWN");
+                            }
                         }
                     } catch (IllegalMove ex) {
                         throw new RuntimeException(ex);
-                    }
-                    if (RecorderPanel.recording){
-                        RecorderPanel.moves.add("DOWN");
                     }
                     break;
                 case "LEFT":
                     try {
                         if(chap.move(Chap.Direction.LEFT)){
                             component.getRenderer().moveCameraLeft();
+                            if (RecorderPanel.recording){
+                                RecorderPanel.moves.add("LEFT");
+                            }
                         }
                     } catch (IllegalMove ex) {
                         throw new RuntimeException(ex);
-                    }
-                    if (RecorderPanel.recording){
-                        RecorderPanel.moves.add("LEFT");
                     }
                     break;
                 case "RIGHT":
                     try {
                         if(chap.move(Chap.Direction.RIGHT)){
                             component.getRenderer().moveCameraRight();
+                            if (RecorderPanel.recording){
+                                RecorderPanel.moves.add("RIGHT");
+                            }
                         }
                     } catch (IllegalMove ex) {
                         throw new RuntimeException(ex);
-                    }
-                    if (RecorderPanel.recording){
-                        RecorderPanel.moves.add("RIGHT");
                     }
                     break;
                 default:
