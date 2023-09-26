@@ -91,13 +91,6 @@ public class Main extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new Main();
-            Persistency persistency = new Persistency();
-            Tile[][] mazeObject = new Tile[15][15];
-            try {
-                persistency.loadGame("LarryCroftsAdventures/levels/level1.json", mazeObject);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
         });
     }
 

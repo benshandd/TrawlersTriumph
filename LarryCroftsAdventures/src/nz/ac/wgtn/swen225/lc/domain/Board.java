@@ -1,10 +1,13 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
+import java.io.FileNotFoundException;
+
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Door;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Wall;
+import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 public class Board {
     private static final int SIZE = 15;
@@ -12,7 +15,14 @@ public class Board {
     private Chap chap;
 
     public Board() {
-        board = testBoard();// should call Persistency class
+        Persistency persistency = new Persistency();
+            Tile[][] mazeObject = new Tile[15][15];
+            try {
+                board = persistency.loadGame("LarryCroftsAdventures/levels/level1.json", mazeObject);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        //board = testBoard(); should call Persistency class
     }
 
     private Tile[][] testBoard() {
