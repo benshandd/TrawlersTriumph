@@ -44,7 +44,7 @@ public class Renderer {
                 int cameraX = camera.worldXToCameraX(x);
                 int cameraY = camera.worldYToCameraY(y);
                 Tile tile;
-                // If coord trying to be drawn is out of bounds of board then just draw a wall tile
+                // If coord trying to be drawn is out of bounds of board then just draw a wall tile.
                 if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length){
                     tile = new Wall();
                 }
