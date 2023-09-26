@@ -23,11 +23,8 @@ public class Main extends JFrame {
         f = new JFrame("Larry Croft's Adventures");
         l = new JLabel("Welcome");
 
-        f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        f.setLocationRelativeTo(null);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
         App applicationWindow = new App();
@@ -42,8 +39,9 @@ public class Main extends JFrame {
 
         f.getContentPane().setLayout(new BorderLayout());
         f.getContentPane().add(applicationWindow, BorderLayout.CENTER);
-        f.setLocationByPlatform(true);
         f.pack();
+        f.setLocationRelativeTo(null);
+
         f.setVisible(true);
     }
 

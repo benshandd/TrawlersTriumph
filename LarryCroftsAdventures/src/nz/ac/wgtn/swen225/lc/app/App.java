@@ -40,7 +40,7 @@ public class App extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(1400,800));
         leftPanel.setPreferredSize(new Dimension(300, 700));
-        leftPanel.setBackground(Color.red);
+        leftPanel.setBackground(Color.lightGray);
         leftPanel.add(new RecorderPanel());
 
         rightPanel.setPreferredSize(new Dimension(300, 700));
@@ -67,13 +67,17 @@ public class App extends JPanel implements ActionListener {
     public JPanel createInventory(int index) {
         JPanel grid = new JPanel(new GridLayout(1, 4, 5, 5));
         grid.setPreferredSize(new Dimension(200, 100)); // Increase the width to accommodate square slots
-
+        grid.setBackground(Color.lightGray);
         inventorySlots = new JLabel[2][4];
+
 
             for (int j = 0; j < 4; j++) {
                 inventorySlots[index][j] = new JLabel();
                 inventorySlots[index][j].setPreferredSize(new Dimension(100, 100)); // Make each slot a square
+                inventorySlots[index][j].setBackground(Color.white);
+                inventorySlots[index][j].setOpaque(true);
                 inventorySlots[index][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
                 grid.add(inventorySlots[index][j]);
             }
 

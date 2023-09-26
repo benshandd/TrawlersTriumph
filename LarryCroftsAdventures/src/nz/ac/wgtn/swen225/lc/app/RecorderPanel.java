@@ -5,6 +5,10 @@ import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -35,10 +39,11 @@ public class RecorderPanel extends JPanel {
 
     private void initializeComponents() {
         this.setPreferredSize(new Dimension(300, 300));
-        recordButton = new JButton("Record");
-        loadButton = new JButton("Load Recorded Game");
-        stepButton = new JButton("Step by Step");
-        autoReplayButton = new JButton("Auto Replay");
+        this.setBackground(Color.lightGray);
+        recordButton = createSimpleButton("Record");
+        loadButton = createSimpleButton("Load Recorded Game");
+        stepButton = createSimpleButton("Step by Step");
+        autoReplayButton = createSimpleButton("Auto Replay");
 
         // Add action listeners to buttons
         recordButton.addActionListener(new ActionListener() {
@@ -115,7 +120,13 @@ public class RecorderPanel extends JPanel {
             }
         });
 
+
         replaySpeedSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, 5); // Initial value set to 5
+        replaySpeedSlider.setBackground(Color.WHITE);
+        Border line = new LineBorder(Color.BLACK);
+        Border margin = new EmptyBorder(5, 15, 5, 15);
+        Border compound = new CompoundBorder(line, margin);
+        replaySpeedSlider.setBorder(compound);
         replaySpeedSlider.setMajorTickSpacing(1);
         replaySpeedSlider.setPaintTicks(true);
         replaySpeedSlider.setPaintLabels(true);
@@ -132,11 +143,22 @@ public class RecorderPanel extends JPanel {
     }
 
     private void addComponentsToPanel() {
-        setLayout(new GridLayout(5, 1));
+        setLayout(new GridLayout(5, 1, 10, 10));
         add(recordButton);
         add(loadButton);
         add(stepButton);
         add(autoReplayButton);
         add(replaySpeedSlider);    }
 
+
+    private static JButton createSimpleButton(String text) {
+        JButton button = new JButton(text);
+        button.setForeground(Color.BLACK);
+        button.setBackground(Color.WHITE);
+        Border line = new LineBorder(Color.BLACK);
+        Border margin = new EmptyBorder(5, 15, 5, 15);
+        Border compound = new CompoundBorder(line, margin);
+        button.setBorder(compound);
+        return button;
+    }
 }
