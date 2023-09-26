@@ -18,7 +18,7 @@ public class Board {
         Persistency persistency = new Persistency();
             Tile[][] mazeObject = new Tile[15][15];
             try {
-                board = persistency.loadGame("LarryCroftsAdventures/levels/level1.json", mazeObject);
+                board = persistency.loadGame("LarryCroftsAdventures" + File.separator + "levels" + File.separator +"level1.json", mazeObject);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
