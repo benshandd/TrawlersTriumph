@@ -10,6 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+/**
+ * KeyboardInputHandler is a class responsible for handling keyboard input in the Larry Croft's Adventures game.
+ * It sets up key bindings and actions for various game-related controls and interactions.
+ */
+
 public class KeyboardInputHandler {
 
     private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
@@ -32,11 +37,20 @@ public class KeyboardInputHandler {
     private App component;
 
 
+
+    /**
+     * Constructs a KeyboardInputHandler for the specified component.
+     *
+     * @param component The App component to handle keyboard input for.
+     */
     public KeyboardInputHandler(App component) {
         this.component = component;
         setupKeyBindings();
     }
 
+    /**
+     * Sets up key bindings and associated actions for various game-related controls.
+     */
     private void setupKeyBindings() {
         // Arrow keys for moving Chap within the maze
         component.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), MOVE_UP);
@@ -86,7 +100,9 @@ public class KeyboardInputHandler {
     }
 
 
-
+    /**
+     * Class for movement keypresses
+     */
     private class MoveAction extends AbstractAction {
         private String direction;
 
@@ -166,6 +182,10 @@ public class KeyboardInputHandler {
 
     }
 
+    /**
+     * Class for handling the exit keybind
+     */
+
     private class ExitAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -175,6 +195,10 @@ public class KeyboardInputHandler {
         }
     }
 
+
+    /**
+     * class for handling the save keybind
+     */
     private class SaveGameAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -183,6 +207,9 @@ public class KeyboardInputHandler {
         }
     }
 
+    /**
+     * class for handling the resume keybind
+     */
     private class ResumeGameAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -191,6 +218,10 @@ public class KeyboardInputHandler {
         }
     }
 
+
+    /**
+     * class for handling the level loading start keybinds
+     */
     private class StartGameAction extends AbstractAction {
         private int level;
 
@@ -205,6 +236,10 @@ public class KeyboardInputHandler {
         }
     }
 
+    /**
+     * class for handling the pause keybind
+     */
+
     private class PauseGameAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -213,6 +248,9 @@ public class KeyboardInputHandler {
         }
     }
 
+    /**
+     * class for handling the exiting pause keybind
+     */
     private class ClosePauseDialogAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {

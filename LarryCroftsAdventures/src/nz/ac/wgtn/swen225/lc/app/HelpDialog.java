@@ -2,19 +2,28 @@ package nz.ac.wgtn.swen225.lc.app;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * HelpDialog is a custom dialog that displays game rules and instructions for the Larry Croft's Adventures game.
+ * It provides information about the game's objective, rules, and how to play.
+ */
 public class HelpDialog extends JDialog {
 
+    /**
+     * Constructs a HelpDialog.
+     *
+     * @param parent The parent JFrame to which this dialog is attached.
+     */
     public HelpDialog(JFrame parent) {
-        super(parent, "Help - Game Rules", true);
-        setSize(400, 300);
-        setLocationRelativeTo(parent);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        super(parent, "Help - Game Rules", true); // Set dialog title and make it modal.
+        setSize(400, 300); // Set the size of the dialog.
+        setLocationRelativeTo(parent); // Center the dialog relative to the parent frame.
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE); // Dispose the dialog when it's closed.
 
         JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setWrapStyleWord(true);
-        textArea.setLineWrap(true);
-        textArea.setMargin(new Insets(10, 10, 10, 10));
+        textArea.setEditable(false); // Make the text area read-only.
+        textArea.setWrapStyleWord(true); // Enable word wrapping.
+        textArea.setLineWrap(true); // Enable line wrapping.
+        textArea.setMargin(new Insets(10, 10, 10, 10)); // Set text area margins for spacing.
 
         // Add game rules and instructions to the text area
         String helpText = "Game Rules:\n" +
@@ -34,10 +43,9 @@ public class HelpDialog extends JDialog {
                 "- Be aware of the level's hazards and monsters.\n" +
                 "- Enjoy the challenge and have fun!";
 
-
         textArea.setText(helpText);
 
         JScrollPane scrollPane = new JScrollPane(textArea);
-        getContentPane().add(scrollPane);
+        getContentPane().add(scrollPane); // Add the scrollable text area to the dialog's content pane.
     }
 }
