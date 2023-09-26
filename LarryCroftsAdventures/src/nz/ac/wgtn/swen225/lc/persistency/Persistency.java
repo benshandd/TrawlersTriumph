@@ -34,7 +34,7 @@ public class Persistency {
                     String item = cellObject.get("item").getAsString();
 
                     // Create the appropriate tile based on tileType and item
-                    maze[i][j] = switch (tileType) {
+                    maze[j][i] = switch (tileType) {
                         case "Free" -> new Free();
                         case "Wall" -> new Wall();
                         case "Door_Yellow" -> new Door(Key.Colour.YELLOW);
