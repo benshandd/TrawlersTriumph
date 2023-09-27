@@ -61,6 +61,7 @@ public class RecorderPanel extends JPanel {
                     // Implement stop recording logic here
                     // need what level so we can just load the level and place the character where they were
                     Recorder r = new Recorder(new ArrayList<String>(moves),8,8,1); // random values for now
+                    //clearing the moves after recording has been finished
                     moves.clear();
                     try {
                         r.saveRecorder(count);
@@ -76,6 +77,7 @@ public class RecorderPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Implement load recorded game logic here
+                // sets up an interface to choose a load file
                 JFileChooser fc = new JFileChooser("LarryCroftsAdventures/Saves");
                 fc.setDialogTitle("Choose a saved game");
                 int retVal = fc.showOpenDialog(null);
@@ -97,11 +99,16 @@ public class RecorderPanel extends JPanel {
                             "You need to load a file first!",
                             "File not chosen!",
                             JOptionPane.PLAIN_MESSAGE);
-                } else{
-                    new Recorder().step(moves);
+                } else {
+                    Stack<String> movesStack = new Stack<>();
+                    movesStack.addAll(moves);
+                    if (!movesStack.isEmpty()) {
+                        new Recorder().step(movesStack.pop());
+                    } else{
+                        //implement a pop up saying been through all moves
+                    }
+
                 }
-
-
             }
         });
 
