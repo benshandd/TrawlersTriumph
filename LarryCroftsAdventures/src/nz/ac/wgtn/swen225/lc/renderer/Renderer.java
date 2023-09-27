@@ -96,8 +96,7 @@ public class Renderer {
                 fileName += "Key_" + keyColour.name();
             }
             case "Free" -> {
-                if (((Free) tile).getItem() != null) fileName += ((Free) tile).getItem();
-                else fileName += "Free";
+                fileName += "Free";
             }
             case "Wall" -> fileName += "Wall";
             default -> {

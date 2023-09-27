@@ -6,6 +6,9 @@ import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 
+/**
+ * Represents the player in Larry Croft's Adventures
+ */
 public class Chap {
     private static final int MAX_INVENTORY = 8;
     private final Item[][] inventory = new Item[2][4];
@@ -13,11 +16,19 @@ public class Chap {
     private int x = 7;
     private int y = 7;
 
+    /**
+     * Create a new Chap character. A new character should be created per level.
+     * @param board the board that Chap is placed on
+     */
     public Chap(Board board) {
         this.board = board;
-
     }
 
+    /**
+     * Move the character on the board one square in the specified direction.
+     * @param direction the direction to move the character
+     * @throws IllegalMove if the tile to the given direction is not traversable or the edge of the board is encountered
+     */
     public boolean move(Direction direction) throws IllegalMove {
         Tile next;
         try {
@@ -54,18 +65,27 @@ public class Chap {
         return true;
     }
 
-    public Item addItem(Item item) throws InventoryFull {
+    /**
+     * Add an item to the player's inventory.
+     * @param item the item to add
+     * @throws InventoryFull if the player's inventory is full
+     */
+    public void addItem(Item item) throws InventoryFull {
         for (int i = 0; i < inventory.length; i++) {
             for (int j = 0; j < inventory[i].length; j++) {
                 if (inventory[i][j] == null) {
                     inventory[i][j] = item;
-                    return inventory[i][j];
                 }
             }
         }
         throw new InventoryFull();
     }
 
+    /**
+     * Remove an item from the player's inventory.
+     * @param item the item to add
+     * @return true if successful, false if the item was not found in the player's inventory
+     */
     public boolean removeItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
             for (int j = 0; j < inventory[i].length; j++) {
@@ -78,9 +98,21 @@ public class Chap {
         return false;
     }
 
+    /**
+     * Represents the four possible directions for movement of the player
+     */
     public enum Direction {UP, DOWN, LEFT, RIGHT}
 
+    /**
+     * Get the player's x position on the board.
+     * @return the player's x position
+     */
     public int getX(){ return x; }
+
+    /**
+     * Get the player's y position on the board.
+     * @return the player's y position
+     */
     public int getY(){ return y; }
 
 

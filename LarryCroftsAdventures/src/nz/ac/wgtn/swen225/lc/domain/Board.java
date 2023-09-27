@@ -2,11 +2,7 @@ package nz.ac.wgtn.swen225.lc.domain;
 
 import java.io.FileNotFoundException;
 
-import nz.ac.wgtn.swen225.lc.domain.items.Key;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Door;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Wall;
+import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 public class Board {
@@ -19,6 +15,9 @@ public class Board {
 
     private int treasure;
 
+    /**
+     * Create a new Board. Generates a 2D array of tiles using {@link Persistency#loadGame(String) loadGame}.
+     */
     public Board() {
         Persistency persistency = new Persistency();
         try {
@@ -34,52 +33,53 @@ public class Board {
         board[7][7] = new Free(chap);
     }
 
-    private Tile[][] testBoard() {
-        Tile[][] testBoard = new Tile[SIZE][SIZE];
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                int rand = (int) (Math.random() * 5);
-                testBoard[i][j] = switch (rand) {
-                    case 0 -> new Wall();
-                    case 1 -> new Door(Key.Colour.YELLOW);
-                    default -> new Free();
-                };
-            }
-        }
-
-        chap = new Chap(this);
-        testBoard[7][7] = new Free(chap);
-
-        return testBoard;
-    }
-
-    private int tempRand() {
-        return (int) (Math.random() * 10);
-    }
-
+    /**
+     * Get a tile at the specified coordinates.
+     * @param x position horizontally
+     * @param y position vertically
+     * @return the tile
+     */
     public Tile getTile(int x, int y) {
         return board[x][y];
     }
 
+    /**
+     * Get all tiles on the board.
+     * @return 2D array of the tiles
+     */
     public Tile[][] getTiles() {
         return board;
     }
 
+    /**
+     * Get the player.
+     * @return the player
+     */
     public Chap getChap() {
         return chap;
     }
 
+    /**
+     * Get the current level.
+     * @return the current level
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     * Get the time counter of the board.
+     * @return the current time left
+     */
     public int getTime(){
         return time;
     }
 
+    /**
+     * Get the treasure counter of the board.
+     * @return the count of treasures collected so far
+     */
     public int getTreasure(){
         return treasure;
     }
-
-
 }
