@@ -61,7 +61,7 @@ public class App extends JPanel implements ActionListener {
         this.setPreferredSize(new Dimension(1400,800));
         leftPanel.setPreferredSize(new Dimension(300, 700));
         leftPanel.setBackground(Color.lightGray);
-        leftPanel.add(new RecorderPanel());
+        leftPanel.add(new RecorderPanel(this));
 
         rightPanel.setPreferredSize(new Dimension(300, 700));
         rightPanel.setBackground(Color.lightGray);
@@ -208,4 +208,6 @@ public class App extends JPanel implements ActionListener {
     public static Board getBoard(){
         return board;
     }
+
+
 }

@@ -66,6 +66,7 @@ public class Recorder {
     /**
      * step by step playback moves
      * @param move move to be played back
+     * TODO need to render it moving
      */
     public void step(String move) throws IllegalMove {
         Renderer renderer;

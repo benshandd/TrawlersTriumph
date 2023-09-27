@@ -44,11 +44,13 @@ public class RecorderPanel extends JPanel {
     public static boolean recording = false;
     private int count = 0;
     File file = null;
+    App app;
 
     /**
      * Constructs a RecorderPanel and initializes its components.
      */
-    public RecorderPanel() {
+    public RecorderPanel(App app) {
+        this.app = app;
         initializeComponents();
         addComponentsToPanel();
     }
@@ -121,7 +123,7 @@ public class RecorderPanel extends JPanel {
                             "File not chosen!",
                             JOptionPane.PLAIN_MESSAGE);
                 } else {
-
+                    app.repaint();
                     if (!moves.isEmpty()) {
                         try {
                             new Recorder().step(moves.remove(0));
