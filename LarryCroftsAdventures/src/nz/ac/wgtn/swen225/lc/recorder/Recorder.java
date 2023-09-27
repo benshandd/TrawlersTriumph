@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.domain.exceptions.IllegalMove;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
@@ -65,27 +67,29 @@ public class Recorder {
      * step by step playback moves
      * @param move move to be played back
      */
-    public void step(String move){
+    public void step(String move) throws IllegalMove {
+        Renderer renderer;
         switch (move){
-            case "UP" :
-                //Renderer renderer =
-                //renderer.moveCameraUp();
-                //App.getBoard().getChap().move("UP");
-            case "DOWN" :
-                //Renderer renderer =
-                //renderer.moveCameraDown();
-                //App.getBoard().getChap().move("DOWN");
-            case "LEFT" :
-                //Renderer renderer =
-                //renderer.moveCameraLeft();
-                //App.getBoard().getChap().move("LEFT");
-            case "RIGHT" :
-                //Renderer renderer =
-                //renderer.moveCameraRight();
-                //App.getBoard().getChap().move("RIGHT");
-            default:
-                break;
-
+            case "UP" -> {
+                renderer = App.getRenderer();
+                renderer.moveCameraUp();
+                App.getBoard().getChap().move(Chap.Direction.UP);
+            }
+            case "DOWN" -> {
+                renderer = App.getRenderer();
+                renderer.moveCameraUp();
+                App.getBoard().getChap().move(Chap.Direction.DOWN);
+            }
+            case "LEFT" -> {
+                renderer = App.getRenderer();
+                renderer.moveCameraUp();
+                App.getBoard().getChap().move(Chap.Direction.LEFT);
+            }
+            case "RIGHT" -> {
+                renderer = App.getRenderer();
+                renderer.moveCameraUp();
+                App.getBoard().getChap().move(Chap.Direction.RIGHT);
+            }
         }
     }
 

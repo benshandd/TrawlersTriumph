@@ -18,11 +18,11 @@ public class App extends JPanel implements ActionListener {
     private JLabel timeLabel;
     JLabel[][] inventorySlots;
     private int time = 100;
-    private Renderer renderer;
+    private static Renderer renderer;
     JPanel leftPanel;
     JPanel rightPanel;
     JPanel centrePanel;
-    Board board;
+    static Board board;
 
     /**
      * Constructor for the App class.
@@ -196,8 +196,8 @@ public class App extends JPanel implements ActionListener {
      *
      * @return The Renderer object responsible for rendering the game board.
      */
-    public Renderer getRenderer(){
-        return this.renderer;
+    public static Renderer getRenderer(){
+        return renderer;
     }
 
     /**
@@ -205,7 +205,7 @@ public class App extends JPanel implements ActionListener {
      *
      * @return The Board object representing the game board.
      */
-    public Board getBoard(){
+    public static Board getBoard(){
         return board;
     }
 }

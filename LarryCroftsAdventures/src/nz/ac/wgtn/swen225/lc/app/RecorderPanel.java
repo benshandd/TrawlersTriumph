@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
+import nz.ac.wgtn.swen225.lc.domain.exceptions.IllegalMove;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
@@ -72,13 +73,15 @@ public class RecorderPanel extends JPanel {
                 if (recording) {
                     recordButton.setText("Stop Recording");
                     // Implement recording logic here
+                    //for file names
                     count++;
                     moves = new ArrayList<>();
                 } else {
                     recordButton.setText("Record");
                     // Implement stop recording logic here
-                    // need what level so we can just load the level and place the character where they were
-                    Recorder r = new Recorder(new ArrayList<String>(moves),8,8,1); // random values for now
+
+                    Recorder r = new Recorder(new ArrayList<String>(moves),App.getBoard().getChap().getX(),App.getBoard().getChap().getY(),
+                            App.getBoard().getLevel());
                     //clearing the moves after recording has been finished
                     moves.clear();
                     try {
@@ -118,12 +121,15 @@ public class RecorderPanel extends JPanel {
                             "File not chosen!",
                             JOptionPane.PLAIN_MESSAGE);
                 } else {
-                    Stack<String> movesStack = new Stack<>();
-                    movesStack.addAll(moves);
-                    if (!movesStack.isEmpty()) {
-                        new Recorder().step(movesStack.pop());
+
+                    if (!moves.isEmpty()) {
+                        try {
+                            new Recorder().step(moves.remove(0));
+                        } catch (IllegalMove ex) {
+                            throw new RuntimeException(ex);
+                        }
                     } else{
-                        //implement a pop up saying been through all moves
+                        //TODO implement a pop up saying been through all moves @Mr Kerr
                     }
 
                 }
