@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
+    private Persistency persistency = new Persistency();
 
     public Main() {
         System.out.println("Hello world");
@@ -62,7 +63,7 @@ public class Main extends JFrame {
         if (response == 0) { System.exit(0); }});
 
         saveMenuItem.setToolTipText("Save the game state");
-//        saveMenuItem.addActionListener((event) -> persistency.saveGame());
+        //saveMenuItem.addActionListener((event) -> persistency.saveGame());
 
         resumeMenuItem.setToolTipText("Resume the game");
 //        resumeMenuItem.addActionListener((event) -> persistency.resumeGame();

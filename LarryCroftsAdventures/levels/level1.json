@@ -2,6 +2,17 @@
   "player": { "x": 8, "y": 8 },
   "timeLeft": "100",
   "level": 1,
+  "actions": [
+    "LEFT",
+    "LEFT",
+    "LEFT",
+    "UP",
+    "RIGHT",
+    "RIGHT",
+    "RIGHT",
+    "UP",
+    "UP"
+  ],
   "board": [
     [
       { "x": 0, "y": 0, "tile": "Free", "item": "none" },

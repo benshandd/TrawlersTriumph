@@ -10,7 +10,7 @@ import java.io.*;
 import java.util.*;
 
 public class Persistency {
-    // private Stack<String> actions;
+    private Stack<String> actions;
     private File newFile;
     public int timeLeft;
     public int level;
@@ -36,9 +36,7 @@ public class Persistency {
                     String tileType = cellObject.get("tile").getAsString();
                     String item = cellObject.get("item").getAsString();
 
-
-
-                    // Create the appropriate tile based on tileType and item
+                    // Add tile based on tileType or item
                     maze[j][i] = switch (tileType) {
                         case "Free" -> new Free();
                         case "Wall" -> new Wall();
@@ -48,11 +46,12 @@ public class Persistency {
                         case "Door_Blue" -> new Door(Key.Colour.BLUE);
                         default -> new Free();
                     };
+
                     /*maze[i][j] = switch (item) {
-                        case "Treasure" -> new Treasure();
-                        case "none" -> new Free();
-                        default -> throw new IllegalStateException("Unknown tile type: " + item);
-                    };*/
+                     * case "Treasure" -> new Treasure();
+                     * case "none" -> new Free();
+                     * default -> throw new IllegalStateException("Unknown tile type: " + item);
+                      };*/
                 }
             }
         } catch (IOException e) {
@@ -61,46 +60,51 @@ public class Persistency {
         return maze;
     }
 
-
     public void saveGame(int newFileNum, ArrayList<String> actions, int x, int y, int level) throws IOException {
-        newFile = new File("LarryCroftsAdventures" + File.separator + "Saves");
-        newFile.mkdir();
-        newFile = new File("LarryCroftsAdventures" + File.separator + "Saves" + File.separator + "saved-game_"+newFileNum+".json");
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
+        JsonObject gameData = new JsonObject();
         Gson gson = new Gson();
-        JsonObject originalObject = new JsonObject();
-        JsonObject playerObject = new JsonObject();
 
+        File newFile = new File("LarryCroftsAdventures" + File.separator + "Saves");
+        newFile.mkdir();
+        newFile = new File("LarryCroftsAdventures" + File.separator + "Saves" + File.separator + "saved-game_" + newFileNum + ".json");
+
+        // Player object
+        JsonObject playerObject = new JsonObject();
         playerObject.addProperty("x", x);
         playerObject.addProperty("y", y);
-        originalObject.add("player", playerObject);
-        originalObject.addProperty("timeLeft", "100"); // Time left
-        originalObject.addProperty("level", level); // Level
-        JsonArray boardArray = new JsonArray();
-        JsonObject rowObject = new JsonObject();
-        JsonArray rowArray = new JsonArray();
-        rowObject.add("row", rowArray);
+        gameData.add("player", playerObject);
 
-        for (int i = 0; i < 15; i++) { // 15 rows
-            JsonObject cellObject = new JsonObject();
-            cellObject.addProperty("type", "Wall");
-            cellObject.addProperty("item", "none");
-            rowArray.add(cellObject);
-        }
+        // Time left and level
+        gameData.addProperty("timeLeft", "100");
+        gameData.addProperty("level", level);
 
-        boardArray.add(rowObject);
-        originalObject.add("board", boardArray);
+        // Actions array
         JsonArray actionsArray = new JsonArray();
-        for (String a : actions) {
-            actionsArray.add(a);
+        for (String action : actions) {
+            actionsArray.add(action);
         }
-        originalObject.add("actions", actionsArray);
+        gameData.add("actions", actionsArray);
 
+        // Board array
+        JsonArray boardArray = new JsonArray();
+        for (int i = 0; i < 15; i++) {
+            JsonArray rowArray = new JsonArray();
+            for (int j = 0; j < 15; j++) {
+                JsonObject cellObject = new JsonObject();
+                cellObject.addProperty("x", j);
+                cellObject.addProperty("y", i);
+                cellObject.addProperty("tile", "Wall");
+                cellObject.addProperty("item", "none");
+                rowArray.add(cellObject);
+            }
+            boardArray.add(rowArray);
+        }
+        gameData.add("board", boardArray);
         jsonWriter.setIndent("    ");
-        gson.toJson(originalObject, jsonWriter);
+        gson.toJson(gameData, jsonWriter);
         jsonWriter.close();
         fileWriter.close();
     }
-
 }
