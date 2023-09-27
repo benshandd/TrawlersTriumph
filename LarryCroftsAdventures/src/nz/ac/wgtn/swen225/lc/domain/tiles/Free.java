@@ -31,4 +31,8 @@ public class Free implements Tile {
     public Chap getChap() {
         return chap;
     }
+
+    public String getItem() { return item; }
+
+    public void setItem(String item) { this.item = item; }
 }

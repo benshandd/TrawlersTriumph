@@ -52,7 +52,6 @@ public class Renderer {
                 else {
                     tile = grid[x][y];
                 }
-                System.out.println("X: " + x  + "Y: " + y + "Class: " + tile.getClass());
                 Image image = getTileImage(tile);
                 g.drawImage(image, cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
             }
@@ -70,45 +69,33 @@ public class Renderer {
     }
 
     private Image getTileImage(Tile tile) throws IOException {
-        File file = null;
-        if (tile instanceof Door d) {
-            if (d.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Blue.png");}
-            else if (d.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Green.png");}
-            else if (d.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Red.png");}
-            else if (d.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Yellow.png");}
-        }
-        else if (tile instanceof Exit){
-            file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Exit.png");
-        }
-        else if (tile instanceof ExitLock){
-            file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Exit.png");
-        }
-        else if (tile instanceof Free){
-            if (tile instanceof Treasure){
-                file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Treasure.png");
+        String fileName = "LarryCroftsAdventures" + File.separator + "assets" + File.separator;
+
+        switch (tile.getClass().getSimpleName()) {
+            case "Door" -> {
+                Key.Colour doorColour = ((Door) tile).getColour();
+                fileName += "Door_" + doorColour.name();
             }
-            else if (tile instanceof InfoField){
-                file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "InfoBox.png");
+            case "Exit", "ExitLock" -> fileName += "Exit";
+            case "Treasure" -> fileName += "Treasure";
+            case "InfoField" -> fileName += "InfoBox";
+            case "KeyTile" -> {
+                Key.Colour keyColour = ((KeyTile) tile).getColour();
+                fileName += "Key_" + keyColour.name();
             }
-            else if (tile instanceof KeyTile kt){
-                if (kt.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Blue.png");}
-                else if (kt.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Green.png");}
-                else if (kt.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Red.png");}
-                else if (kt.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Yellow.png");}
+            case "Free" -> {
+                if (((Free) tile).getItem() != null) fileName += ((Free) tile).getItem();
+                else fileName += "Free";
             }
-            else {
-                file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Free.png");
+            case "Wall" -> fileName += "Wall";
+            default -> {
+                return null; // Unknown tile type
             }
-        }
-        else if (tile instanceof Wall){
-            file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Wall.png");
-        }
-        else{
-            return null;
         }
 
-            // Create an Image object from the BufferedImage
-        assert file != null;
+        fileName += ".png";
+        File file = new File(fileName);
+
         return ImageIO.read(file);
     }
 
@@ -124,5 +111,4 @@ public class Renderer {
     public void moveCameraDown(){
         camera.setY(camera.getY()+1);
     }
-
 }

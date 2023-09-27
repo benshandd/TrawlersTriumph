@@ -12,8 +12,8 @@ import java.util.*;
 public class Persistency {
     // private Stack<String> actions;
     private File newFile;
-    private int timeLeft;
-    private int level;
+    public int timeLeft;
+    public int level;
     private int x;
     private int y;
 
@@ -23,6 +23,9 @@ public class Persistency {
         try (JsonReader reader = new JsonReader(new FileReader(loadedFile))) {
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             JsonArray boardArray = jsonObject.getAsJsonArray("board");
+
+            timeLeft = jsonObject.get("timeLeft").getAsInt();
+            level = jsonObject.get("level").getAsInt();
 
             for (int i = 0; i < 15; i++) {
                 JsonArray columnArray = boardArray.get(i).getAsJsonArray(); // Loop through columns
@@ -34,7 +37,7 @@ public class Persistency {
                     String item = cellObject.get("item").getAsString();
 
                     // Create the appropriate tile based on tileType and item
-                    maze[i][j] = switch (tileType) {
+                    maze[j][i] = switch (tileType) {
                         case "Free" -> new Free();
                         case "Wall" -> new Wall();
                         case "Door_Yellow" -> new Door(Key.Colour.YELLOW);
@@ -43,11 +46,9 @@ public class Persistency {
                         case "Door_Blue" -> new Door(Key.Colour.BLUE);
                         default -> new Free();
                     };
-                    /*maze[i][j] = switch (item) {
-                        case "Treasure" -> new Treasure();
-                        case "none" -> new Free();
-                        default -> throw new IllegalStateException("Unknown tile type: " + item);
-                    };*/
+                    if (!item.equals("none") && maze[j][i] instanceof Free f){
+                        f.setItem(item);
+                    }
                 }
             }
         } catch (IOException e) {

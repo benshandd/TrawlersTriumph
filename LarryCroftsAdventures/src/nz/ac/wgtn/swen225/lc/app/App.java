@@ -8,22 +8,33 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+/**
+ * This class represents the main application panel for a game.
+ * It includes various panels for displaying game information and inventory.
+ */
 
 public class App extends JPanel implements ActionListener {
 
     private JLabel timeLabel;
     JLabel[][] inventorySlots;
-    private int time = 10;
+    private int time = 100;
     private Renderer renderer;
     JPanel leftPanel;
     JPanel rightPanel;
     JPanel centrePanel;
     Board board;
 
+    /**
+     * Constructor for the App class.
+     * Initializes the game board and sets up the graphical user interface.
+     */
     public App(){
         setup();
     }
 
+    /**
+     * Performs the initial setup of the game interface and components.
+     */
     public void setup(){
         board = new Board();
         renderer = new Renderer(board);
@@ -59,7 +70,7 @@ public class App extends JPanel implements ActionListener {
 
 
         rightPanel.add(createLabel("LEVEL", font, Color.lightGray, Color.red));
-        rightPanel.add(createLabel("1", font, Color.black, Color.green)); // get the level to display eventually
+        rightPanel.add(createLabel("" + board.getLevel(), font, Color.black, Color.green)); // get the level to display eventually
         rightPanel.add(createLabel("TIME", font, Color.lightGray, Color.red));
         rightPanel.add(timeLabel);
         rightPanel.add(createLabel("CHIPS LEFT", font, Color.lightGray, Color.red));
@@ -72,6 +83,13 @@ public class App extends JPanel implements ActionListener {
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
     }
+
+    /**
+     * Creates and returns a panel for displaying the player's inventory.
+     *
+     * @param index The index of the inventory to create (0 or 1).
+     * @return A JPanel containing slots for the player's inventory items.
+     */
 
     public JPanel createInventory(int index) {
         JPanel grid = new JPanel(new GridLayout(1, 4, 5, 5));
@@ -93,7 +111,11 @@ public class App extends JPanel implements ActionListener {
         return grid;
     }
 
-
+    /**
+     * Updates the inventory slots with items and their respective icons.
+     *
+     * @param items A 2D boolean array representing the inventory items.
+     */
     public void updateInventory(boolean[][] items) {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {
@@ -111,7 +133,15 @@ public class App extends JPanel implements ActionListener {
     }
 
 
-
+    /**
+     * Creates and returns a JLabel with specified properties.
+     *
+     * @param title      The text to display on the label.
+     * @param font       The font for the label's text.
+     * @param bg         The background color of the label.
+     * @param fontColour The text color of the label.
+     * @return A JLabel with the specified properties.
+     */
     public JLabel createLabel(String title, Font font, Color bg, Color fontColour){
         JLabel label = new JLabel(title);
         label.setFont(font);
@@ -124,6 +154,10 @@ public class App extends JPanel implements ActionListener {
         return label;
     }
 
+    /**
+     * Creates and initializes a timer for tracking game time.
+     */
+
     private void createTimer(){
         Font font = new Font("Sans-Serif", Font.BOLD, 50);
         timeLabel = createLabel("0", font, Color.black, Color.green);
@@ -132,6 +166,12 @@ public class App extends JPanel implements ActionListener {
         timer.setInitialDelay(1);
         timer.start();
     }
+
+    /**
+     * Handles action events triggered by the timer.
+     *
+     * @param e The ActionEvent object representing the timer event.
+     */
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -144,17 +184,27 @@ public class App extends JPanel implements ActionListener {
                     "Time's up! Do you want to replay the current level?",
                     "Game Over",
                     JOptionPane.PLAIN_MESSAGE);
-            time = 50;
+            time = board.getTime();
 
             //replay level
         }
         timeLabel.setText("" + time);
     }
 
+    /**
+     * Gets the renderer used for drawing the game board.
+     *
+     * @return The Renderer object responsible for rendering the game board.
+     */
     public Renderer getRenderer(){
         return this.renderer;
     }
 
+    /**
+     * Gets the game board instance.
+     *
+     * @return The Board object representing the game board.
+     */
     public Board getBoard(){
         return board;
     }
