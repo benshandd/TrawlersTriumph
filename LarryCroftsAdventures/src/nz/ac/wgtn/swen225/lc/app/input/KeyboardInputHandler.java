@@ -3,11 +3,10 @@ package nz.ac.wgtn.swen225.lc.app.input;
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
-import nz.ac.wgtn.swen225.lc.domain.exceptions.IllegalMove;
+import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**

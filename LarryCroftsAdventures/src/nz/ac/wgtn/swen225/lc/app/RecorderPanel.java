@@ -1,8 +1,6 @@
 package nz.ac.wgtn.swen225.lc.app;
 
-import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
-import nz.ac.wgtn.swen225.lc.domain.exceptions.IllegalMove;
-import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
 import javax.swing.*;
@@ -18,8 +16,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Stack;
 
 /**
  * RecorderPanel is a JPanel that provides recording and playback controls for the Larry Croft's Adventures game.

@@ -1,4 +1,4 @@
-package nz.ac.wgtn.swen225.lc.domain.exceptions;
+package nz.ac.wgtn.swen225.lc.domain;
 
 /**
  * An exception to throw when an illegal move is attempted to be made by the player.
