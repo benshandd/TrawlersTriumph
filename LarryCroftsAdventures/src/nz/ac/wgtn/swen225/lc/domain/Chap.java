@@ -6,20 +6,34 @@ import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 
+/**
+ * Represents the player in Larry Croft's Adventures
+ */
 public class Chap {
     private static final int MAX_INVENTORY = 8;
     private final Item[][] inventory = new Item[2][4];
     private final Board board;
-    private int x = 7;
-    private int y = 7;
+    private Free tile;
 
-    public Chap(Board board) {
+    /**
+     * Create a new Chap character. A new character should be created per level.
+     * @param board the board that Chap is placed on
+     * @param tile the tile that the player is standing on
+     */
+    public Chap(Board board, Free tile) {
         this.board = board;
-
+        this.tile = tile;
     }
 
+    /**
+     * Move the character on the board one square in the specified direction.
+     * @param direction the direction to move the character
+     * @throws IllegalMove if the tile to the given direction is not traversable or the edge of the board is encountered
+     */
     public boolean move(Direction direction) throws IllegalMove {
         Tile next;
+        int x = tile.getX();
+        int y = tile.getY();
         try {
             next = switch (direction) {
                 case UP -> board.getTile(x, y - 1);
@@ -28,44 +42,50 @@ public class Chap {
                 case RIGHT -> board.getTile(x + 1, y);
             };
         } catch (IndexOutOfBoundsException e) {
-            //throw new IllegalMove("Edge of the board to the " + direction.toString());
+            //throw new IllegalMove("Encountered the edge of the board: " + direction.toString());
             return false;
         }
 
         if (!next.traversable()) {
-            //throw new IllegalMove("Not traversable to the " + direction.toString());
+            //throw new IllegalMove("Not traversable: " + direction.toString());
             return false;
         }
 
-        Free currentTile = (Free) board.getTile(x, y);
-        Free nextTile = (Free) next;
-        currentTile.removeChap();
-        nextTile.addChap(this);
-        x = switch (direction) {
-            case LEFT -> x - 1;
-            case RIGHT -> x + 1;
-            default -> x;
-        };
-        y = switch (direction) {
-            case UP -> y - 1;
-            case DOWN -> y + 1;
-            default -> y;
-        };
+        setTile((Free) next);
         return true;
     }
 
-    public Item addItem(Item item) throws InventoryFull {
+    /**
+     * Moves the player from the current tile to another tile
+     * @param nextTile the tile to move the player to
+     */
+    private void setTile(Free nextTile) {
+        tile.removeChap();
+        nextTile.addChap(this);
+        tile = nextTile;
+    }
+
+    /**
+     * Add an item to the player's inventory.
+     * @param item the item to add
+     * @throws InventoryFull if the player's inventory is full
+     */
+    public void addItem(Item item) throws InventoryFull {
         for (int i = 0; i < inventory.length; i++) {
             for (int j = 0; j < inventory[i].length; j++) {
                 if (inventory[i][j] == null) {
                     inventory[i][j] = item;
-                    return inventory[i][j];
                 }
             }
         }
         throw new InventoryFull();
     }
 
+    /**
+     * Remove an item from the player's inventory.
+     * @param item the item to add
+     * @return true if successful, false if the item was not found in the player's inventory
+     */
     public boolean removeItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
             for (int j = 0; j < inventory[i].length; j++) {
@@ -78,10 +98,16 @@ public class Chap {
         return false;
     }
 
+    /**
+     * Get the tile the player is standing on.
+     * @return the tile
+     */
+    public Free getTile() {
+        return tile;
+    }
+
+    /**
+     * Represents the four possible directions for movement of the player.
+     */
     public enum Direction {UP, DOWN, LEFT, RIGHT}
-
-    public int getX(){ return x; }
-    public int getY(){ return y; }
-
-
 }

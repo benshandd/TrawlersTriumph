@@ -3,23 +3,29 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.domain.exceptions.IllegalMove;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.StringCharacterIterator;
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 public class Recorder {
-    private ArrayList<String> reversedMoves;
+    private ArrayList<String> movesList;
     private int x;
     private int y;
     int initLevel;
 
-    public Recorder(ArrayList<String> reversedMoves, int x, int y, int initLevel) {
-        this.reversedMoves = reversedMoves;
+    public Recorder(ArrayList<String> movesList, int x, int y, int initLevel) {
+        this.movesList = movesList;
         this.x = x;
         this.y =y;
         this.initLevel = initLevel;
@@ -32,7 +38,7 @@ public class Recorder {
      * @throws IOException for the file writer
      */
     public void saveRecorder(int count) throws IOException {
-       new Persistency().saveGame(count,this.reversedMoves, x, y, initLevel);
+       new Persistency().saveGame(count,this.movesList,this.x, this.y, this.initLevel);
     }
 
     /**
@@ -59,11 +65,32 @@ public class Recorder {
 
     /**
      * step by step playback moves
-     * @param moves moves in the file chosen
+     * @param move move to be played back
      */
-    public void step(ArrayList<String> moves){
-        //thinking of adding dialog box saying "press enter to move through actions"
-
+    public void step(String move) throws IllegalMove {
+        Renderer renderer;
+        switch (move){
+            case "UP" -> {
+                renderer = App.getRenderer();
+                renderer.moveCameraUp();
+                App.getBoard().getChap().move(Chap.Direction.UP);
+            }
+            case "DOWN" -> {
+                renderer = App.getRenderer();
+                renderer.moveCameraUp();
+                App.getBoard().getChap().move(Chap.Direction.DOWN);
+            }
+            case "LEFT" -> {
+                renderer = App.getRenderer();
+                renderer.moveCameraUp();
+                App.getBoard().getChap().move(Chap.Direction.LEFT);
+            }
+            case "RIGHT" -> {
+                renderer = App.getRenderer();
+                renderer.moveCameraUp();
+                App.getBoard().getChap().move(Chap.Direction.RIGHT);
+            }
+        }
     }
 
     /**

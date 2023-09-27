@@ -11,20 +11,31 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The Renderer class is responsible for rendering the game board and characters on the JPanel.
+ */
 public class Renderer {
 
     Board board;
     Tile[][] grid;
     public Camera camera = new Camera(3, 3, 9, 9);
+
+    /**
+     * Constructor for the Renderer class.
+     *
+     * @param board The game board to render.
+     */
     public Renderer(Board board){
         this.board = board;
         grid = board.getTiles();
     }
 
     /**
-     * Draws each tile to form maze
-     * @param mazePanel
-     * @param g
+     * Draws the game board, characters and items on the provided JPanel.
+     *
+     * @param mazePanel The JPanel on which to render the game.
+     * @param g         The Graphics object to use for rendering.
+     * @throws IOException If there is an error loading image files.
      */
     public void draw(JPanel mazePanel, Graphics g) throws IOException {
         int mazePanelWidth = mazePanel.getWidth();
@@ -36,93 +47,86 @@ public class Renderer {
         g.setColor(new Color(232, 220, 202));
         g.fillRect(0, 0, mazePanelWidth, mazePanelHeight);
 
+        // Dimensions for board and tile (for window resizing)
         int clampedValue = Math.max(0, Math.min(tileWidth, tileHeight));
         int distanceFromLeftBorder = mazePanelWidth/2 - (clampedValue* camera.getWidth()/2);
         int distanceFromTopBorder = mazePanelHeight/2 - (clampedValue* camera.getHeight()/2);
 
+        // Go through all tiles visible to camera and draw them on the JPanel
         for (int x = camera.getX(); x < camera.getX() + camera.getWidth(); x++){
             for (int y = camera.getY(); y < camera.getY() + camera.getHeight(); y++){
                 int cameraX = camera.worldXToCameraX(x);
                 int cameraY = camera.worldYToCameraY(y);
                 Tile tile;
-                // If coord trying to be drawn is out of bounds of board then just draw a wall tile.
+                // If coordinates trying to be drawn is out of bounds of board then just draw a wall tile.
                 if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length){
-                    tile = new Wall();
+                    tile = new Wall(-1, -1);
                 }
                 else {
                     tile = grid[x][y];
                 }
-                System.out.println("X: " + x  + "Y: " + y + "Class: " + tile.getClass());
                 Image image = getTileImage(tile);
                 g.drawImage(image, cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
             }
         }
 
-        // draw Chap
+        // Draw Chap at Chap's coordinates
         File chapFile;
         chapFile = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Chap.png");
-
         Image chapImage = ImageIO.read(chapFile);
-        int chapX = camera.worldXToCameraX(board.getChap().getX());
-        int chapY = camera.worldYToCameraY(board.getChap().getY());
-
+        int chapX = camera.worldXToCameraX(board.getChap().getTile().getX());
+        int chapY = camera.worldYToCameraY(board.getChap().getTile().getY());
         g.drawImage(chapImage, chapX*clampedValue + distanceFromLeftBorder, chapY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
     }
 
     private Image getTileImage(Tile tile) throws IOException {
-        File file = null;
-        if (tile instanceof Door d) {
-            if (d.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Blue.png");}
-            else if (d.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Green.png");}
-            else if (d.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Red.png");}
-            else if (d.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Door_Yellow.png");}
-        }
-        else if (tile instanceof Exit){
-            file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Exit.png");
-        }
-        else if (tile instanceof ExitLock){
-            file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Exit.png");
-        }
-        else if (tile instanceof Free){
-            if (tile instanceof Treasure){
-                file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Treasure.png");
+        String fileName = "LarryCroftsAdventures" + File.separator + "assets" + File.separator;
+
+        // Assign filename depending on tile type and tile item
+        switch (tile.getClass().getSimpleName()) {
+            case "Door" -> {
+                Key.Colour doorColour = ((Door) tile).getColour();
+                fileName += "Door_" + doorColour.name();
             }
-            else if (tile instanceof InfoField){
-                file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "InfoBox.png");
+            case "Exit", "ExitLock" -> fileName += "Exit";
+            case "Treasure" -> fileName += "Treasure";
+            case "InfoField" -> fileName += "InfoBox";
+            case "KeyTile" -> {
+                Key.Colour keyColour = ((KeyTile) tile).getColour();
+                fileName += "Key_" + keyColour.name();
             }
-            else if (tile instanceof KeyTile kt){
-                if (kt.getColour() == Key.Colour.BLUE) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Blue.png");}
-                else if (kt.getColour() == Key.Colour.GREEN) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Green.png");}
-                else if (kt.getColour() == Key.Colour.RED) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Red.png");}
-                else if (kt.getColour() == Key.Colour.YELLOW) {file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Key_Yellow.png");}
+            case "Free" -> {
+                fileName += "Free";
             }
-            else {
-                file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Free.png");
+            case "Wall" -> fileName += "Wall";
+            default -> {
+                return null; // Unknown tile type
             }
-        }
-        else if (tile instanceof Wall){
-            file = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Wall.png");
-        }
-        else{
-            return null;
         }
 
-            // Create an Image object from the BufferedImage
-        assert file != null;
+        fileName += ".png";
+        File file = new File(fileName);
+
         return ImageIO.read(file);
     }
 
-    public void moveCameraLeft(){
-        camera.setX(camera.getX()-1);
-    }
-    public void moveCameraRight(){
-        camera.setX(camera.getX()+1);
-    }
-    public void moveCameraUp(){
-        camera.setY(camera.getY()-1);
-    }
-    public void moveCameraDown(){
-        camera.setY(camera.getY()+1);
-    }
+    /**
+     * Move the camera one tile to the left.
+     */
+    public void moveCameraLeft() { camera.setX(camera.getX() - 1); }
 
+    /**
+     * Move the camera one tile to the right.
+     */
+    public void moveCameraRight() { camera.setX(camera.getX() + 1); }
+
+    /**
+     * Move the camera one tile up.
+     */
+    public void moveCameraUp() { camera.setY(camera.getY() - 1); }
+
+    /**
+     * Move the camera one tile down.
+     */
+    public void moveCameraDown() { camera.setY(camera.getY() + 1); }
 }
