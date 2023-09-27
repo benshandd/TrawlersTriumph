@@ -10,8 +10,8 @@ public class InfoField extends Free {
      * Create a new information field tile.
      * @param message the information that pops up when the player steps onto this tile
      */
-    public InfoField(String message) {
-        super();
+    public InfoField(String message, int x, int y) {
+        super(x, y);
         this.message = message;
     }
 

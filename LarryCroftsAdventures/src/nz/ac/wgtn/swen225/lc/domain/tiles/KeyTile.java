@@ -12,8 +12,8 @@ public class KeyTile extends Free {
      * Create a new key tile.
      * @param colour the colour of the collectible key
      */
-    public KeyTile(Key.Colour colour) {
-        super();
+    public KeyTile(Key.Colour colour, int x, int y) {
+        super(x, y);
         this.colour = colour;
     }
 

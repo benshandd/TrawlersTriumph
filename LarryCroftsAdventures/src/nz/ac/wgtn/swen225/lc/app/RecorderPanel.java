@@ -80,7 +80,7 @@ public class RecorderPanel extends JPanel {
                     recordButton.setText("Record");
                     // Implement stop recording logic here
 
-                    Recorder r = new Recorder(new ArrayList<String>(moves),App.getBoard().getChap().getX(),App.getBoard().getChap().getY(),
+                    Recorder r = new Recorder(new ArrayList<String>(moves),App.getBoard().getChap().getTile().getX(),App.getBoard().getChap().getTile().getY(),
                             App.getBoard().getLevel());
                     //clearing the moves after recording has been finished
                     moves.clear();

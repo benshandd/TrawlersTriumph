@@ -12,8 +12,8 @@ public class Door extends Wall {
      * Create a new door tile.
      * @param colour the colour key that is required to open this door
      */
-    public Door(Key.Colour colour) {
-        super();
+    public Door(Key.Colour colour, int x, int y) {
+        super(x, y);
         this.colour = colour;
     }
 

@@ -60,7 +60,7 @@ public class Renderer {
                 Tile tile;
                 // If coordinates trying to be drawn is out of bounds of board then just draw a wall tile.
                 if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length){
-                    tile = new Wall();
+                    tile = new Wall(-1, -1);
                 }
                 else {
                     tile = grid[x][y];
@@ -74,8 +74,8 @@ public class Renderer {
         File chapFile;
         chapFile = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Chap.png");
         Image chapImage = ImageIO.read(chapFile);
-        int chapX = camera.worldXToCameraX(board.getChap().getX());
-        int chapY = camera.worldYToCameraY(board.getChap().getY());
+        int chapX = camera.worldXToCameraX(board.getChap().getTile().getX());
+        int chapY = camera.worldYToCameraY(board.getChap().getTile().getY());
         g.drawImage(chapImage, chapX*clampedValue + distanceFromLeftBorder, chapY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
     }
 

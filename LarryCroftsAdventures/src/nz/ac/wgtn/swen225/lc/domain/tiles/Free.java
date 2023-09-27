@@ -8,18 +8,29 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 public class Free implements Tile {
     private Chap chap;
 
+    protected int x;
+    protected int y;
+
     /**
      * Create a new free tile.
+     * @param x the x position of the tile
+     * @param y the y position of the tile
      */
-    public Free() {
+    public Free(int x, int y) {
+        this.x = x;
+        this.y = y;
         chap = null;
     }
 
     /**
      * Create a new free tile with a player standing on it.
      * @param chap the player
+     * @param x the x position of the tile
+     * @param y the y position of the tile
      */
-    public Free(Chap chap) {
+    public Free(Chap chap, int x, int y) {
+        this.x = x;
+        this.y = y;
         this.chap = chap;
     }
 
@@ -49,5 +60,15 @@ public class Free implements Tile {
      */
     public Chap getChap() {
         return chap;
+    }
+
+    @Override
+    public int getX() {
+        return x;
+    }
+
+    @Override
+    public int getY() {
+        return y;
     }
 }

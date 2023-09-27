@@ -6,7 +6,6 @@ import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 public class Board {
-    private static final int SIZE = 15;
     private Tile[][] board;
     private Chap chap;
 
@@ -29,8 +28,9 @@ public class Board {
         }
         time = persistency.timeLeft;
         level = persistency.level;
-        chap = new Chap(this);
-        board[7][7] = new Free(chap);
+        Free playerTile = new Free(chap, 7, 7);
+        board[7][7] = playerTile;
+        chap = new Chap(this, playerTile);
     }
 
     /**

@@ -13,15 +13,16 @@ public class Chap {
     private static final int MAX_INVENTORY = 8;
     private final Item[][] inventory = new Item[2][4];
     private final Board board;
-    private int x = 7;
-    private int y = 7;
+    private Free tile;
 
     /**
      * Create a new Chap character. A new character should be created per level.
      * @param board the board that Chap is placed on
+     * @param tile the tile that the player is standing on
      */
-    public Chap(Board board) {
+    public Chap(Board board, Free tile) {
         this.board = board;
+        this.tile = tile;
     }
 
     /**
@@ -31,6 +32,8 @@ public class Chap {
      */
     public boolean move(Direction direction) throws IllegalMove {
         Tile next;
+        int x = tile.getX();
+        int y = tile.getY();
         try {
             next = switch (direction) {
                 case UP -> board.getTile(x, y - 1);
@@ -39,30 +42,27 @@ public class Chap {
                 case RIGHT -> board.getTile(x + 1, y);
             };
         } catch (IndexOutOfBoundsException e) {
-            //throw new IllegalMove("Edge of the board to the " + direction.toString());
+            //throw new IllegalMove("Encountered the edge of the board: " + direction.toString());
             return false;
         }
 
         if (!next.traversable()) {
-            //throw new IllegalMove("Not traversable to the " + direction.toString());
+            //throw new IllegalMove("Not traversable: " + direction.toString());
             return false;
         }
 
-        Free currentTile = (Free) board.getTile(x, y);
-        Free nextTile = (Free) next;
-        currentTile.removeChap();
-        nextTile.addChap(this);
-        x = switch (direction) {
-            case LEFT -> x - 1;
-            case RIGHT -> x + 1;
-            default -> x;
-        };
-        y = switch (direction) {
-            case UP -> y - 1;
-            case DOWN -> y + 1;
-            default -> y;
-        };
+        setTile((Free) next);
         return true;
+    }
+
+    /**
+     * Moves the player from the current tile to another tile
+     * @param nextTile the tile to move the player to
+     */
+    private void setTile(Free nextTile) {
+        tile.removeChap();
+        nextTile.addChap(this);
+        tile = nextTile;
     }
 
     /**
@@ -99,21 +99,15 @@ public class Chap {
     }
 
     /**
-     * Represents the four possible directions for movement of the player
+     * Get the tile the player is standing on.
+     * @return the tile
+     */
+    public Free getTile() {
+        return tile;
+    }
+
+    /**
+     * Represents the four possible directions for movement of the player.
      */
     public enum Direction {UP, DOWN, LEFT, RIGHT}
-
-    /**
-     * Get the player's x position on the board.
-     * @return the player's x position
-     */
-    public int getX(){ return x; }
-
-    /**
-     * Get the player's y position on the board.
-     * @return the player's y position
-     */
-    public int getY(){ return y; }
-
-
 }

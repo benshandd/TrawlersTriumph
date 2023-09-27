@@ -7,7 +7,7 @@ public class ExitLock extends Wall {
     /**
      * Create a new exit lock tile.
      */
-    public ExitLock() {
-        super();
+    public ExitLock(int x, int y) {
+        super(x, y);
     }
 }

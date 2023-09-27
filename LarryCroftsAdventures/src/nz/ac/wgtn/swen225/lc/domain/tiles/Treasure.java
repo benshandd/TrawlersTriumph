@@ -7,7 +7,7 @@ public class Treasure extends Free {
     /**
      * Create a new treasure tile.
      */
-    public Treasure() {
-        super();
+    public Treasure(int x, int y) {
+        super(x, y);
     }
 }

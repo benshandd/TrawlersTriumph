@@ -38,17 +38,17 @@ public class Persistency {
 
                     // Create the appropriate tile based on tileType and item
                     maze[j][i] = switch (tileType) {
-                        case "Free" -> new Free();
-                        case "Wall" -> new Wall();
-                        case "Door_Yellow" -> new Door(Key.Colour.YELLOW);
-                        case "Door_Red" -> new Door(Key.Colour.RED);
-                        case "Door_Green" -> new Door(Key.Colour.GREEN);
-                        case "Door_Blue" -> new Door(Key.Colour.BLUE);
-                        default -> new Free();
+                        case "Free" -> new Free(j, i);
+                        case "Wall" -> new Wall(j ,i);
+                        case "Door_Yellow" -> new Door(Key.Colour.YELLOW, j, i);
+                        case "Door_Red" -> new Door(Key.Colour.RED, j, i);
+                        case "Door_Green" -> new Door(Key.Colour.GREEN, j, i);
+                        case "Door_Blue" -> new Door(Key.Colour.BLUE, j, i);
+                        default -> new Free(j, i);
                     };
-                    if (!item.equals("none") && maze[j][i] instanceof Free f){
+                    /*if (!item.equals("none") && maze[j][i] instanceof Free f){
                         f.setItem(item);
-                    }
+                    }*/
                 }
             }
         } catch (IOException e) {

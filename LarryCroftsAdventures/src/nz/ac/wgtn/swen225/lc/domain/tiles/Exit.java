@@ -7,7 +7,7 @@ public class Exit extends Free {
     /**
      * Create a new exit tile.
      */
-    public Exit() {
-        super();
+    public Exit(int x, int y) {
+        super(x, y);
     }
 }
