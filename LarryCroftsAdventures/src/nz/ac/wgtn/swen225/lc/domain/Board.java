@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
+/**
+ * Represents the board for a given level.
+ */
 public class Board {
     private Tile[][] board;
     private Chap chap;
@@ -28,9 +31,20 @@ public class Board {
         }
         time = persistency.timeLeft;
         level = persistency.level;
-        Free playerTile = new Free(chap, 7, 7);
+        Free playerTile = new Free(7, 7);
         board[7][7] = playerTile;
         chap = new Chap(this, playerTile);
+    }
+
+    /**
+     * Perform the action of the given tile.
+     * Set the given tile to a free tile.
+     * @param tile the tile
+     */
+    protected void resetTile(Tile tile) {
+        int x = tile.getX();
+        int y = tile.getY();
+        board[x][y] = new Free(x, y);
     }
 
     /**

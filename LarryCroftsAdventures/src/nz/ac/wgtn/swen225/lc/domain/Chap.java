@@ -56,29 +56,20 @@ public class Chap {
     }
 
     /**
-     * Moves the player from the current tile to another tile
-     * @param nextTile the tile to move the player to
-     */
-    private void setTile(Free nextTile) {
-        tile.removeChap();
-        nextTile.addChap(this);
-        tile = nextTile;
-    }
-
-    /**
      * Add an item to the player's inventory.
      * @param item the item to add
-     * @throws InventoryFull if the player's inventory is full
+     * @return true if successful, false if the player's inventory is full
      */
-    public void addItem(Item item) throws InventoryFull {
+    public boolean addItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
             for (int j = 0; j < inventory[i].length; j++) {
                 if (inventory[i][j] == null) {
                     inventory[i][j] = item;
+                    return true;
                 }
             }
         }
-        throw new InventoryFull();
+        return false;
     }
 
     /**
@@ -89,13 +80,38 @@ public class Chap {
     public boolean removeItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
             for (int j = 0; j < inventory[i].length; j++) {
-                if (inventory[i][j] == item) {
+                if (inventory[i][j].equals(item)) {
                     inventory[i][j] = null;
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    /**
+     * Check if the player has an item in their inventory.
+     * @param item the item to check
+     * @return true if the player has the item, false otherwise
+     */
+    public boolean hasItem(Item item) {
+        for (int i = 0; i < inventory.length; i++) {
+            for (int j = 0; j < inventory[i].length; j++) {
+                if (inventory[i][j].equals(item)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Moves the player from the current tile to another tile
+     * @param nextTile the tile to move the player to
+     */
+    private void setTile(Free nextTile) {
+        board.resetTile(nextTile);
+        tile = nextTile;
     }
 
     /**
