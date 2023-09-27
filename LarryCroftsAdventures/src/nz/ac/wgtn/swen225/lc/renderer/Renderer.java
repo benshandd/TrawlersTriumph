@@ -52,7 +52,6 @@ public class Renderer {
                 else {
                     tile = grid[x][y];
                 }
-                System.out.println("X: " + x  + "Y: " + y + "Class: " + tile.getClass());
                 Image image = getTileImage(tile);
                 g.drawImage(image, cameraX*clampedValue + distanceFromLeftBorder, cameraY*clampedValue + distanceFromTopBorder, clampedValue, clampedValue, null);
             }
@@ -84,7 +83,10 @@ public class Renderer {
                 Key.Colour keyColour = ((KeyTile) tile).getColour();
                 fileName += "Key_" + keyColour.name();
             }
-            case "Free" -> fileName += "Free";
+            case "Free" -> {
+                if (((Free) tile).getItem() != null) fileName += ((Free) tile).getItem();
+                else fileName += "Free";
+            }
             case "Wall" -> fileName += "Wall";
             default -> {
                 return null; // Unknown tile type

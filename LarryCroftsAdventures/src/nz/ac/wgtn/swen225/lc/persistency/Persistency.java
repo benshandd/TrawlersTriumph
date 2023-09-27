@@ -36,8 +36,6 @@ public class Persistency {
                     String tileType = cellObject.get("tile").getAsString();
                     String item = cellObject.get("item").getAsString();
 
-
-
                     // Create the appropriate tile based on tileType and item
                     maze[j][i] = switch (tileType) {
                         case "Free" -> new Free();
@@ -48,11 +46,9 @@ public class Persistency {
                         case "Door_Blue" -> new Door(Key.Colour.BLUE);
                         default -> new Free();
                     };
-                    /*maze[i][j] = switch (item) {
-                        case "Treasure" -> new Treasure();
-                        case "none" -> new Free();
-                        default -> throw new IllegalStateException("Unknown tile type: " + item);
-                    };*/
+                    if (!item.equals("none") && maze[j][i] instanceof Free f){
+                        f.setItem(item);
+                    }
                 }
             }
         } catch (IOException e) {
