@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
+    private Persistency persistency = new Persistency();
 
     /**
      * Constructor for the Main class. Initializes the game window and components.

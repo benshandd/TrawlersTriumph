@@ -2,17 +2,21 @@ package nz.ac.wgtn.swen225.lc.domain.tiles;
 
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 
+/**
+ * Represents a tile that the player can stand on or move in the direction of.
+ */
 public class Free implements Tile {
-    private Chap chap;
-    private String tile;
-    private String item;
+    protected int x;
+    protected int y;
 
-    public Free() {
-        chap = null;
-    }
-
-    public Free(Chap chap) {
-        this.chap = chap;
+    /**
+     * Create a new free tile.
+     * @param x the x position of the tile
+     * @param y the y position of the tile
+     */
+    public Free(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -20,19 +24,13 @@ public class Free implements Tile {
         return true;
     }
 
-    public void addChap(Chap chap) {
-        this.chap = chap;
+    @Override
+    public int getX() {
+        return x;
     }
 
-    public void removeChap() {
-        this.chap = null;
+    @Override
+    public int getY() {
+        return y;
     }
-
-    public Chap getChap() {
-        return chap;
-    }
-
-    public String getItem() { return item; }
-
-    public void setItem(String item) { this.item = item; }
 }

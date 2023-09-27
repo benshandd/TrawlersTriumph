@@ -1,26 +1,27 @@
 package nz.ac.wgtn.swen225.lc.domain.tiles;
 
-import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 
+/**
+ * Represents a tile that has a collectible key.
+ */
 public class KeyTile extends Free {
     private final Key.Colour colour;
 
-    public KeyTile(Chap chap, Key.Colour colour, String type, String item) {
-        super();
+    /**
+     * Create a new key tile.
+     * @param colour the colour of the collectible key
+     */
+    public KeyTile(Key.Colour colour, int x, int y) {
+        super(x, y);
         this.colour = colour;
     }
 
-    public boolean canOpen(Door door) {
-        if (door == null) {
-            return false;
-        }
-        return door.getColour().equals(colour);
-    }
-
+    /**
+     * Get the colour.
+     * @return the colour of the key
+     */
     public Key.Colour getColour() {
         return colour;
     }
-
-
 }

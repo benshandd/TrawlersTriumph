@@ -5,17 +5,14 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
-import nz.ac.wgtn.swen225.lc.domain.exceptions.IllegalMove;
+import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.StringCharacterIterator;
 import java.util.ArrayList;
-import java.util.Stack;
 
 
 public class Recorder {
