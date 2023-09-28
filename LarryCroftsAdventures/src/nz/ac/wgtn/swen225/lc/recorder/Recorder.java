@@ -75,17 +75,17 @@ public class Recorder {
             }
             case "DOWN" -> {
                 renderer = App.getRenderer();
-                renderer.moveCameraUp();
+                renderer.moveCameraDown();
                 App.getBoard().getChap().move(Chap.Direction.DOWN);
             }
             case "LEFT" -> {
                 renderer = App.getRenderer();
-                renderer.moveCameraUp();
+                renderer.moveCameraLeft();
                 App.getBoard().getChap().move(Chap.Direction.LEFT);
             }
             case "RIGHT" -> {
                 renderer = App.getRenderer();
-                renderer.moveCameraUp();
+                renderer.moveCameraRight();
                 App.getBoard().getChap().move(Chap.Direction.RIGHT);
             }
         }
