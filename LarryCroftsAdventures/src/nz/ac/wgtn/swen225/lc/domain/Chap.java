@@ -28,7 +28,7 @@ public class Chap {
      * @param direction the direction to move the character
      * @throws IllegalMove if the tile to the given direction is not traversable or the edge of the board is encountered
      */
-    public boolean move(Direction direction) throws IllegalMove {
+    public void move(Direction direction) throws IllegalMove {
         Tile next;
         int x = tile.getX();
         int y = tile.getY();
@@ -40,18 +40,15 @@ public class Chap {
                 case RIGHT -> board.getTile(x + 1, y);
             };
         } catch (IndexOutOfBoundsException e) {
-            //throw new IllegalMove("Encountered the edge of the board: " + direction.toString());
-            return false;
+            throw new IllegalMove("Encountered the edge of the board: " + direction);
         }
 
         if (!next.traversable()) {
-            //throw new IllegalMove("Not traversable: " + direction.toString());
-            return false;
+            throw new IllegalMove("Not traversable: " + direction);
         }
 
         next.performTileAction();
         tile = board.resetTile(next);
-        return true;
     }
 
     /**

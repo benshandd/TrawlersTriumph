@@ -124,7 +124,7 @@ public class RecorderPanel extends JPanel {
                         try {
                             new Recorder().step(moves.remove(0));
                         } catch (IllegalMove ex) {
-                            throw new RuntimeException(ex);
+                            System.out.println(ex.getMessage());
                         }
                     } else{
                         //TODO implement a pop up saying been through all moves @Mr Kerr

@@ -123,50 +123,46 @@ public class KeyboardInputHandler {
                 switch (direction) {
                     case "UP":
                         try {
-                            if(chap.move(Chap.Direction.UP)){
-                                renderer.setState(Renderer.State.UP);
-                                if (RecorderPanel.recording){
-                                    RecorderPanel.moves.add("UP");
-                                }
-                            };
+                            chap.move(Chap.Direction.UP);
+                            renderer.setState(Renderer.State.UP);
+                            if (RecorderPanel.recording){
+                                RecorderPanel.moves.add("UP");
+                            }
                         } catch (IllegalMove ex) {
-                            throw new RuntimeException(ex);
+                            System.out.println(ex.getMessage());
                         }
                         break;
                     case "DOWN":
                         try {
-                            if(chap.move(Chap.Direction.DOWN)){
-                                renderer.setState(Renderer.State.DOWN);
-                                if (RecorderPanel.recording){
-                                    RecorderPanel.moves.add("DOWN");
-                                }
+                            chap.move(Chap.Direction.DOWN);
+                            renderer.setState(Renderer.State.DOWN);
+                            if (RecorderPanel.recording){
+                                RecorderPanel.moves.add("DOWN");
                             }
                         } catch (IllegalMove ex) {
-                            throw new RuntimeException(ex);
+                            System.out.println(ex.getMessage());
                         }
                         break;
                     case "LEFT":
                         try {
-                            if(chap.move(Chap.Direction.LEFT)){
-                                renderer.setState(Renderer.State.LEFT);
-                                if (RecorderPanel.recording){
-                                    RecorderPanel.moves.add("LEFT");
-                                }
+                            chap.move(Chap.Direction.LEFT);
+                            renderer.setState(Renderer.State.LEFT);
+                            if (RecorderPanel.recording){
+                                RecorderPanel.moves.add("LEFT");
                             }
                         } catch (IllegalMove ex) {
-                            throw new RuntimeException(ex);
+                            System.out.println(ex.getMessage());
                         }
                         break;
                     case "RIGHT":
                         try {
-                            if(chap.move(Chap.Direction.RIGHT)){
-                                renderer.setState(Renderer.State.RIGHT);
-                                if (RecorderPanel.recording){
-                                    RecorderPanel.moves.add("RIGHT");
-                                }
+                            chap.move(Chap.Direction.RIGHT);
+                            renderer.setState(Renderer.State.RIGHT);
+                            if (RecorderPanel.recording){
+                                RecorderPanel.moves.add("RIGHT");
                             }
                         } catch (IllegalMove ex) {
-                            throw new RuntimeException(ex);
+                            System.out.println(ex.getMessage());
                         }
                         break;
                     default:
