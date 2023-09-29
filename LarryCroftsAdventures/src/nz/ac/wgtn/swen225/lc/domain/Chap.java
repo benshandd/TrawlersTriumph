@@ -32,6 +32,7 @@ public class Chap {
         Tile next;
         int x = tile.getX();
         int y = tile.getY();
+
         try {
             next = switch (direction) {
                 case UP -> board.getTile(x, y - 1);
@@ -49,7 +50,8 @@ public class Chap {
             return false;
         }
 
-        setTile((Free) next);
+        next.performTileAction();
+        tile = board.resetTile(x, y);
         return true;
     }
 
@@ -101,15 +103,6 @@ public class Chap {
             }
         }
         return false;
-    }
-
-    /**
-     * Moves the player from the current tile to another tile
-     * @param nextTile the tile to move the player to
-     */
-    private void setTile(Free nextTile) {
-        board.resetTile(nextTile);
-        tile = nextTile;
     }
 
     /**
