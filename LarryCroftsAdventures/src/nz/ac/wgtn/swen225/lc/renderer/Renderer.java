@@ -85,7 +85,7 @@ public class Renderer {
                 Tile tile;
                 // If coordinates trying to be drawn is out of bounds of board then just draw a wall tile.
                 if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length){
-                    tile = new Wall();
+                    tile = new Wall(0,0);
                 }
                 else {
                     tile = grid[x][y];
@@ -132,12 +132,9 @@ public class Renderer {
             default:
                 break;
         }
-        if((camera.getX() == board.getChap().getX() - 4) && (camera.getY() == board.getChap().getY() - 4)){
+        if((camera.getX() == board.getChap().getTile().getX() - 4) && (camera.getY() == board.getChap().getTile().getY() - 4)){
             state = State.IDLE;
         }
-        System.out.println("cam X: " + camera.getX());
-        double sdjvb = board.getChap().getX()-4;
-        System.out.println("chap cam X: " + sdjvb);
 
     }
 
@@ -158,8 +155,9 @@ public class Renderer {
                 fileName += "Key_" + keyColour.name();
             }
             case "Free" -> {
-                if (((Free) tile).getItem() != null) fileName += ((Free) tile).getItem();
-                else fileName += "Free";
+                //if (((Free) tile).getItem() != null) fileName += ((Free) tile).getItem();
+                //else
+                fileName += "Free";
             }
             case "Wall" -> fileName += "Wall";
             default -> {

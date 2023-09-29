@@ -70,22 +70,22 @@ public class Recorder {
         switch (move){
             case "UP" -> {
                 renderer = App.getRenderer();
-                renderer.moveCameraUp();
+                //renderer.moveCameraUp();
                 App.getBoard().getChap().move(Chap.Direction.UP);
             }
             case "DOWN" -> {
                 renderer = App.getRenderer();
-                renderer.moveCameraDown();
+                //renderer.moveCameraDown();
                 App.getBoard().getChap().move(Chap.Direction.DOWN);
             }
             case "LEFT" -> {
                 renderer = App.getRenderer();
-                renderer.moveCameraLeft();
+                //renderer.moveCameraLeft();
                 App.getBoard().getChap().move(Chap.Direction.LEFT);
             }
             case "RIGHT" -> {
                 renderer = App.getRenderer();
-                renderer.moveCameraRight();
+                //renderer.moveCameraRight();
                 App.getBoard().getChap().move(Chap.Direction.RIGHT);
             }
         }
