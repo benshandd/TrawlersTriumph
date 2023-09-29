@@ -8,6 +8,14 @@ public interface Tile {
     boolean traversable();
 
     /**
+     * Performs the action that is attributed to this tile.
+     * This tile has no action, so this method does nothing
+     */
+    default void performTileAction() {
+
+    }
+
+    /**
      * Get the x position.
      * @return the x position
      */
