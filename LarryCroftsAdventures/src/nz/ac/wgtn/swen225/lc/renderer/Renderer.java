@@ -22,7 +22,7 @@ public class Renderer {
 
     Board board;
     Tile[][] grid;
-    public Camera camera = new Camera(3, 3, 9, 9);
+    public Camera camera;
     private JPanel boardPanel;
     public enum State {
         IDLE, UP, DOWN, LEFT, RIGHT
@@ -50,6 +50,7 @@ public class Renderer {
         this.board = board;
         grid = board.getTiles();
         this.boardPanel = panel;
+        this.camera = new Camera(board.getChap().getTile().getX() - 4, board.getChap().getTile().getY() - 4, 9, 9);
         startTimer();
     }
 
