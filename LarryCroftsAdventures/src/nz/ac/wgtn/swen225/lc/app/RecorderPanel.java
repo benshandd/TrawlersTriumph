@@ -1,8 +1,6 @@
 package nz.ac.wgtn.swen225.lc.app;
 
-import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
-import nz.ac.wgtn.swen225.lc.domain.exceptions.IllegalMove;
-import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
 import javax.swing.*;
@@ -18,8 +16,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Stack;
 
 /**
  * RecorderPanel is a JPanel that provides recording and playback controls for the Larry Croft's Adventures game.
@@ -44,11 +40,13 @@ public class RecorderPanel extends JPanel {
     public static boolean recording = false;
     private int count = 0;
     File file = null;
+    App app;
 
     /**
      * Constructs a RecorderPanel and initializes its components.
      */
-    public RecorderPanel() {
+    public RecorderPanel(App app) {
+        this.app = app;
         initializeComponents();
         addComponentsToPanel();
     }
@@ -80,7 +78,7 @@ public class RecorderPanel extends JPanel {
                     recordButton.setText("Record");
                     // Implement stop recording logic here
 
-                    Recorder r = new Recorder(new ArrayList<String>(moves),App.getBoard().getChap().getX(),App.getBoard().getChap().getY(),
+                    Recorder r = new Recorder(new ArrayList<String>(moves),App.getBoard().getChap().getTile().getX(),App.getBoard().getChap().getTile().getY(),
                             App.getBoard().getLevel());
                     //clearing the moves after recording has been finished
                     moves.clear();
@@ -121,7 +119,7 @@ public class RecorderPanel extends JPanel {
                             "File not chosen!",
                             JOptionPane.PLAIN_MESSAGE);
                 } else {
-
+                    app.repaint();
                     if (!moves.isEmpty()) {
                         try {
                             new Recorder().step(moves.remove(0));

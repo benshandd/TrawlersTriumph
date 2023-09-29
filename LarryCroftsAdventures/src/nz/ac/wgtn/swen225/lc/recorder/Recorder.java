@@ -5,17 +5,14 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
-import nz.ac.wgtn.swen225.lc.domain.exceptions.IllegalMove;
+import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.StringCharacterIterator;
 import java.util.ArrayList;
-import java.util.Stack;
 
 
 public class Recorder {
@@ -66,28 +63,29 @@ public class Recorder {
     /**
      * step by step playback moves
      * @param move move to be played back
+     * TODO need to render it moving
      */
     public void step(String move) throws IllegalMove {
         Renderer renderer;
         switch (move){
             case "UP" -> {
                 renderer = App.getRenderer();
-                //renderer.moveCameraUp();
+                renderer.moveCameraUp();
                 App.getBoard().getChap().move(Chap.Direction.UP);
             }
             case "DOWN" -> {
                 renderer = App.getRenderer();
-                //renderer.moveCameraUp();
+                renderer.moveCameraDown();
                 App.getBoard().getChap().move(Chap.Direction.DOWN);
             }
             case "LEFT" -> {
                 renderer = App.getRenderer();
-                //renderer.moveCameraUp();
+                renderer.moveCameraLeft();
                 App.getBoard().getChap().move(Chap.Direction.LEFT);
             }
             case "RIGHT" -> {
                 renderer = App.getRenderer();
-                //renderer.moveCameraUp();
+                renderer.moveCameraRight();
                 App.getBoard().getChap().move(Chap.Direction.RIGHT);
             }
         }
