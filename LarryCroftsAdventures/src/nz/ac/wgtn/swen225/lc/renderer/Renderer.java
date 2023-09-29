@@ -140,7 +140,6 @@ public class Renderer {
 
     private Image getTileImage(Tile tile) throws IOException {
         String fileName = "LarryCroftsAdventures" + File.separator + "assets" + File.separator;
-
         // Assign filename depending on tile type and tile item
         switch (tile.getClass().getSimpleName()) {
             case "Door" -> {

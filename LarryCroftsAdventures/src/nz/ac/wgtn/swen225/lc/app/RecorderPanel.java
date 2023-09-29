@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * RecorderPanel is a JPanel that provides recording and playback controls for the Larry Croft's Adventures game.
@@ -38,6 +40,8 @@ public class RecorderPanel extends JPanel {
      * A boolean flag to indicate whether recording is in progress.
      */
     public static boolean recording = false;
+    private boolean recordingIndicatorVisible = false; // Flag to control the visibility of the recording indicator
+    private Timer recordingIndicatorTimer; // Timer for the recording indicator
     private int count = 0;
     File file = null;
     App app;
@@ -69,24 +73,12 @@ public class RecorderPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 recording = !recording;
                 if (recording) {
-                    recordButton.setText("Stop Recording");
-                    // Implement recording logic here
-                    //for file names
-                    count++;
-                    moves = new ArrayList<>();
-                } else {
-                    recordButton.setText("Record");
-                    // Implement stop recording logic here
+                    startRecording();
 
-                    Recorder r = new Recorder(new ArrayList<String>(moves),App.getBoard().getChap().getTile().getX(),App.getBoard().getChap().getTile().getY(),
-                            App.getBoard().getLevel());
-                    //clearing the moves after recording has been finished
-                    moves.clear();
-                    try {
-                        r.saveRecorder(count);
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                } else {
+                    stopRecording();
+
+
                 }
             }
         });
@@ -187,7 +179,8 @@ public class RecorderPanel extends JPanel {
         add(loadButton);
         add(stepButton);
         add(autoReplayButton);
-        add(replaySpeedSlider);    }
+        add(replaySpeedSlider);
+    }
 
 
     /**
@@ -205,5 +198,51 @@ public class RecorderPanel extends JPanel {
         Border compound = new CompoundBorder(line, margin);
         button.setBorder(compound);
         return button;
+    }
+
+    // Helper method to start recording and show recording indicator
+    private void startRecording() {
+        recordButton.setText("Stop Recording");
+        count++;
+        moves = new ArrayList<>();
+        recordingIndicatorTimer = new Timer();
+        recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                recordingIndicatorVisible = !recordingIndicatorVisible;
+                repaint();
+            }
+        }, 0, 500);
+    }
+
+    // Helper method to stop recording and hide recording indicator
+    private void stopRecording() {
+        recordButton.setText("Record");
+        recordingIndicatorTimer.cancel();
+        recordingIndicatorVisible = false;
+        repaint();
+        Recorder r = new Recorder(new ArrayList<String>(moves), App.getBoard().getChap().getTile().getX(),
+                App.getBoard().getChap().getTile().getY(),
+                App.getBoard().getLevel());
+        moves.clear();
+        try {
+            r.saveRecorder(count);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        if (recording && recordingIndicatorVisible) {
+            g.setColor(Color.RED);
+            int radius = 10;
+            int x = getWidth() / 2 - radius;
+            int y = getHeight() / 2 - radius;
+            g.fillOval(0, 0, radius * 2, radius * 2);
+        }
     }
 }

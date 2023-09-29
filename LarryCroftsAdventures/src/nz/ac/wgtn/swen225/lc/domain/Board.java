@@ -20,19 +20,22 @@ public class Board {
     /**
      * Create a new Board. Generates a 2D array of tiles using {@link Persistency#loadGame(String) loadGame}.
      */
-    public Board() {
+    public Board(int level) {
         Persistency persistency = new Persistency();
+        this.level = level;
+
         try {
-            board = persistency.loadGame("LarryCroftsAdventures/levels/level1.json");
+            board = persistency.loadGame("LarryCroftsAdventures/levels/level" + level + ".json");
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("An error occurred while loading the game: " + e.getMessage());
         }
         time = persistency.timeLeft;
-        level = persistency.level;
-        Free playerTile = new Free(7, 7);
-        board[7][7] = playerTile;
+        int startX = persistency.x;
+        int startY = persistency.y;
+        Free playerTile = new Free( startX, startY);
+        board[startX][startY] = playerTile;
         chap = new Chap(this, playerTile);
     }
 

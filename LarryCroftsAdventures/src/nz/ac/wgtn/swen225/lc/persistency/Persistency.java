@@ -14,8 +14,8 @@ public class Persistency {
     private File newFile;
     public int timeLeft;
     public int level;
-    private int x;
-    private int y;
+    public int x;
+    public int y;
 
     public Tile[][] loadGame(String fileName) throws FileNotFoundException {
         File loadedFile = new File(fileName);
@@ -23,6 +23,10 @@ public class Persistency {
         try (JsonReader reader = new JsonReader(new FileReader(loadedFile))) {
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             JsonArray boardArray = jsonObject.getAsJsonArray("board");
+
+            JsonObject playerObject = jsonObject.getAsJsonObject("player");
+            x = playerObject.get("x").getAsInt();
+            y = playerObject.get("y").getAsInt();
 
             timeLeft = jsonObject.get("timeLeft").getAsInt();
             level = jsonObject.get("level").getAsInt();

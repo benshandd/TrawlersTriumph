@@ -232,6 +232,7 @@ public class KeyboardInputHandler {
         public void actionPerformed(ActionEvent e) {
             // Handle CTRL-1 and CTRL-2 to start a new game at the specified level
             System.out.println("Loading level " + level);
+            component.setup(level);
         }
     }
 
