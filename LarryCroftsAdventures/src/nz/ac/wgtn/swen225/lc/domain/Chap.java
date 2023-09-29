@@ -8,7 +8,6 @@ import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
  * Represents the player in Larry Croft's Adventures
  */
 public class Chap {
-    private static final int MAX_INVENTORY = 8;
     private final Item[][] inventory = new Item[2][4];
     private final Board board;
     private Free tile;
