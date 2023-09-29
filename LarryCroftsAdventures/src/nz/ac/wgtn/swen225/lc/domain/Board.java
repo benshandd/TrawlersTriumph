@@ -38,11 +38,13 @@ public class Board {
 
     /**
      * Reset the given tile to a free tile.
-     * @param x position horizontally
-     * @param y position vertically
-     * @return the tile
+     * @param tile the tile to reset
+     * @return the new tile that has been reset
+     *
      */
-    protected Free resetTile(int x, int y) {
+    protected Free resetTile(Tile tile) {
+        int x = tile.getX();
+        int y = tile.getY();
         Free freeTile = new Free(x, y);
         board[x][y] = freeTile;
         return freeTile;

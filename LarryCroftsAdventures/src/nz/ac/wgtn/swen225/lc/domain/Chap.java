@@ -32,7 +32,6 @@ public class Chap {
         Tile next;
         int x = tile.getX();
         int y = tile.getY();
-
         try {
             next = switch (direction) {
                 case UP -> board.getTile(x, y - 1);
@@ -51,7 +50,7 @@ public class Chap {
         }
 
         next.performTileAction();
-        tile = board.resetTile(x, y);
+        tile = board.resetTile(next);
         return true;
     }
 
