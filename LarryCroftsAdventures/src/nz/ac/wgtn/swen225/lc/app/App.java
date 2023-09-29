@@ -37,20 +37,10 @@ public class App extends JPanel implements ActionListener {
      */
     public void setup(){
         board = new Board();
-        renderer = new Renderer(board);
+        renderer = new Renderer(board, centrePanel);
         leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
-        centrePanel = new JPanel(){
-            @Override
-            public void paint(Graphics g) {
-                try {
-                    renderer.draw(this, g);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-        centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        renderer.getBoardPanel().setBorder(BorderFactory.createLineBorder(Color.black));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
@@ -79,7 +69,7 @@ public class App extends JPanel implements ActionListener {
         rightPanel.add(createInventory(1));
 
 
-        this.add(centrePanel, BorderLayout.CENTER);
+        this.add(renderer.getBoardPanel(), BorderLayout.CENTER);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
     }
