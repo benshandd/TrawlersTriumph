@@ -41,7 +41,11 @@ public class App extends JPanel implements ActionListener {
     public void setup(int level){
         board = new Board(level);
 
-        renderer = new Renderer(board, centrePanel);
+        try {
+            renderer = new Renderer(board, centrePanel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
