@@ -32,7 +32,7 @@ public class App extends JPanel implements ActionListener {
         Timer timer = new Timer(1000, this);
         timer.setInitialDelay(650);
         timer.start();
-        setup(1);
+        setup(2);
     }
 
     /**
@@ -40,7 +40,6 @@ public class App extends JPanel implements ActionListener {
      */
     public void setup(int level){
         board = new Board(level);
-
         try {
             renderer = new Renderer(board, centrePanel);
         } catch (IOException e) {

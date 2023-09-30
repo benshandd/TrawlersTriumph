@@ -19,10 +19,14 @@ public class Persistency {
 
     public Tile[][] loadGame(String fileName) throws FileNotFoundException {
         File loadedFile = new File(fileName);
-        Tile[][] maze = new Tile[15][15];
+        Tile[][] maze = null;
         try (JsonReader reader = new JsonReader(new FileReader(loadedFile))) {
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             JsonArray boardArray = jsonObject.getAsJsonArray("board");
+            int numRows = boardArray.size();
+            int numCols = boardArray.get(0).getAsJsonArray().size();
+
+            maze = new Tile[numCols][numRows];
 
             JsonObject playerObject = jsonObject.getAsJsonObject("player");
             x = playerObject.get("x").getAsInt();
@@ -31,9 +35,9 @@ public class Persistency {
             timeLeft = jsonObject.get("timeLeft").getAsInt();
             level = jsonObject.get("level").getAsInt();
 
-            for (int i = 0; i < 15; i++) {
-                JsonArray columnArray = boardArray.get(i).getAsJsonArray(); // Loop through columns
-                for (int j = 0; j < 15; j++) {
+            for (int i = 0; i < numRows; i++) {
+                JsonArray columnArray = boardArray.get(i).getAsJsonArray();
+                for (int j = 0; j < numCols; j++) {
                     JsonObject cellObject = columnArray.get(j).getAsJsonObject(); // Access cell data
 
                     // Extract tile and item information from JSON
