@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -28,13 +29,14 @@ public class Renderer {
         IDLE, UP, DOWN, LEFT, RIGHT
     }
     private enum Images {
-        CHAP, DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL
+        CHAP, DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT
     }
     private State state = State.IDLE;
     private Timer timer;
     private double distanceTotal = 0;
     private double distance = 0.125;
     private HashMap<Images, Image> images = new HashMap<>();
+    private int count = 0;
     /**
      * Constructor for the Renderer class.
      *
@@ -71,7 +73,7 @@ public class Renderer {
 
     private void loadImages() throws IOException {
         String path = "LarryCroftsAdventures/assets/";
-        images.put(Images.CHAP, ImageIO.read(new File(path + "Chap.png")));
+        images.put(Images.BOAT, ImageIO.read(new File(path + "Boat.png")));
         images.put(Images.DOOR_BLUE, ImageIO.read(new File(path + "Door_BLue.png")));
         images.put(Images.DOOR_GREEN, ImageIO.read(new File(path + "Door_Green.png")));
         images.put(Images.DOOR_RED, ImageIO.read(new File(path + "Door_Red.png")));
@@ -131,12 +133,15 @@ public class Renderer {
         g.fillRect(0, 0, distanceFromLeftBorder, mazePanelHeight);
         g.fillRect(mazePanelWidth-distanceFromLeftBorder, 0, distanceFromLeftBorder, mazePanelHeight);
 
+        int frame = (count/16) % 8;
+        System.out.println(frame);
         // Draw Chap at Chap's coordinates
-        File chapFile;
-        chapFile = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Chap.png");
-        Image chapImage = ImageIO.read(chapFile);
-        int chapX = (mazePanelWidth /2) - clampedValue/2;
-        int chapY = (mazePanelHeight /2) - clampedValue/2;
+        BufferedImage boatSpriteSheet= (BufferedImage) images.get(Images.BOAT);
+        int frameWidth = boatSpriteSheet.getWidth()/8;
+        int frameHeight = boatSpriteSheet.getHeight();
+        BufferedImage chapImage = boatSpriteSheet.getSubimage(frame * frameWidth,0,frameWidth,frameHeight);
+        int chapX = (mazePanelWidth /2)  - clampedValue/2;
+        int chapY = (mazePanelHeight /2)  - clampedValue/2;
         g.drawImage(chapImage, chapX, chapY, clampedValue, clampedValue, null);
 
         switch (state) {
@@ -151,6 +156,7 @@ public class Renderer {
         if((camera.getX() == board.getChap().getTile().getX() - (int)(camera.getWidth()/2)) && (camera.getY() == board.getChap().getTile().getY() - (int)(camera.getWidth()/2))){
             state = State.IDLE;
         }
+        count++;
 
     }
 
