@@ -40,7 +40,7 @@ public class Renderer {
      *
      * @param board The game board to render.
      */
-    public Renderer(Board board, JPanel panel) throws IOException {
+    public Renderer(Board board, JPanel panel, int focusAreaSize) throws IOException {
         panel = new JPanel(){
             @Override
             public void paint(Graphics g) {
@@ -54,7 +54,7 @@ public class Renderer {
         this.board = board;
         grid = board.getTiles();
         this.boardPanel = panel;
-        this.camera = new Camera(board.getChap().getTile().getX() - 4, board.getChap().getTile().getY() - 4, 9, 9);
+        this.camera = new Camera(board.getChap().getTile().getX() - (focusAreaSize/2), board.getChap().getTile().getY() - (focusAreaSize/2), focusAreaSize, focusAreaSize);
         loadImages();
         startTimer();
     }
@@ -135,8 +135,8 @@ public class Renderer {
         File chapFile;
         chapFile = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Chap.png");
         Image chapImage = ImageIO.read(chapFile);
-        double chapX = camera.getX() + (clampedValue * 4);
-        double chapY = camera.getY() + (clampedValue * 4);
+        double chapX = camera.getX() + (clampedValue * (int)(camera.getWidth()/2));
+        double chapY = camera.getY() + (clampedValue * (int)(camera.getWidth()/2));
         g.drawImage(chapImage, (int) (chapX + distanceFromLeftBorder), (int) (chapY + distanceFromTopBorder), (int) (clampedValue), (int) (clampedValue), null);
 
         switch (state){
@@ -157,7 +157,7 @@ public class Renderer {
             default:
                 break;
         }
-        if((camera.getX() == board.getChap().getTile().getX() - 4) && (camera.getY() == board.getChap().getTile().getY() - 4)){
+        if((camera.getX() == board.getChap().getTile().getX() - (int)(camera.getWidth()/2)) && (camera.getY() == board.getChap().getTile().getY() - (int)(camera.getWidth()/2))){
             state = State.IDLE;
         }
 
