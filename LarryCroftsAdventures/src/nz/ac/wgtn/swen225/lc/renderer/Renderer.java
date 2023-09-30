@@ -135,27 +135,18 @@ public class Renderer {
         File chapFile;
         chapFile = new File("LarryCroftsAdventures" + File.separator + "assets" + File.separator + "Chap.png");
         Image chapImage = ImageIO.read(chapFile);
-        double chapX = camera.getX() + (clampedValue * (int)(camera.getWidth()/2));
-        double chapY = camera.getY() + (clampedValue * (int)(camera.getWidth()/2));
-        g.drawImage(chapImage, (int) (chapX + distanceFromLeftBorder), (int) (chapY + distanceFromTopBorder), (int) (clampedValue), (int) (clampedValue), null);
+        int chapX = (mazePanelWidth /2) - clampedValue/2;
+        int chapY = (mazePanelHeight /2) - clampedValue/2;
+        g.drawImage(chapImage, chapX, chapY, clampedValue, clampedValue, null);
 
-        switch (state){
-            case IDLE:
-                break;
-            case UP:
-                camera.setY(camera.getY() - distance);
-                break;
-            case DOWN:
-                camera.setY(camera.getY() + distance);
-                break;
-            case LEFT:
-                camera.setX(camera.getX() - distance);
-                break;
-            case RIGHT:
-                camera.setX(camera.getX() + distance);
-                break;
-            default:
-                break;
+        switch (state) {
+            case IDLE -> {}
+            case UP -> camera.setY(camera.getY() - distance);
+            case DOWN -> camera.setY(camera.getY() + distance);
+            case LEFT -> camera.setX(camera.getX() - distance);
+            case RIGHT -> camera.setX(camera.getX() + distance);
+            default -> {
+            }
         }
         if((camera.getX() == board.getChap().getTile().getX() - (int)(camera.getWidth()/2)) && (camera.getY() == board.getChap().getTile().getY() - (int)(camera.getWidth()/2))){
             state = State.IDLE;
