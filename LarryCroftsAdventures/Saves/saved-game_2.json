@@ -1,15 +1,17 @@
 {
     "player": {
-        "x": 8,
-        "y": 8
+        "x": 7,
+        "y": 7
     },
     "timeLeft": "100",
     "level": 1,
     "actions": [
-        "DOWN",
         "RIGHT",
+        "UP",
         "LEFT",
-        "UP"
+        "DOWN",
+        "LEFT",
+        "DOWN"
     ],
     "board": [
         [
