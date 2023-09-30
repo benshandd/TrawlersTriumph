@@ -28,15 +28,20 @@ public class Renderer {
     public enum State {
         IDLE, UP, DOWN, LEFT, RIGHT
     }
+    private State state = State.IDLE;
     private enum Images {
         CHAP, DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT
     }
-    private State state = State.IDLE;
     private Timer timer;
     private double distanceTotal = 0;
     private double distance = 0.125;
     private HashMap<Images, Image> images = new HashMap<>();
     private int count = 0;
+    private Random random = new Random();
+    private boolean seagullActivated = false;
+    private double seagullX = 0;
+    private double seagullY;
+    private int cellSize;
     /**
      * Constructor for the Renderer class.
      *
@@ -83,16 +88,31 @@ public class Renderer {
         int mazePanelHeight = boardPanel.getHeight();
         double tileWidth = mazePanelWidth/ camera.getWidth();
         double tileHeight = mazePanelHeight/camera.getHeight();
-        int clampedValue = (int)Math.max(0, Math.min(tileWidth, tileHeight));
-        int distanceFromLeftBorder = (int)(mazePanelWidth/2 - (clampedValue* camera.getWidth()/2));
-        int distanceFromTopBorder = (int)(mazePanelHeight/2 - (clampedValue* camera.getHeight()/2));
+        cellSize = (int)Math.max(0, Math.min(tileWidth, tileHeight));
+        int distanceFromLeftBorder = (int)(mazePanelWidth/2 - (cellSize* camera.getWidth()/2));
+        int distanceFromTopBorder = (int)(mazePanelHeight/2 - (cellSize* camera.getHeight()/2));
         int frame = (count/16) % 8;
 
-        drawBoard(clampedValue, distanceFromLeftBorder, distanceFromTopBorder, g);
+        drawBoard(g);
+        drawChap(mazePanelWidth, mazePanelHeight, frame, g);
+        if (!seagullActivated && random.nextInt(0, 50) == 0){
+            seagullActivated = true;
+            int lowerBound = (int)camera.getY();
+            int upperBound = (int)(camera.getY() + camera.getHeight());
+            seagullY = random.nextInt(lowerBound, upperBound + 1);
+        }
+        if (seagullActivated){
+            seagullAnimation(frame, g);
+            seagullX += 0.05;
+            if (seagullX > grid.length){
+                seagullActivated = false;
+                seagullX = 0;
+            }
+        }
         drawBorder(new Color(232, 220, 202), mazePanelWidth, mazePanelHeight, distanceFromTopBorder, distanceFromLeftBorder, g);
-        drawChap(mazePanelWidth, mazePanelHeight, clampedValue, frame, g);
         updateCameraPosition();
-
+        System.out.println(seagullY);
+        System.out.println(seagullX);
 
         count++;
 
@@ -100,13 +120,10 @@ public class Renderer {
 
     /**
      * Draws all tiles that make up board
-     * @param clampedValue
-     * @param distanceFromLeftBorder
-     * @param distanceFromTopBorder
      * @param g
      * @throws IOException
      */
-    private void drawBoard(int clampedValue, int distanceFromLeftBorder, int distanceFromTopBorder, Graphics g) throws IOException {
+    private void drawBoard(Graphics g) throws IOException {
         for (int x = (int)camera.getX()-1; x < camera.getX() + camera.getWidth()+1; x++){
             for (int y = (int)camera.getY()-1; y < camera.getY() + camera.getHeight()+1; y++){
                 Tile tile;
@@ -120,13 +137,25 @@ public class Renderer {
 
                 Image image = getTileImage(tile);
                 //drawImageAt(image, x, y, g);
-                double cameraX = camera.worldXToCameraX(x);
-                double cameraY = camera.worldYToCameraY(y);
-                g.drawImage(image, (int) (cameraX*clampedValue + distanceFromLeftBorder), (int) (cameraY*clampedValue + distanceFromTopBorder), (int) (clampedValue), (int) (clampedValue), null);
+                g.drawImage(image, (int)worldXToCameraX(x), (int)worldYToCameraY(y), cellSize, cellSize, null);
             }
         }
     }
 
+    /**
+     * Draws a seagull flying across screen at random position
+     * @param frame
+     * @param g
+     */
+    private void seagullAnimation(int frame, Graphics g){
+        BufferedImage seagullSpriteSheet = (BufferedImage) images.get(Images.SEAGULL_RIGHT);
+        int frameWidth = seagullSpriteSheet.getWidth()/9;
+        int frameHeight = seagullSpriteSheet.getHeight();
+        BufferedImage chapImage = seagullSpriteSheet.getSubimage(frame * frameWidth,0,frameWidth,frameHeight);
+        int x = (int)worldXToCameraX(seagullX);
+        int y = (int)worldYToCameraY(seagullY);
+        g.drawImage(chapImage, x, y, cellSize, cellSize, null);
+    }
     /**
      * Draws border around game board
      * @param c
@@ -149,18 +178,17 @@ public class Renderer {
      * Draws chap at center of board
      * @param mazePanelWidth
      * @param mazePanelHeight
-     * @param clampedValue
      * @param frame
      * @param g
      */
-    private void drawChap(int mazePanelWidth, int mazePanelHeight, int clampedValue, int frame, Graphics g){
+    private void drawChap(int mazePanelWidth, int mazePanelHeight, int frame, Graphics g){
         BufferedImage boatSpriteSheet= (BufferedImage) images.get(Images.BOAT);
         int frameWidth = boatSpriteSheet.getWidth()/8;
         int frameHeight = boatSpriteSheet.getHeight();
         BufferedImage chapImage = boatSpriteSheet.getSubimage(frame * frameWidth,0,frameWidth,frameHeight);
-        int chapX = (mazePanelWidth /2)  - clampedValue/2;
-        int chapY = (mazePanelHeight /2)  - clampedValue/2;
-        g.drawImage(chapImage, chapX, chapY, clampedValue, clampedValue, null);
+        int chapX = (mazePanelWidth /2)  - cellSize/2;
+        int chapY = (mazePanelHeight /2)  - cellSize/2;
+        g.drawImage(chapImage, chapX, chapY, cellSize, cellSize, null);
     }
 
     /**
@@ -244,8 +272,29 @@ public class Renderer {
         images.put(Images.SEAGULL_LEFT, ImageIO.read(new File(path + "SeagullLeft.png")));
         images.put(Images.SEAGULL_RIGHT, ImageIO.read(new File(path + "SeagullRight.png")));
     }
-
     public State getState(){ return state; }
     public void setState(State state){this.state = state;}
     public JPanel getBoardPanel(){ return boardPanel; }
+
+    /**
+     *  Converts world x coord to camera x coord
+     */
+    private double worldXToCameraX(double worldX){
+        double tileWidth = boardPanel.getWidth()/ camera.getWidth();
+        double tileHeight = boardPanel.getHeight()/camera.getHeight();
+        int clampedValue = (int)Math.max(0, Math.min(tileWidth, tileHeight));
+        int distanceFromLeftBorder = (int)(boardPanel.getWidth()/2 - (clampedValue* camera.getWidth()/2));
+        return (worldX - camera.getX())*clampedValue + distanceFromLeftBorder;
+    }
+
+    /**
+     *  Converts world y coord to camera y coord
+     */
+    private double worldYToCameraY(double worldY){
+        double tileWidth = boardPanel.getWidth()/ camera.getWidth();
+        double tileHeight = boardPanel.getHeight()/camera.getHeight();
+        int clampedValue = (int)Math.max(0, Math.min(tileWidth, tileHeight));
+        int distanceFromTopBorder = (int)(boardPanel.getHeight()/2 - (clampedValue* camera.getHeight()/2));
+        return (worldY - camera.getY())*clampedValue + distanceFromTopBorder;
+    }
 }

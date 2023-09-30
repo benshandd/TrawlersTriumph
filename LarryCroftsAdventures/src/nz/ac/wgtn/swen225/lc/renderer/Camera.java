@@ -26,12 +26,4 @@ public class Camera {
     public double getY() { return y; }
     public void setX(double x) { this.x = x; }
     public void setY(double y) { this.y = y; }
-
-    // Converts world x coord to camera x coord
-    public double worldXToCameraX(double worldX){
-        return worldX - x;
-    }
-
-    // Converts world y coord to camera y coord
-    public double worldYToCameraY(double worldY){return worldY - y;}
 }
