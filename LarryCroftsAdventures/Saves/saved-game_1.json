@@ -6,6 +6,10 @@
     "timeLeft": "100",
     "level": 2,
     "actions": [
+        "DOWN",
+        "RIGHT",
+        "DOWN",
+        "DOWN",
         "LEFT",
         "LEFT",
         "LEFT",

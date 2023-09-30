@@ -47,7 +47,7 @@ public class Persistency {
                     // Create the appropriate tile based on tileType and item
                     maze[j][i] = switch (tileType) {
                         case "Free" -> new Free(j, i);
-                        case "Wall" -> new Wall(j ,i);
+                        case "Wall" -> new Wall(j, i);
                         case "Door_Yellow" -> new Door(Key.Colour.YELLOW, j, i);
                         case "Door_Red" -> new Door(Key.Colour.RED, j, i);
                         case "Door_Green" -> new Door(Key.Colour.GREEN, j, i);
@@ -110,6 +110,7 @@ public class Persistency {
         gameData.add("board", boardArray);
         jsonWriter.setIndent("    ");
         gson.toJson(gameData, jsonWriter);
+        System.out.println("Game saved...");
         jsonWriter.close();
         fileWriter.close();
     }

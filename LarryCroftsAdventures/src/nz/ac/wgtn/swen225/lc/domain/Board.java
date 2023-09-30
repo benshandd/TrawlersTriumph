@@ -34,16 +34,16 @@ public class Board {
         time = persistency.timeLeft;
         int startX = persistency.x;
         int startY = persistency.y;
-        Free playerTile = new Free( startX, startY);
+        Free playerTile = new Free(startX, startY);
         board[startX][startY] = playerTile;
         chap = new Chap(this, playerTile);
     }
 
     /**
      * Reset the given tile to a free tile.
+     *
      * @param tile the tile to reset
      * @return the new tile that has been reset
-     *
      */
     protected Free resetTile(Tile tile) {
         int x = tile.getX();
@@ -55,6 +55,7 @@ public class Board {
 
     /**
      * Get a tile at the specified coordinates.
+     *
      * @param x position horizontally
      * @param y position vertically
      * @return the tile
@@ -65,6 +66,7 @@ public class Board {
 
     /**
      * Get all tiles on the board.
+     *
      * @return 2D array of the tiles
      */
     public Tile[][] getTiles() {
@@ -73,6 +75,7 @@ public class Board {
 
     /**
      * Get the player.
+     *
      * @return the player
      */
     public Chap getChap() {
@@ -81,6 +84,7 @@ public class Board {
 
     /**
      * Get the current level.
+     *
      * @return the current level
      */
     public int getLevel() {
@@ -89,17 +93,19 @@ public class Board {
 
     /**
      * Get the time counter of the board.
+     *
      * @return the current time left
      */
-    public int getTime(){
+    public int getTime() {
         return time;
     }
 
     /**
      * Get the treasure counter of the board.
+     *
      * @return the count of treasures collected so far
      */
-    public int getTreasure(){
+    public int getTreasure() {
         return treasure;
     }
 }

@@ -53,7 +53,7 @@ public class Recorder {
             for (int i = 0; i < jsonMoves.size(); i++){
                 moves.add(jsonMoves.get(i).getAsString());
             }
-
+            System.out.println("Game loaded...");
             return moves;
         } catch(IOException e) {
             throw new RuntimeException(e);
