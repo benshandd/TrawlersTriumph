@@ -29,7 +29,7 @@ public class Renderer {
         IDLE, UP, DOWN, LEFT, RIGHT
     }
     private enum Images {
-        CHAP, DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT
+        CHAP, DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT
     }
     private State state = State.IDLE;
     private Timer timer;
@@ -71,25 +71,6 @@ public class Renderer {
         timer.start();
     }
 
-    private void loadImages() throws IOException {
-        String path = "LarryCroftsAdventures/assets/";
-        images.put(Images.BOAT, ImageIO.read(new File(path + "Boat.png")));
-        images.put(Images.DOOR_BLUE, ImageIO.read(new File(path + "Door_BLue.png")));
-        images.put(Images.DOOR_GREEN, ImageIO.read(new File(path + "Door_Green.png")));
-        images.put(Images.DOOR_RED, ImageIO.read(new File(path + "Door_Red.png")));
-        images.put(Images.DOOR_YELLOW, ImageIO.read(new File(path + "Door_Yellow.png")));
-        images.put(Images.EXIT, ImageIO.read(new File(path + "Exit.png")));
-        images.put(Images.FREE, ImageIO.read(new File(path + "Free.png")));
-        images.put(Images.INFOBOX, ImageIO.read(new File(path + "InfoBox.png")));
-        images.put(Images.KEY_BLUE, ImageIO.read(new File(path + "Key_Blue.png")));
-        images.put(Images.KEY_GREEN, ImageIO.read(new File(path + "Key_Green.png")));
-        images.put(Images.KEY_RED, ImageIO.read(new File(path + "Key_Red.png")));
-        images.put(Images.KEY_YELLOW, ImageIO.read(new File(path + "Key_Yellow.png")));
-        images.put(Images.TREASURE, ImageIO.read(new File(path + "Treasure.png")));
-        images.put(Images.WALL, ImageIO.read(new File(path + "Wall.png")));
-    }
-
-
     /**
      * Draws the game board, characters and items on the provided JPanel.
      *
@@ -105,8 +86,27 @@ public class Renderer {
         int clampedValue = (int)Math.max(0, Math.min(tileWidth, tileHeight));
         int distanceFromLeftBorder = (int)(mazePanelWidth/2 - (clampedValue* camera.getWidth()/2));
         int distanceFromTopBorder = (int)(mazePanelHeight/2 - (clampedValue* camera.getHeight()/2));
+        int frame = (count/16) % 8;
 
-        // Go through all tiles visible to camera and draw them on the JPanel
+        drawBoard(clampedValue, distanceFromLeftBorder, distanceFromTopBorder, g);
+        drawBorder(new Color(232, 220, 202), mazePanelWidth, mazePanelHeight, distanceFromTopBorder, distanceFromLeftBorder, g);
+        drawChap(mazePanelWidth, mazePanelHeight, clampedValue, frame, g);
+        updateCameraPosition();
+
+
+        count++;
+
+    }
+
+    /**
+     * Draws all tiles that make up board
+     * @param clampedValue
+     * @param distanceFromLeftBorder
+     * @param distanceFromTopBorder
+     * @param g
+     * @throws IOException
+     */
+    private void drawBoard(int clampedValue, int distanceFromLeftBorder, int distanceFromTopBorder, Graphics g) throws IOException {
         for (int x = (int)camera.getX()-1; x < camera.getX() + camera.getWidth()+1; x++){
             for (int y = (int)camera.getY()-1; y < camera.getY() + camera.getHeight()+1; y++){
                 Tile tile;
@@ -125,17 +125,35 @@ public class Renderer {
                 g.drawImage(image, (int) (cameraX*clampedValue + distanceFromLeftBorder), (int) (cameraY*clampedValue + distanceFromTopBorder), (int) (clampedValue), (int) (clampedValue), null);
             }
         }
+    }
 
+    /**
+     * Draws border around game board
+     * @param c
+     * @param width
+     * @param height
+     * @param top
+     * @param left
+     * @param g
+     */
+    private void drawBorder(Color c, int width, int height, int top, int left, Graphics g){
         // Draw border
-        g.setColor(new Color(232, 220, 202));
-        g.fillRect(0, 0, mazePanelWidth, distanceFromTopBorder);
-        g.fillRect(0, mazePanelHeight-distanceFromTopBorder, mazePanelWidth, distanceFromTopBorder);
-        g.fillRect(0, 0, distanceFromLeftBorder, mazePanelHeight);
-        g.fillRect(mazePanelWidth-distanceFromLeftBorder, 0, distanceFromLeftBorder, mazePanelHeight);
+        g.setColor(c);
+        g.fillRect(0, 0, width, top);
+        g.fillRect(0, height-top, width, top);
+        g.fillRect(0, 0, left, height);
+        g.fillRect(width-left, 0, left, height);
+    }
 
-        int frame = (count/16) % 8;
-        System.out.println(frame);
-        // Draw Chap at Chap's coordinates
+    /**
+     * Draws chap at center of board
+     * @param mazePanelWidth
+     * @param mazePanelHeight
+     * @param clampedValue
+     * @param frame
+     * @param g
+     */
+    private void drawChap(int mazePanelWidth, int mazePanelHeight, int clampedValue, int frame, Graphics g){
         BufferedImage boatSpriteSheet= (BufferedImage) images.get(Images.BOAT);
         int frameWidth = boatSpriteSheet.getWidth()/8;
         int frameHeight = boatSpriteSheet.getHeight();
@@ -143,7 +161,12 @@ public class Renderer {
         int chapX = (mazePanelWidth /2)  - clampedValue/2;
         int chapY = (mazePanelHeight /2)  - clampedValue/2;
         g.drawImage(chapImage, chapX, chapY, clampedValue, clampedValue, null);
+    }
 
+    /**
+     * Update camera position depending on Renderer state
+     */
+    private void updateCameraPosition(){
         switch (state) {
             case IDLE -> {}
             case UP -> camera.setY(camera.getY() - distance);
@@ -156,10 +179,14 @@ public class Renderer {
         if((camera.getX() == board.getChap().getTile().getX() - (int)(camera.getWidth()/2)) && (camera.getY() == board.getChap().getTile().getY() - (int)(camera.getWidth()/2))){
             state = State.IDLE;
         }
-        count++;
-
     }
 
+    /**
+     * Returns image of tile
+     * @param tile
+     * @return
+     * @throws IOException
+     */
     private Image getTileImage(Tile tile) throws IOException {
         Image img = null;
         // Assign filename depending on tile type and tile item
@@ -192,6 +219,30 @@ public class Renderer {
             }
         }
         return img;
+    }
+
+    /**
+     * Loads game images into a map for easy access
+     * @throws IOException
+     */
+    private void loadImages() throws IOException {
+        String path = "LarryCroftsAdventures/assets/";
+        images.put(Images.BOAT, ImageIO.read(new File(path + "Boat.png")));
+        images.put(Images.DOOR_BLUE, ImageIO.read(new File(path + "Door_BLue.png")));
+        images.put(Images.DOOR_GREEN, ImageIO.read(new File(path + "Door_Green.png")));
+        images.put(Images.DOOR_RED, ImageIO.read(new File(path + "Door_Red.png")));
+        images.put(Images.DOOR_YELLOW, ImageIO.read(new File(path + "Door_Yellow.png")));
+        images.put(Images.EXIT, ImageIO.read(new File(path + "Exit.png")));
+        images.put(Images.FREE, ImageIO.read(new File(path + "Free.png")));
+        images.put(Images.INFOBOX, ImageIO.read(new File(path + "InfoBox.png")));
+        images.put(Images.KEY_BLUE, ImageIO.read(new File(path + "Key_Blue.png")));
+        images.put(Images.KEY_GREEN, ImageIO.read(new File(path + "Key_Green.png")));
+        images.put(Images.KEY_RED, ImageIO.read(new File(path + "Key_Red.png")));
+        images.put(Images.KEY_YELLOW, ImageIO.read(new File(path + "Key_Yellow.png")));
+        images.put(Images.TREASURE, ImageIO.read(new File(path + "Treasure.png")));
+        images.put(Images.WALL, ImageIO.read(new File(path + "Wall.png")));
+        images.put(Images.SEAGULL_LEFT, ImageIO.read(new File(path + "SeagullLeft.png")));
+        images.put(Images.SEAGULL_RIGHT, ImageIO.read(new File(path + "SeagullRight.png")));
     }
 
     public State getState(){ return state; }
