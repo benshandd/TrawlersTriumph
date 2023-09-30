@@ -8,7 +8,6 @@ import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
  * Represents the player in Larry Croft's Adventures
  */
 public class Chap {
-    private static final int MAX_INVENTORY = 8;
     private final Item[][] inventory = new Item[2][4];
     private final Board board;
     private Free tile;
@@ -28,7 +27,7 @@ public class Chap {
      * @param direction the direction to move the character
      * @throws IllegalMove if the tile to the given direction is not traversable or the edge of the board is encountered
      */
-    public boolean move(Direction direction) throws IllegalMove {
+    public void move(Direction direction) throws IllegalMove {
         Tile next;
         int x = tile.getX();
         int y = tile.getY();
@@ -40,17 +39,15 @@ public class Chap {
                 case RIGHT -> board.getTile(x + 1, y);
             };
         } catch (IndexOutOfBoundsException e) {
-            //throw new IllegalMove("Encountered the edge of the board: " + direction.toString());
-            return false;
+            throw new IllegalMove("Encountered the edge of the board: " + direction);
         }
 
         if (!next.traversable()) {
-            //throw new IllegalMove("Not traversable: " + direction.toString());
-            return false;
+            throw new IllegalMove("Not traversable: " + direction);
         }
 
-        setTile((Free) next);
-        return true;
+        next.performTileAction();
+        tile = board.resetTile(next);
     }
 
     /**
@@ -101,15 +98,6 @@ public class Chap {
             }
         }
         return false;
-    }
-
-    /**
-     * Moves the player from the current tile to another tile
-     * @param nextTile the tile to move the player to
-     */
-    private void setTile(Free nextTile) {
-        board.resetTile(nextTile);
-        tile = nextTile;
     }
 
     /**

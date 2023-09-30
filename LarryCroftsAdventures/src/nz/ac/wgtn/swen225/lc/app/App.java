@@ -17,7 +17,7 @@ public class App extends JPanel implements ActionListener {
 
     private JLabel timeLabel;
     JLabel[][] inventorySlots;
-    private int time = 100;
+    private int time;
     private static Renderer renderer;
     JPanel leftPanel;
     JPanel rightPanel;
@@ -29,28 +29,23 @@ public class App extends JPanel implements ActionListener {
      * Initializes the game board and sets up the graphical user interface.
      */
     public App(){
-        setup();
+        Timer timer = new Timer(1000, this);
+        timer.setInitialDelay(650);
+        timer.start();
+        setup(1);
     }
 
     /**
      * Performs the initial setup of the game interface and components.
      */
-    public void setup(){
-        board = new Board();
-        renderer = new Renderer(board);
+    public void setup(int level){
+        board = new Board(level);
+
+        renderer = new Renderer(board, centrePanel);
+
         leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
-        centrePanel = new JPanel(){
-            @Override
-            public void paint(Graphics g) {
-                try {
-                    renderer.draw(this, g);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
-        centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        renderer.getBoardPanel().setBorder(BorderFactory.createLineBorder(Color.black));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
@@ -68,7 +63,6 @@ public class App extends JPanel implements ActionListener {
         Font font = new Font("Sans-Serif", Font.BOLD, 40);
 
 
-
         rightPanel.add(createLabel("LEVEL", font, Color.lightGray, Color.red));
         rightPanel.add(createLabel("" + board.getLevel(), font, Color.black, Color.green)); // get the level to display eventually
         rightPanel.add(createLabel("TIME", font, Color.lightGray, Color.red));
@@ -79,9 +73,11 @@ public class App extends JPanel implements ActionListener {
         rightPanel.add(createInventory(1));
 
 
-        this.add(centrePanel, BorderLayout.CENTER);
+        this.add(renderer.getBoardPanel(), BorderLayout.CENTER);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
+
+
     }
 
     /**
@@ -159,12 +155,11 @@ public class App extends JPanel implements ActionListener {
      */
 
     private void createTimer(){
+        time = board.getTime();
         Font font = new Font("Sans-Serif", Font.BOLD, 50);
         timeLabel = createLabel("0", font, Color.black, Color.green);
         add(timeLabel);
-        Timer timer = new Timer(1000, this);
-        timer.setInitialDelay(1);
-        timer.start();
+
     }
 
     /**

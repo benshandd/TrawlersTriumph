@@ -10,4 +10,12 @@ public class Treasure extends Free {
     public Treasure(int x, int y) {
         super(x, y);
     }
+
+    /**
+     * Adds a treasure to the treasure counter.
+     */
+    @Override
+    public void performTileAction() {
+
+    }
 }

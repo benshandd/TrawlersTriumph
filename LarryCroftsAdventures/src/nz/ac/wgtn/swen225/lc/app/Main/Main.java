@@ -31,7 +31,7 @@ public class Main extends JFrame {
         f = new JFrame("Larry Croft's Adventures");
         l = new JLabel("Welcome");
 
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Set the default close operation to exit the application.
+        f.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // Set the default close operation to exit the application.
 
 
         App applicationWindow = new App();
@@ -45,7 +45,7 @@ public class Main extends JFrame {
              */
             public void windowClosing(WindowEvent e) {
                 int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave the game?", "Closing game", JOptionPane.YES_NO_OPTION);
-                if (response == 0) {
+                if (response == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 } // Exit the application if the user confirms.
             }

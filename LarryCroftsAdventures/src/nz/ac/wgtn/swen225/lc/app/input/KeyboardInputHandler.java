@@ -4,9 +4,11 @@ import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
+import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**
@@ -115,62 +117,60 @@ public class KeyboardInputHandler {
             // Implement your move logic here
             System.out.println(direction);
             Chap chap = component.getBoard().getChap();
+            Renderer renderer  = component.getRenderer();
 
-
-            switch (direction) {
-                case "UP":
-                    try {
-                        if(chap.move(Chap.Direction.UP)){
-                            component.getRenderer().moveCameraUp();
+            if (renderer.getState() == Renderer.State.IDLE){
+                switch (direction) {
+                    case "UP":
+                        try {
+                            chap.move(Chap.Direction.UP);
+                            renderer.setState(Renderer.State.UP);
                             if (RecorderPanel.recording){
                                 RecorderPanel.moves.add("UP");
                             }
-                        };
-                    } catch (IllegalMove ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    break;
-                case "DOWN":
-                    try {
-                        if(chap.move(Chap.Direction.DOWN)){
-                            component.getRenderer().moveCameraDown();
+                        } catch (IllegalMove ex) {
+                            System.out.println(ex.getMessage());
+                        }
+                        break;
+                    case "DOWN":
+                        try {
+                            chap.move(Chap.Direction.DOWN);
+                            renderer.setState(Renderer.State.DOWN);
                             if (RecorderPanel.recording){
                                 RecorderPanel.moves.add("DOWN");
                             }
+                        } catch (IllegalMove ex) {
+                            System.out.println(ex.getMessage());
                         }
-                    } catch (IllegalMove ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    break;
-                case "LEFT":
-                    try {
-                        if(chap.move(Chap.Direction.LEFT)){
-                            component.getRenderer().moveCameraLeft();
+                        break;
+                    case "LEFT":
+                        try {
+                            chap.move(Chap.Direction.LEFT);
+                            renderer.setState(Renderer.State.LEFT);
                             if (RecorderPanel.recording){
                                 RecorderPanel.moves.add("LEFT");
                             }
+                        } catch (IllegalMove ex) {
+                            System.out.println(ex.getMessage());
                         }
-                    } catch (IllegalMove ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    break;
-                case "RIGHT":
-                    try {
-                        if(chap.move(Chap.Direction.RIGHT)){
-                            component.getRenderer().moveCameraRight();
+                        break;
+                    case "RIGHT":
+                        try {
+                            chap.move(Chap.Direction.RIGHT);
+                            renderer.setState(Renderer.State.RIGHT);
                             if (RecorderPanel.recording){
                                 RecorderPanel.moves.add("RIGHT");
                             }
+                        } catch (IllegalMove ex) {
+                            System.out.println(ex.getMessage());
                         }
-                    } catch (IllegalMove ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
+
             component.repaint();
-            System.out.println("X: " + component.getRenderer().camera.getX() + " Y: " + component.getRenderer().camera.getY());
 
 
 
@@ -232,6 +232,7 @@ public class KeyboardInputHandler {
         public void actionPerformed(ActionEvent e) {
             // Handle CTRL-1 and CTRL-2 to start a new game at the specified level
             System.out.println("Loading level " + level);
+            component.setup(level);
         }
     }
 
