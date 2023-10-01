@@ -54,6 +54,12 @@ public class Persistency {
                         case "Door_Blue" -> new Door(Key.Colour.BLUE, j, i);
                         default -> new Free(j, i);
                     };
+                    switch (item) {
+                        case "Treasure" -> maze[j][i] = new Treasure(j, i);
+                        case "Exit_Lock" -> maze[j][i] = new ExitLock(j, i);
+                        case "Exit" -> maze[j][i] = new Exit(j, i);
+                        //case "Key_Yellow" -> maze[j][i] =  new Key(Key.Colour.YELLOW);
+                    }
                     /*if (!item.equals("none") && maze[j][i] instanceof Free f){
                         f.setItem(item);
                     }*/

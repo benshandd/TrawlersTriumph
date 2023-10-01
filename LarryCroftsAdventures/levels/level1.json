@@ -73,7 +73,7 @@
       { "x": 4, "y": 3, "tile": "Wall", "item": "none" },
       { "x": 5, "y": 3, "tile": "Door_Green", "item": "none" },
       { "x": 6, "y": 3, "tile": "Wall", "item": "none" },
-      { "x": 7, "y": 3, "tile": "Exit_Door", "item": "none" },
+      { "x": 7, "y": 3, "tile": "Exit_Lock", "item": "none" },
       { "x": 8, "y": 3, "tile": "Wall", "item": "none" },
       { "x": 9, "y": 3, "tile": "Door_Green", "item": "none" },
       { "x": 10, "y": 3, "tile": "Wall", "item": "none" },
