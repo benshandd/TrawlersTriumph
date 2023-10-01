@@ -35,7 +35,7 @@ public class Recorder {
      * @throws IOException for the file writer
      */
     public void saveRecorder(int count) throws IOException {
-       new Persistency().saveGame(count,this.movesList,this.x, this.y, this.initLevel);
+       new Persistency().saveGame(count,movesList,this.x, this.y, this.initLevel);
     }
 
     /**

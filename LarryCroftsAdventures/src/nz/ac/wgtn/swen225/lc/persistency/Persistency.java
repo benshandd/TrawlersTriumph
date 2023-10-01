@@ -2,15 +2,15 @@ package nz.ac.wgtn.swen225.lc.persistency;
 
 import com.google.gson.*;
 import com.google.gson.stream.*;
-import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Persistency {
-    private Stack<String> actions;
+    public Stack<String> actions;
     private File newFile;
     public int timeLeft;
     public int level;
@@ -114,4 +114,5 @@ public class Persistency {
         jsonWriter.close();
         fileWriter.close();
     }
+
 }

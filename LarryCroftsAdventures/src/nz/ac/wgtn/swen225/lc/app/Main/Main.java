@@ -2,6 +2,7 @@ package nz.ac.wgtn.swen225.lc.app.Main;
 
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.HelpDialog;
+import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
 import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
@@ -13,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * The main class for Larry Croft's Adventures game.
@@ -21,8 +24,8 @@ import java.io.FileNotFoundException;
 public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
-    private Persistency persistency = new Persistency();
-
+     private static Persistency persistency = new Persistency();
+    private static RecorderPanel recorderPanel;
     /**
      * Constructor for the Main class. Initializes the game window and components.
      */
@@ -35,6 +38,7 @@ public class Main extends JFrame {
 
 
         App applicationWindow = new App();
+        recorderPanel = new RecorderPanel(applicationWindow);
         new KeyboardInputHandler(applicationWindow); // Initialize keyboard input handling.
         f.setJMenuBar(createMenuBar());  // Create and set the menu bar for the game
         f.addWindowListener(new WindowAdapter() {
@@ -80,10 +84,17 @@ public class Main extends JFrame {
             if (response == 0) {
                 System.exit(0);
             }
-        });  // Exit the application if the user confirms.
+        });
+        int count = 1;
 
         saveMenuItem.setToolTipText("Save the game state"); // Tooltip for the Save menu item.
-//        saveMenuItem.addActionListener((event) -> persistency.saveGame());
+        saveMenuItem.addActionListener((event) -> {
+            /*try {
+                persistency.saveGame(count, persistency.actions, persistency.x, persistency.y, persistency.level);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }*/
+        });
 
         resumeMenuItem.setToolTipText("Resume the game"); // Tooltip for the Resume menu item.
 //        resumeMenuItem.addActionListener((event) -> persistency.resumeGame();
