@@ -32,16 +32,15 @@ public class Renderer {
     private enum Images {
         CHAP, DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT
     }
-    private Timer timer;
-    private double distanceTotal = 0;
-    private double distance = 0.125;
-    private HashMap<Images, Image> images = new HashMap<>();
+
+    private final HashMap<Images, Image> images = new HashMap<>();
     private int count = 0;
-    private Random random = new Random();
+    private final Random random = new Random();
     private boolean seagullActivated = false;
     private double seagullX = 0;
     private double seagullY;
     private int cellSize;
+    private AudioUnit audioUnit;
     /**
      * Constructor for the Renderer class.
      *
@@ -64,12 +63,17 @@ public class Renderer {
         this.camera = new Camera(board.getChap().getTile().getX() - (focusAreaSize/2), board.getChap().getTile().getY() - (focusAreaSize/2), focusAreaSize, focusAreaSize);
         loadImages();
         startTimer();
+
+        this.audioUnit = new AudioUnit();
+        audioUnit.startBackgroundMusic();
+        audioUnit.startAmbience();
     }
 
     private void startTimer(){
-        timer = new Timer(10, new ActionListener() {
+        Timer timer = new Timer(10, new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {;
+            public void actionPerformed(ActionEvent e) {
+                ;
                 boardPanel.repaint();
             }
         });
@@ -95,8 +99,9 @@ public class Renderer {
 
         drawBoard(g);
         drawChap(mazePanelWidth, mazePanelHeight, frame, g);
-        if (!seagullActivated && random.nextInt(0, 50) == 0){
+        if (!seagullActivated && random.nextInt(0, 1000) == 0){
             seagullActivated = true;
+            audioUnit.playSeagullSFX();
             int lowerBound = (int)camera.getY();
             int upperBound = (int)(camera.getY() + camera.getHeight());
             seagullY = random.nextInt(lowerBound, upperBound + 1);
@@ -111,8 +116,6 @@ public class Renderer {
         }
         drawBorder(new Color(232, 220, 202), mazePanelWidth, mazePanelHeight, distanceFromTopBorder, distanceFromLeftBorder, g);
         updateCameraPosition();
-        System.out.println(seagullY);
-        System.out.println(seagullX);
 
         count++;
 
@@ -195,6 +198,7 @@ public class Renderer {
      * Update camera position depending on Renderer state
      */
     private void updateCameraPosition(){
+        double distance = 0.125;
         switch (state) {
             case IDLE -> {}
             case UP -> camera.setY(camera.getY() - distance);
