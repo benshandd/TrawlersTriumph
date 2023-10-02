@@ -19,12 +19,12 @@ import java.util.*;
 /**
  * The Renderer class is responsible for rendering the game board and characters on the JPanel.
  */
-public class Renderer {
+public class Renderer extends JPanel{
 
     Board board;
     Tile[][] grid;
     public Camera camera;
-    private JPanel boardPanel;
+
     public enum State {
         IDLE, UP, DOWN, LEFT, RIGHT
     }
@@ -40,45 +40,31 @@ public class Renderer {
     private double seagullX = 0;
     private double seagullY;
     private int cellSize;
-    private AudioUnit audioUnit;
+    private final AudioUnit audioUnit;
+
     /**
      * Constructor for the Renderer class.
      *
      * @param board The game board to render.
      */
-    public Renderer(Board board, JPanel panel, int focusAreaSize, AudioUnit au) throws IOException {
-        panel = new JPanel(){
-            @Override
-            public void paint(Graphics g) {
-                try {
-                    draw(g);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        };
+    public Renderer(Board board, int focusAreaSize, AudioUnit au) throws IOException {
         this.board = board;
-        grid = board.getTiles();
-        this.boardPanel = panel;
+        this.grid = board.getTiles();
         this.camera = new Camera(board.getChap().getTile().getX() - (focusAreaSize/2), board.getChap().getTile().getY() - (focusAreaSize/2), focusAreaSize, focusAreaSize);
+        this.audioUnit = au;
         loadImages();
         startTimer();
-        this.audioUnit = au;
-        for (int y = 0; y < grid.length; y++){
-            for (int x = 0; x < grid.length; x++){
-                System.out.print(grid[x][y].getClass().getSimpleName() + " ");
-            }
-            System.out.println();
-            System.out.println();
-        }
     }
 
+    /**
+     * Starts timer that calls repaint on this JPanel to refresh what is on screen
+     */
     private void startTimer(){
         Timer timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ;
-                boardPanel.repaint();
+                repaint();
             }
         });
         timer.start();
@@ -92,8 +78,8 @@ public class Renderer {
      */
     public void draw(Graphics g) throws IOException {
         // Dimensions
-        int mazePanelWidth = boardPanel.getWidth();
-        int mazePanelHeight = boardPanel.getHeight();
+        int mazePanelWidth = this.getWidth();
+        int mazePanelHeight = this.getHeight();
         double tileWidth = mazePanelWidth/ camera.getWidth();
         double tileHeight = mazePanelHeight/camera.getHeight();
         cellSize = (int)Math.max(0, Math.min(tileWidth, tileHeight));
@@ -282,16 +268,15 @@ public class Renderer {
     }
     public State getState(){ return state; }
     public void setState(State state){this.state = state;}
-    public JPanel getBoardPanel(){ return boardPanel; }
 
     /**
      *  Converts world x coord to camera x coord
      */
     private double worldXToCameraX(double worldX){
-        double tileWidth = boardPanel.getWidth()/ camera.getWidth();
-        double tileHeight = boardPanel.getHeight()/camera.getHeight();
+        double tileWidth = this.getWidth()/ camera.getWidth();
+        double tileHeight = this.getHeight()/camera.getHeight();
         int clampedValue = (int)Math.max(0, Math.min(tileWidth, tileHeight));
-        int distanceFromLeftBorder = (int)(boardPanel.getWidth()/2 - (clampedValue* camera.getWidth()/2));
+        int distanceFromLeftBorder = (int)(this.getWidth()/2 - (clampedValue* camera.getWidth()/2));
         return (worldX - camera.getX())*clampedValue + distanceFromLeftBorder;
     }
 
@@ -299,10 +284,23 @@ public class Renderer {
      *  Converts world y coord to camera y coord
      */
     private double worldYToCameraY(double worldY){
-        double tileWidth = boardPanel.getWidth()/ camera.getWidth();
-        double tileHeight = boardPanel.getHeight()/camera.getHeight();
+        double tileWidth = this.getWidth()/ camera.getWidth();
+        double tileHeight = this.getHeight()/camera.getHeight();
         int clampedValue = (int)Math.max(0, Math.min(tileWidth, tileHeight));
-        int distanceFromTopBorder = (int)(boardPanel.getHeight()/2 - (clampedValue* camera.getHeight()/2));
+        int distanceFromTopBorder = (int)(this.getHeight()/2 - (clampedValue* camera.getHeight()/2));
         return (worldY - camera.getY())*clampedValue + distanceFromTopBorder;
+    }
+
+    /**
+     * Override JPanel paint method to call the draw method
+     * @param g  the <code>Graphics</code> context in which to paint
+     */
+    @Override
+    public void paint(Graphics g) {
+        try {
+            draw(g);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

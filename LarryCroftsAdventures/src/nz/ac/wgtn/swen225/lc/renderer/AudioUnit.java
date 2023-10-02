@@ -2,7 +2,6 @@ package nz.ac.wgtn.swen225.lc.renderer;
 
 import java.util.HashMap;
 import javax.sound.sampled.*;
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;

@@ -22,7 +22,7 @@ public class App extends JPanel implements ActionListener {
     private static Renderer renderer;
     JPanel leftPanel;
     JPanel rightPanel;
-    JPanel centrePanel;
+    static Renderer centrePanel;
     static Board board;
     private AudioUnit audioUnit;
 
@@ -41,21 +41,23 @@ public class App extends JPanel implements ActionListener {
      * Performs the initial setup of the game interface and components.
      */
     public void setup(int level){
-        if (renderer != null){this.remove(renderer.getBoardPanel());} // if there has previously been a Renderer created, remove its corresponding panel from the App JPanel
+        if (centrePanel != null){this.remove(centrePanel);} // if there has previously been a Renderer created, remove its corresponding panel from the App JPanel
         if (audioUnit != null){audioUnit.stopAll();} // if there has previously been an AudioUnit created, stop all the clips in it from playing before creating a new one
+
         audioUnit = new AudioUnit();
         audioUnit.startBackgroundMusic();
         audioUnit.startAmbience();
         board = new Board(level);
+
         try {
-            renderer = new Renderer(board, centrePanel, 9, audioUnit);
+            centrePanel = new Renderer(board, 9, audioUnit);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
-        renderer.getBoardPanel().setBorder(BorderFactory.createLineBorder(Color.black));
+        centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
 
@@ -83,7 +85,7 @@ public class App extends JPanel implements ActionListener {
         rightPanel.add(createInventory(1));
 
 
-        this.add(renderer.getBoardPanel(), BorderLayout.CENTER);
+        this.add(centrePanel, BorderLayout.CENTER);
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
 
@@ -202,7 +204,7 @@ public class App extends JPanel implements ActionListener {
      * @return The Renderer object responsible for rendering the game board.
      */
     public static Renderer getRenderer(){
-        return renderer;
+        return centrePanel;
     }
 
     /**
