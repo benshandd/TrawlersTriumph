@@ -46,7 +46,7 @@ public class Renderer {
      *
      * @param board The game board to render.
      */
-    public Renderer(Board board, JPanel panel, int focusAreaSize) throws IOException {
+    public Renderer(Board board, JPanel panel, int focusAreaSize, AudioUnit au) throws IOException {
         panel = new JPanel(){
             @Override
             public void paint(Graphics g) {
@@ -63,10 +63,14 @@ public class Renderer {
         this.camera = new Camera(board.getChap().getTile().getX() - (focusAreaSize/2), board.getChap().getTile().getY() - (focusAreaSize/2), focusAreaSize, focusAreaSize);
         loadImages();
         startTimer();
-
-        this.audioUnit = new AudioUnit();
-        audioUnit.startBackgroundMusic();
-        audioUnit.startAmbience();
+        this.audioUnit = au;
+        for (int y = 0; y < grid.length; y++){
+            for (int x = 0; x < grid.length; x++){
+                System.out.print(grid[x][y].getClass().getSimpleName() + " ");
+            }
+            System.out.println();
+            System.out.println();
+        }
     }
 
     private void startTimer(){
@@ -99,6 +103,7 @@ public class Renderer {
 
         drawBoard(g);
         drawChap(mazePanelWidth, mazePanelHeight, frame, g);
+
         if (!seagullActivated && random.nextInt(0, 1000) == 0){
             seagullActivated = true;
             audioUnit.playSeagullSFX();
@@ -137,7 +142,6 @@ public class Renderer {
                 else {
                     tile = grid[x][y];
                 }
-
                 Image image = getTileImage(tile);
                 //drawImageAt(image, x, y, g);
                 g.drawImage(image, (int)worldXToCameraX(x), (int)worldYToCameraY(y), cellSize, cellSize, null);

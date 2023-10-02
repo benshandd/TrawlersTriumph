@@ -79,4 +79,13 @@ public class AudioUnit {
         };
         audioClips.get(seagull).start();
     }
+
+    /**
+     * Stops all audio
+     */
+    public void stopAll(){
+        for (Clip clip : audioClips.values()){
+            clip.stop();
+        }
+    }
 }

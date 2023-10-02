@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Board;
+import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class App extends JPanel implements ActionListener {
     JPanel rightPanel;
     JPanel centrePanel;
     static Board board;
+    private AudioUnit audioUnit;
 
     /**
      * Constructor for the App class.
@@ -39,9 +41,14 @@ public class App extends JPanel implements ActionListener {
      * Performs the initial setup of the game interface and components.
      */
     public void setup(int level){
+        if (renderer != null){this.remove(renderer.getBoardPanel());} // if there has previously been a Renderer created, remove its corresponding panel from the App JPanel
+        if (audioUnit != null){audioUnit.stopAll();} // if there has previously been an AudioUnit created, stop all the clips in it from playing before creating a new one
+        audioUnit = new AudioUnit();
+        audioUnit.startBackgroundMusic();
+        audioUnit.startAmbience();
         board = new Board(level);
         try {
-            renderer = new Renderer(board, centrePanel, 9);
+            renderer = new Renderer(board, centrePanel, 9, audioUnit);
         } catch (IOException e) {
             e.printStackTrace();
         }
