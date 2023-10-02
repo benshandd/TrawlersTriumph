@@ -479,7 +479,7 @@
       { "x": 13, "y": 14, "tile": "Wall", "item": "none" },
       { "x": 14, "y": 14, "tile": "Wall", "item": "none" },
       { "x": 15, "y": 14, "tile": "Wall", "item": "none" },
-      { "x": 16, "y": 14, "tile": "Exit_Door", "item": "none" },
+      { "x": 16, "y": 14, "tile": "Exit_Lock", "item": "none" },
       { "x": 17, "y": 14, "tile": "Wall", "item": "none" },
       { "x": 18, "y": 14, "tile": "Free", "item": "none" },
       { "x": 19, "y": 14, "tile": "Wall", "item": "none" },
