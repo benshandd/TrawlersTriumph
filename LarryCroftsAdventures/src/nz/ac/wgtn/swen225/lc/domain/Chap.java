@@ -112,4 +112,11 @@ public class Chap {
      * Represents the four possible directions for movement of the player.
      */
     public enum Direction {UP, DOWN, LEFT, RIGHT}
+    public int getX() {
+        return tile.getX();
+    }
+
+    public int getY() {
+        return tile.getY();
+    }
 }
