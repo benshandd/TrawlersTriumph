@@ -11,7 +11,7 @@ import java.util.Random;
  * Audio unit class is responsible for playing audio clips
  */
 public class AudioUnit {
-    public enum AudioClip{BACKGROUND, AMBIENCE, SEAGULL1, SEAGULL2, SEAGULL3, KEY_COLLECT, DOOR_UNLOCK, FISH_CAUGHT}
+    public enum AudioClip{BACKGROUND, AMBIENCE, SEAGULL1, SEAGULL2, SEAGULL3, KEY_COLLECT, DOOR_UNLOCK, FISH_CAUGHT, ENEMY_ATTACK}
     private final HashMap<AudioClip, Clip> audioClips = new HashMap<>();
 
     public AudioUnit(){
@@ -31,7 +31,12 @@ public class AudioUnit {
     }
 
     /**
-     * Gets clip and add it to the audio map
+     * Adds an audio clip to the collection with the specified identifier, file path,
+     * and volume level.
+     *
+     * @param id      The unique identifier for the audio clip.
+     * @param file    The relative file path of the audio clip.
+     * @param volume  The volume level for the audio clip.
      */
     private void addClip(AudioClip id, String file, float volume){
         String path = "LarryCroftsAdventures/assets/audioFiles/";

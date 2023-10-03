@@ -18,25 +18,29 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * The Renderer class is responsible for rendering the game board and characters on the JPanel.
+ * The Renderer class is responsible for rendering the game board, characters and items on the JPanel as well as changing the view of the board when character moves.
  */
 public class Renderer extends JPanel{
 
+    // Game objects
     Board board;
     Tile[][] grid;
     public Camera camera;
-    private enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE }
+    private final AudioUnit audioUnit;
+    private final Random random = new Random();
 
+    // Image fields
+    private enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE }
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
     private final HashMap<Images, ArrayList<BufferedImage>> animations = new HashMap<>();
-    private int count = 0;
-    private final Random random = new Random();
-    private boolean seagullActivated = false;
-    private double seagullX = 0;
-    private double seagullY;
-    private int cellSize;
-    private final AudioUnit audioUnit;
     private final ArrayList<BufferedImage> currentTileImage = new ArrayList<>();
+
+    // Misc fields
+    private int count = 0;
+    private int cellSize;
+    private double seagullX ;
+    private double seagullY;
+    private boolean seagullActivated = false;
 
     /**
      * Constructor for the Renderer class.
@@ -68,9 +72,9 @@ public class Renderer extends JPanel{
     }
 
     /**
-     * Draws the game board, characters and items on the provided JPanel.
+     * Draws the game board, characters and items.
      *
-     * @param g         The Graphics object to use for rendering.
+     * @param g         Graphics
      * @throws IOException If there is an error loading image files.
      */
     public void draw(Graphics g) throws IOException {
@@ -88,10 +92,11 @@ public class Renderer extends JPanel{
 
     /**
      * Draws all tiles that make up board
-     * @param g
-     * @throws IOException
+     * @param g Graphics
+     * @throws IOException A tile image was not read
      */
     private void drawBoard(Graphics g) throws IOException {
+        // Only draw tiles within or one outside of camera area
         for (int x = (int)camera.getX()-1; x < camera.getX() + camera.getWidth()+1; x++){
             for (int y = (int)camera.getY()-1; y < camera.getY() + camera.getHeight()+1; y++){
                 Tile tile;
@@ -102,6 +107,7 @@ public class Renderer extends JPanel{
                 else {
                     tile = grid[x][y];
                 }
+                // Get images that make up tile the draw to screen
                 ArrayList<BufferedImage> images = getTileImage(tile);
                 for (Image img : images){
                     g.drawImage(img, (int)worldXToPanelX(x), (int)worldYToPanelY(y), cellSize, cellSize, null);
@@ -112,29 +118,33 @@ public class Renderer extends JPanel{
 
     /**
      * Draws boat at center of board
-     * @param g
+     * @param g Graphics
      */
     private void drawBoat(Graphics g){
-        int chapX = (this.getWidth() /2)  - cellSize/2;
-        int chapY = (this.getHeight() /2)  - cellSize/2;
-        g.drawImage(animations.get(Images.BOAT).get(count/16 % animations.get(Images.BOAT).size()), chapX, chapY, cellSize, cellSize, null);
+        int boatX = (this.getWidth() /2)  - cellSize/2;
+        int boatY = (this.getHeight() /2)  - cellSize/2;
+        g.drawImage(animations.get(Images.BOAT).get(count/16 % animations.get(Images.BOAT).size()), boatX, boatY, cellSize, cellSize, null);
     }
 
     /**
-     * Draws Seagull
+     * Draws Seagulls at random intervals at random y coordinates
+     * @param g Graphics
      */
     private void drawSeagull(Graphics g){
         if (!seagullActivated && random.nextInt(0, 1000) == 0){
             seagullActivated = true;
-            audioUnit.playSeagullSFX();
+            audioUnit.playSeagullSFX(); // Play seagull sound
             int lowerBound = (int)camera.getY();
             int upperBound = (int)(camera.getY() + camera.getHeight());
             seagullY = random.nextInt(lowerBound, upperBound + 1);
         }
         if (seagullActivated){
-            seagullAnimation(g);
+            int x = (int)worldXToPanelX(seagullX);
+            int y = (int)worldYToPanelY(seagullY);
+            // Draw seagull
+            g.drawImage(animations.get(Images.SEAGULL_RIGHT).get(count/16 % animations.get(Images.SEAGULL_RIGHT).size()), x, y, cellSize, cellSize, null);
             seagullX += 0.05;
-            if (seagullX > grid.length){
+            if (seagullX > grid.length){ // Seagull off the screen so deactivated
                 seagullActivated = false;
                 seagullX = 0;
             }
@@ -142,20 +152,10 @@ public class Renderer extends JPanel{
     }
 
     /**
-     * Draws a seagull flying across screen at y random position
-     * @param g
-     */
-    private void seagullAnimation(Graphics g){
-        BufferedImage seagullSpriteSheet = images.get(Images.SEAGULL_RIGHT);
-        int x = (int)worldXToPanelX(seagullX);
-        int y = (int)worldYToPanelY(seagullY);
-        g.drawImage(animations.get(Images.SEAGULL_RIGHT).get(count/16 % animations.get(Images.SEAGULL_RIGHT).size()), x, y, cellSize, cellSize, null);
-    }
-    /**
      * Draws border around game board
-     * @param c
-     * @param cellSize
-     * @param g
+     * @param c Colour of border
+     * @param cellSize Size of board cell
+     * @param g Graphics
      */
     private void drawBorder(Color c, int cellSize, Graphics g){
         int left = (int)(this.getWidth()/2 - (cellSize* camera.getWidth()/2));
@@ -169,10 +169,10 @@ public class Renderer extends JPanel{
     }
 
     /**
-     * Returns image of tile
-     * @param tile
-     * @return
-     * @throws IOException
+     * Returns arraylist of images that make up tile
+     * @param tile The tile of which its images need to be retrieved
+     * @return Arraylist of images that make up tile
+     * @throws IOException a tile image was not read
      */
     private ArrayList<BufferedImage> getTileImage(Tile tile) throws IOException {
         currentTileImage.clear();
@@ -209,7 +209,7 @@ public class Renderer extends JPanel{
 
     /**
      * Loads game images into a map for easy access
-     * @throws IOException
+     * @throws IOException File was not read
      */
     private void loadImages() throws IOException {
         String path = "LarryCroftsAdventures/assets/";
@@ -231,6 +231,10 @@ public class Renderer extends JPanel{
         images.put(Images.FISH, ImageIO.read(new File(path + "Fish.png")));
     }
 
+    /**
+     * Loads animation arraylists into animation list
+     * @throws IOException File was not read
+     */
     private void loadAllAnimations() throws IOException {
         String path = "LarryCroftsAdventures/assets/";
         animations.put(Images.BOAT, loadAnimation(ImageIO.read(new File(path + "Boat.png"))));
@@ -239,6 +243,11 @@ public class Renderer extends JPanel{
         animations.put(Images.SEAGULL_RIGHT, loadAnimation(ImageIO.read(new File(path + "SeagullRight.png"))));
     }
 
+    /**
+     * Creates array of all image frames in animation
+     * @param img Image to be broken into image frames
+     * @return ArrayList of image frames
+     */
     private ArrayList<BufferedImage> loadAnimation(BufferedImage img){
         int numOfFrames = img.getWidth()/img.getHeight();
         int frameWidth = img.getWidth()/numOfFrames;
@@ -251,7 +260,7 @@ public class Renderer extends JPanel{
     }
 
     /**
-     *  Converts world x coord to panel x coord
+     *  Converts world x coordinate to panel x coordinate
      */
     private double worldXToPanelX(double worldX){
         double tileWidth = this.getWidth()/ camera.getWidth();
@@ -262,7 +271,7 @@ public class Renderer extends JPanel{
     }
 
     /**
-     *  Converts world y coord to panel y coord
+     *  Converts world y coordinate to panel y coordinate
      */
     private double worldYToPanelY(double worldY){
         double tileWidth = this.getWidth()/ camera.getWidth();
@@ -272,6 +281,10 @@ public class Renderer extends JPanel{
         return (worldY - camera.getY())*clampedValue + distanceFromTopBorder;
     }
 
+    /**
+     * Returns the renderer's camera
+     * @return the renderer's camera
+     */
     public Camera getCamera(){ return camera; }
 
     /**
