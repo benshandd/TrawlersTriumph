@@ -174,33 +174,49 @@ public class Renderer extends JPanel{
      * Returns arraylist of images that make up tile
      * @param tile The tile of which its images need to be retrieved
      * @return Arraylist of images that make up tile
-     * @throws IOException a tile image was not read
      */
-    private ArrayList<BufferedImage> getTileImage(Tile tile) throws IOException {
+    private ArrayList<BufferedImage> getTileImage(Tile tile){
         currentTileImage.clear();
         // Assign filename depending on tile type and tile item
         currentTileImage.add(images.get(Images.FREE));
         switch (tile.getClass().getSimpleName()) {
             case "Door" -> {
                 Key.Colour doorColour = ((Door) tile).getColour();
-                if (doorColour == Key.Colour.RED){ currentTileImage.add(images.get(Images.DOOR_RED));}
-                if (doorColour == Key.Colour.BLUE){ currentTileImage.add(images.get(Images.DOOR_BLUE));}
-                if (doorColour == Key.Colour.GREEN){ currentTileImage.add(images.get(Images.DOOR_GREEN));}
-                if (doorColour == Key.Colour.YELLOW){ currentTileImage.add(images.get(Images.DOOR_YELLOW));}
+                if (doorColour == Key.Colour.RED) {
+                    currentTileImage.add(images.get(Images.DOOR_RED));
+                }
+                if (doorColour == Key.Colour.BLUE) {
+                    currentTileImage.add(images.get(Images.DOOR_BLUE));
+                }
+                if (doorColour == Key.Colour.GREEN) {
+                    currentTileImage.add(images.get(Images.DOOR_GREEN));
+                }
+                if (doorColour == Key.Colour.YELLOW) {
+                    currentTileImage.add(images.get(Images.DOOR_YELLOW));
+                }
             }
             case "Exit", "ExitLock" -> currentTileImage.add(images.get(Images.EXIT));
-            case "Treasure" -> currentTileImage.add(animations.get(Images.FISH).get(count/16 % animations.get(Images.FISH).size()));
+            case "Treasure" -> currentTileImage.add(animations.get(Images.FISH).get(count / 16 % animations.get(Images.FISH).size()));
             case "InfoField" -> {
-                currentTileImage.add(animations.get(Images.BOTTLE).get(count/10 % animations.get(Images.BOTTLE).size()));
+                currentTileImage.add(animations.get(Images.BOTTLE).get(count / 10 % animations.get(Images.BOTTLE).size()));
             }
             case "KeyTile" -> {
                 Key.Colour keyColour = ((KeyTile) tile).getColour();
-                if (keyColour == Key.Colour.RED){ currentTileImage.add(images.get(Images.KEY_RED));}
-                if (keyColour == Key.Colour.BLUE){ currentTileImage.add(images.get(Images.KEY_BLUE));}
-                if (keyColour == Key.Colour.GREEN){ currentTileImage.add(images.get(Images.KEY_GREEN));}
-                if (keyColour == Key.Colour.YELLOW){ currentTileImage.add(images.get(Images.KEY_YELLOW));}
+                if (keyColour == Key.Colour.RED) {
+                    currentTileImage.add(images.get(Images.KEY_RED));
+                }
+                if (keyColour == Key.Colour.BLUE) {
+                    currentTileImage.add(images.get(Images.KEY_BLUE));
+                }
+                if (keyColour == Key.Colour.GREEN) {
+                    currentTileImage.add(images.get(Images.KEY_GREEN));
+                }
+                if (keyColour == Key.Colour.YELLOW) {
+                    currentTileImage.add(images.get(Images.KEY_YELLOW));
+                }
             }
-            case "Free" -> {}
+            case "Free" -> {
+            }
             case "Wall" -> currentTileImage.add(images.get(Images.WALL));
             default -> {
                 currentTileImage.add(images.get(Images.WALL)); // Unknown tile type
@@ -289,14 +305,6 @@ public class Renderer extends JPanel{
      */
     public Camera getCamera(){ return camera; }
 
-    /**
-     * Returns image corresponding to Image enum
-     * @param img Image enum of desired image
-     * @return The image
-     */
-    public BufferedImage getImage(Images img){
-        return images.get(img);
-    }
 
     /**
      * Override JPanel paint method to call the draw method
