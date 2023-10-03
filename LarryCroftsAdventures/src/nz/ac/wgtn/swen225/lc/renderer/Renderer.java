@@ -25,14 +25,7 @@ public class Renderer extends JPanel{
     Board board;
     Tile[][] grid;
     public Camera camera;
-
-    public enum State {
-        IDLE, UP, DOWN, LEFT, RIGHT
-    }
-    private State state = State.IDLE;
-    private enum Images {
-        DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE
-    }
+    private enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE }
 
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
     private final HashMap<Images, ArrayList<BufferedImage>> animations = new HashMap<>();
@@ -43,7 +36,7 @@ public class Renderer extends JPanel{
     private double seagullY;
     private int cellSize;
     private final AudioUnit audioUnit;
-    private ArrayList<BufferedImage> currentTileImage = new ArrayList<>();
+    private final ArrayList<BufferedImage> currentTileImage = new ArrayList<>();
 
     /**
      * Constructor for the Renderer class.
@@ -88,7 +81,7 @@ public class Renderer extends JPanel{
         drawSeagull(g);
         drawBorder(new Color(232, 220, 202), cellSize, g);
 
-        updateCameraPosition();
+        camera.updateCameraPosition(board.getChap());
 
         count++;
     }
@@ -175,26 +168,6 @@ public class Renderer extends JPanel{
         g.fillRect(this.getWidth()-left, 0, left, this.getHeight());
     }
 
-
-    /**
-     * Update camera position depending on Renderer state
-     */
-    private void updateCameraPosition(){
-        double distance = 0.125;
-        switch (state) {
-            case IDLE -> {}
-            case UP -> camera.setY(camera.getY() - distance);
-            case DOWN -> camera.setY(camera.getY() + distance);
-            case LEFT -> camera.setX(camera.getX() - distance);
-            case RIGHT -> camera.setX(camera.getX() + distance);
-            default -> {
-            }
-        }
-        if((camera.getX() == board.getChap().getTile().getX() - (int)(camera.getWidth()/2)) && (camera.getY() == board.getChap().getTile().getY() - (int)(camera.getWidth()/2))){
-            state = State.IDLE;
-        }
-    }
-
     /**
      * Returns image of tile
      * @param tile
@@ -276,8 +249,6 @@ public class Renderer extends JPanel{
         }
         return imgList;
     }
-    public State getState(){ return state; }
-    public void setState(State state){this.state = state;}
 
     /**
      *  Converts world x coord to panel x coord
@@ -300,6 +271,8 @@ public class Renderer extends JPanel{
         int distanceFromTopBorder = (int)(this.getHeight()/2 - (clampedValue* camera.getHeight()/2));
         return (worldY - camera.getY())*clampedValue + distanceFromTopBorder;
     }
+
+    public Camera getCamera(){ return camera; }
 
     /**
      * Override JPanel paint method to call the draw method

@@ -4,6 +4,7 @@ import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
+import nz.ac.wgtn.swen225.lc.renderer.Camera;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import javax.swing.*;
@@ -118,55 +119,56 @@ public class KeyboardInputHandler {
             System.out.println(direction);
             Chap chap = component.getBoard().getChap();
             Renderer renderer  = component.getRenderer();
+            Camera camera = renderer.getCamera();
 
-            if (renderer.getState() == Renderer.State.IDLE){
+            if (camera.getState() == Camera.State.IDLE){
                 switch (direction) {
-                    case "UP":
+                    case "UP" -> {
                         try {
                             chap.move(Chap.Direction.UP);
-                            renderer.setState(Renderer.State.UP);
-                            if (RecorderPanel.recording){
+                            camera.setState(Camera.State.UP);
+                            if (RecorderPanel.recording) {
                                 RecorderPanel.moves.add("UP");
                             }
                         } catch (IllegalMove ex) {
                             System.out.println(ex.getMessage());
                         }
-                        break;
-                    case "DOWN":
+                    }
+                    case "DOWN" -> {
                         try {
                             chap.move(Chap.Direction.DOWN);
-                            renderer.setState(Renderer.State.DOWN);
-                            if (RecorderPanel.recording){
+                            camera.setState(Camera.State.DOWN);
+                            if (RecorderPanel.recording) {
                                 RecorderPanel.moves.add("DOWN");
                             }
                         } catch (IllegalMove ex) {
                             System.out.println(ex.getMessage());
                         }
-                        break;
-                    case "LEFT":
+                    }
+                    case "LEFT" -> {
                         try {
                             chap.move(Chap.Direction.LEFT);
-                            renderer.setState(Renderer.State.LEFT);
-                            if (RecorderPanel.recording){
+                            camera.setState(Camera.State.LEFT);
+                            if (RecorderPanel.recording) {
                                 RecorderPanel.moves.add("LEFT");
                             }
                         } catch (IllegalMove ex) {
                             System.out.println(ex.getMessage());
                         }
-                        break;
-                    case "RIGHT":
+                    }
+                    case "RIGHT" -> {
                         try {
                             chap.move(Chap.Direction.RIGHT);
-                            renderer.setState(Renderer.State.RIGHT);
-                            if (RecorderPanel.recording){
+                            camera.setState(Camera.State.RIGHT);
+                            if (RecorderPanel.recording) {
                                 RecorderPanel.moves.add("RIGHT");
                             }
                         } catch (IllegalMove ex) {
                             System.out.println(ex.getMessage());
                         }
-                        break;
-                    default:
-                        break;
+                    }
+                    default -> {
+                    }
                 }
             }
 
