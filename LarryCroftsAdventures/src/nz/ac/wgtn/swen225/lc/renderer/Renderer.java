@@ -19,6 +19,8 @@ import java.util.*;
 
 /**
  * The Renderer class is responsible for rendering the game board, characters and items on the JPanel as well as changing the view of the board when character moves.
+ *
+ * @author  Alex Manning (300600549)
  */
 public class Renderer extends JPanel{
 

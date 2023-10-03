@@ -9,6 +9,8 @@ import java.util.Random;
 
 /**
  * Audio unit class is responsible for playing audio clips
+ *
+ * @author  Alex Manning (300600549)
  */
 public class AudioUnit {
     public enum AudioClip{BACKGROUND, AMBIENCE, SEAGULL1, SEAGULL2, SEAGULL3, KEY_COLLECT, DOOR_UNLOCK, FISH_CAUGHT, ENEMY_ATTACK}

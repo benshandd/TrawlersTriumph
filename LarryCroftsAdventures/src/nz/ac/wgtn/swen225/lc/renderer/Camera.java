@@ -6,6 +6,8 @@ import java.util.Vector;
 
 /**
  * Represents the position of the focus area on the maze grid
+ *
+ * @author  Alex Manning (300600549)
  */
 public class Camera {
     private double x;
