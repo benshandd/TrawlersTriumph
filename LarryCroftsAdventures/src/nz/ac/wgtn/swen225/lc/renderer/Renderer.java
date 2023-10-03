@@ -80,7 +80,7 @@ public class Renderer extends JPanel{
      * @throws IOException If there is an error loading image files.
      */
     public void draw(Graphics g) throws IOException {
-        cellSize = (int)Math.max(0, Math.min(this.getHeight()/ camera.getWidth(), this.getHeight()/camera.getHeight()));
+        cellSize = (int)Math.max(0, Math.min(this.getWidth()/ camera.getWidth(), this.getHeight()/camera.getHeight()));
 
         drawBoard(g);
         drawBoat(g);
