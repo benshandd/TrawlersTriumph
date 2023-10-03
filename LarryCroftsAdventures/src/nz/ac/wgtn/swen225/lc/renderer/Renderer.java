@@ -31,7 +31,7 @@ public class Renderer extends JPanel{
     }
     private State state = State.IDLE;
     private enum Images {
-        DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH_1, FISH_2 ,FISH_3 ,FISH_4
+        DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE
     }
 
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
@@ -43,8 +43,7 @@ public class Renderer extends JPanel{
     private double seagullY;
     private int cellSize;
     private final AudioUnit audioUnit;
-    private int frame;
-    private int totalFrames = 8;
+    private ArrayList<BufferedImage> currentTileImage = new ArrayList<>();
 
     /**
      * Constructor for the Renderer class.
@@ -83,7 +82,6 @@ public class Renderer extends JPanel{
      */
     public void draw(Graphics g) throws IOException {
         cellSize = (int)Math.max(0, Math.min(this.getHeight()/ camera.getWidth(), this.getHeight()/camera.getHeight()));
-        frame = (count/(totalFrames*2)) % totalFrames;
 
         drawBoard(g);
         drawBoat(g);
@@ -111,8 +109,10 @@ public class Renderer extends JPanel{
                 else {
                     tile = grid[x][y];
                 }
-                Image image = getTileImage(tile);
-                g.drawImage(image, (int)worldXToPanelX(x), (int)worldYToPanelY(y), cellSize, cellSize, null);
+                ArrayList<BufferedImage> images = getTileImage(tile);
+                for (Image img : images){
+                    g.drawImage(img, (int)worldXToPanelX(x), (int)worldYToPanelY(y), cellSize, cellSize, null);
+                }
             }
         }
     }
@@ -124,7 +124,7 @@ public class Renderer extends JPanel{
     private void drawBoat(Graphics g){
         int chapX = (this.getWidth() /2)  - cellSize/2;
         int chapY = (this.getHeight() /2)  - cellSize/2;
-        g.drawImage(animations.get(Images.BOAT).get(frame), chapX, chapY, cellSize, cellSize, null);
+        g.drawImage(animations.get(Images.BOAT).get(count/16 % animations.get(Images.BOAT).size()), chapX, chapY, cellSize, cellSize, null);
     }
 
     /**
@@ -156,7 +156,7 @@ public class Renderer extends JPanel{
         BufferedImage seagullSpriteSheet = images.get(Images.SEAGULL_RIGHT);
         int x = (int)worldXToPanelX(seagullX);
         int y = (int)worldYToPanelY(seagullY);
-        g.drawImage(animations.get(Images.SEAGULL_RIGHT).get(frame), x, y, cellSize, cellSize, null);
+        g.drawImage(animations.get(Images.SEAGULL_RIGHT).get(count/16 % animations.get(Images.SEAGULL_RIGHT).size()), x, y, cellSize, cellSize, null);
     }
     /**
      * Draws border around game board
@@ -201,44 +201,37 @@ public class Renderer extends JPanel{
      * @return
      * @throws IOException
      */
-    private BufferedImage getTileImage(Tile tile) throws IOException {
-        BufferedImage img = null;
+    private ArrayList<BufferedImage> getTileImage(Tile tile) throws IOException {
+        currentTileImage.clear();
         // Assign filename depending on tile type and tile item
+        currentTileImage.add(images.get(Images.FREE));
         switch (tile.getClass().getSimpleName()) {
             case "Door" -> {
                 Key.Colour doorColour = ((Door) tile).getColour();
-                if (doorColour == Key.Colour.RED){ img = images.get(Images.DOOR_RED);}
-                if (doorColour == Key.Colour.BLUE){ img = images.get(Images.DOOR_BLUE);}
-                if (doorColour == Key.Colour.GREEN){ img = images.get(Images.DOOR_GREEN);}
-                if (doorColour == Key.Colour.YELLOW){ img = images.get(Images.DOOR_YELLOW);}
+                if (doorColour == Key.Colour.RED){ currentTileImage.add(images.get(Images.DOOR_RED));}
+                if (doorColour == Key.Colour.BLUE){ currentTileImage.add(images.get(Images.DOOR_BLUE));}
+                if (doorColour == Key.Colour.GREEN){ currentTileImage.add(images.get(Images.DOOR_GREEN));}
+                if (doorColour == Key.Colour.YELLOW){ currentTileImage.add(images.get(Images.DOOR_YELLOW));}
             }
-            case "Exit", "ExitLock" -> img = images.get(Images.EXIT);
-            case "Treasure" -> img = animations.get(Images.FISH_1).get(frame);
-            case "InfoField" -> img = animations.get(Images.INFOBOX).get(frame);
+            case "Exit", "ExitLock" -> currentTileImage.add(images.get(Images.EXIT));
+            case "Treasure" -> currentTileImage.add(animations.get(Images.FISH).get(count/16 % animations.get(Images.FISH).size()));
+            case "InfoField" -> {
+                currentTileImage.add(animations.get(Images.BOTTLE).get(count/10 % animations.get(Images.BOTTLE).size()));
+            }
             case "KeyTile" -> {
                 Key.Colour keyColour = ((KeyTile) tile).getColour();
-                if (keyColour == Key.Colour.RED){ img = images.get(Images.KEY_RED);}
-                if (keyColour == Key.Colour.BLUE){ img = images.get(Images.KEY_BLUE);}
-                if (keyColour == Key.Colour.GREEN){ img = images.get(Images.KEY_GREEN);}
-                if (keyColour == Key.Colour.YELLOW){ img = images.get(Images.KEY_YELLOW);}
+                if (keyColour == Key.Colour.RED){ currentTileImage.add(images.get(Images.KEY_RED));}
+                if (keyColour == Key.Colour.BLUE){ currentTileImage.add(images.get(Images.KEY_BLUE));}
+                if (keyColour == Key.Colour.GREEN){ currentTileImage.add(images.get(Images.KEY_GREEN));}
+                if (keyColour == Key.Colour.YELLOW){ currentTileImage.add(images.get(Images.KEY_YELLOW));}
             }
-            case "Free" -> {
-                //if (((Free) tile).getItem() != null) fileName += ((Free) tile).getItem();
-                //else
-                img = images.get(Images.FREE);
-            }
-            case "Wall" -> img = images.get(Images.WALL);
+            case "Free" -> {}
+            case "Wall" -> currentTileImage.add(images.get(Images.WALL));
             default -> {
-                return img; // Unknown tile type
+                currentTileImage.add(images.get(Images.WALL)); // Unknown tile type
             }
         }
-        return img;
-    }
-
-    private BufferedImage getSubFrameImage(BufferedImage fullImage){
-        int frameWidth = fullImage.getWidth()/8;
-        int frameHeight = fullImage.getHeight();
-        return fullImage.getSubimage(frame * frameWidth,0,frameWidth,frameHeight);
+        return currentTileImage;
     }
 
     /**
@@ -259,26 +252,26 @@ public class Renderer extends JPanel{
         images.put(Images.KEY_GREEN, ImageIO.read(new File(path + "Key_Green.png")));
         images.put(Images.KEY_RED, ImageIO.read(new File(path + "Key_Red.png")));
         images.put(Images.KEY_YELLOW, ImageIO.read(new File(path + "Key_Yellow.png")));
-        images.put(Images.TREASURE, ImageIO.read(new File(path + "Treasure.png")));
         images.put(Images.WALL, ImageIO.read(new File(path + "Wall.png")));
         images.put(Images.SEAGULL_LEFT, ImageIO.read(new File(path + "SeagullLeft.png")));
         images.put(Images.SEAGULL_RIGHT, ImageIO.read(new File(path + "SeagullRight.png")));
-        images.put(Images.FISH_1, ImageIO.read(new File(path + "Fish1.png")));
+        images.put(Images.FISH, ImageIO.read(new File(path + "Fish.png")));
     }
 
     private void loadAllAnimations() throws IOException {
         String path = "LarryCroftsAdventures/assets/";
         animations.put(Images.BOAT, loadAnimation(ImageIO.read(new File(path + "Boat.png"))));
-        animations.put(Images.FISH_1, loadAnimation(ImageIO.read(new File(path + "Fish1.png"))));
-        animations.put(Images.INFOBOX, loadAnimation(ImageIO.read(new File(path + "InfoBox.png"))));
+        animations.put(Images.FISH, loadAnimation(ImageIO.read(new File(path + "Fish.png"))));
+        animations.put(Images.BOTTLE, loadAnimation(ImageIO.read(new File(path + "Bottle.png"))));
         animations.put(Images.SEAGULL_RIGHT, loadAnimation(ImageIO.read(new File(path + "SeagullRight.png"))));
     }
 
     private ArrayList<BufferedImage> loadAnimation(BufferedImage img){
-        int frameWidth = img.getWidth()/8;
+        int numOfFrames = img.getWidth()/img.getHeight();
+        int frameWidth = img.getWidth()/numOfFrames;
         int frameHeight = img.getHeight();
         ArrayList<BufferedImage> imgList = new ArrayList<>();
-        for (int i = 0; i < totalFrames; i++){
+        for (int i = 0; i < numOfFrames; i++){
             imgList.add(img.getSubimage(i * frameWidth,0,frameWidth,frameHeight));
         }
         return imgList;
