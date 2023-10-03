@@ -42,12 +42,13 @@ public class Chap {
             throw new IllegalMove("Encountered the edge of the board: " + direction);
         }
 
-        if (!next.traversable()) {
+        if (!next.traversable(this)) {
             throw new IllegalMove("Not traversable: " + direction);
         }
 
-        next.performTileAction();
-        tile = board.resetTile(next);
+        if (next.performTileAction(this)) {
+            tile = board.resetTile(next);
+        }
     }
 
     /**
@@ -92,7 +93,7 @@ public class Chap {
     public boolean hasItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
             for (int j = 0; j < inventory[i].length; j++) {
-                if (inventory[i][j].equals(item)) {
+                if (inventory[i][j] != null && inventory[i][j].equals(item)) {
                     return true;
                 }
             }
@@ -109,14 +110,23 @@ public class Chap {
     }
 
     /**
-     * Represents the four possible directions for movement of the player.
+     * Get x position.
+     * @return x position
      */
-    public enum Direction {UP, DOWN, LEFT, RIGHT}
     public int getX() {
         return tile.getX();
     }
 
+    /**
+     * Get y position.
+     * @return y position
+     */
     public int getY() {
         return tile.getY();
     }
+
+    /**
+     * Represents the four possible directions for movement of the player.
+     */
+    public enum Direction {UP, DOWN, LEFT, RIGHT}
 }

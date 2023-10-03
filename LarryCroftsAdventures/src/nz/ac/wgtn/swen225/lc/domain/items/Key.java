@@ -17,24 +17,20 @@ public class Key implements Item {
         this.colour = colour;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (o instanceof Key otherKey) return colour == otherKey.colour;
+        return false;
+    }
+
     /**
      * Get the colour.
      * @return the colour of the key
      */
     public Key.Colour getColour() {
         return colour;
-    }
-
-    /**
-     * Checks whether the player can open a door with this key.
-     * @param door the door the player is attempting to open
-     * @return true if the door is the same colour as this key, false otherwise
-     */
-    public boolean canOpen(Door door) {
-        if (door == null) {
-            return false;
-        }
-        return door.getColour().equals(colour);
     }
 
     /**

@@ -20,7 +20,7 @@ public class Free implements Tile {
     }
 
     @Override
-    public boolean traversable() {
+    public boolean traversable(Chap chap) {
         return true;
     }
 

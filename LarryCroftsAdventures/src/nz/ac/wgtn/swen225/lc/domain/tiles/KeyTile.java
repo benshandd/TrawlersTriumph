@@ -1,5 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain.tiles;
 
+import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 
 /**
@@ -15,6 +16,14 @@ public class KeyTile extends Free {
     public KeyTile(Key.Colour colour, int x, int y) {
         super(x, y);
         this.colour = colour;
+    }
+
+    /**
+     * Add a key to the player's inventory.
+     */
+    @Override
+    public boolean performTileAction(Chap chap) {
+        return chap.addItem(new Key(colour));
     }
 
     /**

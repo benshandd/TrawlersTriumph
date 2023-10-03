@@ -1,5 +1,7 @@
 package nz.ac.wgtn.swen225.lc.domain.tiles;
 
+import nz.ac.wgtn.swen225.lc.domain.Chap;
+
 /**
  * Represents a tile that has a collectible treasure.
  */
@@ -12,10 +14,10 @@ public class Treasure extends Free {
     }
 
     /**
-     * Adds a treasure to the treasure counter.
+     * Add a treasure to the treasure counter.
      */
     @Override
-    public void performTileAction() {
-
+    public boolean performTileAction(Chap chap) {
+        return true;
     }
 }

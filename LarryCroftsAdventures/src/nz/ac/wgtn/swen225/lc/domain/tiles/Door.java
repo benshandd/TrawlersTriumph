@@ -1,5 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain.tiles;
 
+import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 
 /**
@@ -18,15 +19,29 @@ public class Door extends Wall {
     }
 
     /**
+     * Attempt to open this door
+     */
+    @Override
+    public boolean performTileAction(Chap chap) {
+        if (canOpen(chap)) {
+            assert chap.removeItem(new Key(colour));
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean traversable(Chap chap) {
+        return canOpen(chap);
+    }
+
+    /**
      * Checks whether the player can open this door with a given key.
-     * @param key the key the player is attempting to open
+     * @param chap the player
      * @return true if the key is the same colour as this door, false otherwise
      */
-    public boolean canOpen(Key key) {
-        if (key == null) {
-            return false;
-        }
-        return key.getColour().equals(colour);
+    public boolean canOpen(Chap chap) {
+        return chap.hasItem(new Key(colour));
     }
 
     /**
