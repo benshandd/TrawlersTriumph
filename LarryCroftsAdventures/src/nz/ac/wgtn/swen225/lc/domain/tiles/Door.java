@@ -24,7 +24,7 @@ public class Door extends Wall {
     @Override
     public boolean performTileAction(Chap chap) {
         if (canOpen(chap)) {
-            assert chap.removeItem(new Key(colour));
+            chap.removeItem(new Key(colour));
             return true;
         }
         return false;
