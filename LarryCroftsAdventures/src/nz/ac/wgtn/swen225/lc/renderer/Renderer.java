@@ -31,7 +31,7 @@ public class Renderer extends JPanel{
     }
     private State state = State.IDLE;
     private enum Images {
-        CHAP, DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY
+        CHAP, DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH_1, FISH_2 ,FISH_3 ,FISH_4
     }
 
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
@@ -209,7 +209,7 @@ public class Renderer extends JPanel{
                 if (doorColour == Key.Colour.YELLOW){ img = images.get(Images.DOOR_YELLOW);}
             }
             case "Exit", "ExitLock" -> img = images.get(Images.EXIT);
-            case "Treasure" -> img = images.get(Images.TREASURE);
+            case "Treasure" -> img = getSubFrameImage(images.get(Images.FISH_1));
             case "InfoField" -> img = getSubFrameImage(images.get(Images.INFOBOX));
             case "KeyTile" -> {
                 Key.Colour keyColour = ((KeyTile) tile).getColour();
@@ -237,6 +237,17 @@ public class Renderer extends JPanel{
         return fullImage.getSubimage(frame * frameWidth,0,frameWidth,frameHeight);
     }
 
+    private BufferedImage getFishImg(){
+        int num = random.nextInt(1,5);
+        return switch(num){
+            case 1 -> images.get(Images.FISH_1);
+            case 2 -> images.get(Images.FISH_2);
+            case 3 -> images.get(Images.FISH_3);
+            case 4 -> images.get(Images.FISH_4);
+            default -> images.get(Images.FISH_1);
+        };
+    }
+
     /**
      * Loads game images into a map for easy access
      * @throws IOException
@@ -259,6 +270,10 @@ public class Renderer extends JPanel{
         images.put(Images.WALL, ImageIO.read(new File(path + "Wall.png")));
         images.put(Images.SEAGULL_LEFT, ImageIO.read(new File(path + "SeagullLeft.png")));
         images.put(Images.SEAGULL_RIGHT, ImageIO.read(new File(path + "SeagullRight.png")));
+        images.put(Images.FISH_1, ImageIO.read(new File(path + "Fish1.png")));
+        images.put(Images.FISH_2, ImageIO.read(new File(path + "Fish2.png")));
+        images.put(Images.FISH_3, ImageIO.read(new File(path + "Fish3.png")));
+        images.put(Images.FISH_4, ImageIO.read(new File(path + "Fish4.png")));
     }
     public State getState(){ return state; }
     public void setState(State state){this.state = state;}
