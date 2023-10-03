@@ -32,7 +32,7 @@ public class Renderer extends JPanel{
     private final Random random = new Random();
 
     // Image fields
-    private enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE }
+    public enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE }
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
     private final HashMap<Images, ArrayList<BufferedImage>> animations = new HashMap<>();
     private final ArrayList<BufferedImage> currentTileImage = new ArrayList<>();
@@ -288,6 +288,15 @@ public class Renderer extends JPanel{
      * @return the renderer's camera
      */
     public Camera getCamera(){ return camera; }
+
+    /**
+     * Returns image corresponding to Image enum
+     * @param img Image enum of desired image
+     * @return The image
+     */
+    public BufferedImage getImage(Images img){
+        return images.get(img);
+    }
 
     /**
      * Override JPanel paint method to call the draw method
