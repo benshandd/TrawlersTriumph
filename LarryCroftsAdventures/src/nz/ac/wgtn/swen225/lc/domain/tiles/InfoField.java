@@ -4,7 +4,7 @@ package nz.ac.wgtn.swen225.lc.domain.tiles;
  * Represents a tile that has an information message pop up when the player steps onto it.
  */
 public class InfoField extends Free {
-    private String message;
+    private final String message;
 
     /**
      * Create a new information field tile.

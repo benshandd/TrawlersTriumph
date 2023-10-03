@@ -11,15 +11,20 @@ public class Chap {
     private final Item[][] inventory = new Item[2][4];
     private final Board board;
     private Free tile;
+    private int treasures;
+    private int treasureCount;
 
     /**
      * Create a new Chap character. A new character should be created per level.
      * @param board the board that Chap is placed on
      * @param tile the tile that the player is standing on
+     * @param treasures the number of treasures needed to complete this level
      */
-    public Chap(Board board, Free tile) {
+    public Chap(Board board, Free tile, int treasures) {
         this.board = board;
         this.tile = tile;
+        this.treasures = treasures;
+        treasureCount = 0;
     }
 
     /**
@@ -102,6 +107,14 @@ public class Chap {
     }
 
     /**
+     * Increment the treasure counter by one
+     * @return the number of treasures collected after this one
+     */
+    public int addTreasure() {
+        return ++treasureCount;
+    }
+
+    /**
      * Get the tile the player is standing on.
      * @return the tile
      */
@@ -123,6 +136,14 @@ public class Chap {
      */
     public int getY() {
         return tile.getY();
+    }
+
+    /**
+     * Get the number of treasures collected by the player so far.
+     * @return the number of treasures collected so far
+     */
+    public int getCurrentTreasure() {
+        return treasureCount;
     }
 
     /**
