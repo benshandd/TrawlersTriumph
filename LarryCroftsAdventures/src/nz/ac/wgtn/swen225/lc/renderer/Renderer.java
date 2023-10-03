@@ -31,10 +31,11 @@ public class Renderer extends JPanel{
     }
     private State state = State.IDLE;
     private enum Images {
-        CHAP, DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH_1, FISH_2 ,FISH_3 ,FISH_4
+        DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, TREASURE, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH_1, FISH_2 ,FISH_3 ,FISH_4
     }
 
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
+    private final HashMap<Images, ArrayList<BufferedImage>> animations = new HashMap<>();
     private int count = 0;
     private final Random random = new Random();
     private boolean seagullActivated = false;
@@ -43,6 +44,7 @@ public class Renderer extends JPanel{
     private int cellSize;
     private final AudioUnit audioUnit;
     private int frame;
+    private int totalFrames = 8;
 
     /**
      * Constructor for the Renderer class.
@@ -55,6 +57,7 @@ public class Renderer extends JPanel{
         this.camera = new Camera(board.getChap().getTile().getX() - (focusAreaSize/2), board.getChap().getTile().getY() - (focusAreaSize/2), focusAreaSize, focusAreaSize);
         this.audioUnit = au;
         loadImages();
+        loadAllAnimations();
         startTimer();
     }
 
@@ -79,37 +82,17 @@ public class Renderer extends JPanel{
      * @throws IOException If there is an error loading image files.
      */
     public void draw(Graphics g) throws IOException {
-        // Dimensions
-        double tileWidth = this.getHeight()/ camera.getWidth();
-        double tileHeight = this.getHeight()/camera.getHeight();
-        cellSize = (int)Math.max(0, Math.min(tileWidth, tileHeight));
-        int distanceFromLeftBorder = (int)(this.getWidth()/2 - (cellSize* camera.getWidth()/2));
-        int distanceFromTopBorder = (int)(this.getHeight()/2 - (cellSize* camera.getHeight()/2));
-        frame = (count/16) % 8;
+        cellSize = (int)Math.max(0, Math.min(this.getHeight()/ camera.getWidth(), this.getHeight()/camera.getHeight()));
+        frame = (count/(totalFrames*2)) % totalFrames;
 
         drawBoard(g);
-        drawChap(g);
+        drawBoat(g);
+        drawSeagull(g);
+        drawBorder(new Color(232, 220, 202), cellSize, g);
 
-        if (!seagullActivated && random.nextInt(0, 1000) == 0){
-            seagullActivated = true;
-            audioUnit.playSeagullSFX();
-            int lowerBound = (int)camera.getY();
-            int upperBound = (int)(camera.getY() + camera.getHeight());
-            seagullY = random.nextInt(lowerBound, upperBound + 1);
-        }
-        if (seagullActivated){
-            seagullAnimation(g);
-            seagullX += 0.05;
-            if (seagullX > grid.length){
-                seagullActivated = false;
-                seagullX = 0;
-            }
-        }
-        drawBorder(new Color(232, 220, 202), distanceFromTopBorder, distanceFromLeftBorder, g);
         updateCameraPosition();
 
         count++;
-
     }
 
     /**
@@ -129,8 +112,38 @@ public class Renderer extends JPanel{
                     tile = grid[x][y];
                 }
                 Image image = getTileImage(tile);
-                //drawImageAt(image, x, y, g);
                 g.drawImage(image, (int)worldXToPanelX(x), (int)worldYToPanelY(y), cellSize, cellSize, null);
+            }
+        }
+    }
+
+    /**
+     * Draws boat at center of board
+     * @param g
+     */
+    private void drawBoat(Graphics g){
+        int chapX = (this.getWidth() /2)  - cellSize/2;
+        int chapY = (this.getHeight() /2)  - cellSize/2;
+        g.drawImage(animations.get(Images.BOAT).get(frame), chapX, chapY, cellSize, cellSize, null);
+    }
+
+    /**
+     * Draws Seagull
+     */
+    private void drawSeagull(Graphics g){
+        if (!seagullActivated && random.nextInt(0, 1000) == 0){
+            seagullActivated = true;
+            audioUnit.playSeagullSFX();
+            int lowerBound = (int)camera.getY();
+            int upperBound = (int)(camera.getY() + camera.getHeight());
+            seagullY = random.nextInt(lowerBound, upperBound + 1);
+        }
+        if (seagullActivated){
+            seagullAnimation(g);
+            seagullX += 0.05;
+            if (seagullX > grid.length){
+                seagullActivated = false;
+                seagullX = 0;
             }
         }
     }
@@ -143,16 +156,17 @@ public class Renderer extends JPanel{
         BufferedImage seagullSpriteSheet = images.get(Images.SEAGULL_RIGHT);
         int x = (int)worldXToPanelX(seagullX);
         int y = (int)worldYToPanelY(seagullY);
-        g.drawImage(getSubFrameImage(seagullSpriteSheet), x, y, cellSize, cellSize, null);
+        g.drawImage(animations.get(Images.SEAGULL_RIGHT).get(frame), x, y, cellSize, cellSize, null);
     }
     /**
      * Draws border around game board
      * @param c
-     * @param top
-     * @param left
+     * @param cellSize
      * @param g
      */
-    private void drawBorder(Color c, int top, int left, Graphics g){
+    private void drawBorder(Color c, int cellSize, Graphics g){
+        int left = (int)(this.getWidth()/2 - (cellSize* camera.getWidth()/2));
+        int top = (int)(this.getHeight()/2 - (cellSize* camera.getHeight()/2));
         // Draw border
         g.setColor(c);
         g.fillRect(0, 0, this.getWidth(), top);
@@ -161,16 +175,6 @@ public class Renderer extends JPanel{
         g.fillRect(this.getWidth()-left, 0, left, this.getHeight());
     }
 
-    /**
-     * Draws chap at center of board
-     * @param g
-     */
-    private void drawChap(Graphics g){
-        BufferedImage boatSpriteSheet= images.get(Images.BOAT);
-        int chapX = (this.getWidth() /2)  - cellSize/2;
-        int chapY = (this.getHeight() /2)  - cellSize/2;
-        g.drawImage(getSubFrameImage(boatSpriteSheet), chapX, chapY, cellSize, cellSize, null);
-    }
 
     /**
      * Update camera position depending on Renderer state
@@ -209,8 +213,8 @@ public class Renderer extends JPanel{
                 if (doorColour == Key.Colour.YELLOW){ img = images.get(Images.DOOR_YELLOW);}
             }
             case "Exit", "ExitLock" -> img = images.get(Images.EXIT);
-            case "Treasure" -> img = getSubFrameImage(images.get(Images.FISH_1));
-            case "InfoField" -> img = getSubFrameImage(images.get(Images.INFOBOX));
+            case "Treasure" -> img = animations.get(Images.FISH_1).get(frame);
+            case "InfoField" -> img = animations.get(Images.INFOBOX).get(frame);
             case "KeyTile" -> {
                 Key.Colour keyColour = ((KeyTile) tile).getColour();
                 if (keyColour == Key.Colour.RED){ img = images.get(Images.KEY_RED);}
@@ -237,17 +241,6 @@ public class Renderer extends JPanel{
         return fullImage.getSubimage(frame * frameWidth,0,frameWidth,frameHeight);
     }
 
-    private BufferedImage getFishImg(){
-        int num = random.nextInt(1,5);
-        return switch(num){
-            case 1 -> images.get(Images.FISH_1);
-            case 2 -> images.get(Images.FISH_2);
-            case 3 -> images.get(Images.FISH_3);
-            case 4 -> images.get(Images.FISH_4);
-            default -> images.get(Images.FISH_1);
-        };
-    }
-
     /**
      * Loads game images into a map for easy access
      * @throws IOException
@@ -271,9 +264,24 @@ public class Renderer extends JPanel{
         images.put(Images.SEAGULL_LEFT, ImageIO.read(new File(path + "SeagullLeft.png")));
         images.put(Images.SEAGULL_RIGHT, ImageIO.read(new File(path + "SeagullRight.png")));
         images.put(Images.FISH_1, ImageIO.read(new File(path + "Fish1.png")));
-        images.put(Images.FISH_2, ImageIO.read(new File(path + "Fish2.png")));
-        images.put(Images.FISH_3, ImageIO.read(new File(path + "Fish3.png")));
-        images.put(Images.FISH_4, ImageIO.read(new File(path + "Fish4.png")));
+    }
+
+    private void loadAllAnimations() throws IOException {
+        String path = "LarryCroftsAdventures/assets/";
+        animations.put(Images.BOAT, loadAnimation(ImageIO.read(new File(path + "Boat.png"))));
+        animations.put(Images.FISH_1, loadAnimation(ImageIO.read(new File(path + "Fish1.png"))));
+        animations.put(Images.INFOBOX, loadAnimation(ImageIO.read(new File(path + "InfoBox.png"))));
+        animations.put(Images.SEAGULL_RIGHT, loadAnimation(ImageIO.read(new File(path + "SeagullRight.png"))));
+    }
+
+    private ArrayList<BufferedImage> loadAnimation(BufferedImage img){
+        int frameWidth = img.getWidth()/8;
+        int frameHeight = img.getHeight();
+        ArrayList<BufferedImage> imgList = new ArrayList<>();
+        for (int i = 0; i < totalFrames; i++){
+            imgList.add(img.getSubimage(i * frameWidth,0,frameWidth,frameHeight));
+        }
+        return imgList;
     }
     public State getState(){ return state; }
     public void setState(State state){this.state = state;}
