@@ -2,6 +2,7 @@
   "player": { "x": 8, "y": 8 },
   "timeLeft": "100",
   "level": 1,
+  "treasureLeft":11,
   "actions": [
     "LEFT",
     "LEFT",

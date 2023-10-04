@@ -9,13 +9,15 @@ import java.io.*;
 import java.util.*;
 
 /**
- * This class handles the persistence of the game state, allowing loading and saving of games.
+ * This class handles the persistence of the game state, allowing loading and
+ * saving of games.
  */
 public class Persistency {
 
     public Stack<String> actions;
     private File newFile;
     public int timeLeft;
+    public int treasureLeft;
     public int level;
     public int x;
     public int y;
@@ -48,8 +50,9 @@ public class Persistency {
             x = playerObject.get("x").getAsInt();
             y = playerObject.get("y").getAsInt();
 
-            // Get time, level, and initialize message
+            // Get time, level, treasure amount and initialize message
             timeLeft = jsonObject.get("timeLeft").getAsInt();
+            treasureLeft = jsonObject.get("treasureLeft").getAsInt();
             level = jsonObject.get("level").getAsInt();
             message = null;
 
@@ -123,10 +126,12 @@ public class Persistency {
         JsonObject playerObject = new JsonObject();
         playerObject.addProperty("x", x);
         playerObject.addProperty("y", y);
+
         gameData.add("player", playerObject);
 
-        gameData.addProperty("timeLeft", "100");
+        gameData.addProperty("timeLeft", timeLeft);
         gameData.addProperty("level", level);
+        playerObject.addProperty("treasureLeft", treasureLeft);
 
         JsonArray actionsArray = new JsonArray();
         for (String action : actions) {
