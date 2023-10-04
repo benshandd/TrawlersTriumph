@@ -1,5 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
@@ -23,7 +24,8 @@ public class Board {
         this.level = level;
 
         try {
-            board = persistency.loadGame("LarryCroftsAdventures/levels/level" + level + ".json");
+            File levelToLoad = new File("LarryCroftsAdventures/levels/level" + level + ".json");
+            board = persistency.loadGame(levelToLoad);
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (Exception e) {

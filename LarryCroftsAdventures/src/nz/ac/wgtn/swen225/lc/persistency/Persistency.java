@@ -31,10 +31,9 @@ public class Persistency {
      * @return A 2D array representing the game board with tiles and items.
      * @throws FileNotFoundException If the specified file is not found.
      */
-    public Tile[][] loadGame(String fileName) throws FileNotFoundException {
-        File loadedFile = new File(fileName);
+    public Tile[][] loadGame(File fileName) throws FileNotFoundException {
         Tile[][] maze = null;
-        try (JsonReader reader = new JsonReader(new FileReader(loadedFile))) {
+        try (JsonReader reader = new JsonReader(new FileReader(fileName))) {
             // Read the JSON file and parse it into a JsonObject
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
 

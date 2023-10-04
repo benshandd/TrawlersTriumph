@@ -55,6 +55,8 @@ public class Recorder {
             for (int i = 0; i < jsonMoves.size(); i++){
                 moves.add(new Move(jsonMoves.get(i).getAsString(),1));
             }
+            //pass file name to load the level the player started on and position where they started from
+            new Persistency().loadGame(file);
             System.out.println("Game loaded...");
             return moves;
         } catch(IOException e) {
