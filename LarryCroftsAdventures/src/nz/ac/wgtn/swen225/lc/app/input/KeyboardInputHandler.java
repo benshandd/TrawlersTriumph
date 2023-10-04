@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app.input;
 
 import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
@@ -128,7 +129,7 @@ public class KeyboardInputHandler {
                             chap.move(Chap.Direction.UP);
                             camera.setState(Camera.State.UP);
                             if (RecorderPanel.recording) {
-                                RecorderPanel.moves.add("UP");
+                                RecorderPanel.moves.add(new Move("UP",RecorderPanel.time));
                             }
                         } catch (IllegalMove ex) {
                             System.out.println(ex.getMessage());
@@ -139,7 +140,7 @@ public class KeyboardInputHandler {
                             chap.move(Chap.Direction.DOWN);
                             camera.setState(Camera.State.DOWN);
                             if (RecorderPanel.recording) {
-                                RecorderPanel.moves.add("DOWN");
+                                RecorderPanel.moves.add(new Move("DOWN",RecorderPanel.time));
                             }
                         } catch (IllegalMove ex) {
                             System.out.println(ex.getMessage());
@@ -150,7 +151,7 @@ public class KeyboardInputHandler {
                             chap.move(Chap.Direction.LEFT);
                             camera.setState(Camera.State.LEFT);
                             if (RecorderPanel.recording) {
-                                RecorderPanel.moves.add("LEFT");
+                                RecorderPanel.moves.add(new Move("LEFT",RecorderPanel.time));
                             }
                         } catch (IllegalMove ex) {
                             System.out.println(ex.getMessage());
@@ -161,7 +162,7 @@ public class KeyboardInputHandler {
                             chap.move(Chap.Direction.RIGHT);
                             camera.setState(Camera.State.RIGHT);
                             if (RecorderPanel.recording) {
-                                RecorderPanel.moves.add("RIGHT");
+                                RecorderPanel.moves.add(new Move("RIGHT",RecorderPanel.time));
                             }
                         } catch (IllegalMove ex) {
                             System.out.println(ex.getMessage());
@@ -177,10 +178,6 @@ public class KeyboardInputHandler {
 
 
         }
-        public String getDirection(){
-            return direction;
-        }
-
     }
 
     /**

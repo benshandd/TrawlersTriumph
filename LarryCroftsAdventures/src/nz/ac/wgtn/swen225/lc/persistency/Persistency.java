@@ -2,6 +2,7 @@ package nz.ac.wgtn.swen225.lc.persistency;
 
 import com.google.gson.*;
 import com.google.gson.stream.*;
+import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 
@@ -108,7 +109,7 @@ public class Persistency {
      * @param level      The current level.
      * @throws IOException If an I/O error occurs while saving the game.
      */
-    public void saveGame(int newFileNum, ArrayList<String> actions, int x, int y, int level) throws IOException {
+    public void saveGame(int newFileNum, ArrayList<Move> actions, int x, int y, int level) throws IOException {
         // Create the directory for saves if it doesn't exist already
         File newFile = new File("LarryCroftsAdventures" + File.separator + "Saves");
         newFile.mkdir();
@@ -134,8 +135,8 @@ public class Persistency {
         playerObject.addProperty("treasureLeft", treasureLeft);
 
         JsonArray actionsArray = new JsonArray();
-        for (String action : actions) {
-            actionsArray.add(action);
+        for (Move action : actions) {
+            actionsArray.add(action.move());
         }
         gameData.add("actions", actionsArray);
 

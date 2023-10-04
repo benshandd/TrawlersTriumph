@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
@@ -16,12 +17,12 @@ import java.util.ArrayList;
 
 
 public class Recorder {
-    private ArrayList<String> movesList;
+    private ArrayList<Move> movesList;
     private int x;
     private int y;
     int initLevel;
 
-    public Recorder(ArrayList<String> movesList, int x, int y, int initLevel) {
+    public Recorder(ArrayList<Move> movesList, int x, int y, int initLevel) {
         this.movesList = movesList;
         this.x = x;
         this.y =y;
@@ -43,15 +44,15 @@ public class Recorder {
      * @param file chosen file
      * @return moves in that file
      */
-    public ArrayList<String> loadSave(File file) {
+    public ArrayList<Move> loadSave(File file) {
         try(JsonReader reader = new JsonReader(new FileReader(file))){
-            ArrayList<String> moves = new ArrayList<>();
+            ArrayList<Move> moves = new ArrayList<>();
             //getting the actions array out of the file to then be able to use the actions
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             JsonArray jsonMoves = jsonObject.getAsJsonArray("actions");
 
             for (int i = 0; i < jsonMoves.size(); i++){
-                moves.add(jsonMoves.get(i).getAsString());
+                moves.add(new Move(jsonMoves.get(i).getAsString(),1));
             }
             System.out.println("Game loaded...");
             return moves;
@@ -63,11 +64,10 @@ public class Recorder {
     /**
      * step by step playback moves
      * @param move move to be played back
-     * TODO need to render it moving
      */
-    public void step(String move) throws IllegalMove {
+    public void step(Move move) throws IllegalMove {
         Renderer renderer;
-        switch (move){
+        switch (move.move()){
             case "UP" -> {
                 renderer = App.getRenderer();
                 //renderer.moveCameraUp();
