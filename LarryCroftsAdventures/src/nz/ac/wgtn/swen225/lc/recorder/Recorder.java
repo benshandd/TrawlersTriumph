@@ -8,6 +8,7 @@ import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+import nz.ac.wgtn.swen225.lc.renderer.Camera;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import java.io.File;
@@ -66,27 +67,26 @@ public class Recorder {
      * @param move move to be played back
      */
     public void step(Move move) throws IllegalMove {
-        Renderer renderer;
+        Renderer renderer = App.getRenderer();
+        Camera camera = renderer.getCamera();
+        Chap chap = App.getBoard().getChap();
+
         switch (move.move()){
             case "UP" -> {
-                renderer = App.getRenderer();
-                //renderer.moveCameraUp();
-                App.getBoard().getChap().move(Chap.Direction.UP);
+                camera.updateCameraPosition(chap);
+                chap.move(Chap.Direction.UP);
             }
             case "DOWN" -> {
-                renderer = App.getRenderer();
-                //renderer.moveCameraDown();
-                App.getBoard().getChap().move(Chap.Direction.DOWN);
+                camera.updateCameraPosition(chap);
+                chap.move(Chap.Direction.DOWN);
             }
             case "LEFT" -> {
-                renderer = App.getRenderer();
-                //renderer.moveCameraLeft();
-                App.getBoard().getChap().move(Chap.Direction.LEFT);
+                camera.updateCameraPosition(chap);
+                chap.move(Chap.Direction.LEFT);
             }
             case "RIGHT" -> {
-                renderer = App.getRenderer();
-                //renderer.moveCameraRight();
-                App.getBoard().getChap().move(Chap.Direction.RIGHT);
+                camera.updateCameraPosition(chap);
+                chap.move(Chap.Direction.RIGHT);
             }
         }
     }
