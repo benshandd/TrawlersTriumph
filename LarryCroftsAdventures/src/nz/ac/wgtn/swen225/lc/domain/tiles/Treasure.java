@@ -18,6 +18,7 @@ public class Treasure extends Free {
      */
     @Override
     public boolean performTileAction(Chap chap) {
+        chap.addTreasure();
         return true;
     }
 }
