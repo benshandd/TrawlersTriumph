@@ -81,7 +81,7 @@ public class Chap {
     public boolean removeItem(Item item) {
         for (int i = 0; i < inventory.length; i++) {
             for (int j = 0; j < inventory[i].length; j++) {
-                if (inventory[i][j].equals(item)) {
+                if (inventory[i][j] != null && inventory[i][j].equals(item)) {
                     inventory[i][j] = null;
                     return true;
                 }
