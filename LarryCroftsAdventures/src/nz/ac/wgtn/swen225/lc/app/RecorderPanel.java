@@ -32,6 +32,7 @@ public class RecorderPanel extends JPanel {
     private JButton autoReplayButton;
     private JSlider replaySpeedSlider;
 
+
     /**
      * ArrayList to store recorded game moves.
      */
@@ -47,11 +48,12 @@ public class RecorderPanel extends JPanel {
     private int count = 0;
     File file = null;
     App app;
-    int chapX;
-    int chapY;
-    int chapTreasures;
-    int chapInitLevel;
-    int boardTreasureRemaining;
+    private int playerX;
+    private int playerY;
+    private int playerTreasuresCount;
+    private int boardTreasuresCount;
+    private int level;
+
 
     /**
      * Constructs a RecorderPanel and initializes its components.
@@ -210,11 +212,11 @@ public class RecorderPanel extends JPanel {
         recordButton.setText("Stop Recording");
         count++;
         Chap chap = app.getBoard().getChap();
-        chapX = chap.getX();
-        chapY = chap.getY();
-        chapTreasures = chap.amountOfTreasures();
-        chapInitLevel = app.getBoard().getLevel();
-        boardTreasureRemaining = app.getBoard().getTreasureLeft();
+        playerX = chap.getX();
+        playerY = chap.getY();
+        playerTreasuresCount = chap.amountOfTreasures();
+        level = app.getBoard().getLevel();
+        boardTreasuresCount = app.getBoard().getTreasureLeft();
         moves = new ArrayList<>();
         recordingIndicatorTimer = new Timer();
         recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
@@ -235,9 +237,9 @@ public class RecorderPanel extends JPanel {
         recordingIndicatorTimer.cancel();
         recordingIndicatorVisible = false;
         repaint();
-        Recorder r = new Recorder(new ArrayList<Move>(moves), chapX,
-                chapY, chapTreasures,
-                chapInitLevel, boardTreasureRemaining);
+        Recorder r = new Recorder(new ArrayList<Move>(moves), playerX,
+                playerY, playerTreasuresCount,
+                level, boardTreasuresCount);
         moves.clear();
         try {
             r.saveRecorder(count);
@@ -258,6 +260,29 @@ public class RecorderPanel extends JPanel {
             int y = getHeight() / 2 - radius;
             g.fillOval(0, 0, radius * 2, radius * 2);
         }
+    }
+    public int getPlayerX() {
+        return playerX;
+    }
+
+    public int getPlayerY() {
+        return playerY;
+    }
+
+    public int getPlayerTreasuresCount() {
+        return playerTreasuresCount;
+    }
+
+    public int getBoardTreasuresCount() {
+        return boardTreasuresCount;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public ArrayList<Move> getMoves() {
+        return moves;
     }
 
 }

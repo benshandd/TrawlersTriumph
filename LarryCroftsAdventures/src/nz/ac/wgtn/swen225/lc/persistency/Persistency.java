@@ -1,13 +1,16 @@
 package nz.ac.wgtn.swen225.lc.persistency;
 
 import com.google.gson.*;
-import com.google.gson.stream.*;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
 import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * This class handles the persistence of the game state, allowing loading and
@@ -23,6 +26,19 @@ public class Persistency {
     public int x;
     public int y;
     public String message;
+
+    public static int newFileNum;
+    public ArrayList<Move> actionsToSave;
+    public int xToSave;
+    public int yToSave;
+    public int playerTreasuresCountToSave;
+    public int boardTreasuresCountToSave;
+    public int levelToSave;
+
+    public Persistency() {
+        actionsToSave = new ArrayList<>();
+    }
+
 
     /**
      * Loads game from a JSON file.
@@ -100,42 +116,38 @@ public class Persistency {
 
     /**
      * Saves the current game state to a JSON file.
-     *
-     * @param newFileNum The number associated with the new save file.
-     * @param actions    The list of actions performed in the game.
-     * @param x          The x-coord of the player.
-     * @param y          The y-coord of the player.
-     * @param level      The current level.
-     * @throws IOException If an I/O error occurs while saving the game.
      */
-    public void saveGame(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasuresCount, int boardTreasuresCount, int level) throws IOException {
-        // Create the directory for saves if it doesn't exist already
-        File newFile = new File("LarryCroftsAdventures" + File.separator + "Saves");
-        newFile.mkdir();
+    public void saveGame() throws IOException {
+        File savesDirectory = new File("LarryCroftsAdventures" + File.separator + "Saves");
+        savesDirectory.mkdir();
+        newFileNum++;
 
         // Create a new save file
-        newFile = new File("LarryCroftsAdventures" + File.separator + "Saves" + File.separator + "saved-game_"
-                + newFileNum + ".json");
+        newFile = new File(savesDirectory, "saved-game_" + newFileNum + ".json");
 
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);
-
         JsonObject gameData = new JsonObject();
         Gson gson = new Gson();
 
         JsonObject playerObject = new JsonObject();
-        playerObject.addProperty("x", x);
-        playerObject.addProperty("y", y);
+        playerObject.addProperty("x", xToSave);
+        playerObject.addProperty("y", yToSave);
 
         gameData.add("player", playerObject);
 
         gameData.addProperty("timeLeft", timeLeft);
-        gameData.addProperty("level", level);
-        playerObject.addProperty("treasureLeft", treasureLeft);
+        gameData.addProperty("level", levelToSave);
+        gameData.addProperty("treasureLeft", treasureLeft);
+        gameData.addProperty("playerTreasuresCount", playerTreasuresCountToSave);
+        gameData.addProperty("boardTreasuresCount", boardTreasuresCountToSave);
 
+        // Add actions data to the gameData
         JsonArray actionsArray = new JsonArray();
-        for (Move action : actions) {
-            actionsArray.add(action.move());
+        if (this.actionsToSave != null) {
+            for (Move move : this.actionsToSave) {
+                actionsArray.add(move.move());
+            }
         }
         gameData.add("actions", actionsArray);
 
@@ -146,6 +158,7 @@ public class Persistency {
                 JsonObject cellObject = new JsonObject();
                 cellObject.addProperty("x", j);
                 cellObject.addProperty("y", i);
+
                 cellObject.addProperty("tile", "Wall");
                 cellObject.addProperty("item", "none");
                 rowArray.add(cellObject);
@@ -163,5 +176,18 @@ public class Persistency {
         System.out.println("Game saved...");
         jsonWriter.close();
         fileWriter.close();
+    }
+
+    /**
+     * Setter method to set the instance variables for saving parameters.
+     */
+    public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasuresCount, int boardTreasuresCount, int level) {
+        this.newFileNum = newFileNum;
+        this.actionsToSave = actions;
+        this.xToSave = x;
+        this.yToSave = y;
+        this.levelToSave = level;
+        this.playerTreasuresCountToSave = playerTreasuresCount;
+        this.boardTreasuresCountToSave = boardTreasuresCount;
     }
 }

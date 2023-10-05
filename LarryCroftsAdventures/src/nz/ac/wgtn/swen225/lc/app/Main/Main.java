@@ -2,8 +2,11 @@ package nz.ac.wgtn.swen225.lc.app.Main;
 
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.HelpDialog;
+import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
 import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
+import nz.ac.wgtn.swen225.lc.domain.Board;
+import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
@@ -17,6 +20,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import nz.ac.wgtn.swen225.lc.domain.Board;
+import nz.ac.wgtn.swen225.lc.recorder.Recorder;
+
 /**
  * The main class for Larry Croft's Adventures game.
  * This class sets up the game's graphical user interface and main functionality.
@@ -25,11 +31,14 @@ public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
      private static Persistency persistency = new Persistency();
+    private static Board board = new Board();
     private static RecorderPanel recorderPanel;
+    private static Recorder recorder;
     /**
      * Constructor for the Main class. Initializes the game window and components.
      */
     public Main() {
+        recorder = new Recorder();
         System.out.println("Hello world");
         f = new JFrame("Larry Croft's Adventures");
         l = new JLabel("Welcome");
@@ -87,14 +96,22 @@ public class Main extends JFrame {
         });
         int count = 1;
 
-        saveMenuItem.setToolTipText("Save the game state"); // Tooltip for the Save menu item.
         saveMenuItem.addActionListener((event) -> {
-            /*try {
-                persistency.saveGame(count, persistency.actions, persistency.x, persistency.y, persistency.level);
+            try {
+                ArrayList<Move> moves = recorderPanel.getMoves();
+                int x = recorderPanel.getPlayerX();
+                int y = recorderPanel.getPlayerY();
+                int playerTreasuresCount = recorderPanel.getPlayerTreasuresCount();
+                int boardTreasuresCount = recorderPanel.getBoardTreasuresCount();
+                int level = recorderPanel.getLevel();
+
+                persistency.setSaveParameters(level, moves, x, y, playerTreasuresCount, boardTreasuresCount, level);
+                persistency.saveGame();
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            }*/
+            }
         });
+
 
         resumeMenuItem.setToolTipText("Resume the game"); // Tooltip for the Resume menu item.
 //        resumeMenuItem.addActionListener((event) -> persistency.resumeGame();

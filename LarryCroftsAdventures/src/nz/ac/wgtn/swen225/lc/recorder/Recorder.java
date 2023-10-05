@@ -1,4 +1,5 @@
 package nz.ac.wgtn.swen225.lc.recorder;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -16,60 +17,70 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class Recorder {
-    private ArrayList<Move> movesList;
-    private int x;
-    private int y;
-    private int numberOfTreasuresPlayer;
-    private int numberOfTreasuresBoard;
-    int initLevel;
 
-    public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard,  int initLevel) {
+    public ArrayList<Move> movesList;
+    public int x;
+    public int y;
+    public int numberOfTreasuresPlayer;
+    public int numberOfTreasuresBoard;
+    public int initLevel;
+    private Persistency persistency;
+
+    public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard, int initLevel) {
         this.movesList = movesList;
         this.x = x;
-        this.y =y;
+        this.y = y;
         this.numberOfTreasuresPlayer = numberOfTreasuresPlayer;
         this.numberOfTreasuresBoard = numberOfTreasuresBoard;
         this.initLevel = initLevel;
     }
-    public Recorder(){}
+
+    public Recorder() {
+    }
 
     /**
-     * saves the recording
+     * Saves the recording
+     *
      * @param count file count
      * @throws IOException for the file writer
      */
     public void saveRecorder(int count) throws IOException {
-       new Persistency().saveGame(count,movesList,this.x, this.y, this.numberOfTreasuresPlayer, this.numberOfTreasuresBoard , this.initLevel);
+        Persistency persistency = new Persistency();
+        persistency.setSaveParameters(count, movesList, x, y, numberOfTreasuresPlayer, numberOfTreasuresBoard,
+                initLevel);
+        persistency.saveGame();
     }
 
     /**
-     * loads the moves from the chosen file
+     * Loads the moves from the chosen file
+     *
      * @param file chosen file
      * @return moves in that file
      */
     public ArrayList<Move> loadSave(File file) {
-        try(JsonReader reader = new JsonReader(new FileReader(file))){
+        try (JsonReader reader = new JsonReader(new FileReader(file))) {
             ArrayList<Move> moves = new ArrayList<>();
-            //getting the actions array out of the file to then be able to use the actions
+            // getting the actions array out of the file to then be able to use the actions
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             JsonArray jsonMoves = jsonObject.getAsJsonArray("actions");
 
-            for (int i = 0; i < jsonMoves.size(); i++){
-                moves.add(new Move(jsonMoves.get(i).getAsString(),1));
+            for (int i = 0; i < jsonMoves.size(); i++) {
+                moves.add(new Move(jsonMoves.get(i).getAsString(), 1));
             }
-            //pass file name to load the level the player started on and position where they started from
+            // pass file name to load the level the player started on and position where
+            // they started from
             new Persistency().loadGame(file);
             System.out.println("Game loaded...");
             return moves;
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * step by step playback moves
+     * Step by step playback moves
+     *
      * @param move move to be played back
      */
     public void step(Move move) throws IllegalMove {
@@ -77,7 +88,7 @@ public class Recorder {
         Camera camera = renderer.getCamera();
         Chap chap = App.getBoard().getChap();
 
-        switch (move.move()){
+        switch (move.move()) {
             case "UP" -> {
                 camera.updateCameraPosition(chap);
                 chap.move(Chap.Direction.UP);
@@ -98,13 +109,11 @@ public class Recorder {
     }
 
     /**
-     * method to auto playback the moves
+     * Method to auto playback the moves
+     *
      * @param moves moves in the file chosen
      * @param speed speed of the playback
      */
-    public void auto(ArrayList<String> moves, int speed){
-
+    public void auto(ArrayList<String> moves, int speed) {
     }
-
-
 }

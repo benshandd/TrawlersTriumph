@@ -39,6 +39,8 @@ public class Board {
         chap = new Chap(this, playerTile, treasure);
     }
 
+    public Board(){}
+
     /**
      * Reset the given tile to a free tile.
      * @param tile the tile to reset

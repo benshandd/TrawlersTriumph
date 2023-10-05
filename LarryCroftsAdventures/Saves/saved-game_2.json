@@ -1,14 +1,23 @@
 {
     "player": {
-        "x": 0,
-        "y": 0
+        "x": 5,
+        "y": 4
     },
     "timeLeft": 0,
     "level": 0,
     "treasureLeft": 0,
-    "playerTreasuresCount": 0,
-    "boardTreasuresCount": 0,
-    "actions": [],
+    "playerTreasuresCount": 2,
+    "boardTreasuresCount": 1,
+    "actions": [
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "DOWN",
+        "LEFT",
+        "DOWN",
+        "DOWN",
+        "RIGHT"
+    ],
     "board": [
         [
             {
