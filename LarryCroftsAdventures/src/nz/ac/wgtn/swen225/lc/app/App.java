@@ -169,7 +169,7 @@ public class App extends JPanel implements ActionListener {
 
                     // Check if inventorySlots[i][j] is not null
                     if (items[i][j] != null) {
-                        System.out.println(keyImagePath);
+                        //System.out.println(keyImagePath);
 
                         // Load the image and convert it to an ImageIcon
                         ImageIcon keyIcon = new ImageIcon(keyImagePath);

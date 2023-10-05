@@ -36,7 +36,7 @@ public class RecorderPanel extends JPanel {
     /**
      * ArrayList to store recorded game moves.
      */
-    public static ArrayList<Move> moves;
+
 
     /**
      * A boolean flag to indicate whether recording is in progress.
@@ -45,9 +45,11 @@ public class RecorderPanel extends JPanel {
     private boolean recordingIndicatorVisible = false; // Flag to control the visibility of the recording indicator
     private Timer recordingIndicatorTimer; // Timer for the recording indicator
     public static int time;
-    private int count = 0;
+
     File file = null;
     App app;
+    private int count;
+    public static ArrayList<Move> moves;
     private int playerX;
     private int playerY;
     private int playerTreasuresCount;
@@ -279,6 +281,10 @@ public class RecorderPanel extends JPanel {
 
     public int getLevel() {
         return level;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public ArrayList<Move> getMoves() {

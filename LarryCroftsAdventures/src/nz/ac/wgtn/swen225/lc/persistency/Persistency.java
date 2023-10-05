@@ -19,7 +19,10 @@ import java.util.Stack;
 public class Persistency {
 
     public Stack<String> actions;
+    private int newFileNum;
     private File newFile;
+
+
     public int timeLeft;
     public int treasureLeft;
     public int level;
@@ -27,7 +30,7 @@ public class Persistency {
     public int y;
     public String message;
 
-    public static int newFileNum;
+    public int newFileNumToSave;
     public ArrayList<Move> actionsToSave;
     public int xToSave;
     public int yToSave;
@@ -182,7 +185,7 @@ public class Persistency {
      * Setter method to set the instance variables for saving parameters.
      */
     public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasuresCount, int boardTreasuresCount, int level) {
-        this.newFileNum = newFileNum;
+        this.newFileNumToSave = newFileNum;
         this.actionsToSave = actions;
         this.xToSave = x;
         this.yToSave = y;

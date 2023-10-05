@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class Recorder {
 
     public ArrayList<Move> movesList;
+    public int count;
     public int x;
     public int y;
     public int numberOfTreasuresPlayer;
@@ -116,4 +117,5 @@ public class Recorder {
      */
     public void auto(ArrayList<String> moves, int speed) {
     }
+
 }
