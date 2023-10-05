@@ -1,3 +1,3 @@
 package nz.ac.wgtn.swen225.lc.app;
 //Move record
-public record Move(String move, int time) {}
+public record Move(String move, double time) {}

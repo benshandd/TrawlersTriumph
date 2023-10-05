@@ -43,7 +43,7 @@ public class RecorderPanel extends JPanel {
     public static boolean recording = false;
     private boolean recordingIndicatorVisible = false; // Flag to control the visibility of the recording indicator
     private Timer recordingIndicatorTimer; // Timer for the recording indicator
-    public static int time;
+    public static double time;
     private int count = 0;
     File file = null;
     App app;
@@ -237,7 +237,7 @@ public class RecorderPanel extends JPanel {
         repaint();
         Recorder r = new Recorder(new ArrayList<Move>(moves), chapX,
                 chapY, chapTreasures,
-                chapInitLevel, boardTreasureRemaining);
+                boardTreasureRemaining, chapInitLevel);
         moves.clear();
         try {
             r.saveRecorder(count);
