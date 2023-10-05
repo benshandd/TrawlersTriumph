@@ -1,5 +1,6 @@
 package nz.ac.wgtn.swen225.lc.renderer;
 
+import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
@@ -44,14 +45,17 @@ public class Renderer extends JPanel{
     private double seagullY;
     private boolean seagullActivated = false;
 
+    private App app;
+
     /**
      * Constructor for the Renderer class.
      *
      * @param board The game board to render.
      */
-    public Renderer(Board board, int focusAreaSize, AudioUnit au) throws IOException {
+    public Renderer(Board board, int focusAreaSize, AudioUnit au, App app) throws IOException {
         this.board = board;
         this.grid = board.getTiles();
+        this.app = app;
         this.camera = new Camera(board.getChap().getTile().getX() - (focusAreaSize/2), board.getChap().getTile().getY() - (focusAreaSize/2), focusAreaSize, focusAreaSize);
         this.audioUnit = au;
         loadImages();
@@ -67,6 +71,8 @@ public class Renderer extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 ;
+                app.treasureLabel.setText("" + (app.getBoard().getTreasureLeft() - app.getBoard().getChap().getCurrentTreasure()));
+
                 repaint();
             }
         });
@@ -116,6 +122,7 @@ public class Renderer extends JPanel{
                 }
             }
         }
+        app.updateInventory(board.getChap().getInventory());
     }
 
     /**

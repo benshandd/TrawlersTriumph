@@ -7,7 +7,6 @@ import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.Camera;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
@@ -42,8 +41,7 @@ public class Recorder {
      * @throws IOException for the file writer
      */
     public void saveRecorder(int count) throws IOException {
-       new Persistency().saveGame(count,this.movesList,this.x, this.y,
-               this.numberOfTreasuresPlayer, this.numberOfTreasuresBoard, this.initLevel);
+       new Persistency().saveGame(count,movesList,this.x, this.y, this.numberOfTreasuresPlayer, this.numberOfTreasuresBoard , this.initLevel);
     }
 
     /**
@@ -62,8 +60,7 @@ public class Recorder {
                 moves.add(new Move(jsonMoves.get(i).getAsString(),1));
             }
             //pass file name to load the level the player started on and position where they started from
-            Tile[][] board = new Persistency().loadGame(file);
-
+            new Persistency().loadGame(file);
             System.out.println("Game loaded...");
             return moves;
         } catch(IOException e) {
@@ -82,32 +79,31 @@ public class Recorder {
 
         switch (move.move()){
             case "UP" -> {
+                camera.updateCameraPosition(chap);
                 chap.move(Chap.Direction.UP);
-                camera.setState(Camera.State.UP);
             }
             case "DOWN" -> {
+                camera.updateCameraPosition(chap);
                 chap.move(Chap.Direction.DOWN);
-                camera.setState(Camera.State.DOWN);
             }
             case "LEFT" -> {
+                camera.updateCameraPosition(chap);
                 chap.move(Chap.Direction.LEFT);
-                camera.setState(Camera.State.LEFT);
             }
             case "RIGHT" -> {
+                camera.updateCameraPosition(chap);
                 chap.move(Chap.Direction.RIGHT);
-                camera.setState(Camera.State.RIGHT);
             }
         }
     }
 
     /**
      * method to auto playback the moves
-     * @param move moves in the file chosen
+     * @param moves moves in the file chosen
      * @param speed speed of the playback
      */
-    public void auto(Move move, int speed) throws InterruptedException, IllegalMove {
+    public void auto(ArrayList<String> moves, int speed){
 
-        step(move);
     }
 
 

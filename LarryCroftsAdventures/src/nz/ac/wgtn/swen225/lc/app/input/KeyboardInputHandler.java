@@ -122,6 +122,7 @@ public class KeyboardInputHandler {
             Renderer renderer  = component.getRenderer();
             Camera camera = renderer.getCamera();
 
+
             if (camera.getState() == Camera.State.IDLE){
                 switch (direction) {
                     case "UP" -> {
