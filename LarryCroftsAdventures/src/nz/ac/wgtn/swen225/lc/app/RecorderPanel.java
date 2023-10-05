@@ -1,5 +1,6 @@
 package nz.ac.wgtn.swen225.lc.app;
 
+import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
@@ -46,6 +47,11 @@ public class RecorderPanel extends JPanel {
     private int count = 0;
     File file = null;
     App app;
+    int chapX;
+    int chapY;
+    int chapTreasures;
+    int chapInitLevel;
+    int boardTreasureRemaining;
 
     /**
      * Constructs a RecorderPanel and initializes its components.
@@ -96,6 +102,7 @@ public class RecorderPanel extends JPanel {
                 }
                 //getting the moves out of the loaded file
                 moves = new Recorder().loadSave(file);
+
             }
         });
 
@@ -202,6 +209,12 @@ public class RecorderPanel extends JPanel {
     private void startRecording() {
         recordButton.setText("Stop Recording");
         count++;
+        Chap chap = app.getBoard().getChap();
+        chapX = chap.getX();
+        chapY = chap.getY();
+        chapTreasures = chap.amountOfTreasures();
+        chapInitLevel = app.getBoard().getLevel();
+        boardTreasureRemaining = app.getBoard().getTreasureLeft();
         moves = new ArrayList<>();
         recordingIndicatorTimer = new Timer();
         recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
@@ -222,9 +235,9 @@ public class RecorderPanel extends JPanel {
         recordingIndicatorTimer.cancel();
         recordingIndicatorVisible = false;
         repaint();
-        Recorder r = new Recorder(new ArrayList<Move>(moves), App.getBoard().getChap().getTile().getX(),
-                App.getBoard().getChap().getTile().getY(),
-                App.getBoard().getLevel());
+        Recorder r = new Recorder(new ArrayList<Move>(moves), chapX,
+                chapY, chapTreasures,
+                chapInitLevel, boardTreasureRemaining);
         moves.clear();
         try {
             r.saveRecorder(count);

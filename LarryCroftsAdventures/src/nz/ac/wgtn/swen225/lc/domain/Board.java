@@ -93,4 +93,8 @@ public class Board {
     public int getTime() {
         return time;
     }
+
+    public int getTreasureLeft() {
+        return treasure;
+    }
 }

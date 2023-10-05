@@ -21,12 +21,16 @@ public class Recorder {
     private ArrayList<Move> movesList;
     private int x;
     private int y;
+    private int numberOfTreasuresPlayer;
+    private int numberOfTreasuresBoard;
     int initLevel;
 
-    public Recorder(ArrayList<Move> movesList, int x, int y, int initLevel) {
+    public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard,  int initLevel) {
         this.movesList = movesList;
         this.x = x;
         this.y =y;
+        this.numberOfTreasuresPlayer = numberOfTreasuresPlayer;
+        this.numberOfTreasuresBoard = numberOfTreasuresBoard;
         this.initLevel = initLevel;
     }
     public Recorder(){}

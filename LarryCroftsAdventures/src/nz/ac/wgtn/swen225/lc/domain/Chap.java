@@ -146,6 +146,10 @@ public class Chap {
         return treasureCount;
     }
 
+    public int amountOfTreasures(){
+        return treasureCount;
+    }
+
     /**
      * Represents the four possible directions for movement of the player.
      */
