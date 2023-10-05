@@ -108,7 +108,7 @@ public class Persistency {
      * @param level      The current level.
      * @throws IOException If an I/O error occurs while saving the game.
      */
-    public void saveGame(int newFileNum, ArrayList<Move> actions, int x, int y, int level) throws IOException {
+    public void saveGame(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasuresCount, int boardTreasuresCount, int level) throws IOException {
         // Create the directory for saves if it doesn't exist already
         File newFile = new File("LarryCroftsAdventures" + File.separator + "Saves");
         newFile.mkdir();
