@@ -166,7 +166,7 @@ public class RecorderPanel extends JPanel {
                             }
                             repaint();
                         }
-                    }, (speed*1000L)/2, 500);
+                    }, 0, (speed*200)/2);
                 }
             }
         });
