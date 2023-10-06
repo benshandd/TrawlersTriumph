@@ -96,21 +96,21 @@ public class Main extends JFrame {
         });
         int count = 1;
 
-        saveMenuItem.addActionListener((event) -> {
-            try {
-                ArrayList<Move> moves = recorderPanel.getMoves();
-                int x = recorderPanel.getPlayerX();
-                int y = recorderPanel.getPlayerY();
-                int playerTreasuresCount = recorderPanel.getPlayerTreasuresCount();
-                int boardTreasuresCount = recorderPanel.getBoardTreasuresCount();
-                int level = recorderPanel.getLevel();
-
-                persistency.setSaveParameters(level, moves, x, y, playerTreasuresCount, boardTreasuresCount, level);
-                persistency.saveGame();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+//        saveMenuItem.addActionListener((event) -> {
+//            try {
+//                ArrayList<Move> moves = recorderPanel.getMoves();
+//                int x = recorderPanel.getPlayerX();
+//                int y = recorderPanel.getPlayerY();
+//                int playerTreasuresCount = recorderPanel.getPlayerTreasuresCount();
+//                int boardTreasuresCount = recorderPanel.getBoardTreasuresCount();
+//                int level = recorderPanel.getLevel();
+//
+//                persistency.setSaveParameters(level, moves, x, y, playerTreasuresCount, boardTreasuresCount, level);
+//                persistency.saveGame();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
 
 
         resumeMenuItem.setToolTipText("Resume the game"); // Tooltip for the Resume menu item.

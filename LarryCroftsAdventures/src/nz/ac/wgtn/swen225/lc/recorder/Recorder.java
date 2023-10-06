@@ -41,7 +41,10 @@ public class Recorder {
      * @throws IOException for the file writer
      */
     public void saveRecorder(int count) throws IOException {
-       new Persistency().saveGame(count,movesList,this.x, this.y, this.numberOfTreasuresPlayer, this.numberOfTreasuresBoard , this.initLevel);
+        Persistency p = new Persistency();
+        p.setSaveParameters(count,movesList,this.x, this.y,
+               this.numberOfTreasuresPlayer, this.numberOfTreasuresBoard , this.initLevel);
+        p.saveGame();
     }
 
     /**
@@ -79,19 +82,19 @@ public class Recorder {
 
         switch (move.move()){
             case "UP" -> {
-                camera.updateCameraPosition(chap);
+                camera.setState(Camera.State.UP);
                 chap.move(Chap.Direction.UP);
             }
             case "DOWN" -> {
-                camera.updateCameraPosition(chap);
+                camera.setState(Camera.State.DOWN);
                 chap.move(Chap.Direction.DOWN);
             }
             case "LEFT" -> {
-                camera.updateCameraPosition(chap);
+                camera.setState(Camera.State.LEFT);
                 chap.move(Chap.Direction.LEFT);
             }
             case "RIGHT" -> {
-                camera.updateCameraPosition(chap);
+                camera.setState(Camera.State.RIGHT);
                 chap.move(Chap.Direction.RIGHT);
             }
         }

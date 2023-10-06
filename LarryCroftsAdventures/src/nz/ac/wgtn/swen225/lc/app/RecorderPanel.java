@@ -237,7 +237,7 @@ public class RecorderPanel extends JPanel {
         repaint();
         Recorder r = new Recorder(new ArrayList<Move>(moves), chapX,
                 chapY, chapTreasures,
-                chapInitLevel, boardTreasureRemaining);
+                boardTreasureRemaining, chapInitLevel);
         moves.clear();
         try {
             r.saveRecorder(count);
