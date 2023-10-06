@@ -102,10 +102,10 @@ public class Recorder {
 
     /**
      * method to auto playback the moves
-     * @param moves moves in the file chosen
+     * @param move move in the file chosen
      * @param speed speed of the playback
      */
-    public void auto(ArrayList<String> moves, int speed){
+    public static void auto(Move move, int speed){
 
     }
 

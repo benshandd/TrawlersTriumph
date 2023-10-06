@@ -52,6 +52,8 @@ public class RecorderPanel extends JPanel {
     int chapTreasures;
     int chapInitLevel;
     int boardTreasureRemaining;
+    //speed of auto replay
+    int speed;
 
     /**
      * Constructs a RecorderPanel and initializes its components.
@@ -124,7 +126,10 @@ public class RecorderPanel extends JPanel {
                             System.out.println(ex.getMessage());
                         }
                     } else{
-                        //TODO implement a pop up saying been through all moves @Mr Kerr
+                        JOptionPane.showMessageDialog(null,
+                                "All moves have been shown!",
+                                "Replay finished!",
+                                JOptionPane.PLAIN_MESSAGE);
                     }
 
                 }
@@ -141,7 +146,27 @@ public class RecorderPanel extends JPanel {
                             "File not chosen!",
                             JOptionPane.PLAIN_MESSAGE);
                 } else{
-
+                    //timer to be able to go through each action at a certain speed
+                    recordingIndicatorTimer = new Timer();
+                    recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
+                        @Override
+                        public void run() {
+                            try {
+                                if (!moves.isEmpty()) {
+                                    new Recorder().step(moves.remove(0));
+                                } else{
+                                    JOptionPane.showMessageDialog(null,
+                                            "All moves have been shown!",
+                                            "Replay finished!",
+                                            JOptionPane.PLAIN_MESSAGE);
+                                    recordingIndicatorTimer.cancel();
+                                }
+                            } catch (IllegalMove ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            repaint();
+                        }
+                    }, (speed*1000L)/2, 500);
                 }
             }
         });
@@ -167,7 +192,7 @@ public class RecorderPanel extends JPanel {
         replaySpeedSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                int speed = replaySpeedSlider.getValue();
+                speed = replaySpeedSlider.getValue();
                 // Use the 'speed' value to adjust the game's replay speed
                 // Implement your replay speed adjustment logic here
 
@@ -212,7 +237,7 @@ public class RecorderPanel extends JPanel {
         Chap chap = app.getBoard().getChap();
         chapX = chap.getX();
         chapY = chap.getY();
-        chapTreasures = chap.amountOfTreasures();
+        chapTreasures = chap.getCurrentTreasure();
         chapInitLevel = app.getBoard().getLevel();
         boardTreasureRemaining = app.getBoard().getTreasureLeft();
         moves = new ArrayList<>();
