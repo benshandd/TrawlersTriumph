@@ -1,12 +1,11 @@
-package test.nz.ac.wgtn.swen225.lc.domain;
+package nz.ac.wgtn.swen225.lc.domain;
 
-import nz.ac.wgtn.swen225.lc.domain.*;
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DomainTests {
+public class DomainTest {
     private static Board board;
     private static Chap chap;
 
@@ -82,5 +81,10 @@ public class DomainTests {
         assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
         assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
         assertThrows(IllegalMove.class, () -> chap.move(Chap.Direction.UP));
+    }
+
+    @Test
+    public void testPickingUpKey() {
+
     }
 }
