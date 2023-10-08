@@ -19,7 +19,7 @@ public class Board {
     private AudioUnit audioUnit;
 
     /**
-     * Create a new Board. Generates a 2D array of tiles using {@link Persistency#loadGame(String) loadGame}.
+     * Create a new Board. Generates a 2D array of tiles using {@link Persistency#loadGame(File) loadGame}.
      */
     public Board(int level, AudioUnit audioUnit) {
         Persistency persistency = new Persistency();
@@ -41,8 +41,6 @@ public class Board {
         board[startX][startY] = playerTile;
         chap = new Chap(this, playerTile, treasure);
     }
-
-    public Board(){}
 
     /**
      * Reset the given tile to a free tile.

@@ -31,7 +31,6 @@ public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
     private static Persistency persistency = new Persistency();
-    private static Board board = new Board();
     private static RecorderPanel recorderPanel;
     private static Recorder recorder;
     /**

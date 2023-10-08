@@ -33,11 +33,6 @@ public class Chap {
      * @throws IllegalMove if the tile to the given direction is not traversable or the edge of the board is encountered
      */
     public void move(Direction direction) throws IllegalMove {
-//        for(int i = 0; i < inventory.length; i++){
-//            for(int j = 0; j < inventory[0].length; j++){
-//                System.out.println(inventory[i][j]);
-//            }
-//        }
         Tile next;
         int x = tile.getX();
         int y = tile.getY();
