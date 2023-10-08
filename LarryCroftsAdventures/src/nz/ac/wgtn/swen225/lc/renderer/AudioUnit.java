@@ -13,7 +13,7 @@ import java.util.Random;
  * @author  Alex Manning (300600549)
  */
 public class AudioUnit {
-    public enum AudioClip{BACKGROUND, AMBIENCE, SEAGULL1, SEAGULL2, SEAGULL3, KEY_COLLECT, DOOR_UNLOCK, FISH_CAUGHT, ENEMY_ATTACK}
+    public enum AudioClip{BACKGROUND, AMBIENCE, SEAGULL1, SEAGULL2, SEAGULL3, FISH_CAUGHT, ENEMY_ATTACK, DOOROPEN, KEYCOLLECT, FISH1, FISH2, FISH3}
     private final HashMap<AudioClip, Clip> audioClips = new HashMap<>();
 
     public AudioUnit(){
@@ -30,6 +30,12 @@ public class AudioUnit {
         addClip(AudioClip.SEAGULL1, "seagull1.wav", -5f);
         addClip(AudioClip.SEAGULL2, "seagull2.wav", -5f);
         addClip(AudioClip.SEAGULL3, "seagull3.wav", -5f);
+        addClip(AudioClip.SEAGULL3, "seagull3.wav", -5f);
+        addClip(AudioClip.DOOROPEN , "DoorOpen.wav", -5f);
+        addClip(AudioClip.KEYCOLLECT, "KeyCollect.wav", -5f);
+        addClip(AudioClip.FISH1, "Fish1.wav", -5f);
+        addClip(AudioClip.FISH2, "Fish2.wav", -5f);
+        addClip(AudioClip.FISH3, "Fish3.wav", -5f);
     }
 
     /**
@@ -42,6 +48,8 @@ public class AudioUnit {
      */
     private void addClip(AudioClip id, String file, float volume){
         String path = "LarryCroftsAdventures/assets/audioFiles/";
+        // Ensure that the provided AudioClip enum is valid
+        assert isValidEnum(id);
         try{
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(new File(path + file)));
@@ -83,9 +91,34 @@ public class AudioUnit {
             case 3 -> AudioClip.SEAGULL3;
             default -> null;
         };
+        audioClips.get(seagull).setFramePosition(0); // reset frame position if sound has previously been played
         audioClips.get(seagull).start();
     }
 
+    /**
+     * Plays one of three possible fish SFXs
+     */
+    public void playFishSFX(){
+        Random random = new Random();
+        // Generate a random number between 1 and 3
+        int randomNumber = random.nextInt(3) + 1;
+        AudioClip fish = switch(randomNumber){
+            case 1 -> AudioClip.FISH1;
+            case 2 -> AudioClip.FISH2;
+            case 3 -> AudioClip.FISH3;
+            default -> null;
+        };
+        audioClips.get(fish).setFramePosition(0); // reset frame position if sound has previously been played
+        audioClips.get(fish).start();
+    }
+
+    /**
+     * Plays the key pickup SFX
+     */
+    public void playSound(AudioClip ac){
+        audioClips.get(ac).setFramePosition(0); // reset frame position if sound has previously been played
+        audioClips.get(ac).start();
+    }
     /**
      * Stops all audio
      */
@@ -93,5 +126,20 @@ public class AudioUnit {
         for (Clip clip : audioClips.values()){
             clip.stop();
         }
+    }
+
+    /**
+     * Checks if an AudioClip enum is valid.
+     *
+     * @param audioClip The AudioClip enum to check.
+     * @return True if the enum is valid, false otherwise.
+     */
+    private boolean isValidEnum(AudioClip audioClip) {
+        for (AudioClip validEnum : AudioClip.values()) {
+            if (validEnum == audioClip) {
+                return true;
+            }
+        }
+        return false;
     }
 }

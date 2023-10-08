@@ -61,11 +61,12 @@ public class App extends JPanel implements ActionListener {
         audioUnit = new AudioUnit();
         audioUnit.startBackgroundMusic();
         audioUnit.startAmbience();
-        board = new Board(level);
+        board = new Board(level, audioUnit);
 
         try {
             centrePanel = new Renderer(board, 9, audioUnit, this);
         } catch (IOException e) {
+            System.err.println("Error: An image has not read properly");
             e.printStackTrace();
         }
 

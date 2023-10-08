@@ -46,74 +46,27 @@ public class Camera {
         }
     }
 
-    /**
-     * Gets the width of the camera.
-     *
-     * @return The width of the camera.
-     */
     public double getWidth() {
         return w;
     }
-
-    /**
-     * Gets the height of the camera.
-     *
-     * @return The height of the camera.
-     */
     public double getHeight() {
         return h;
     }
-
-    /**
-     * Gets the x-coordinate of the camera's position.
-     *
-     * @return The x-coordinate of the camera's position.
-     */
     public double getX() {
         return x;
     }
-
-    /**
-     * Gets the y-coordinate of the camera's position.
-     *
-     * @return The y-coordinate of the camera's position.
-     */
     public double getY() {
         return y;
     }
-
-    /**
-     * Gets the current state of the camera.
-     *
-     * @return The current state of the camera.
-     */
     public State getState() {
         return state;
     }
-
-    /**
-     * Sets the state of the camera to the specified state.
-     *
-     * @param s The new state to set.
-     */
     public void setState(State s) {
         state = s;
     }
-
-    /**
-     * Sets the x-coordinate of the camera's position.
-     *
-     * @param x The new x-coordinate to set.
-     */
     public void setX(double x) {
         this.x = x;
     }
-
-    /**
-     * Sets the y-coordinate of the camera's position.
-     *
-     * @param y The new y-coordinate to set.
-     */
     public void setY(double y) {
         this.y = y;
     }

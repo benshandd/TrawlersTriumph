@@ -70,9 +70,7 @@ public class Renderer extends JPanel{
         Timer timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ;
                 app.treasureLabel.setText("" + (app.getBoard().getTreasureLeft() - app.getBoard().getChap().getCurrentTreasure()));
-
                 repaint();
             }
         });

@@ -159,4 +159,11 @@ public class Chap {
      * Represents the four possible directions for movement of the player.
      */
     public enum Direction {UP, DOWN, LEFT, RIGHT}
+
+    /**
+     * Get board that Chap is on
+     */
+    public Board getBoard(){
+        return board;
+    }
 }

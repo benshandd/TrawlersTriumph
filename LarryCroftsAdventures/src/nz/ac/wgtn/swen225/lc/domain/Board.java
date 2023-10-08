@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
 /**
  * Represents the board for a given level.
@@ -15,12 +16,14 @@ public class Board {
     private int time;
     private int level;
     private int treasure;
+    private AudioUnit audioUnit;
 
     /**
      * Create a new Board. Generates a 2D array of tiles using {@link Persistency#loadGame(String) loadGame}.
      */
-    public Board(int level) {
+    public Board(int level, AudioUnit audioUnit) {
         Persistency persistency = new Persistency();
+        this.audioUnit = audioUnit;
         this.level = level;
 
         try {
@@ -98,5 +101,13 @@ public class Board {
 
     public int getTreasureLeft() {
         return treasure;
+    }
+
+    /**
+     * Get the audio unit of the board.
+     * @return the audio unit
+     */
+    public AudioUnit getAudioUnit(){
+        return audioUnit;
     }
 }
