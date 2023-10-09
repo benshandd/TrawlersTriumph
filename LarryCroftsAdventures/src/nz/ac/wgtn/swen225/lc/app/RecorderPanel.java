@@ -2,6 +2,7 @@ package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
 import javax.swing.*;
@@ -53,6 +54,7 @@ public class RecorderPanel extends JPanel {
     int chapInitLevel;
     int boardTreasureRemaining;
     int timeLeft;
+    Tile[][] board;
     //speed of auto replay
     int speed;
 
@@ -242,6 +244,7 @@ public class RecorderPanel extends JPanel {
         chapInitLevel = app.getBoard().getLevel();
         boardTreasureRemaining = app.getBoard().getTreasureLeft();
         timeLeft = app.getBoard().getTime();
+        board = app.getBoard().getTiles();
         moves = new ArrayList<>();
         recordingIndicatorTimer = new Timer();
         recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
@@ -251,7 +254,7 @@ public class RecorderPanel extends JPanel {
                 time++;
                 repaint();
             }
-        }, 0, 500);
+        }, 0, 100);
 
 
     }
@@ -264,7 +267,7 @@ public class RecorderPanel extends JPanel {
         repaint();
         Recorder r = new Recorder(new ArrayList<Move>(moves), chapX,
                 chapY, chapTreasures,
-                boardTreasureRemaining, chapInitLevel,timeLeft);
+                boardTreasureRemaining, chapInitLevel,timeLeft,board);
         moves.clear();
         try {
             r.saveRecorder(count);

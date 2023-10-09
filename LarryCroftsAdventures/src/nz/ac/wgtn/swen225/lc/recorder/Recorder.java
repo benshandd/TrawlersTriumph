@@ -7,6 +7,7 @@ import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.Camera;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
@@ -25,9 +26,11 @@ public class Recorder {
     private int numberOfTreasuresBoard;
     int initLevel;
     int timeLeft;
+    Tile[][] board;
 
 
-    public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard,  int initLevel, int timeLeft) {
+    public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard,
+                    int initLevel, int timeLeft, Tile[][] board) {
         this.movesList = movesList;
         this.x = x;
         this.y =y;
@@ -35,6 +38,7 @@ public class Recorder {
         this.numberOfTreasuresBoard = numberOfTreasuresBoard;
         this.initLevel = initLevel;
         this.timeLeft = timeLeft;
+        this.board = board;
     }
     public Recorder(){}
 
@@ -46,7 +50,7 @@ public class Recorder {
     public void saveRecorder(int count) throws IOException {
         Persistency p = new Persistency();
         p.setSaveParameters(count,movesList,this.x, this.y,
-               this.numberOfTreasuresPlayer, this.numberOfTreasuresBoard , this.initLevel,this.timeLeft);
+               this.numberOfTreasuresPlayer, this.numberOfTreasuresBoard , this.initLevel,this.timeLeft, this.board);
         p.saveGame();
     }
 
