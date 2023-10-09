@@ -1,5 +1,7 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
+import nz.ac.wgtn.swen225.lc.domain.items.*;
+
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 import org.junit.jupiter.api.*;
 
@@ -84,7 +86,52 @@ public class DomainTest {
     }
 
     @Test
-    public void testPickingUpKey() {
+    public void testPickUpKey() {
+        assertFalse(chap.hasItem(new Key(Key.Colour.RED)));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
+        assertTrue(chap.hasItem(new Key(Key.Colour.RED)));
+    }
 
+    @Test
+    public void testCanOpenDoor() {
+        testPickUpKey();
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.LEFT));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
+        assertFalse(chap.hasItem(new Key(Key.Colour.RED)));
+    }
+
+    @Test
+    public void testCannotOpenDoor() {
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
+        assertThrows(IllegalMove.class, () -> chap.move(Chap.Direction.RIGHT));
+    }
+
+    @Test
+    public void testCannotOpenDoorWrongKey() {
+        assertFalse(chap.hasItem(new Key(Key.Colour.BLUE)));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.DOWN));
+        assertTrue(chap.hasItem(new Key(Key.Colour.RED)));
+        assertFalse(chap.hasItem(new Key(Key.Colour.BLUE)));
+        assertThrows(IllegalMove.class, () -> chap.move(Chap.Direction.RIGHT));
+    }
+
+    @Test
+    public void testPickUpTreasure() {
+        assertEquals(0, chap.getCurrentTreasure());
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+        assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
+        assertEquals(1, chap.getCurrentTreasure());
     }
 }
