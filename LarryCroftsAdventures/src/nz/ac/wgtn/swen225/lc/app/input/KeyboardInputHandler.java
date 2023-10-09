@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 /**
  * KeyboardInputHandler is a class responsible for handling keyboard input in the Larry Croft's Adventures game.
@@ -96,8 +97,8 @@ public class KeyboardInputHandler {
         component.getActionMap().put(EXIT_GAME, new ExitAction());
         component.getActionMap().put(SAVE_GAME, new SaveGameAction());
         component.getActionMap().put(RESUME_GAME, new ResumeGameAction());
-        component.getActionMap().put(START_LEVEL_1, new StartGameAction(1));
-        component.getActionMap().put(START_LEVEL_2, new StartGameAction(2));
+        component.getActionMap().put(START_LEVEL_1, new StartGameAction(new File("LarryCroftsAdventures/levels/level1.json")));
+        component.getActionMap().put(START_LEVEL_2, new StartGameAction(new File("LarryCroftsAdventures/levels/level2.json")));
         component.getActionMap().put(PAUSE_GAME, new PauseGameAction());
         component.getActionMap().put(CLOSE_PAUSE_DIALOG, new ClosePauseDialogAction());
     }
@@ -222,9 +223,9 @@ public class KeyboardInputHandler {
      * class for handling the level loading start keybinds
      */
     private class StartGameAction extends AbstractAction {
-        private int level;
+        private File level;
 
-        public StartGameAction(int level) {
+        public StartGameAction(File level) {
             this.level = level;
         }
 

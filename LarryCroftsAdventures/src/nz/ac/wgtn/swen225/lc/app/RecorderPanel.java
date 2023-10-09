@@ -46,12 +46,13 @@ public class RecorderPanel extends JPanel {
     public static int time;
     private int count = 0;
     File file = null;
-    App app;
+    static App app;
     int chapX;
     int chapY;
     int chapTreasures;
     int chapInitLevel;
     int boardTreasureRemaining;
+    int timeLeft;
     //speed of auto replay
     int speed;
 
@@ -103,7 +104,7 @@ public class RecorderPanel extends JPanel {
                     file = fc.getSelectedFile();
                 }
                 //getting the moves out of the loaded file
-                moves = new Recorder().loadSave(file);
+                moves = new Recorder().loadSave(file,app);
 
             }
         });
@@ -240,6 +241,7 @@ public class RecorderPanel extends JPanel {
         chapTreasures = chap.getCurrentTreasure();
         chapInitLevel = app.getBoard().getLevel();
         boardTreasureRemaining = app.getBoard().getTreasureLeft();
+        timeLeft = app.getBoard().getTime();
         moves = new ArrayList<>();
         recordingIndicatorTimer = new Timer();
         recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
@@ -262,7 +264,7 @@ public class RecorderPanel extends JPanel {
         repaint();
         Recorder r = new Recorder(new ArrayList<Move>(moves), chapX,
                 chapY, chapTreasures,
-                boardTreasureRemaining, chapInitLevel);
+                boardTreasureRemaining, chapInitLevel,timeLeft);
         moves.clear();
         try {
             r.saveRecorder(count);

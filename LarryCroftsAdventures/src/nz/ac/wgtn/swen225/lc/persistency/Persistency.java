@@ -184,7 +184,7 @@ public class Persistency {
     /**
      * Setter method to set the instance variables for saving parameters.
      */
-    public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasuresCount, int boardTreasuresCount, int level) {
+    public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasuresCount, int boardTreasuresCount, int level, int timeLeft) {
         this.newFileNumToSave = newFileNum;
         this.actionsToSave = actions;
         this.xToSave = x;
@@ -192,5 +192,6 @@ public class Persistency {
         this.levelToSave = level;
         this.playerTreasuresCountToSave = playerTreasuresCount;
         this.boardTreasuresCountToSave = boardTreasuresCount;
+        this.timeLeft = timeLeft;
     }
 }
