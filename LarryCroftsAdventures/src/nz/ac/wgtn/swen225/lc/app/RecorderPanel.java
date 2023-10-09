@@ -2,6 +2,7 @@ package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
 import javax.swing.*;
@@ -46,12 +47,14 @@ public class RecorderPanel extends JPanel {
     public static int time;
     private int count = 0;
     File file = null;
-    App app;
+    static App app;
     int chapX;
     int chapY;
     int chapTreasures;
     int chapInitLevel;
     int boardTreasureRemaining;
+    int timeLeft;
+    Tile[][] board;
     //speed of auto replay
     int speed;
 
@@ -103,7 +106,7 @@ public class RecorderPanel extends JPanel {
                     file = fc.getSelectedFile();
                 }
                 //getting the moves out of the loaded file
-                moves = new Recorder().loadSave(file);
+                moves = new Recorder().loadSave(file,app);
 
             }
         });
@@ -240,6 +243,8 @@ public class RecorderPanel extends JPanel {
         chapTreasures = chap.getCurrentTreasure();
         chapInitLevel = app.getBoard().getLevel();
         boardTreasureRemaining = app.getBoard().getTreasureLeft();
+        timeLeft = app.getBoard().getTime();
+        board = app.getBoard().getTiles();
         moves = new ArrayList<>();
         recordingIndicatorTimer = new Timer();
         recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
@@ -249,7 +254,7 @@ public class RecorderPanel extends JPanel {
                 time++;
                 repaint();
             }
-        }, 0, 500);
+        }, 0, 100);
 
 
     }
@@ -262,7 +267,7 @@ public class RecorderPanel extends JPanel {
         repaint();
         Recorder r = new Recorder(new ArrayList<Move>(moves), chapX,
                 chapY, chapTreasures,
-                boardTreasureRemaining, chapInitLevel);
+                boardTreasureRemaining, chapInitLevel,timeLeft,board);
         moves.clear();
         try {
             r.saveRecorder(count);

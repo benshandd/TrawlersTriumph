@@ -21,14 +21,14 @@ public class Board {
     /**
      * Create a new Board. Generates a 2D array of tiles using {@link Persistency#loadGame(File) loadGame}.
      */
-    public Board(int level, AudioUnit audioUnit) {
+    public Board(File file, AudioUnit audioUnit) {
         Persistency persistency = new Persistency();
         this.audioUnit = audioUnit;
-        this.level = level;
+        //this.level = level;
 
         try {
-            File levelToLoad = new File("LarryCroftsAdventures/levels/level" + level + ".json");
-            board = persistency.loadGame(levelToLoad);
+            //File levelToLoad = new File("LarryCroftsAdventures/levels/level" + level + ".json");
+            board = persistency.loadGame(file);
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (Exception e) {

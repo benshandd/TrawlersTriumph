@@ -7,6 +7,7 @@ import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.Camera;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
@@ -24,14 +25,20 @@ public class Recorder {
     private int numberOfTreasuresPlayer;
     private int numberOfTreasuresBoard;
     int initLevel;
+    int timeLeft;
+    Tile[][] board;
 
-    public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard,  int initLevel) {
+
+    public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard,
+                    int initLevel, int timeLeft, Tile[][] board) {
         this.movesList = movesList;
         this.x = x;
         this.y =y;
         this.numberOfTreasuresPlayer = numberOfTreasuresPlayer;
         this.numberOfTreasuresBoard = numberOfTreasuresBoard;
         this.initLevel = initLevel;
+        this.timeLeft = timeLeft;
+        this.board = board;
     }
     public Recorder(){}
 
@@ -43,7 +50,7 @@ public class Recorder {
     public void saveRecorder(int count) throws IOException {
         Persistency p = new Persistency();
         p.setSaveParameters(count,movesList,this.x, this.y,
-               this.numberOfTreasuresPlayer, this.numberOfTreasuresBoard , this.initLevel);
+               this.numberOfTreasuresPlayer, this.numberOfTreasuresBoard , this.initLevel,this.timeLeft, this.board);
         p.saveGame();
     }
 
@@ -52,7 +59,7 @@ public class Recorder {
      * @param file chosen file
      * @return moves in that file
      */
-    public ArrayList<Move> loadSave(File file) {
+    public ArrayList<Move> loadSave(File file,App app) {
         try(JsonReader reader = new JsonReader(new FileReader(file))){
             ArrayList<Move> moves = new ArrayList<>();
             //getting the actions array out of the file to then be able to use the actions
@@ -63,7 +70,8 @@ public class Recorder {
                 moves.add(new Move(jsonMoves.get(i).getAsString(),1));
             }
             //pass file name to load the level the player started on and position where they started from
-            new Persistency().loadGame(file);
+            //new Persistency().loadGame(file);
+            app.setup(file);
             System.out.println("Game loaded...");
             return moves;
         } catch(IOException e) {

@@ -44,13 +44,13 @@ public class App extends JPanel implements ActionListener {
         Timer timer = new Timer(1000, this);
         timer.setInitialDelay(650);
         timer.start();
-        setup(1);
+        setup(new File("LarryCroftsAdventures/levels/level1.json"));
     }
 
     /**
      * Performs the initial setup of the game interface and components.
      */
-    public void setup(int level) {
+    public void setup(File file) {
         if (centrePanel != null) {
             this.remove(centrePanel);
         } // if there has previously been a Renderer created, remove its corresponding panel from the App JPanel
@@ -61,7 +61,7 @@ public class App extends JPanel implements ActionListener {
         audioUnit = new AudioUnit();
         audioUnit.startBackgroundMusic();
         audioUnit.startAmbience();
-        board = new Board(level, audioUnit);
+        board = new Board(file, audioUnit);
 
         try {
             centrePanel = new Renderer(board, 9, audioUnit, this);
