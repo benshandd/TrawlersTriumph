@@ -88,12 +88,12 @@ public class App extends JPanel implements ActionListener {
      * Performs the initial setup of the game interface and components.
      */
     public void setup(File file) {
-        if (centrePanel != null) {
+        if (centrePanel != null) { // if there has previously been a Renderer created, remove its corresponding panel from the App JPanel
             this.remove(centrePanel);
-        } // if there has previously been a Renderer created, remove its corresponding panel from the App JPanel
-        if (audioUnit != null) {
+        }
+        if (audioUnit != null) { // if there has previously been an AudioUnit created, stop all the clips in it from playing before creating a new one
             audioUnit.stopAll();
-        } // if there has previously been an AudioUnit created, stop all the clips in it from playing before creating a new one
+        }
 
         if(timeLabel != null){
             this.remove(timeLabel);
@@ -146,7 +146,8 @@ public class App extends JPanel implements ActionListener {
         this.add(leftPanel, BorderLayout.WEST);
         this.add(rightPanel, BorderLayout.EAST);
 
-
+        repaint();
+        revalidate();
     }
 
 
