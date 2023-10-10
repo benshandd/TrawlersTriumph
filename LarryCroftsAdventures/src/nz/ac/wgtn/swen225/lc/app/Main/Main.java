@@ -107,8 +107,8 @@ public class Main extends JFrame {
                 ArrayList<Move> actions = recorderPanel.getMovesList();
                 int playerX = App.getBoard().getChap().getX();
                 int playerY = App.getBoard().getChap().getY();
-                int playerTreasureCount = chap.getCurrentTreasure();
-                int boardTreasureCount = app.getBoard().getTreasureLeft();
+                int playerTreasureCount = chap.getPlayerTreasureCount();
+                int boardTreasureCount = app.getBoard().getBoardTreasureCount();
                 int level = App.getBoard().getLevel();
                 int timeLeft = app.getBoard().getTime();
                 Tile[][] board =  app.getBoard().getTiles();

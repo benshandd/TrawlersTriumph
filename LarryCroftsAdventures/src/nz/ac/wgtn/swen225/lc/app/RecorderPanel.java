@@ -266,8 +266,8 @@ public class RecorderPanel extends JPanel {
         chapY = chap.getY();
         chapTreasures = chap.getPlayerTreasureCount();
         chapInitLevel = app.getBoard().getLevel();
-        int playerTreasureCount = chap.getCurrentTreasure();
-        int boardTreasureCount = app.getBoard().getTreasureLeft();
+        int playerTreasureCount = chap.getPlayerTreasureCount();
+        int boardTreasureCount = app.getBoard().getBoardTreasureCount();
         timeLeft = app.getBoard().getTime();
         board = app.getBoard().getTiles();
 
