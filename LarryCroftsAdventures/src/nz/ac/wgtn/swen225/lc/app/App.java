@@ -267,7 +267,7 @@ public class App extends JPanel implements ActionListener {
 
     private void createTimer() {
         time = board.getTime();
-        Font font = new Font("Sans-Serif", Font.BOLD, 50);
+        Font font = new Font("Sans-Serif", Font.BOLD, 40);
         timeLabel = createLabel("0", font, Color.black, Color.green);
         add(timeLabel);
 

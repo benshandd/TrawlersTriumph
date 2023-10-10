@@ -1,13 +1,44 @@
 {
     "player": {
-        "x": 8,
+        "x": 6,
         "y": 8
     },
-    "timeLeft": 100,
-    "level": 0,
-    "playerTreasureCount": 0,
+    "timeLeft": 80,
+    "level": 1,
+    "playerTreasureCount": 4,
     "boardTreasureCount": 1,
-    "actions": [],
+    "actions": [
+        "RIGHT",
+        "UP",
+        "UP",
+        "UP",
+        "UP",
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "RIGHT",
+        "UP",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "DOWN",
+        "LEFT",
+        "LEFT",
+        "DOWN",
+        "DOWN",
+        "DOWN",
+        "LEFT",
+        "LEFT",
+        "UP",
+        "LEFT",
+        "DOWN",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT"
+    ],
     "board": [
         [
             {
@@ -441,7 +472,7 @@
             {
                 "x": 10,
                 "y": 4,
-                "tile": "Door_Red",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -453,7 +484,7 @@
             {
                 "x": 12,
                 "y": 4,
-                "tile": "Key_Yellow",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -503,7 +534,7 @@
             {
                 "x": 5,
                 "y": 5,
-                "tile": "Key_Blue",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -515,8 +546,7 @@
             {
                 "x": 7,
                 "y": 5,
-                "tile": "InfoBox",
-                "message": "Test Message",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -528,7 +558,7 @@
             {
                 "x": 9,
                 "y": 5,
-                "tile": "Key_Red",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -546,8 +576,8 @@
             {
                 "x": 12,
                 "y": 5,
-                "tile": "none",
-                "item": "Treasure"
+                "tile": "Free",
+                "item": "none"
             },
             {
                 "x": 13,
@@ -596,8 +626,8 @@
             {
                 "x": 5,
                 "y": 6,
-                "tile": "none",
-                "item": "Treasure"
+                "tile": "Free",
+                "item": "none"
             },
             {
                 "x": 6,
@@ -620,8 +650,8 @@
             {
                 "x": 9,
                 "y": 6,
-                "tile": "none",
-                "item": "Treasure"
+                "tile": "Free",
+                "item": "none"
             },
             {
                 "x": 10,
@@ -670,8 +700,8 @@
             {
                 "x": 2,
                 "y": 7,
-                "tile": "none",
-                "item": "Treasure"
+                "tile": "Free",
+                "item": "none"
             },
             {
                 "x": 3,
@@ -688,7 +718,7 @@
             {
                 "x": 5,
                 "y": 7,
-                "tile": "Key_Blue",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -712,7 +742,7 @@
             {
                 "x": 9,
                 "y": 7,
-                "tile": "Key_Red",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -774,7 +804,7 @@
             {
                 "x": 4,
                 "y": 8,
-                "tile": "Door_Red",
+                "tile": "Free",
                 "item": "none"
             },
             {
