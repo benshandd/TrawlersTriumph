@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -182,15 +183,35 @@ public class RecorderPanel extends JPanel {
      * adds JSlider to panel
      */
     private void addSlider(){
-        replaySpeedSlider = new JSlider(JSlider.HORIZONTAL, 1, 10, 5); // Initial value set to 5
+        replaySpeedSlider = new JSlider(JSlider.HORIZONTAL, 0, 3, 1) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                // Draw the title "Replay Speed" above the slider
+                g.setFont(new Font("Arial", Font.BOLD, 12));
+                g.setColor(Color.BLACK);
+                String title = "Replay Speed";
+                int titleWidth = g.getFontMetrics().stringWidth(title);
+                int x = (getWidth() - titleWidth) / 2;
+                int y = 11;
+                g.drawString(title, x, y);
+            }
+        };
         replaySpeedSlider.setBackground(Color.WHITE);
+
+
         Border line = new LineBorder(Color.BLACK);
         Border margin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(line, margin);
         replaySpeedSlider.setBorder(compound);
+        replaySpeedSlider.setBorder(new RoundedBorder(20));
+
         replaySpeedSlider.setMajorTickSpacing(1);
+        replaySpeedSlider.setMinorTickSpacing(1);
         replaySpeedSlider.setPaintTicks(true);
         replaySpeedSlider.setPaintLabels(true);
+
 
         replaySpeedSlider.addChangeListener(new ChangeListener() {
             @Override
@@ -201,6 +222,9 @@ public class RecorderPanel extends JPanel {
 
             }
         });
+
+
+
     }
 
     /**
@@ -230,6 +254,7 @@ public class RecorderPanel extends JPanel {
         Border margin = new EmptyBorder(5, 15, 5, 15);
         Border compound = new CompoundBorder(line, margin);
         button.setBorder(compound);
+        button.setBorder(new RoundedBorder(20)); //10 is the radius
         return button;
     }
 
@@ -297,6 +322,31 @@ public class RecorderPanel extends JPanel {
             int x = getWidth() / 2 - radius;
             int y = getHeight() / 2 - radius;
             g.fillOval(0, 0, radius * 2, radius * 2);
+        }
+    }
+
+    private static class RoundedBorder implements Border {
+
+        private int radius;
+
+
+        RoundedBorder(int radius) {
+            this.radius = radius;
+        }
+
+
+        public Insets getBorderInsets(Component c) {
+            return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
+        }
+
+
+        public boolean isBorderOpaque() {
+            return true;
+        }
+
+
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.drawRoundRect(x, y, width-1, height-1, radius, radius);
         }
     }
 

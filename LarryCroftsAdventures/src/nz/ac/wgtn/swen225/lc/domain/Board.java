@@ -24,10 +24,7 @@ public class Board {
     public Board(File file, AudioUnit audioUnit) {
         Persistency persistency = new Persistency();
         this.audioUnit = audioUnit;
-        //this.level = level;
-
         try {
-            //File levelToLoad = new File("LarryCroftsAdventures/levels/level" + level + ".json");
             board = persistency.loadGame(file);
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
