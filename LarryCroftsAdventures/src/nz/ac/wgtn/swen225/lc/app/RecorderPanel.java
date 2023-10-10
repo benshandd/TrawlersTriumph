@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -265,11 +264,12 @@ public class RecorderPanel extends JPanel {
         Chap chap = app.getBoard().getChap();
         chapX = chap.getX();
         chapY = chap.getY();
-        chapTreasures = chap.getCurrentTreasure();
+        chapTreasures = chap.getPlayerTreasureCount();
         chapInitLevel = app.getBoard().getLevel();
-        boardTreasureRemaining = app.getBoard().getTreasureLeft();
+        boardTreasureRemaining = app.getBoard().getBoardTreasureCount();
         timeLeft = app.getBoard().getTime();
         board = app.getBoard().getTiles();
+
         moves = new ArrayList<>();
         recordingIndicatorTimer = new Timer();
         recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
@@ -280,8 +280,6 @@ public class RecorderPanel extends JPanel {
                 repaint();
             }
         }, 0, 100);
-
-
     }
 
     // Helper method to stop recording and hide recording indicator
@@ -290,15 +288,26 @@ public class RecorderPanel extends JPanel {
         recordingIndicatorTimer.cancel();
         recordingIndicatorVisible = false;
         repaint();
-        Recorder r = new Recorder(new ArrayList<Move>(moves), chapX,
-                chapY, chapTreasures,
-                boardTreasureRemaining, chapInitLevel,timeLeft,board);
-        moves.clear();
+
+        Chap chap = app.getBoard().getChap();
+        int playerX = chap.getX();
+        int playerY = chap.getY();
+        int playerTreasureCount = chap.getPlayerTreasureCount();
+        int boardTreasureCount = app.getBoard().getBoardTreasureCount();
+        int level = app.getBoard().getLevel();
+        int timeLeft = app.getBoard().getTime();
+        Tile[][] board = app.getBoard().getTiles();
+
+        Recorder recorder = new Recorder(moves, playerX, playerY, playerTreasureCount,
+                boardTreasureCount, level, timeLeft, board);
+
         try {
-            r.saveRecorder(count);
+            recorder.saveRecorder(count);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+
+        moves.clear();
     }
 
 

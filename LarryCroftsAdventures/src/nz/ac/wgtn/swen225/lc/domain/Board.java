@@ -14,7 +14,7 @@ public class Board {
     private Tile[][] board;
     private Chap chap;
     private int time;
-    private int level = 1;
+    private int level;
     private int treasure;
     private AudioUnit audioUnit;
 
@@ -40,7 +40,6 @@ public class Board {
         Free playerTile = new Free(startX, startY);
         board[startX][startY] = playerTile;
         chap = new Chap(this, playerTile, treasure);
-        level = chap.getBoard().level;
     }
 
     /**

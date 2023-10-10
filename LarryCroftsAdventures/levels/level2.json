@@ -1,8 +1,13 @@
 {
   "player": { "x": 15, "y": 17 },
+  "enemies": [
+    {"x": 10, "y": 10},
+    {"x": 9, "y": 9}
+  ],
   "timeLeft": "100",
   "level": 2,
-  "treasureLeft":25,
+  "playerTreasureCount":0,
+  "boardTreasureCount":25,
   "actions": [
     "LEFT",
     "LEFT",
@@ -480,7 +485,7 @@
       { "x": 13, "y": 14, "tile": "Wall", "item": "none" },
       { "x": 14, "y": 14, "tile": "Wall", "item": "none" },
       { "x": 15, "y": 14, "tile": "Wall", "item": "none" },
-      { "x": 16, "y": 14, "tile": "Exit_Lock", "item": "none" },
+      { "x": 16, "y": 14, "tile": "ExitLock", "item": "none" },
       { "x": 17, "y": 14, "tile": "Wall", "item": "none" },
       { "x": 18, "y": 14, "tile": "Free", "item": "none" },
       { "x": 19, "y": 14, "tile": "Wall", "item": "none" },

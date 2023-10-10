@@ -40,6 +40,7 @@ public class Enemy {
         this.lastDirectionChange = lastDirectionChange;
         this.chap = chap;
     }
+    public Enemy(){}
 
     /**
      * Moves the enemy on the game grid based on its current state.

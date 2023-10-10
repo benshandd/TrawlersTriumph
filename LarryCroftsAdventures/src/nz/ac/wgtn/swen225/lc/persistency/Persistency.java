@@ -5,10 +5,13 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
 import nz.ac.wgtn.swen225.lc.app.Move;
+import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
+import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import java.io.*;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -17,32 +20,39 @@ import java.util.Stack;
  * saving of games.
  */
 public class Persistency {
-
-    public Stack<String> actions;
-    private int newFileNum;
+    /////////////////////
+    private Chap chap;
     private File newFile;
+    public int originalBoardTreasureCount;
 
+    private int newFileNum;
+    public Stack<String> actions;
+    public int playerX;
+    public int playerY;
+    public int playerTreasureCount;
+    public int boardTreasureCount;
 
     public int timeLeft;
-    public int treasureLeft;
+
     public int level;
-    public int x;
-    public int y;
+
     public String message;
 
+    /////////////////////
     public int newFileNumToSave;
     public ArrayList<Move> actionsToSave;
-    public int xToSave;
-    public int yToSave;
-    public int playerTreasuresCountToSave;
-    public int boardTreasuresCountToSave;
+    public int playerXToSave;
+    public int playerYToSave;
+    public int playerTreasureCountToSave;
+    public int boardTreasureCountToSave;
     public int levelToSave;
-    Tile [][] board;
+    public int timeLeftToSave;
+    Tile[][] boardToSave;
+    /////////////////////
 
     public Persistency() {
         actionsToSave = new ArrayList<>();
     }
-
 
     /**
      * Loads game from a JSON file.
@@ -59,6 +69,7 @@ public class Persistency {
 
             // Get board information
             JsonArray boardArray = jsonObject.getAsJsonArray("board");
+
             int numRows = boardArray.size();
             int numCols = boardArray.get(0).getAsJsonArray().size();
 
@@ -67,12 +78,13 @@ public class Persistency {
 
             // Get player information
             JsonObject playerObject = jsonObject.getAsJsonObject("player");
-            x = playerObject.get("x").getAsInt();
-            y = playerObject.get("y").getAsInt();
+            playerX = playerObject.get("x").getAsInt();
+            playerY = playerObject.get("y").getAsInt();
 
             // Get time, level, treasure amount and initialize message
             timeLeft = jsonObject.get("timeLeft").getAsInt();
-            treasureLeft = jsonObject.get("treasureLeft").getAsInt();
+            playerTreasureCount = jsonObject.get("playerTreasureCount").getAsInt();
+            boardTreasureCount = jsonObject.get("boardTreasureCount").getAsInt();
             level = jsonObject.get("level").getAsInt();
             message = null;
 
@@ -102,22 +114,57 @@ public class Persistency {
                         case "Key_Green" -> new KeyTile(Key.Colour.GREEN, j, i);
                         case "Key_Blue" -> new KeyTile(Key.Colour.BLUE, j, i);
                         case "InfoBox" -> new InfoField(message, j, i);
+                        case "ExitLock" -> maze[j][i] = new ExitLock(j, i);
+                        case "Exit" -> maze[j][i] = new Exit(j, i);
                         default -> new Free(j, i);
                     };
 
                     switch (item) {
                         case "Treasure" -> maze[j][i] = new Treasure(j, i);
-                        case "Exit_Lock" -> maze[j][i] = new ExitLock(j, i);
-                        case "Exit" -> maze[j][i] = new Exit(j, i);
                     }
+                    /*
+                     * if (jsonObject.has("enemies")) {
+                     * JsonArray enemiesArray = jsonObject.getAsJsonArray("enemies");
+                     * 
+                     * for (JsonElement enemyElement : enemiesArray) {
+                     * JsonObject enemyObject = enemyElement.getAsJsonObject();
+                     * 
+                     * int enemyX = enemyObject.get("x").getAsInt();
+                     * int enemyY = enemyObject.get("y").getAsInt();
+                     * maze[enemyX][enemyY] = new Enemy(enemyX, enemyY, Enemy.Direction.UP,
+                     * Instant.now(), chap);
+                     * }
+                     * }
+                     */
                 }
+
             }
+            originalBoardTreasureCount = jsonObject.get("boardTreasureCount").getAsInt();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return maze;
     }
 
+    /**
+     * Setter method to set the instance variables for saving parameters.
+     */
+    public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasureCount,
+            int boardTreasureCount, int level, int timeLeft, Tile[][] board) {
+        this.newFileNumToSave = newFileNum;
+        this.actionsToSave = actions;
+        this.playerXToSave = x;
+        this.playerYToSave = y;
+        this.levelToSave = level;
+        this.playerTreasureCountToSave = playerTreasureCount;
+        this.boardTreasureCountToSave = boardTreasureCount;
+        this.timeLeftToSave = timeLeft;
+        this.boardToSave = board;
+    }
+
+    /**
+     * Saves the current game state to a JSON file.
+     */
     /**
      * Saves the current game state to a JSON file.
      */
@@ -135,16 +182,16 @@ public class Persistency {
         Gson gson = new Gson();
 
         JsonObject playerObject = new JsonObject();
-        playerObject.addProperty("x", xToSave);
-        playerObject.addProperty("y", yToSave);
+        playerObject.addProperty("x", playerXToSave);
+        playerObject.addProperty("y", playerYToSave);
 
         gameData.add("player", playerObject);
-
-        gameData.addProperty("timeLeft", timeLeft);
+        gameData.addProperty("timeLeft", timeLeftToSave);
         gameData.addProperty("level", levelToSave);
-        gameData.addProperty("treasureLeft", treasureLeft);
-        gameData.addProperty("playerTreasuresCount", playerTreasuresCountToSave);
-        gameData.addProperty("boardTreasuresCount", boardTreasuresCountToSave);
+        gameData.addProperty("playerTreasureCount", playerTreasureCountToSave);
+        int remainingTreasures = 1;
+
+        gameData.addProperty("boardTreasureCount", remainingTreasures);
 
         // Add actions data to the gameData
         JsonArray actionsArray = new JsonArray();
@@ -163,8 +210,65 @@ public class Persistency {
                 cellObject.addProperty("x", j);
                 cellObject.addProperty("y", i);
 
-                cellObject.addProperty("tile", "Wall");
-                cellObject.addProperty("item", "none");
+                // Get the tile and item from the board
+                Tile currentTile = boardToSave[j][i];
+                switch (currentTile.getClass().getSimpleName()) {
+                    case "Free":
+                        cellObject.addProperty("tile", "Free");
+                        break;
+                    case "Wall":
+                        cellObject.addProperty("tile", "Wall");
+                        break;
+                    case "Door":
+                        Key.Colour doorColour = ((Door) currentTile).getColour();
+                        if (doorColour == Key.Colour.RED) {
+                            cellObject.addProperty("tile", "Door_Red");
+                        }
+                        if (doorColour == Key.Colour.BLUE) {
+                            cellObject.addProperty("tile", "Door_Blue");
+                        }
+                        if (doorColour == Key.Colour.GREEN) {
+                            cellObject.addProperty("tile", "Door_Green");
+                        }
+                        if (doorColour == Key.Colour.YELLOW) {
+                            cellObject.addProperty("tile", "Door_Yellow");
+                        }
+                        break;
+                    case "KeyTile":
+                        Key.Colour keyColour = ((KeyTile) currentTile).getColour();
+                        if (keyColour == Key.Colour.RED) {
+                            cellObject.addProperty("tile", "Key_Red");
+                        }
+                        if (keyColour == Key.Colour.BLUE) {
+                            cellObject.addProperty("tile", "Key_Blue");
+                        }
+                        if (keyColour == Key.Colour.GREEN) {
+                            cellObject.addProperty("tile", "Key_Green");
+                        }
+                        if (keyColour == Key.Colour.YELLOW) {
+                            cellObject.addProperty("tile", "Key_Yellow");
+                        }
+                        break;
+                    case "InfoField":
+                        cellObject.addProperty("tile", "InfoBox");
+                        cellObject.addProperty("message", ((InfoField) currentTile).getMessage());
+                        break;
+                    case "ExitLock":
+                        cellObject.addProperty("tile", "ExitLock");
+                        break;
+                    case "Exit":
+                        cellObject.addProperty("tile", "Exit");
+                        break;
+                    default:
+                        cellObject.addProperty("tile", "none");
+                }
+
+                String itemType = switch (currentTile.getClass().getSimpleName()) {
+                    case "Treasure" -> "Treasure";
+                    default -> "none";
+                };
+                cellObject.addProperty("item", itemType);
+
                 rowArray.add(cellObject);
             }
             boardArray.add(rowArray);
@@ -182,18 +286,4 @@ public class Persistency {
         fileWriter.close();
     }
 
-    /**
-     * Setter method to set the instance variables for saving parameters.
-     */
-    public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasuresCount, int boardTreasuresCount, int level, int timeLeft,Tile[][] board) {
-        this.newFileNumToSave = newFileNum;
-        this.actionsToSave = actions;
-        this.xToSave = x;
-        this.yToSave = y;
-        this.levelToSave = level;
-        this.playerTreasuresCountToSave = playerTreasuresCount;
-        this.boardTreasuresCountToSave = boardTreasuresCount;
-        this.timeLeft = timeLeft;
-        this.board = board;
-    }
 }

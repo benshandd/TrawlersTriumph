@@ -2,10 +2,8 @@ package nz.ac.wgtn.swen225.lc.renderer;
 
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.domain.Board;
-import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
-import nz.ac.wgtn.swen225.lc.persistency.Enemy;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +31,7 @@ public class Renderer extends JPanel{
     private final Random random = new Random();
 
     // Image fields
-    public enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE }
+    public enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE,EXIT_LOCK, INFOPANEL}
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
     private final HashMap<Images, ArrayList<BufferedImage>> animations = new HashMap<>();
     private final ArrayList<BufferedImage> currentTileImage = new ArrayList<>();
@@ -70,7 +68,7 @@ public class Renderer extends JPanel{
         Timer timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                app.treasureLabel.setText("" + (app.getBoard().getTreasureLeft() - app.getBoard().getChap().getCurrentTreasure()));
+                app.treasureLabel.setText("" + (app.getBoard().getBoardTreasureCount() - app.getBoard().getChap().getPlayerTreasureCount()));
                 repaint();
             }
         });
@@ -90,6 +88,7 @@ public class Renderer extends JPanel{
         drawBoat(g);
         drawSeagull(g);
         drawBorder(new Color(232, 220, 202), cellSize, g);
+        drawInfoPanel(g);
 
         camera.updateCameraPosition(board.getChap());
 
@@ -176,6 +175,16 @@ public class Renderer extends JPanel{
     }
 
     /**
+     * Display info panel if player is on info panel tile
+     */
+    private void drawInfoPanel(Graphics g){
+        System.out.println(board.getChap().getTile().getClass().getSimpleName());
+        if (board.getChap().getTile() instanceof  InfoField){
+            g.drawImage(images.get(Images.INFOPANEL), this.getWidth()/2 - cellSize*4, this.getHeight()/2 - cellSize*3, cellSize*8, cellSize*6, null);
+        }
+    }
+
+    /**
      * Returns arraylist of images that make up tile
      * @param tile The tile of which its images need to be retrieved
      * @return Arraylist of images that make up tile
@@ -200,7 +209,8 @@ public class Renderer extends JPanel{
                     currentTileImage.add(images.get(Images.DOOR_YELLOW));
                 }
             }
-            case "Exit", "ExitLock" -> currentTileImage.add(images.get(Images.EXIT));
+            case "Exit"-> currentTileImage.add(images.get(Images.EXIT));
+            case "ExitLock" -> currentTileImage.add(images.get(Images.EXIT_LOCK));
             case "Treasure" -> currentTileImage.add(animations.get(Images.FISH).get(count / 16 % animations.get(Images.FISH).size()));
             case "InfoField" -> {
                 currentTileImage.add(animations.get(Images.BOTTLE).get(count / 10 % animations.get(Images.BOTTLE).size()));
@@ -242,6 +252,7 @@ public class Renderer extends JPanel{
         images.put(Images.DOOR_RED, ImageIO.read(new File(path + "Door_Red.png")));
         images.put(Images.DOOR_YELLOW, ImageIO.read(new File(path + "Door_Yellow.png")));
         images.put(Images.EXIT, ImageIO.read(new File(path + "Exit.png")));
+        images.put(Images.EXIT_LOCK, ImageIO.read(new File(path + "ExitLock.png")));
         images.put(Images.FREE, ImageIO.read(new File(path + "Free.png")));
         images.put(Images.INFOBOX, ImageIO.read(new File(path + "InfoBox.png")));
         images.put(Images.KEY_BLUE, ImageIO.read(new File(path + "Key_Blue.png")));
@@ -252,6 +263,7 @@ public class Renderer extends JPanel{
         images.put(Images.SEAGULL_LEFT, ImageIO.read(new File(path + "SeagullLeft.png")));
         images.put(Images.SEAGULL_RIGHT, ImageIO.read(new File(path + "SeagullRight.png")));
         images.put(Images.FISH, ImageIO.read(new File(path + "Fish.png")));
+        images.put(Images.INFOPANEL, ImageIO.read(new File(path + "InfoPanel.png")));
     }
 
     /**
