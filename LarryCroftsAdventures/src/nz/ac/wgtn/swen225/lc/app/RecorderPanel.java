@@ -72,7 +72,7 @@ public class RecorderPanel extends JPanel {
      */
     private void initializeComponents() {
         this.setPreferredSize(new Dimension(300, 300));
-        this.setBackground(Color.lightGray);
+        this.setBackground(new Color(174, 119, 100));
         recordButton = createSimpleButton("Record");
         loadButton = createSimpleButton("Load Recorded Game");
         stepButton = createSimpleButton("Step by Step");
@@ -193,7 +193,7 @@ public class RecorderPanel extends JPanel {
                 String title = "Replay Speed";
                 int titleWidth = g.getFontMetrics().stringWidth(title);
                 int x = (getWidth() - titleWidth) / 2;
-                int y = 11;
+                int y = 40;
                 g.drawString(title, x, y);
             }
         };
@@ -271,15 +271,7 @@ public class RecorderPanel extends JPanel {
         board = app.getBoard().getTiles();
 
         moves = new ArrayList<>();
-        recordingIndicatorTimer = new Timer();
-        recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                recordingIndicatorVisible = !recordingIndicatorVisible;
-                time++;
-                repaint();
-            }
-        }, 0, 100);
+
     }
 
     // Helper method to stop recording and hide recording indicator
