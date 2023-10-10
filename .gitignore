@@ -1,1 +1,10 @@
+/.idea/.gitignore
+/.idea/misc.xml
+/.idea/modules.xml
+/swen225-group-project.iml
+/.idea/uiDesigner.xml
+/.idea/vcs.xml
+/out/
+/.vscode/
 *.class
+/.idea/
