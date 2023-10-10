@@ -1,8 +1,27 @@
 package nz.ac.wgtn.swen225.lc.recorder;
 
+import nz.ac.wgtn.swen225.lc.domain.Board;
+import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.File;
 
 public class RecorderTest {
+
+    File testFile = new File("LarryCroftsAdventures/src/nz.ac.wgtn.swen225.lc/recorder/RecorderTestFile.json");
+
+    Board board;
+    Chap chap;
+    boolean recording = false;
+    @BeforeEach
+    public void initialise(){
+        AudioUnit au = new AudioUnit();
+        board = new Board(testFile, au);
+        chap = board.getChap();
+    }
 
     @Test
     public void testAuto(){
@@ -15,7 +34,13 @@ public class RecorderTest {
     }
     @Test
     public void testRecording(){
-
+        assertEquals(8,chap.getX());
+        assertEquals(8,chap.getY());
+        assertEquals(2,chap.getCurrentTreasure());
+        assertEquals(1,chap.getBoard().getLevel());
+        assertEquals(11,chap.getBoard().getTreasureLeft());
+        assertEquals(100,chap.getBoard().getTime());
+        assertEquals(2,chap.getCurrentTreasure());
     }
     @Test
     public void testSaving(){
