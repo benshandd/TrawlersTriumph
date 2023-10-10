@@ -33,7 +33,7 @@ public class Renderer extends JPanel{
     private final Random random = new Random();
 
     // Image fields
-    public enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE }
+    public enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE,EXIT_LOCK }
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
     private final HashMap<Images, ArrayList<BufferedImage>> animations = new HashMap<>();
     private final ArrayList<BufferedImage> currentTileImage = new ArrayList<>();
@@ -200,7 +200,8 @@ public class Renderer extends JPanel{
                     currentTileImage.add(images.get(Images.DOOR_YELLOW));
                 }
             }
-            case "Exit", "ExitLock" -> currentTileImage.add(images.get(Images.EXIT));
+            case "Exit"-> currentTileImage.add(images.get(Images.EXIT));
+            case "ExitLock" -> currentTileImage.add(images.get(Images.EXIT_LOCK));
             case "Treasure" -> currentTileImage.add(animations.get(Images.FISH).get(count / 16 % animations.get(Images.FISH).size()));
             case "InfoField" -> {
                 currentTileImage.add(animations.get(Images.BOTTLE).get(count / 10 % animations.get(Images.BOTTLE).size()));
@@ -242,6 +243,7 @@ public class Renderer extends JPanel{
         images.put(Images.DOOR_RED, ImageIO.read(new File(path + "Door_Red.png")));
         images.put(Images.DOOR_YELLOW, ImageIO.read(new File(path + "Door_Yellow.png")));
         images.put(Images.EXIT, ImageIO.read(new File(path + "Exit.png")));
+        images.put(Images.EXIT_LOCK, ImageIO.read(new File(path + "ExitLock.png")));
         images.put(Images.FREE, ImageIO.read(new File(path + "Free.png")));
         images.put(Images.INFOBOX, ImageIO.read(new File(path + "InfoBox.png")));
         images.put(Images.KEY_BLUE, ImageIO.read(new File(path + "Key_Blue.png")));

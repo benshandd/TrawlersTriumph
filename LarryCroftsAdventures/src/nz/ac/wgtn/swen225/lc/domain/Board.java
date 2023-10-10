@@ -35,8 +35,8 @@ public class Board {
             System.err.println("An error occurred while loading the game: " + e.getMessage());
         }
         time = persistency.timeLeft;
-        int startX = persistency.x;
-        int startY = persistency.y;
+        int startX = persistency.playerX;
+        int startY = persistency.playerY;
         Free playerTile = new Free(startX, startY);
         board[startX][startY] = playerTile;
         chap = new Chap(this, playerTile, treasure);

@@ -17,7 +17,7 @@ public class DomainTest {
     @BeforeEach
     public void init() {
         AudioUnit au = new AudioUnit();
-        board = new Board(1, au);
+        //board = new Board(1, au);
         chap = board.getChap();
     }
 
