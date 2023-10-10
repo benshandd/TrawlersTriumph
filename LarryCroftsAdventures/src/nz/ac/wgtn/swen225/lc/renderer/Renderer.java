@@ -233,7 +233,7 @@ public class Renderer extends JPanel{
             }
             case "Wall" -> currentTileImage.add(images.get(Images.WALL));
             default -> {
-                currentTileImage.add(images.get(Images.WALL)); // Unknown tile type.
+                currentTileImage.add(images.get(Images.WALL)); // Unknown tile type
             }
         }
         return currentTileImage;
