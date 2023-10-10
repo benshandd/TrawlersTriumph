@@ -41,6 +41,9 @@ public class Chap {
      * @throws IllegalMove if the tile to the given direction is not traversable or the edge of the board is encountered
      */
     public void move(Direction direction) throws IllegalMove {
+        if (!state.equals(State.ONGOING)) {
+            throw new IllegalMove("Cannot move when the game is not ongoing");
+        }
         Tile next;
         int x = tile.getX();
         int y = tile.getY();
