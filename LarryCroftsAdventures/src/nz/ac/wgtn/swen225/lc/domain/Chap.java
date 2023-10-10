@@ -15,6 +15,12 @@ public class Chap {
     private final Board board;
     private Free tile;
     private int playerTreasureCount;
+    private State state;
+
+    /**
+     * Stores the state of the game
+     */
+    public enum State { ONGOING, PAUSED, COMPLETED, DEAD };
 
     /**
      * Create a new Chap character. A new character should be created per level.
@@ -26,6 +32,7 @@ public class Chap {
         this.board = board;
         this.tile = tile;
         this.playerTreasureCount = playerTreasureCount;
+        this.state = State.ONGOING;
     }
 
     /**
@@ -115,6 +122,22 @@ public class Chap {
      */
     public boolean canUnlockExit() {
         return playerTreasureCount >= board.getBoardTreasureCount();
+    }
+
+    /**
+     * Update the state of the player
+     * @param state the new state
+     */
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    /**
+     * Get the player state
+     * @return the state
+     */
+    public State getState() {
+        return state;
     }
 
     /**
