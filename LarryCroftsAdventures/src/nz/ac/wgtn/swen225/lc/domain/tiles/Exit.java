@@ -1,7 +1,11 @@
 package nz.ac.wgtn.swen225.lc.domain.tiles;
 
+import nz.ac.wgtn.swen225.lc.domain.Chap;
+
 /**
  * Represents a tile that completes the current level.
+ *
+ * @author Anthony Kendrew (300607402)
  */
 public class Exit extends Free {
     /**
@@ -9,5 +13,11 @@ public class Exit extends Free {
      */
     public Exit(int x, int y) {
         super(x, y);
+    }
+
+    @Override
+    public boolean performTileAction(Chap chap) {
+        chap.setState(Chap.State.COMPLETED);
+        return true;
     }
 }

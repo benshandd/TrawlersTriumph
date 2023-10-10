@@ -3,11 +3,9 @@ package nz.ac.wgtn.swen225.lc.app;
 import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
-import nz.ac.wgtn.swen225.lc.domain.tiles.KeyTile;
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -40,13 +38,14 @@ public class App extends JPanel implements ActionListener {
 
     private JPanel grid;
 
-
+    private Timer timer;
     /**
      * Constructor for the App class.
      * Initializes the game board and sets up the graphical user interface.
      */
     public App() {
-        Timer timer = new Timer(1000, this);
+
+        timer = new Timer(1000, this);
         timer.setInitialDelay(650);
         timer.start();
 
@@ -73,11 +72,11 @@ public class App extends JPanel implements ActionListener {
         addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                // Resize the background image label to match the panel's size
-                backgroundImageLabel.setBounds(0, 0, getWidth(), getHeight());
-                backgroundImageLabel.setSize(getSize());
 
-                System.out.println(getSize());
+                // Resize the background image label to match the panel's size
+                if (getSize().height != 800 || getSize().width !=1400) {
+                    remove(backgroundImageLabel);
+                }
             }
         });
         setup(new File("LarryCroftsAdventures/levels/level1.json"));
@@ -96,12 +95,19 @@ public class App extends JPanel implements ActionListener {
         }
 
         if(timeLabel != null){
-            this.remove(timeLabel);
+            this.remove(rightPanel);
         }
         audioUnit = new AudioUnit();
         audioUnit.startBackgroundMusic();
         audioUnit.startAmbience();
         board = new Board(file, audioUnit);
+
+        timer.stop();
+
+        timer = new Timer(1000, this);
+        timer.setInitialDelay(650);
+        timer.start();
+
 
         try {
             centrePanel = new Renderer(board, 9, audioUnit, this);
@@ -136,7 +142,7 @@ public class App extends JPanel implements ActionListener {
         rightPanel.add(createLabel("TIME", font, Color.lightGray, Color.red));
         rightPanel.add(timeLabel);
         rightPanel.add(createLabel("TREASURE", font, Color.lightGray, Color.red));
-        rightPanel.add(treasureLabel = createLabel("" + (treasureLeft - board.getChap().getCurrentTreasure()), font, Color.black, Color.green)); //get the chips left
+        rightPanel.add(treasureLabel = createLabel("" + (treasureLeft - board.getChap().getPlayerTreasureCount()), font, Color.black, Color.green)); //get the chips left
 
         rightPanel.add(createInventory(0));
         rightPanel.add(createInventory(1));
@@ -261,7 +267,7 @@ public class App extends JPanel implements ActionListener {
 
     private void createTimer() {
         time = board.getTime();
-        Font font = new Font("Sans-Serif", Font.BOLD, 50);
+        Font font = new Font("Sans-Serif", Font.BOLD, 40);
         timeLabel = createLabel("0", font, Color.black, Color.green);
         add(timeLabel);
 

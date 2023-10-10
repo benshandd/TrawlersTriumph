@@ -1,32 +1,38 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
-import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
+import nz.ac.wgtn.swen225.lc.domain.tiles.InfoField;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 
 /**
  * Represents the player in Larry Croft's Adventures
+ *
+ * @author Anthony Kendrew (300607402)
  */
 public class Chap {
     private final Item[][] inventory = new Item[2][4];
     private final Board board;
     private Free tile;
-    private int treasures;
-    private int treasureCount;
+    private int playerTreasureCount;
+    private State state;
+
+    /**
+     * Stores the state of the game
+     */
+    public enum State { ONGOING, PAUSED, COMPLETED, DEAD };
 
     /**
      * Create a new Chap character. A new character should be created per level.
      * @param board the board that Chap is placed on
      * @param tile the tile that the player is standing on
-     * @param treasures the number of treasures needed to complete this level
+     * @param playerTreasureCount the number of treasures the player has collected so far
      */
-    public Chap(Board board, Free tile, int treasures) {
+    public Chap(Board board, Free tile, int playerTreasureCount) {
         this.board = board;
         this.tile = tile;
-        this.treasures = treasures;
-
-        treasureCount = 0;
+        this.playerTreasureCount = playerTreasureCount;
+        this.state = State.ONGOING;
     }
 
     /**
@@ -35,6 +41,9 @@ public class Chap {
      * @throws IllegalMove if the tile to the given direction is not traversable or the edge of the board is encountered
      */
     public void move(Direction direction) throws IllegalMove {
+        if (!state.equals(State.ONGOING)) {
+            throw new IllegalMove("Cannot move when the game is not ongoing");
+        }
         Tile next;
         int x = tile.getX();
         int y = tile.getY();
@@ -55,6 +64,8 @@ public class Chap {
 
         if (next.performTileAction(this)) {
             tile = board.resetTile(next);
+        } else if (next instanceof InfoField infoField) {
+            tile = infoField;
         }
     }
 
@@ -109,11 +120,35 @@ public class Chap {
     }
 
     /**
+     * Check whether the player can unlock the exit lock.
+     * @return true if the player has collected all the treasures on the board, false otherwise
+     */
+    public boolean canUnlockExit() {
+        return playerTreasureCount >= board.getBoardTreasureCount();
+    }
+
+    /**
+     * Update the state of the player
+     * @param state the new state
+     */
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    /**
+     * Get the player state
+     * @return the state
+     */
+    public State getState() {
+        return state;
+    }
+
+    /**
      * Increment the treasure counter by one
      * @return the number of treasures collected after this one
      */
-    public int addTreasure() {
-        return ++treasureCount;
+    public void addTreasure() {
+        ++playerTreasureCount;
     }
 
     /**
@@ -148,8 +183,8 @@ public class Chap {
      * Get the number of treasures collected by the player so far.
      * @return the number of treasures collected so far
      */
-    public int getCurrentTreasure() {
-        return treasureCount;
+    public int getPlayerTreasureCount() {
+        return playerTreasureCount;
     }
 
     /**

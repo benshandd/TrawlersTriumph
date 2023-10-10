@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -170,7 +169,7 @@ public class RecorderPanel extends JPanel {
                             }
                             repaint();
                         }
-                    }, 0, (speed*200)/2);
+                    }, 0, ((speed*200)/2)+200);
                 }
             }
         });
@@ -265,7 +264,7 @@ public class RecorderPanel extends JPanel {
         Chap chap = app.getBoard().getChap();
         chapX = chap.getX();
         chapY = chap.getY();
-        chapTreasures = chap.getCurrentTreasure();
+        chapTreasures = chap.getPlayerTreasureCount();
         chapInitLevel = app.getBoard().getLevel();
         int playerTreasureCount = chap.getCurrentTreasure();
         int boardTreasureCount = app.getBoard().getTreasureLeft();
@@ -294,8 +293,8 @@ public class RecorderPanel extends JPanel {
         Chap chap = app.getBoard().getChap();
         int playerX = chap.getX();
         int playerY = chap.getY();
-        int playerTreasureCount = chap.getCurrentTreasure();
-        int boardTreasureCount = app.getBoard().getTreasureLeft();
+        int playerTreasureCount = chap.getPlayerTreasureCount();
+        int boardTreasureCount = app.getBoard().getBoardTreasureCount();
         int level = app.getBoard().getLevel();
         int timeLeft = app.getBoard().getTime();
         Tile[][] board = app.getBoard().getTiles();
