@@ -15,6 +15,12 @@ public class Chap {
     private final Board board;
     private Free tile;
     private int playerTreasureCount;
+    private State state;
+
+    /**
+     * Stores the state of the game
+     */
+    public enum State { ONGOING, PAUSED, COMPLETED, DEAD };
 
     /**
      * Create a new Chap character. A new character should be created per level.
@@ -26,6 +32,7 @@ public class Chap {
         this.board = board;
         this.tile = tile;
         this.playerTreasureCount = playerTreasureCount;
+        this.state = State.ONGOING;
     }
 
     /**
@@ -34,6 +41,9 @@ public class Chap {
      * @throws IllegalMove if the tile to the given direction is not traversable or the edge of the board is encountered
      */
     public void move(Direction direction) throws IllegalMove {
+        if (!state.equals(State.ONGOING)) {
+            throw new IllegalMove("Cannot move when the game is not ongoing");
+        }
         Tile next;
         int x = tile.getX();
         int y = tile.getY();
@@ -115,6 +125,22 @@ public class Chap {
      */
     public boolean canUnlockExit() {
         return playerTreasureCount >= board.getBoardTreasureCount();
+    }
+
+    /**
+     * Update the state of the player
+     * @param state the new state
+     */
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    /**
+     * Get the player state
+     * @return the state
+     */
+    public State getState() {
+        return state;
     }
 
     /**

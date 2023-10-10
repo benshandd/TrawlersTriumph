@@ -45,14 +45,14 @@ public class RecorderPanel extends JPanel {
     private boolean recordingIndicatorVisible = false; // Flag to control the visibility of the recording indicator
     private Timer recordingIndicatorTimer; // Timer for the recording indicator
     public static int time;
-    private int count = 0;
+    public static int count = 0;
     File file = null;
-    static App app;
+    public static App app;
     int chapX;
     int chapY;
     int chapTreasures;
     int chapInitLevel;
-    int boardTreasureRemaining;
+    int boardTreasureCount;
     int timeLeft;
     Tile[][] board;
     //speed of auto replay
@@ -72,7 +72,7 @@ public class RecorderPanel extends JPanel {
      */
     private void initializeComponents() {
         this.setPreferredSize(new Dimension(300, 300));
-        this.setBackground(Color.lightGray);
+        this.setBackground(new Color(174, 119, 100));
         recordButton = createSimpleButton("Record");
         loadButton = createSimpleButton("Load Recorded Game");
         stepButton = createSimpleButton("Step by Step");
@@ -193,7 +193,7 @@ public class RecorderPanel extends JPanel {
                 String title = "Replay Speed";
                 int titleWidth = g.getFontMetrics().stringWidth(title);
                 int x = (getWidth() - titleWidth) / 2;
-                int y = 11;
+                int y = 40;
                 g.drawString(title, x, y);
             }
         };
@@ -265,21 +265,15 @@ public class RecorderPanel extends JPanel {
         chapX = chap.getX();
         chapY = chap.getY();
         chapTreasures = chap.getPlayerTreasureCount();
+        boardTreasureCount = app.getBoard().getBoardTreasureCount();
         chapInitLevel = app.getBoard().getLevel();
-        boardTreasureRemaining = app.getBoard().getBoardTreasureCount();
         timeLeft = app.getBoard().getTime();
         board = app.getBoard().getTiles();
 
         moves = new ArrayList<>();
+
         recordingIndicatorTimer = new Timer();
-        recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                recordingIndicatorVisible = !recordingIndicatorVisible;
-                time++;
-                repaint();
-            }
-        }, 0, 100);
+
     }
 
     // Helper method to stop recording and hide recording indicator
@@ -289,20 +283,12 @@ public class RecorderPanel extends JPanel {
         recordingIndicatorVisible = false;
         repaint();
 
-        Chap chap = app.getBoard().getChap();
-        int playerX = chap.getX();
-        int playerY = chap.getY();
-        int playerTreasureCount = chap.getPlayerTreasureCount();
-        int boardTreasureCount = app.getBoard().getBoardTreasureCount();
-        int level = app.getBoard().getLevel();
-        int timeLeft = app.getBoard().getTime();
-        Tile[][] board = app.getBoard().getTiles();
-
-        Recorder recorder = new Recorder(moves, playerX, playerY, playerTreasureCount,
-                boardTreasureCount, level, timeLeft, board);
+        Recorder recorder = new Recorder(moves, chapX, chapY, chapTreasures,
+                boardTreasureCount, chapInitLevel, timeLeft, board);
 
         try {
             recorder.saveRecorder(count);
+            JOptionPane.showMessageDialog(null, "Game saved successfully!", "Save success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -347,6 +333,13 @@ public class RecorderPanel extends JPanel {
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             g.drawRoundRect(x, y, width-1, height-1, radius, radius);
         }
+
+    }
+    public int getFileCount() {
+        return count;
     }
 
+    public ArrayList<Move> getMovesList() {
+        return moves;
+    }
 }

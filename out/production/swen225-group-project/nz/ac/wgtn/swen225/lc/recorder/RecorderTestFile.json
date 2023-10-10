@@ -1,20 +1,16 @@
 {
   "player": { "x": 8, "y": 8 },
-  "timeLeft": "60",
+  "timeLeft": "100",
   "level": 1,
-  "playerTreasureCount":0,
-  "boardTreasureCount":10,
-  "enemies":0,
+  "treasureLeft":11,
+  "playerTreasuresCount": 2,
   "actions": [
-    "LEFT",
-    "LEFT",
+    "UP",
     "LEFT",
     "UP",
     "RIGHT",
     "RIGHT",
-    "RIGHT",
-    "UP",
-    "UP"
+    "DOWN"
   ],
   "board": [
     [
@@ -76,7 +72,7 @@
       { "x": 4, "y": 3, "tile": "Wall", "item": "none" },
       { "x": 5, "y": 3, "tile": "Door_Green", "item": "none" },
       { "x": 6, "y": 3, "tile": "Wall", "item": "none" },
-      { "x": 7, "y": 3, "tile": "ExitLock", "item": "none" },
+      { "x": 7, "y": 3, "tile": "Exit_Lock", "item": "none" },
       { "x": 8, "y": 3, "tile": "Wall", "item": "none" },
       { "x": 9, "y": 3, "tile": "Door_Green", "item": "none" },
       { "x": 10, "y": 3, "tile": "Wall", "item": "none" },
@@ -228,7 +224,7 @@
       { "x": 3, "y": 12, "tile": "Free", "item": "none" },
       { "x": 4, "y": 12, "tile": "Wall", "item": "none" },
       { "x": 5, "y": 12, "tile": "Free", "item": "none" },
-      { "x": 6, "y": 12, "tile": "Key_Green", "item": "none" },
+      { "x": 6, "y": 12, "tile": "Free", "item": "none" },
       { "x": 7, "y": 12, "tile": "Wall", "item": "none" },
       { "x": 8, "y": 12, "tile": "Key_Green", "item": "none" },
       { "x": 9, "y": 12, "tile": "Free", "item": "none" },

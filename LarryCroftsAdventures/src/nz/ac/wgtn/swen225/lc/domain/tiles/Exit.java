@@ -17,6 +17,7 @@ public class Exit extends Free {
 
     @Override
     public boolean performTileAction(Chap chap) {
+        chap.setState(Chap.State.COMPLETED);
         return true;
     }
 }

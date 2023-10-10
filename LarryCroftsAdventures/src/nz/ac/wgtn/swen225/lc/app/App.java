@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Board;
+import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
@@ -23,6 +24,7 @@ public class App extends JPanel implements ActionListener {
     private JLabel timeLabel;
     public JLabel treasureLabel = new JLabel();
     JLabel[][] inventorySlots = new JLabel[2][4];
+    Color brown =  new Color(174, 119, 100);
 
     private int time = 5;
     private static Renderer renderer;
@@ -129,11 +131,11 @@ public class App extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(1400, 800));
         leftPanel.setPreferredSize(new Dimension(300, 700));
-        leftPanel.setBackground(Color.lightGray);
+        leftPanel.setBackground(brown);
         leftPanel.add(new RecorderPanel(this));
 
         rightPanel.setPreferredSize(new Dimension(300, 700));
-        rightPanel.setBackground(Color.lightGray);
+        rightPanel.setBackground(brown);
         Font font = new Font("Sans-Serif", Font.BOLD, 40);
 
 
@@ -267,7 +269,7 @@ public class App extends JPanel implements ActionListener {
 
     private void createTimer() {
         time = board.getTime();
-        Font font = new Font("Sans-Serif", Font.BOLD, 50);
+        Font font = new Font("Sans-Serif", Font.BOLD, 40);
         timeLabel = createLabel("0", font, Color.black, Color.green);
         add(timeLabel);
 
@@ -281,6 +283,12 @@ public class App extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(board.getChap().getState() == Chap.State.COMPLETED){
+            int level = board.getChap().getBoard().getLevel();
+            level++;
+            setup(new File("LarryCroftsAdventures/levels/level" + level + ".json"));
+        }
+
         if (time > 0) {
             time--;
         } else {
