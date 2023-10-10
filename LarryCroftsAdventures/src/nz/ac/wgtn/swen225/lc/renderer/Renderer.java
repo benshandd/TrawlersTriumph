@@ -178,7 +178,6 @@ public class Renderer extends JPanel{
      * Display info panel if player is on info panel tile
      */
     private void drawInfoPanel(Graphics g){
-        System.out.println(board.getChap().getTile().getClass().getSimpleName());
         if (board.getChap().getTile() instanceof  InfoField){
             g.drawImage(images.get(Images.INFOPANEL), this.getWidth()/2 - cellSize*4, this.getHeight()/2 - cellSize*3, cellSize*8, cellSize*6, null);
         }

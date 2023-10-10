@@ -38,13 +38,14 @@ public class App extends JPanel implements ActionListener {
 
     private JPanel grid;
 
-
+    private Timer timer;
     /**
      * Constructor for the App class.
      * Initializes the game board and sets up the graphical user interface.
      */
     public App() {
-        Timer timer = new Timer(1000, this);
+
+        timer = new Timer(1000, this);
         timer.setInitialDelay(650);
         timer.start();
 
@@ -71,11 +72,11 @@ public class App extends JPanel implements ActionListener {
         addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent evt) {
-                // Resize the background image label to match the panel's size
-                backgroundImageLabel.setBounds(0, 0, getWidth(), getHeight());
-                backgroundImageLabel.setSize(getSize());
 
-                System.out.println(getSize());
+                // Resize the background image label to match the panel's size
+                if (getSize().height != 800 || getSize().width !=1400) {
+                    remove(backgroundImageLabel);
+                }
             }
         });
         setup(new File("LarryCroftsAdventures/levels/level1.json"));
@@ -94,12 +95,19 @@ public class App extends JPanel implements ActionListener {
         }
 
         if(timeLabel != null){
-            this.remove(timeLabel);
+            this.remove(rightPanel);
         }
         audioUnit = new AudioUnit();
         audioUnit.startBackgroundMusic();
         audioUnit.startAmbience();
         board = new Board(file, audioUnit);
+
+        timer.stop();
+
+        timer = new Timer(1000, this);
+        timer.setInitialDelay(650);
+        timer.start();
+
 
         try {
             centrePanel = new Renderer(board, 9, audioUnit, this);
