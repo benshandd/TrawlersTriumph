@@ -1,9 +1,9 @@
 package nz.ac.wgtn.swen225.lc.domain.items;
 
-import nz.ac.wgtn.swen225.lc.domain.tiles.Door;
-
 /**
  * Represents a key that is stored in the inventory.
+ *
+ * @author Anthony Kendrew (300607402)
  */
 public class Key implements Item {
     private Key.Colour colour;

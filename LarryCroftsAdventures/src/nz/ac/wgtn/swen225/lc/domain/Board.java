@@ -9,6 +9,8 @@ import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
 /**
  * Represents the board for a given level.
+ *
+ * @author Anthony Kendrew (300607402)
  */
 public class Board {
     private Tile[][] board;

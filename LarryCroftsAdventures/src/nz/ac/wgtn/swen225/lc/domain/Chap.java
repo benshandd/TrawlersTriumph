@@ -7,6 +7,8 @@ import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 
 /**
  * Represents the player in Larry Croft's Adventures
+ *
+ * @author Anthony Kendrew (300607402)
  */
 public class Chap {
     private final Item[][] inventory = new Item[2][4];

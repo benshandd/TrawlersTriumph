@@ -2,6 +2,11 @@ package nz.ac.wgtn.swen225.lc.domain.tiles;
 
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 
+/**
+ * Represents a square on the board.
+ *
+ * @author Anthony Kendrew (300607402)
+ */
 public interface Tile {
     /**
      * Checks whether this tile is traversable.
