@@ -26,7 +26,7 @@ public class App extends JPanel implements ActionListener {
     public JLabel treasureLabel = new JLabel();
     JLabel[][] inventorySlots = new JLabel[2][4];
 
-    private int time;
+    private int time = 5;
     private static Renderer renderer;
     JPanel leftPanel;
     JPanel rightPanel;
@@ -36,6 +36,11 @@ public class App extends JPanel implements ActionListener {
 
     private int treasureLeft;
 
+    private JLabel backgroundImageLabel; // Label for the background image
+
+    private JPanel grid;
+
+
     /**
      * Constructor for the App class.
      * Initializes the game board and sets up the graphical user interface.
@@ -44,7 +49,39 @@ public class App extends JPanel implements ActionListener {
         Timer timer = new Timer(1000, this);
         timer.setInitialDelay(650);
         timer.start();
+
+        try {
+            ImageIcon backgroundImageIcon = new ImageIcon("LarryCroftsAdventures/assets/background.png"); // Change to your image path
+            backgroundImageLabel = new JLabel(backgroundImageIcon);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle image loading error
+        }
+
+        // Set the layout to null for manual positioning
+        setLayout(null);
+
+        // Add the background image label
+        add(backgroundImageLabel);
+
+        // Place the background image label at the back
+        setComponentZOrder(backgroundImageLabel, 0);
+
+        // Set the bounds (position and size) of the background image label
+        backgroundImageLabel.setBounds(0, 0, 1400, 800); // Adjust the dimensions as needed
+
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                // Resize the background image label to match the panel's size
+                backgroundImageLabel.setBounds(0, 0, getWidth(), getHeight());
+                backgroundImageLabel.setSize(getSize());
+
+                System.out.println(getSize());
+            }
+        });
         setup(new File("LarryCroftsAdventures/levels/level1.json"));
+
     }
 
     /**
@@ -58,6 +95,9 @@ public class App extends JPanel implements ActionListener {
             audioUnit.stopAll();
         } // if there has previously been an AudioUnit created, stop all the clips in it from playing before creating a new one
 
+        if(timeLabel != null){
+            this.remove(timeLabel);
+        }
         audioUnit = new AudioUnit();
         audioUnit.startBackgroundMusic();
         audioUnit.startAmbience();
@@ -72,7 +112,8 @@ public class App extends JPanel implements ActionListener {
 
         leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
-        centrePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        centrePanel.setBorder(BorderFactory.createEmptyBorder(100, 20, 100, 20));
+
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
@@ -108,6 +149,8 @@ public class App extends JPanel implements ActionListener {
 
     }
 
+
+
     /**
      * Creates and returns a panel for displaying the player's inventory.
      *
@@ -116,7 +159,7 @@ public class App extends JPanel implements ActionListener {
      */
 
     public JPanel createInventory(int index) {
-        JPanel grid = new JPanel(new GridLayout(1, 4, 5, 5));
+         grid = new JPanel(new GridLayout(1, 4, 5, 5));
         grid.setPreferredSize(new Dimension(200, 100)); // Increase the width to accommodate square slots
         grid.setBackground(Color.lightGray);
 
@@ -169,14 +212,19 @@ public class App extends JPanel implements ActionListener {
 
 
                     // Check if inventorySlots[i][j] is not null
-                    if (items[i][j] != null) {
-                        //System.out.println(keyImagePath);
+                    if (inventorySlots[i][j] != null) {
+//                        System.out.println(keyImagePath);
 
                         // Load the image and convert it to an ImageIcon
                         ImageIcon keyIcon = new ImageIcon(keyImagePath);
                         inventorySlots[i][j].setIcon(keyIcon);
+
                     }
+                    }
+                else {
+                    inventorySlots[i][j].setIcon(null);
                 }
+
             }
         }
     }

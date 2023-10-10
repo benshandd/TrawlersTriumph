@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
+import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 
@@ -24,6 +25,7 @@ public class Chap {
         this.board = board;
         this.tile = tile;
         this.treasures = treasures;
+
         treasureCount = 0;
     }
 
