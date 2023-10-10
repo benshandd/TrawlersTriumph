@@ -97,6 +97,10 @@ public class Board {
         return time;
     }
 
+    /**
+     * Get the number of treasures required to complete this level
+     * @return the number of treasures
+     */
     public int getBoardTreasureCount() {
         return boardTreasureCount;
     }
