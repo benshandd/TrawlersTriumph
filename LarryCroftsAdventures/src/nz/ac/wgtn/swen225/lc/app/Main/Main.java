@@ -69,6 +69,8 @@ public class Main extends JFrame {
         f.setLocationRelativeTo(null); // Center the game window on the screen.
 
         f.setVisible(true);  // Make the game window visible.
+
+
     }
 
     /**
