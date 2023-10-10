@@ -35,6 +35,7 @@ public class Board {
         }
         time = persistency.timeLeft;
         boardTreasureCount = persistency.boardTreasureCount;
+        level = persistency.level;
         int startX = persistency.playerX;
         int startY = persistency.playerY;
         Free playerTile = new Free(startX, startY);
