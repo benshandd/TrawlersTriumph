@@ -4,6 +4,8 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 
 /**
  * Represents a tile that the player can stand on or move in the direction of.
+ *
+ * @author Anthony Kendrew (300607402)
  */
 public class Free implements Tile {
     protected int x;

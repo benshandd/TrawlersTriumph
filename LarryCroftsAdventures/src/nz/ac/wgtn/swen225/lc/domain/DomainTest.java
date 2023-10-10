@@ -9,6 +9,11 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * JUnit tests for the domain package.
+ *
+ * @author Anthony Kendrew (300607402)
+ */
 public class DomainTest {
     private static Board board;
     private static Chap chap;
@@ -130,10 +135,10 @@ public class DomainTest {
 
     @Test
     public void testPickUpTreasure() {
-        assertEquals(0, chap.getCurrentTreasure());
+        assertEquals(0, chap.getPlayerTreasureCount());
         assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
         assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
         assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
-        assertEquals(1, chap.getCurrentTreasure());
+        assertEquals(1, chap.getPlayerTreasureCount());
     }
 }

@@ -5,6 +5,8 @@ import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
 /**
  * Represents a tile that has a collectible treasure.
+ *
+ * @author Anthony Kendrew (300607402)
  */
 public class Treasure extends Free {
     /**

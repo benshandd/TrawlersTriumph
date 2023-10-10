@@ -9,13 +9,15 @@ import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
 /**
  * Represents the board for a given level.
+ *
+ * @author Anthony Kendrew (300607402)
  */
 public class Board {
     private Tile[][] board;
     private Chap chap;
     private int time;
     private int level;
-    private int treasure;
+    private final int boardTreasureCount;
     private AudioUnit audioUnit;
 
     /**
@@ -32,11 +34,12 @@ public class Board {
             System.err.println("An error occurred while loading the game: " + e.getMessage());
         }
         time = persistency.timeLeft;
+        boardTreasureCount = persistency.boardTreasureCount;
         int startX = persistency.playerX;
         int startY = persistency.playerY;
         Free playerTile = new Free(startX, startY);
         board[startX][startY] = playerTile;
-        chap = new Chap(this, playerTile, treasure);
+        chap = new Chap(this, playerTile, persistency.playerTreasureCount);
     }
 
     /**
@@ -94,8 +97,8 @@ public class Board {
         return time;
     }
 
-    public int getTreasureLeft() {
-        return treasure;
+    public int getBoardTreasureCount() {
+        return boardTreasureCount;
     }
 
     /**

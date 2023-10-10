@@ -36,11 +36,11 @@ public class RecorderTest {
     public void testRecording(){
         assertEquals(8,chap.getX());
         assertEquals(8,chap.getY());
-        assertEquals(2,chap.getCurrentTreasure());
+        assertEquals(2,chap.getPlayerTreasureCount());
         assertEquals(1,chap.getBoard().getLevel());
-        assertEquals(11,chap.getBoard().getTreasureLeft());
+        assertEquals(11,chap.getBoard().getBoardTreasureCount());
         assertEquals(100,chap.getBoard().getTime());
-        assertEquals(2,chap.getCurrentTreasure());
+        assertEquals(2,chap.getPlayerTreasureCount());
     }
     @Test
     public void testSaving(){
