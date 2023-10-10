@@ -52,7 +52,7 @@ public class RecorderPanel extends JPanel {
     int chapY;
     int chapTreasures;
     int chapInitLevel;
-    int boardTreasureRemaining;
+    int boardTreasureCount;
     int timeLeft;
     Tile[][] board;
     //speed of auto replay
@@ -265,13 +265,14 @@ public class RecorderPanel extends JPanel {
         chapX = chap.getX();
         chapY = chap.getY();
         chapTreasures = chap.getPlayerTreasureCount();
+        boardTreasureCount = app.getBoard().getBoardTreasureCount();
         chapInitLevel = app.getBoard().getLevel();
-        int playerTreasureCount = chap.getPlayerTreasureCount();
-        int boardTreasureCount = app.getBoard().getBoardTreasureCount();
         timeLeft = app.getBoard().getTime();
         board = app.getBoard().getTiles();
 
         moves = new ArrayList<>();
+
+        recordingIndicatorTimer = new Timer();
 
     }
 
@@ -282,17 +283,8 @@ public class RecorderPanel extends JPanel {
         recordingIndicatorVisible = false;
         repaint();
 
-        Chap chap = app.getBoard().getChap();
-        int playerX = chap.getX();
-        int playerY = chap.getY();
-        int playerTreasureCount = chap.getPlayerTreasureCount();
-        int boardTreasureCount = app.getBoard().getBoardTreasureCount();
-        int level = app.getBoard().getLevel();
-        int timeLeft = app.getBoard().getTime();
-        Tile[][] board = app.getBoard().getTiles();
-
-        Recorder recorder = new Recorder(moves, playerX, playerY, playerTreasureCount,
-                boardTreasureCount, level, timeLeft, board);
+        Recorder recorder = new Recorder(moves, chapX, chapY, chapTreasures,
+                boardTreasureCount, chapInitLevel, timeLeft, board);
 
         try {
             recorder.saveRecorder(count);
