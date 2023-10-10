@@ -31,7 +31,7 @@ public class Renderer extends JPanel{
     private final Random random = new Random();
 
     // Image fields
-    public enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE,EXIT_LOCK, INFOPANEL}
+    public enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE,EXIT_LOCK, INFOPANEL, WHIRLPOOL, DOCK}
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
     private final HashMap<Images, ArrayList<BufferedImage>> animations = new HashMap<>();
     private final ArrayList<BufferedImage> currentTileImage = new ArrayList<>();
@@ -208,8 +208,8 @@ public class Renderer extends JPanel{
                     currentTileImage.add(images.get(Images.DOOR_YELLOW));
                 }
             }
-            case "Exit"-> currentTileImage.add(images.get(Images.EXIT));
-            case "ExitLock" -> currentTileImage.add(images.get(Images.EXIT_LOCK));
+            case "Exit"-> currentTileImage.add(animations.get(Images.WHIRLPOOL).get(count / 16 % animations.get(Images.WHIRLPOOL).size()));
+            case "ExitLock" -> currentTileImage.add(images.get(Images.DOCK));
             case "Treasure" -> currentTileImage.add(animations.get(Images.FISH).get(count / 16 % animations.get(Images.FISH).size()));
             case "InfoField" -> {
                 currentTileImage.add(animations.get(Images.BOTTLE).get(count / 10 % animations.get(Images.BOTTLE).size()));
@@ -263,6 +263,7 @@ public class Renderer extends JPanel{
         images.put(Images.SEAGULL_RIGHT, ImageIO.read(new File(path + "SeagullRight.png")));
         images.put(Images.FISH, ImageIO.read(new File(path + "Fish.png")));
         images.put(Images.INFOPANEL, ImageIO.read(new File(path + "InfoPanel.png")));
+        images.put(Images.DOCK, ImageIO.read(new File(path + "Dock.png")));
     }
 
     /**
@@ -275,6 +276,7 @@ public class Renderer extends JPanel{
         animations.put(Images.FISH, loadAnimation(ImageIO.read(new File(path + "Fish.png"))));
         animations.put(Images.BOTTLE, loadAnimation(ImageIO.read(new File(path + "Bottle.png"))));
         animations.put(Images.SEAGULL_RIGHT, loadAnimation(ImageIO.read(new File(path + "SeagullRight.png"))));
+        animations.put(Images.WHIRLPOOL, loadAnimation(ImageIO.read(new File(path + "WhirlPool.png"))));
     }
 
     /**

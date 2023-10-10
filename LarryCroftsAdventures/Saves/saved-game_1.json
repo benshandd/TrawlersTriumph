@@ -1,31 +1,37 @@
 {
     "player": {
-        "x": 9,
-        "y": 4
+        "x": 11,
+        "y": 22
     },
     "timeLeft": 100,
     "level": 0,
-    "playerTreasureCount": 1,
-    "boardTreasureCount": 11,
+    "playerTreasureCount": 0,
+    "boardTreasureCount": 1,
     "actions": [
+        "DOWN",
         "RIGHT",
-        "UP",
-        "UP",
-        "UP",
-        "UP"
+        "DOWN",
+        "DOWN",
+        "LEFT",
+        "LEFT",
+        "LEFT",
+        "DOWN",
+        "DOWN",
+        "LEFT",
+        "LEFT"
     ],
     "board": [
         [
             {
                 "x": 0,
                 "y": 0,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 1,
                 "y": 0,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
@@ -61,7 +67,7 @@
             {
                 "x": 7,
                 "y": 0,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
@@ -97,13 +103,13 @@
             {
                 "x": 13,
                 "y": 0,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 14,
                 "y": 0,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             }
         ],
@@ -111,129 +117,129 @@
             {
                 "x": 0,
                 "y": 1,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 1,
                 "y": 1,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 2,
-                "y": 1,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 3,
-                "y": 1,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 4,
-                "y": 1,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 5,
-                "y": 1,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 6,
-                "y": 1,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 7,
-                "y": 1,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 8,
-                "y": 1,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 9,
-                "y": 1,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 10,
-                "y": 1,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 11,
-                "y": 1,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 12,
-                "y": 1,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 13,
-                "y": 1,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 14,
-                "y": 1,
-                "tile": "Free",
-                "item": "none"
-            }
-        ],
-        [
-            {
-                "x": 0,
-                "y": 2,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 1,
-                "y": 2,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 2,
-                "y": 2,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 3,
-                "y": 2,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 4,
-                "y": 2,
                 "tile": "none",
                 "item": "Treasure"
             },
             {
+                "x": 2,
+                "y": 1,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 3,
+                "y": 1,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 4,
+                "y": 1,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
                 "x": 5,
+                "y": 1,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 6,
+                "y": 1,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 7,
+                "y": 1,
+                "tile": "none",
+                "item": "Treasure"
+            },
+            {
+                "x": 8,
+                "y": 1,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 9,
+                "y": 1,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 10,
+                "y": 1,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 11,
+                "y": 1,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 12,
+                "y": 1,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 13,
+                "y": 1,
+                "tile": "none",
+                "item": "Treasure"
+            },
+            {
+                "x": 14,
+                "y": 1,
+                "tile": "Free",
+                "item": "none"
+            }
+        ],
+        [
+            {
+                "x": 0,
+                "y": 2,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 1,
                 "y": 2,
                 "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 2,
+                "y": 2,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 3,
+                "y": 2,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 4,
+                "y": 2,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 5,
+                "y": 2,
+                "tile": "Wall",
                 "item": "none"
             },
             {
@@ -245,7 +251,7 @@
             {
                 "x": 7,
                 "y": 2,
-                "tile": "Exit",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -257,14 +263,14 @@
             {
                 "x": 9,
                 "y": 2,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 10,
                 "y": 2,
-                "tile": "none",
-                "item": "Treasure"
+                "tile": "Wall",
+                "item": "none"
             },
             {
                 "x": 11,
@@ -281,13 +287,13 @@
             {
                 "x": 13,
                 "y": 2,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 14,
                 "y": 2,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             }
         ],
@@ -301,7 +307,7 @@
             {
                 "x": 1,
                 "y": 3,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -313,19 +319,19 @@
             {
                 "x": 3,
                 "y": 3,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 4,
                 "y": 3,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 5,
                 "y": 3,
-                "tile": "Door_Green",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -337,19 +343,19 @@
             {
                 "x": 7,
                 "y": 3,
-                "tile": "ExitLock",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 8,
                 "y": 3,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 9,
                 "y": 3,
-                "tile": "Door_Green",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -361,25 +367,25 @@
             {
                 "x": 11,
                 "y": 3,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 12,
                 "y": 3,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 13,
                 "y": 3,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 14,
                 "y": 3,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             }
         ],
@@ -399,7 +405,7 @@
             {
                 "x": 2,
                 "y": 4,
-                "tile": "Key_Yellow",
+                "tile": "Wall",
                 "item": "none"
             },
             {
@@ -411,31 +417,31 @@
             {
                 "x": 4,
                 "y": 4,
-                "tile": "Door_Blue",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 5,
                 "y": 4,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 6,
                 "y": 4,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 7,
                 "y": 4,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 8,
                 "y": 4,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
@@ -447,7 +453,7 @@
             {
                 "x": 10,
                 "y": 4,
-                "tile": "Door_Red",
+                "tile": "Wall",
                 "item": "none"
             },
             {
@@ -459,13 +465,13 @@
             {
                 "x": 12,
                 "y": 4,
-                "tile": "Key_Yellow",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 13,
                 "y": 4,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
@@ -491,8 +497,8 @@
             {
                 "x": 2,
                 "y": 5,
-                "tile": "none",
-                "item": "Treasure"
+                "tile": "Free",
+                "item": "none"
             },
             {
                 "x": 3,
@@ -509,7 +515,7 @@
             {
                 "x": 5,
                 "y": 5,
-                "tile": "Key_Blue",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -521,8 +527,7 @@
             {
                 "x": 7,
                 "y": 5,
-                "tile": "InfoBox",
-                "message": "Test Message",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -552,8 +557,8 @@
             {
                 "x": 12,
                 "y": 5,
-                "tile": "none",
-                "item": "Treasure"
+                "tile": "Free",
+                "item": "none"
             },
             {
                 "x": 13,
@@ -590,7 +595,7 @@
             {
                 "x": 3,
                 "y": 6,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -602,25 +607,25 @@
             {
                 "x": 5,
                 "y": 6,
-                "tile": "none",
-                "item": "Treasure"
+                "tile": "Free",
+                "item": "none"
             },
             {
                 "x": 6,
                 "y": 6,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 7,
                 "y": 6,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 8,
                 "y": 6,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
@@ -638,7 +643,7 @@
             {
                 "x": 11,
                 "y": 6,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -669,17 +674,17 @@
             },
             {
                 "x": 1,
-                "y": 7,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 2,
                 "y": 7,
                 "tile": "none",
                 "item": "Treasure"
             },
             {
+                "x": 2,
+                "y": 7,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
                 "x": 3,
                 "y": 7,
                 "tile": "Free",
@@ -688,547 +693,547 @@
             {
                 "x": 4,
                 "y": 7,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 5,
                 "y": 7,
-                "tile": "Key_Blue",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 6,
                 "y": 7,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 7,
-                "y": 7,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 8,
-                "y": 7,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 9,
-                "y": 7,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 10,
-                "y": 7,
                 "tile": "Wall",
                 "item": "none"
             },
             {
-                "x": 11,
-                "y": 7,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 12,
+                "x": 7,
                 "y": 7,
                 "tile": "none",
                 "item": "Treasure"
             },
             {
-                "x": 13,
+                "x": 8,
+                "y": 7,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 9,
                 "y": 7,
                 "tile": "Free",
                 "item": "none"
             },
             {
-                "x": 14,
+                "x": 10,
+                "y": 7,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 11,
+                "y": 7,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 12,
                 "y": 7,
                 "tile": "Wall",
                 "item": "none"
-            }
-        ],
-        [
-            {
-                "x": 0,
-                "y": 8,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 1,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 2,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 3,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 4,
-                "y": 8,
-                "tile": "Door_Red",
-                "item": "none"
-            },
-            {
-                "x": 5,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 6,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 7,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 8,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 9,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 10,
-                "y": 8,
-                "tile": "Door_Blue",
-                "item": "none"
-            },
-            {
-                "x": 11,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 12,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
             },
             {
                 "x": 13,
-                "y": 8,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 14,
-                "y": 8,
-                "tile": "Wall",
-                "item": "none"
-            }
-        ],
-        [
-            {
-                "x": 0,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 1,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 2,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 3,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 4,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 5,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 6,
-                "y": 9,
-                "tile": "Door_Yellow",
-                "item": "none"
-            },
-            {
-                "x": 7,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 8,
-                "y": 9,
-                "tile": "Door_Yellow",
-                "item": "none"
-            },
-            {
-                "x": 9,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 10,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 11,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 12,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 13,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 14,
-                "y": 9,
-                "tile": "Wall",
-                "item": "none"
-            }
-        ],
-        [
-            {
-                "x": 0,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 1,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 2,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 3,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 4,
-                "y": 10,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 5,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 6,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 7,
-                "y": 10,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 8,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 9,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 10,
-                "y": 10,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 11,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 12,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 13,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 14,
-                "y": 10,
-                "tile": "Free",
-                "item": "none"
-            }
-        ],
-        [
-            {
-                "x": 0,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 1,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 2,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 3,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 4,
-                "y": 11,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 5,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 6,
-                "y": 11,
+                "y": 7,
                 "tile": "none",
                 "item": "Treasure"
             },
             {
+                "x": 14,
+                "y": 7,
+                "tile": "Free",
+                "item": "none"
+            }
+        ],
+        [
+            {
+                "x": 0,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 1,
+                "y": 8,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 2,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 3,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 4,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 5,
+                "y": 8,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 6,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
                 "x": 7,
-                "y": 11,
+                "y": 8,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 8,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 9,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 10,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 11,
+                "y": 8,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 12,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 13,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 14,
+                "y": 8,
+                "tile": "Wall",
+                "item": "none"
+            }
+        ],
+        [
+            {
+                "x": 0,
+                "y": 9,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 1,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 2,
+                "y": 9,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 3,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 4,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 5,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 6,
+                "y": 9,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 7,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 8,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 9,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 10,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 11,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 12,
+                "y": 9,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 13,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 14,
+                "y": 9,
+                "tile": "Free",
+                "item": "none"
+            }
+        ],
+        [
+            {
+                "x": 0,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 1,
+                "y": 10,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 2,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 3,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 4,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 5,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 6,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 7,
+                "y": 10,
                 "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 8,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 9,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 10,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 11,
+                "y": 10,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 12,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 13,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 14,
+                "y": 10,
+                "tile": "Wall",
+                "item": "none"
+            }
+        ],
+        [
+            {
+                "x": 0,
                 "y": 11,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 1,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 2,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 3,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 4,
+                "y": 11,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 5,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 6,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 7,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 8,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 9,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 10,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 11,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 12,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 13,
+                "y": 11,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 14,
+                "y": 11,
+                "tile": "Wall",
+                "item": "none"
+            }
+        ],
+        [
+            {
+                "x": 0,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 1,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 2,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 3,
+                "y": 12,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 4,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 5,
+                "y": 12,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 6,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 7,
+                "y": 12,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 8,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 9,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 10,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 11,
+                "y": 12,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 12,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 13,
+                "y": 12,
+                "tile": "Free",
+                "item": "none"
+            },
+            {
+                "x": 14,
+                "y": 12,
+                "tile": "Wall",
+                "item": "none"
+            }
+        ],
+        [
+            {
+                "x": 0,
+                "y": 13,
+                "tile": "Wall",
+                "item": "none"
+            },
+            {
+                "x": 1,
+                "y": 13,
                 "tile": "none",
                 "item": "Treasure"
             },
             {
-                "x": 9,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 10,
-                "y": 11,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 11,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 12,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 13,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 14,
-                "y": 11,
-                "tile": "Free",
-                "item": "none"
-            }
-        ],
-        [
-            {
-                "x": 0,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 1,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 2,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 3,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 4,
-                "y": 12,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 5,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 6,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 7,
-                "y": 12,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 8,
-                "y": 12,
-                "tile": "Key_Green",
-                "item": "none"
-            },
-            {
-                "x": 9,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 10,
-                "y": 12,
-                "tile": "Wall",
-                "item": "none"
-            },
-            {
-                "x": 11,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 12,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 13,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 14,
-                "y": 12,
-                "tile": "Free",
-                "item": "none"
-            }
-        ],
-        [
-            {
-                "x": 0,
-                "y": 13,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
-                "x": 1,
-                "y": 13,
-                "tile": "Free",
-                "item": "none"
-            },
-            {
                 "x": 2,
                 "y": 13,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
@@ -1246,7 +1251,7 @@
             {
                 "x": 5,
                 "y": 13,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -1258,19 +1263,19 @@
             {
                 "x": 7,
                 "y": 13,
-                "tile": "Wall",
-                "item": "none"
+                "tile": "none",
+                "item": "Treasure"
             },
             {
                 "x": 8,
                 "y": 13,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
                 "x": 9,
                 "y": 13,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -1288,19 +1293,19 @@
             {
                 "x": 12,
                 "y": 13,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             },
             {
                 "x": 13,
                 "y": 13,
-                "tile": "Free",
-                "item": "none"
+                "tile": "none",
+                "item": "Treasure"
             },
             {
                 "x": 14,
                 "y": 13,
-                "tile": "Free",
+                "tile": "Wall",
                 "item": "none"
             }
         ],
@@ -1314,7 +1319,7 @@
             {
                 "x": 1,
                 "y": 14,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -1326,7 +1331,7 @@
             {
                 "x": 3,
                 "y": 14,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -1338,7 +1343,7 @@
             {
                 "x": 5,
                 "y": 14,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -1362,7 +1367,7 @@
             {
                 "x": 9,
                 "y": 14,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {
@@ -1374,7 +1379,7 @@
             {
                 "x": 11,
                 "y": 14,
-                "tile": "Wall",
+                "tile": "Free",
                 "item": "none"
             },
             {

@@ -5,8 +5,6 @@ import nz.ac.wgtn.swen225.lc.domain.items.*;
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 import org.junit.jupiter.api.*;
 
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -24,7 +22,7 @@ public class DomainTest {
     @BeforeEach
     public void init() {
         AudioUnit au = new AudioUnit();
-        board = new Board(new File("LarryCroftsAdventures/levels/level1.json"), au);
+        //board = new Board(1, au);
         chap = board.getChap();
     }
 

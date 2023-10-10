@@ -136,7 +136,6 @@ public class Main extends JFrame {
         fileMenu.add(saveMenuItem);
         fileMenu.add(resumeMenuItem);
         fileMenu.add(helpMenuItem);
-
         menuBar.add(fileMenu);
 
         return menuBar;
