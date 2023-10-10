@@ -31,7 +31,7 @@ public class Renderer extends JPanel{
     private final Random random = new Random();
 
     // Image fields
-    public enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE,EXIT_LOCK }
+    public enum Images { DOOR_BLUE, DOOR_GREEN, DOOR_RED, DOOR_YELLOW, EXIT, FREE, INFOBOX, KEY_BLUE, KEY_GREEN, KEY_RED, KEY_YELLOW, WALL, BOAT, SEAGULL_LEFT, SEAGULL_RIGHT, ENEMY, FISH, BOTTLE,EXIT_LOCK, INFOPANEL}
     private final HashMap<Images, BufferedImage> images = new HashMap<>();
     private final HashMap<Images, ArrayList<BufferedImage>> animations = new HashMap<>();
     private final ArrayList<BufferedImage> currentTileImage = new ArrayList<>();
@@ -88,6 +88,7 @@ public class Renderer extends JPanel{
         drawBoat(g);
         drawSeagull(g);
         drawBorder(new Color(232, 220, 202), cellSize, g);
+        drawInfoPanel(g);
 
         camera.updateCameraPosition(board.getChap());
 
@@ -174,6 +175,16 @@ public class Renderer extends JPanel{
     }
 
     /**
+     * Display info panel if player is on info panel tile
+     */
+    private void drawInfoPanel(Graphics g){
+        System.out.println(board.getChap().getTile().getClass().getSimpleName());
+        if (board.getChap().getTile() instanceof  InfoField){
+            g.drawImage(images.get(Images.INFOPANEL), this.getWidth()/2 - cellSize*4, this.getHeight()/2 - cellSize*3, cellSize*8, cellSize*6, null);
+        }
+    }
+
+    /**
      * Returns arraylist of images that make up tile
      * @param tile The tile of which its images need to be retrieved
      * @return Arraylist of images that make up tile
@@ -252,6 +263,7 @@ public class Renderer extends JPanel{
         images.put(Images.SEAGULL_LEFT, ImageIO.read(new File(path + "SeagullLeft.png")));
         images.put(Images.SEAGULL_RIGHT, ImageIO.read(new File(path + "SeagullRight.png")));
         images.put(Images.FISH, ImageIO.read(new File(path + "Fish.png")));
+        images.put(Images.INFOPANEL, ImageIO.read(new File(path + "InfoPanel.png")));
     }
 
     /**
