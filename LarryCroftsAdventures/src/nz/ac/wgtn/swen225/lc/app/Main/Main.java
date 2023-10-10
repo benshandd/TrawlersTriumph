@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
+import static nz.ac.wgtn.swen225.lc.app.RecorderPanel.app;
+
 /**
  * The main class for Larry Croft's Adventures game.
  * This class sets up the game's graphical user interface and main functionality.
@@ -33,6 +35,7 @@ public class Main extends JFrame {
     private static Persistency persistency = new Persistency();
     private static RecorderPanel recorderPanel;
     private static Recorder recorder;
+    static App app;
     /**
      * Constructor for the Main class. Initializes the game window and components.
      */
@@ -95,27 +98,34 @@ public class Main extends JFrame {
                 System.exit(0);
             }
         });
-        int count = 1;
 
-//        saveMenuItem.addActionListener((event) -> {
-//            try {
-//                ArrayList<Move> moves = recorderPanel.getMoves();
-//                int x = recorderPanel.getPlayerX();
-//                int y = recorderPanel.getPlayerY();
-//                int playerTreasuresCount = recorderPanel.getPlayerTreasuresCount();
-//                int boardTreasuresCount = recorderPanel.getBoardTreasuresCount();
-//                int level = recorderPanel.getLevel();
-//
-//                persistency.setSaveParameters(level, moves, x, y, playerTreasuresCount, boardTreasuresCount, level);
-//                persistency.saveGame();
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
+        saveMenuItem.addActionListener((event) -> {
+            try {
+                // Get the current state of the game
+                Chap chap = app.getBoard().getChap();
+                int newFileNum = recorderPanel.getFileCount();
+                ArrayList<Move> actions = recorderPanel.getMovesList();
+                int playerX = App.getBoard().getChap().getX();
+                int playerY = App.getBoard().getChap().getY();
+                int playerTreasureCount = chap.getCurrentTreasure();
+                int boardTreasureCount = app.getBoard().getTreasureLeft();
+                int level = App.getBoard().getLevel();
+                int timeLeft = app.getBoard().getTime();
+                Tile[][] board =  app.getBoard().getTiles();
+
+                // Set the parameters for saving
+                persistency.setSaveParameters(newFileNum, actions, playerX, playerY, playerTreasureCount, boardTreasureCount, level, timeLeft, board);
+
+                // Save the game
+                persistency.saveGame();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
 
         resumeMenuItem.setToolTipText("Resume the game"); // Tooltip for the Resume menu item.
-//        resumeMenuItem.addActionListener((event) -> persistency.resumeGame();
+        resumeMenuItem.addActionListener((event) -> persistency.resumeGame());
 
         helpMenuItem.setToolTipText("Help page with game rules"); // Tooltip for the HelpMenu menu item.
         helpMenuItem.addActionListener(new ActionListener() {

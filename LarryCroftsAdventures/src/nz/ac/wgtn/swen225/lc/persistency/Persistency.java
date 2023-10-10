@@ -10,6 +10,7 @@ import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
+import javax.swing.*;
 import java.io.*;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -131,8 +132,7 @@ public class Persistency {
                      * 
                      * int enemyX = enemyObject.get("x").getAsInt();
                      * int enemyY = enemyObject.get("y").getAsInt();
-                     * maze[enemyX][enemyY] = new Enemy(enemyX, enemyY, Enemy.Direction.UP,
-                     * Instant.now(), chap);
+                     * maze[enemyX][enemyY] = new EnemyTile(enemyX, enemyY, Enemy.Direction.UP,Instant.now(), chap);
                      * }
                      * }
                      */
@@ -284,6 +284,24 @@ public class Persistency {
         System.out.println("Game saved...");
         jsonWriter.close();
         fileWriter.close();
+    }
+    public void resumeGame() {
+        JFileChooser fileChooser = new JFileChooser("LarryCroftsAdventures/Saves");
+        fileChooser.setDialogTitle("Choose a saved game file");
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            try {
+                // Load the selected saved game file
+                Tile[][] loadedGame = loadGame(selectedFile);
+                JOptionPane.showMessageDialog(null, "Game resumed successfully!", "Resume Game", JOptionPane.INFORMATION_MESSAGE);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error loading the saved game file.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
 }

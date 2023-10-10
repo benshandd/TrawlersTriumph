@@ -46,9 +46,9 @@ public class RecorderPanel extends JPanel {
     private boolean recordingIndicatorVisible = false; // Flag to control the visibility of the recording indicator
     private Timer recordingIndicatorTimer; // Timer for the recording indicator
     public static int time;
-    private int count = 0;
+    public static int count = 0;
     File file = null;
-    static App app;
+    public static App app;
     int chapX;
     int chapY;
     int chapTreasures;
@@ -267,7 +267,8 @@ public class RecorderPanel extends JPanel {
         chapY = chap.getY();
         chapTreasures = chap.getCurrentTreasure();
         chapInitLevel = app.getBoard().getLevel();
-        boardTreasureRemaining = app.getBoard().getTreasureLeft();
+        int playerTreasureCount = chap.getCurrentTreasure();
+        int boardTreasureCount = app.getBoard().getTreasureLeft();
         timeLeft = app.getBoard().getTime();
         board = app.getBoard().getTiles();
 
@@ -304,6 +305,7 @@ public class RecorderPanel extends JPanel {
 
         try {
             recorder.saveRecorder(count);
+            JOptionPane.showMessageDialog(null, "Game saved successfully!", "Save success", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -348,6 +350,13 @@ public class RecorderPanel extends JPanel {
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             g.drawRoundRect(x, y, width-1, height-1, radius, radius);
         }
+
+    }
+    public int getFileCount() {
+        return count;
     }
 
+    public ArrayList<Move> getMovesList() {
+        return moves;
+    }
 }
