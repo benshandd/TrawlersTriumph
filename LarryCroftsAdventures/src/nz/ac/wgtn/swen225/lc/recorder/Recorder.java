@@ -73,7 +73,6 @@ public class Recorder {
             //pass file name to load the level the player started on and position where they started from
             //new Persistency().loadGame(file);
             app.setup(file);
-            System.out.println("Game loaded...");
             return moves;
         } catch(IOException e) {
             throw new RuntimeException(e);
