@@ -2,10 +2,8 @@ package nz.ac.wgtn.swen225.lc.renderer;
 
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.domain.Board;
-import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
-import nz.ac.wgtn.swen225.lc.persistency.Enemy;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,7 +68,7 @@ public class Renderer extends JPanel{
         Timer timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                app.treasureLabel.setText("" + (app.getBoard().getTreasureLeft() - app.getBoard().getChap().getCurrentTreasure()));
+                app.treasureLabel.setText("" + (app.getBoard().getBoardTreasureCount() - app.getBoard().getChap().getPlayerTreasureCount()));
                 repaint();
             }
         });

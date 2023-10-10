@@ -1,7 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain;
 
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
-import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 
@@ -14,21 +13,18 @@ public class Chap {
     private final Item[][] inventory = new Item[2][4];
     private final Board board;
     private Free tile;
-    private int treasures;
-    private int treasureCount;
+    private int playerTreasureCount;
 
     /**
      * Create a new Chap character. A new character should be created per level.
      * @param board the board that Chap is placed on
      * @param tile the tile that the player is standing on
-     * @param treasures the number of treasures needed to complete this level
+     * @param playerTreasureCount the number of treasures the player has collected so far
      */
-    public Chap(Board board, Free tile, int treasures) {
+    public Chap(Board board, Free tile, int playerTreasureCount) {
         this.board = board;
         this.tile = tile;
-        this.treasures = treasures;
-
-        treasureCount = 0;
+        this.playerTreasureCount = playerTreasureCount;
     }
 
     /**
@@ -111,11 +107,19 @@ public class Chap {
     }
 
     /**
+     * Check whether the player can unlock the exit lock.
+     * @return true if the player has collected all the treasures on the board, false otherwise
+     */
+    public boolean canUnlockExit() {
+        return playerTreasureCount >= board.getBoardTreasureCount();
+    }
+
+    /**
      * Increment the treasure counter by one
      * @return the number of treasures collected after this one
      */
-    public int addTreasure() {
-        return ++treasureCount;
+    public void addTreasure() {
+        ++playerTreasureCount;
     }
 
     /**
@@ -150,8 +154,8 @@ public class Chap {
      * Get the number of treasures collected by the player so far.
      * @return the number of treasures collected so far
      */
-    public int getCurrentTreasure() {
-        return treasureCount;
+    public int getPlayerTreasureCount() {
+        return playerTreasureCount;
     }
 
     /**

@@ -135,10 +135,10 @@ public class DomainTest {
 
     @Test
     public void testPickUpTreasure() {
-        assertEquals(0, chap.getCurrentTreasure());
+        assertEquals(0, chap.getPlayerTreasureCount());
         assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
         assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
         assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
-        assertEquals(1, chap.getCurrentTreasure());
+        assertEquals(1, chap.getPlayerTreasureCount());
     }
 }
