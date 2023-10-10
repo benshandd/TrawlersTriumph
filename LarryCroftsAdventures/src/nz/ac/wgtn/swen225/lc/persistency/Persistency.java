@@ -189,9 +189,8 @@ public class Persistency {
         gameData.addProperty("timeLeft", timeLeftToSave);
         gameData.addProperty("level", levelToSave);
         gameData.addProperty("playerTreasureCount", playerTreasureCountToSave);
-        int remainingTreasures = 1;
 
-        gameData.addProperty("boardTreasureCount", remainingTreasures);
+        gameData.addProperty("boardTreasureCount", boardTreasureCountToSave);
 
         // Add actions data to the gameData
         JsonArray actionsArray = new JsonArray();
