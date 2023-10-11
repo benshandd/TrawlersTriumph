@@ -6,7 +6,7 @@ import nz.ac.wgtn.swen225.lc.domain.tiles.InfoField;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 
 /**
- * Represents the player in Larry Croft's Adventures
+ * Represents the player in Larry Croft's Adventures.
  * 
  * @author Anthony Kendrew (300607402)
  */
@@ -191,6 +191,10 @@ public class Chap {
 		return tile.getY();
 	}
 
+	/**
+	 * Get the player's inventory.
+	 * @return the player's inventory
+	 */
 	public Item[][] getInventory() {
 		return inventory;
 	}

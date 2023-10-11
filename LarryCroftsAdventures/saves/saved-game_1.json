@@ -5,12 +5,12 @@
     },
     "timeLeft": 60,
     "level": 1,
-    "playerTreasureCount": 1,
-    "boardTreasureCount": 9,
+    "playerTreasureCount": 0,
+    "boardTreasureCount": 10,
     "inventory": [
         [
-            "Key_RED",
-            "Key_RED",
+            "none",
+            "none",
             "none",
             "none"
         ],
@@ -21,12 +21,7 @@
             "none"
         ]
     ],
-    "actions": [
-        "RIGHT",
-        "UP",
-        "UP",
-        "UP"
-    ],
+    "actions": [],
     "board": [
         [
             {
