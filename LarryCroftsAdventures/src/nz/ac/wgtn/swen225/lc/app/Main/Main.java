@@ -107,7 +107,7 @@ public class Main extends JFrame {
                 int playerX = App.getBoard().getChap().getX();
                 int playerY = App.getBoard().getChap().getY();
                 int playerTreasureCount = App.getBoard().getChap().getPlayerTreasureCount();
-                int boardTreasureCount = App.getBoard().getBoardTreasureCount();
+                int boardTreasureCount = App.getBoard().getBoardTreasureCount()- playerTreasureCount;
                 int level = App.getBoard().getLevel();
                 int timeLeft = App.getBoard().getTime();
                 Tile[][] board =  App.getBoard().getTiles();

@@ -27,9 +27,10 @@ public class Persistency {
     private File newFile;
     public int originalBoardTreasureCount;
 
-    private int newFileNum;
+
     public static File level1 = new File("LarryCroftsAdventures/levels/level1.json");
     public static File level2 = new File("LarryCroftsAdventures/levels/level2.json");
+    private int newFileNum;
     public Stack<String> actions;
     public int playerX;
     public int playerY;
@@ -53,6 +54,7 @@ public class Persistency {
     public int levelToSave;
     public int timeLeftToSave;
     Tile[][] boardToSave;
+
     /////////////////////
 
     public Persistency() {
@@ -198,15 +200,24 @@ public class Persistency {
 
 
         JsonArray inventoryArray = new JsonArray();
+        // Iterate through the inventory and add each item to the JSON array
         for (Item[] row : chap.getInventory()) {
             JsonArray rowArray = new JsonArray();
-            for (Item currentItem : row) {
-                String itemName = (currentItem != null) ? currentItem.getClass().getSimpleName() : "";
-                rowArray.add(new JsonPrimitive(itemName));
+            for (Item item : row) {
+                if (item == null) {
+                    rowArray.add("none");
+                } else if (item instanceof Key key) {
+                    // Add the key colour to the JSON array
+                    rowArray.add("Key_" + ((Key) item).colour().name());
+                }
             }
             inventoryArray.add(rowArray);
         }
+
+        // Add the inventory array to the gameData object
         gameData.add("inventory", inventoryArray);
+
+
 
         JsonArray actionsArray = new JsonArray();
         if (this.actionsToSave != null) {
