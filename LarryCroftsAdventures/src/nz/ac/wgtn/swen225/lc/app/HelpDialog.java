@@ -7,6 +7,7 @@ import java.awt.*;
  * HelpDialog is a custom dialog that displays game rules and instructions for
  * the Larry Croft's Adventures game. It provides information about the game's
  * objective, rules, and how to play.
+ *  *  @author Matthew Kerr (300613741)
  */
 public class HelpDialog extends JDialog {
 

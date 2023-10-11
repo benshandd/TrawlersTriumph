@@ -17,6 +17,7 @@ import java.io.IOException;
 /**
  * This class represents the main application panel for a game. It includes
  * various panels for displaying game information and inventory.
+ *  *  @author Matthew Kerr (300613741)
  */
 
 public class App extends JPanel implements ActionListener {
@@ -57,10 +58,8 @@ public class App extends JPanel implements ActionListener {
 		timer.start();
 
 		try {
-			ImageIcon backgroundImageIcon = new ImageIcon("LarryCroftsAdventures/assets/background.png"); // Change to
-																											// your
-																											// image
-																											// path
+			ImageIcon backgroundImageIcon = new ImageIcon("LarryCroftsAdventures/assets/background.png");
+
 			backgroundImageLabel = new JLabel(backgroundImageIcon);
 		} catch (Exception e) {
 			e.printStackTrace();

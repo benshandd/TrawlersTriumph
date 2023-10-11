@@ -25,6 +25,7 @@ import java.util.TimerTask;
 /**
  * RecorderPanel is a JPanel that provides recording and playback controls for the Larry Croft's Adventures game.
  * It allows the player to record and replay their actions in the game.
+ *  @author Matthew Kerr (300613741)
  */
 public class RecorderPanel extends JPanel {
 

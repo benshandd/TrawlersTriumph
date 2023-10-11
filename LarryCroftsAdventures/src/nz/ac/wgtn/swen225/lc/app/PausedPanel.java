@@ -3,6 +3,10 @@ package nz.ac.wgtn.swen225.lc.app;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The Jpanel to display ontop of the game when the game is paused.
+ *  *  @author Matthew Kerr (300613741)
+ */
 public class PausedPanel extends JPanel {
 	public PausedPanel() {
 		setOpaque(false); // Make it transparent
