@@ -112,8 +112,9 @@ public class RecorderPanel extends JPanel {
                     file = fc.getSelectedFile();
                 }
                 //getting the moves out of the loaded file
-                moves = new Recorder().loadSave(file,app);
-
+                if (file != null) {
+                    moves = new Recorder().loadSave(file, app);
+                }
             }
         });
         loadButton.setFocusable(false);
@@ -268,7 +269,7 @@ public class RecorderPanel extends JPanel {
     }
 
     // Helper method to start recording and show recording indicator
-    private void startRecording() {
+    public void startRecording() {
         recordButton.setText("Stop Recording");
         count++;
         Chap chap = App.getBoard().getChap();
@@ -278,6 +279,7 @@ public class RecorderPanel extends JPanel {
         boardTreasureCount = App.getBoard().getBoardTreasureCount();
         chapInitLevel = App.getBoard().getLevel();
         timeLeft = App.getBoard().getTime();
+        // deep cloning the board
         board = Arrays.stream(App.getBoard().getTiles())
                 .map(row -> Arrays.stream(row)
                         .map(tile -> {
@@ -297,7 +299,7 @@ public class RecorderPanel extends JPanel {
     }
 
     // Helper method to stop recording and hide recording indicator
-    private void stopRecording() {
+    public void stopRecording() {
         recordButton.setText("Record");
         recordingIndicatorTimer.cancel();
         recordingIndicatorVisible = false;
@@ -307,7 +309,7 @@ public class RecorderPanel extends JPanel {
         boardTreasureCount = App.getBoard().getBoardTreasureCount() - chapTreasures;
 
         Recorder recorder = new Recorder(moves, chapX, chapY, chapTreasures,
-                boardTreasureCount, chapInitLevel, timeLeft, board);
+                boardTreasureCount, chapInitLevel, timeLeft, board, chap);
 
         try {
             recorder.saveRecorder(count);
