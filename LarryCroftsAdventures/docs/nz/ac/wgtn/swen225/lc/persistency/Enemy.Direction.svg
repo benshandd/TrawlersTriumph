@@ -4,16 +4,16 @@
     hide empty fields
     hide empty methods
 
-    enum "<size:14>Enemy.Direction\n<size:10>nz.ac.wgtn.swen225.lc.persistency" as nz.ac.wgtn.swen225.lc.persistency.Enemy.Direction [[Enemy.Direction.html]] {
+    enum "<size:14>Enemy.Direction\n<size:10>nz.ac.wgtn.swen225.lc.persistency" as nz.ac.wgtn.swen225.lc.persistency.AutoActor.Direction [[Enemy.Direction.html]] {
         {static} +UP
         {static} +DOWN
         {static} +LEFT
         {static} +RIGHT
     }
 
-    class "<size:14>Enemy\n<size:10>nz.ac.wgtn.swen225.lc.persistency" as nz.ac.wgtn.swen225.lc.persistency.Enemy [[Enemy.html]]
+    class "<size:14>Enemy\n<size:10>nz.ac.wgtn.swen225.lc.persistency" as nz.ac.wgtn.swen225.lc.persistency.AutoActor [[Enemy.html]]
 
-    nz.ac.wgtn.swen225.lc.persistency.Enemy +- - nz.ac.wgtn.swen225.lc.persistency.Enemy.Direction
+    nz.ac.wgtn.swen225.lc.persistency.AutoActor +- - nz.ac.wgtn.swen225.lc.persistency.AutoActor.Direction
 
     center footer UMLDoclet 2.0.14, PlantUML 1.2021.9
 @enduml

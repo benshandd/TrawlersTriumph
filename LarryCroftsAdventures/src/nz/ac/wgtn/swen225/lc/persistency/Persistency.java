@@ -35,7 +35,7 @@ public class Persistency {
     public int playerX;
     public int playerY;
     public int playerTreasureCount;
-    //public Item[][] inventory = chap.getPlayerTreasureCount();;
+    Item[][] invent = new Item[2][4];
     public int boardTreasureCount;
 
     public int timeLeft;
@@ -76,6 +76,7 @@ public class Persistency {
 
             // Get board information
             JsonArray boardArray = jsonObject.getAsJsonArray("board");
+            JsonArray inventoryArray = jsonObject.getAsJsonArray("inventory");
 
             int numRows = boardArray.size();
             int numCols = boardArray.get(0).getAsJsonArray().size();
@@ -95,6 +96,16 @@ public class Persistency {
             boardTreasureCount = jsonObject.get("boardTreasureCount").getAsInt();
             level = jsonObject.get("level").getAsInt();
             message = null;
+
+            for (int i = 0; i < inventoryArray.size(); i++) {
+                JsonArray rowArray = inventoryArray.get(i).getAsJsonArray();
+                for (int j = 0; j < rowArray.size(); j++) {
+                    String itemName = rowArray.get(j).getAsString();
+                    if (!itemName.equals("none")) {
+                        invent[i][j] = getItemByName(itemName);
+                    }
+                }
+            }
 
             // Populate the maze array
             for (int i = 0; i < numRows; i++) {
@@ -133,10 +144,10 @@ public class Persistency {
                     /*
                      * if (jsonObject.has("enemies")) {
                      * JsonArray enemiesArray = jsonObject.getAsJsonArray("enemies");
-                     * 
+                     *
                      * for (JsonElement enemyElement : enemiesArray) {
                      * JsonObject enemyObject = enemyElement.getAsJsonObject();
-                     * 
+                     *
                      * int enemyX = enemyObject.get("x").getAsInt();
                      * int enemyY = enemyObject.get("y").getAsInt();
                      * maze[enemyX][enemyY] = new EnemyTile(enemyX, enemyY, Enemy.Direction.UP,Instant.now(), chap);
@@ -157,7 +168,7 @@ public class Persistency {
      * Setter method to set the instance variables for saving parameters.
      */
     public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasureCount,
-            int boardTreasureCount, int level, int timeLeft, Tile[][] board, Chap chap) {
+                                  int boardTreasureCount, int level, int timeLeft, Tile[][] board, Chap chap) {
         this.newFileNumToSave = newFileNum;
         this.actionsToSave = actions;
         this.playerXToSave = x;
@@ -202,19 +213,19 @@ public class Persistency {
 
         JsonArray inventoryArray = new JsonArray();
         // Iterate through the inventory and add each item to the JSON array
+
         for (Item[] row : chap.getInventory()) {
             JsonArray rowArray = new JsonArray();
             for (Item item : row) {
                 if (item == null) {
                     rowArray.add("none");
                 } else if (item instanceof Key key) {
-                    // Add the key colour to the JSON array
-                    rowArray.add("Key_" + ((Key) item).colour().name());
+                    String colorName = ((Key) item).colour().name();
+                    rowArray.add("Key_" + colorName.substring(0, 1).toUpperCase() + colorName.substring(1).toLowerCase());
                 }
             }
             inventoryArray.add(rowArray);
         }
-
         // Add the inventory array to the gameData object
         gameData.add("inventory", inventoryArray);
 
@@ -310,6 +321,22 @@ public class Persistency {
         jsonWriter.close();
         fileWriter.close();
     }
+
+    Item getItemByName(String itemName) {
+        switch (itemName) {
+            case "Key_Yellow":
+                return new Key(Key.Colour.YELLOW);
+            case "Key_Red":
+                return new Key(Key.Colour.RED);
+            case "Key_Green":
+                return new Key(Key.Colour.GREEN);
+            case "Key_Blue":
+                return new Key(Key.Colour.BLUE);
+            default:
+                return null;
+        }
+    }
+
     public void resumeGame() {
         JFileChooser fileChooser = new JFileChooser("LarryCroftsAdventures/Saves");
         fileChooser.setDialogTitle("Choose a saved game file");

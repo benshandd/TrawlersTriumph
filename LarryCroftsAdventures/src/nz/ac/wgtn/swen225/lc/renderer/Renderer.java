@@ -4,6 +4,7 @@ import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
+import nz.ac.wgtn.swen225.lc.persistency.AutoActor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -96,6 +97,7 @@ public class Renderer extends JPanel {
 		drawBoard(g);
 		drawBoat(g);
 		drawSeagull(g);
+		drawAutoActors(g);
 		drawBorder(new Color(232, 220, 202), cellSize, g);
 		drawInfoPanel(g);
 
@@ -142,6 +144,11 @@ public class Renderer extends JPanel {
 		int boatY = (this.getHeight() / 2) - cellSize / 2;
 		g.drawImage(animations.get(Images.BOAT).get(count / 16 % animations.get(Images.BOAT).size()), boatX, boatY,
 				cellSize, cellSize, null);
+	}
+	private void drawAutoActors(Graphics g) {
+		for (AutoActor autoActor : board.getAutoActors()) {
+			 g.drawImage(images.get(Images.ENEMY), (int) worldXToPanelX(autoActor.getX()), (int) worldYToPanelY(autoActor.getY()), cellSize, cellSize, null);
+		}
 	}
 
 	/**

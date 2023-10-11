@@ -17,7 +17,7 @@
             +getY(): double
         }
 
-        enum nz.ac.wgtn.swen225.lc.persistency.Enemy.Direction [[Enemy.Direction.html]] {
+        enum nz.ac.wgtn.swen225.lc.persistency.AutoActor.Direction [[Enemy.Direction.html]] {
             {static} +UP
             {static} +DOWN
             {static} +LEFT
@@ -59,8 +59,8 @@
             +testLoadLevelTwo(): void
         }
 
-        Enemy - -> nz.ac.wgtn.swen225.lc.persistency.Enemy.Direction: direction
-        Enemy +- - nz.ac.wgtn.swen225.lc.persistency.Enemy.Direction
+        Enemy - -> nz.ac.wgtn.swen225.lc.persistency.AutoActor.Direction: direction
+        Enemy +- - nz.ac.wgtn.swen225.lc.persistency.AutoActor.Direction
     }
 
     center footer UMLDoclet 2.0.14, PlantUML 1.2021.9

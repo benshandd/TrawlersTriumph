@@ -2,8 +2,12 @@ package nz.ac.wgtn.swen225.lc.domain;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
+import nz.ac.wgtn.swen225.lc.persistency.AutoActor;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
@@ -13,6 +17,7 @@ import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
  * @author Anthony Kendrew (300607402)
  */
 public class Board {
+	private List<AutoActor> autoActors;
 	private Tile[][] board;
 	private final Chap chap;
 	private int time;
@@ -25,7 +30,11 @@ public class Board {
 	 * {@link Persistency#loadGame(File) loadGame}.
 	 */
 	public Board(File file, AudioUnit audioUnit) {
+		this.autoActors = new ArrayList<>();
 		Persistency persistency = new Persistency();
+
+
+
 		this.audioUnit = audioUnit;
 		try {
 			board = persistency.loadGame(file);
@@ -42,6 +51,11 @@ public class Board {
 		Free playerTile = new Free(startX, startY);
 		board[startX][startY] = playerTile;
 		chap = new Chap(this, playerTile, persistency.playerTreasureCount);
+		AutoActor autoActor1 = new AutoActor(1, 2, AutoActor.Direction.LEFT, Instant.now(), chap);
+		AutoActor autoActor2 = new AutoActor(3, 4, AutoActor.Direction.LEFT, Instant.now(), chap);
+		autoActors.add(autoActor1);
+		autoActors.add(autoActor2);
+
 	}
 
 	/**
@@ -57,7 +71,12 @@ public class Board {
 		board[x][y] = freeTile;
 		return freeTile;
 	}
-
+	public List<AutoActor> getAutoActors() {
+		return autoActors;
+	}
+	public void addAutoActor(AutoActor autoActor) {
+		autoActors.add(autoActor);
+	}
 	/**
 	 * Get a tile at the specified coordinates.
 	 * 

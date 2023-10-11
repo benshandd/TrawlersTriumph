@@ -11,7 +11,7 @@ import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
  * @author Anthony Kendrew (300607402)
  */
 public class Chap {
-	private final Item[][] inventory = new Item[2][4];
+	private Item[][] inventory = new Item[2][4];
 	private final Board board;
 	private Free tile;
 	private int playerTreasureCount;
@@ -195,6 +195,9 @@ public class Chap {
 		return inventory;
 	}
 
+	public void setInventory(Item[][] inventory) {
+		this.inventory = inventory;
+	}
 	/**
 	 * Get the number of treasures collected by the player so far.
 	 * 

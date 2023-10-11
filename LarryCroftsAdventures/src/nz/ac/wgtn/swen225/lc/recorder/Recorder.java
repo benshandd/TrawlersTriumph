@@ -55,6 +55,7 @@ public class Recorder {
         p.setSaveParameters(count, movesList, this.x, this.y, this.numberOfTreasuresPlayer,
                 this.numberOfTreasuresBoard, this.initLevel, this.timeLeft, this.board,this.chap);
         p.saveGame();
+        
     }
 
     /**
