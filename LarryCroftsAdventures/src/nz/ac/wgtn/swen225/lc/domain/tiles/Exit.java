@@ -15,6 +15,9 @@ public class Exit extends Free {
         super(x, y);
     }
 
+    /**
+     * Sets the state of the player to 'completed'.
+     */
     @Override
     public boolean performTileAction(Chap chap) {
         chap.setState(Chap.State.COMPLETED);

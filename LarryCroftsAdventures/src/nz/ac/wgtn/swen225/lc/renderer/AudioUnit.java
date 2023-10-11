@@ -81,14 +81,13 @@ public class AudioUnit {
      * Plays one of three possible seagull SFXs
      */
     public void playSeagullSFX(){
-        Random random = new Random();
         // Generate a random number between 1 and 3
-        int randomNumber = random.nextInt(3) + 1;
+        int randomNumber = (int) (Math.random() * 3 + 1);
         AudioClip seagull = switch(randomNumber){
             case 1 -> AudioClip.SEAGULL1;
             case 2 -> AudioClip.SEAGULL2;
             case 3 -> AudioClip.SEAGULL3;
-            default -> null;
+            default -> throw new Error();
         };
         audioClips.get(seagull).setFramePosition(0); // reset frame position if sound has previously been played
         audioClips.get(seagull).start();
@@ -98,14 +97,13 @@ public class AudioUnit {
      * Plays one of three possible fish SFXs
      */
     public void playFishSFX(){
-        Random random = new Random();
         // Generate a random number between 1 and 3
-        int randomNumber = random.nextInt(3) + 1;
+        int randomNumber = (int) (Math.random() * 3 + 1);
         AudioClip fish = switch(randomNumber){
             case 1 -> AudioClip.FISH1;
             case 2 -> AudioClip.FISH2;
             case 3 -> AudioClip.FISH3;
-            default -> null;
+            default -> throw new Error();
         };
         audioClips.get(fish).setFramePosition(0); // reset frame position if sound has previously been played
         audioClips.get(fish).start();

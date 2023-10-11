@@ -18,6 +18,9 @@ public class KeyTile extends Free {
      */
     public KeyTile(Key.Colour colour, int x, int y) {
         super(x, y);
+        if (colour == null) {
+            throw new IllegalArgumentException();
+        }
         this.colour = colour;
     }
 
