@@ -1,16 +1,24 @@
 {
   "player": { "x": 8, "y": 8 },
-  "timeLeft": "100",
+  "timeLeft": "60",
   "level": 1,
-  "treasureLeft":11,
-  "playerTreasuresCount": 2,
+  "playerTreasureCount":2,
+  "boardTreasureCount":10,
+  "inventory": [
+    ["Key_YELLOW", "Key_BLUE", "", ""],
+    ["", "", "", ""]
+  ],
+  "enemies":0,
   "actions": [
-    "UP",
+    "LEFT",
+    "LEFT",
     "LEFT",
     "UP",
     "RIGHT",
     "RIGHT",
-    "DOWN"
+    "RIGHT",
+    "UP",
+    "UP"
   ],
   "board": [
     [
@@ -72,7 +80,7 @@
       { "x": 4, "y": 3, "tile": "Wall", "item": "none" },
       { "x": 5, "y": 3, "tile": "Door_Green", "item": "none" },
       { "x": 6, "y": 3, "tile": "Wall", "item": "none" },
-      { "x": 7, "y": 3, "tile": "Exit_Lock", "item": "none" },
+      { "x": 7, "y": 3, "tile": "ExitLock", "item": "none" },
       { "x": 8, "y": 3, "tile": "Wall", "item": "none" },
       { "x": 9, "y": 3, "tile": "Door_Green", "item": "none" },
       { "x": 10, "y": 3, "tile": "Wall", "item": "none" },
@@ -106,7 +114,7 @@
       { "x": 4, "y": 5, "tile": "Wall", "item": "none" },
       { "x": 5, "y": 5, "tile": "Key_Blue", "item": "none" },
       { "x": 6, "y": 5, "tile": "Free", "item": "none" },
-      { "x": 7, "y": 5, "tile": "InfoBox", "item": "none", "message": "Test Message"},
+      { "x": 7, "y": 5, "tile": "InfoBox", "item": "none"},
       { "x": 8, "y": 5, "tile": "Free", "item": "none" },
       { "x": 9, "y": 5, "tile": "Key_Red", "item": "none" },
       { "x": 10, "y": 5, "tile": "Wall", "item": "none" },
@@ -224,7 +232,7 @@
       { "x": 3, "y": 12, "tile": "Free", "item": "none" },
       { "x": 4, "y": 12, "tile": "Wall", "item": "none" },
       { "x": 5, "y": 12, "tile": "Free", "item": "none" },
-      { "x": 6, "y": 12, "tile": "Free", "item": "none" },
+      { "x": 6, "y": 12, "tile": "Key_Green", "item": "none" },
       { "x": 7, "y": 12, "tile": "Wall", "item": "none" },
       { "x": 8, "y": 12, "tile": "Key_Green", "item": "none" },
       { "x": 9, "y": 12, "tile": "Free", "item": "none" },

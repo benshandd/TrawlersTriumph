@@ -125,7 +125,7 @@ public class Board {
 	}
 
 	/**
-	 * Get the number of treasures required to complete this level
+	 * Get the number of treasures required to complete this level.
 	 * 
 	 * @return the number of treasures
 	 */

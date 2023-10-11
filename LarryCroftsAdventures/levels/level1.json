@@ -1,5 +1,5 @@
 {
-  "player": { "x": 8, "y": 8 },
+  "player": { "x": 7, "y": 6 },
   "timeLeft": "60",
   "level": 1,
   "playerTreasureCount":0,

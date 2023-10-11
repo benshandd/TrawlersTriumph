@@ -3,6 +3,11 @@ package nz.ac.wgtn.swen225.lc.app;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+/**
+ *	JPanel display for all the possible KeyBindings and their purposes
+ *  @author Matthew Kerr (300613741)
+ *
+ */
 
 public class KeyBindingsPanel extends JPanel {
 	public KeyBindingsPanel() {
@@ -19,6 +24,11 @@ public class KeyBindingsPanel extends JPanel {
 		addKeyBinding("Arrow Keys", "Move the character");
 	}
 
+	/**
+	 * Adds keybind text to the jpanel
+	 * @param keyCombination
+	 * @param description
+	 */
 	private void addKeyBinding(String keyCombination, String description) {
 		JLabel label = new JLabel(keyCombination + " - " + description);
 		label.setFont(new Font("Arial", Font.PLAIN, 14));

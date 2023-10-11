@@ -17,6 +17,7 @@ import java.io.IOException;
 /**
  * This class represents the main application panel for a game. It includes
  * various panels for displaying game information and inventory.
+ *  *  @author Matthew Kerr (300613741)
  */
 
 public class App extends JPanel implements ActionListener {
@@ -27,7 +28,6 @@ public class App extends JPanel implements ActionListener {
 	Color brown = new Color(174, 119, 100);
 
 	private int time = 5;
-	private static Renderer renderer;
 	JPanel leftPanel;
 	JPanel rightPanel;
 	static Renderer centrePanel;
@@ -58,10 +58,8 @@ public class App extends JPanel implements ActionListener {
 		timer.start();
 
 		try {
-			ImageIcon backgroundImageIcon = new ImageIcon("LarryCroftsAdventures/assets/background.png"); // Change to
-																											// your
-																											// image
-																											// path
+			ImageIcon backgroundImageIcon = new ImageIcon("LarryCroftsAdventures/assets/background.png");
+
 			backgroundImageLabel = new JLabel(backgroundImageIcon);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,6 +100,8 @@ public class App extends JPanel implements ActionListener {
 		if (centrePanel != null) { // if there has previously been a Renderer created, remove its corresponding
 									// panel from the App JPanel
 			this.remove(centrePanel);
+			centrePanel.timer.stop();
+
 		}
 		if (audioUnit != null) { // if there has previously been an AudioUnit created, stop all the clips in it
 									// from playing before creating a new one
@@ -118,7 +118,6 @@ public class App extends JPanel implements ActionListener {
 		board = new Board(file, audioUnit);
 
 		timer.stop();
-
 		timer = new Timer(1000, this);
 		timer.setInitialDelay(650);
 		timer.start();
@@ -129,6 +128,8 @@ public class App extends JPanel implements ActionListener {
 			System.err.println("Error: An image has not read properly");
 			e.printStackTrace();
 		}
+
+
 
 		leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
 		rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
@@ -232,7 +233,6 @@ public class App extends JPanel implements ActionListener {
 
 					// Check if inventorySlots[i][j] is not null
 					if (inventorySlots[i][j] != null) {
-//                        System.out.println(keyImagePath);
 
 						// Load the image and convert it to an ImageIcon
 						ImageIcon keyIcon = new ImageIcon(keyImagePath);
@@ -292,7 +292,6 @@ public class App extends JPanel implements ActionListener {
 	 *
 	 * @param e The ActionEvent object representing the timer event.
 	 */
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (board.getChap().getState() == Chap.State.COMPLETED) {
@@ -310,12 +309,9 @@ public class App extends JPanel implements ActionListener {
 				JOptionPane.showMessageDialog(null, "Time's up! Do you want to replay the current level?", "Game Over",
 						JOptionPane.PLAIN_MESSAGE);
 				time = board.getTime();
-				// Replay level or perform other game over actions
 
 				// Pause the game
-				setPaused(true);
 				setup(new File("LarryCroftsAdventures/levels/level" + board.getChap().getBoard().getLevel() + ".json"));
-
 			}
 		}
 

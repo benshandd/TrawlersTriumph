@@ -9,28 +9,29 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
+import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 /**
  * The main class for Larry Croft's Adventures game.
  * This class sets up the game's graphical user interface and main functionality.
+ *  @author Matthew Kerr (300613741)
  */
 public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
+    private Recorder recorder;
     private static Persistency persistency = new Persistency();
     private static RecorderPanel recorderPanel;
-    private static Recorder recorder;
-    static App app;
+    static App applicationWindow;
     /**
      * Constructor for the Main class. Initializes the game window and components.
      */
@@ -39,11 +40,18 @@ public class Main extends JFrame {
         System.out.println("Hello world");
         f = new JFrame("Reel It In");
         l = new JLabel("Welcome");
+        String path = "LarryCroftsAdventures/assets/";
+        try{
+        ImageIcon img = new ImageIcon(ImageIO.read(new File(path + "icon.png")));
+        f.setIconImage(img.getImage());
+        } catch (Exception e){
+
+        }
 
         f.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // Set the default close operation to exit the application.
 
 
-        App applicationWindow = new App();
+         applicationWindow = new App();
         recorderPanel = new RecorderPanel(applicationWindow);
         new KeyboardInputHandler(applicationWindow); // Initialize keyboard input handling.
         f.setJMenuBar(createMenuBar());  // Create and set the menu bar for the game
@@ -80,19 +88,73 @@ public class Main extends JFrame {
         JMenuBar menuBar = new JMenuBar();
 
         JMenu fileMenu = new JMenu("Menu");
+        JMenu levelMenu = new JMenu("Level");
+        JMenu helpMenu = new JMenu("Help");
+
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         JMenuItem saveMenuItem = new JMenuItem("Save");
+        JMenuItem pauseMenuItem = new JMenuItem("Pause");
         JMenuItem resumeMenuItem = new JMenuItem("Resume");
         JMenuItem helpMenuItem = new JMenuItem("Help");
 
-
-        exitMenuItem.setToolTipText("Exit the game");  // Tooltip for the Exit menu item.
-        exitMenuItem.addActionListener((event) -> {
-            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave the game?", "Closing game", JOptionPane.YES_NO_OPTION);
-            if (response == 0) {
-                System.exit(0);
+        JMenuItem level1 = new JMenuItem("Level 1");
+        JMenuItem level2 = new JMenuItem("Level 2");
+        level1.setToolTipText("Load level 1");  // Tooltip for the Exit menu item.
+        level2.setToolTipText("Load level 2");  // Tooltip for the Exit menu item.
+        level1.addActionListener(new ActionListener() {
+            /**
+             * Handles the action when the level menu item is clicked.
+             *
+             * @param e The ActionEvent representing the menu item click event.
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Display the help dialog when the "Level1" menu item is clicked
+                 applicationWindow.setup(new File("LarryCroftsAdventures/levels/level1.json"));
             }
         });
+
+        level2.addActionListener(new ActionListener() {
+            /**
+             * Handles the action when the level menu item is clicked.
+             *
+             * @param e The ActionEvent representing the menu item click event.
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Display the help dialog when the "Level2" menu item is clicked
+                applicationWindow.setup(new File("LarryCroftsAdventures/levels/level2.json"));
+            }
+        });
+
+        pauseMenuItem.addActionListener(new ActionListener() {
+            /**
+             * Handles the action when the Pause menu item is clicked.
+             *
+             * @param e The ActionEvent representing the menu item click event.
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Display the help dialog when the "Pause" menu item is clicked
+                applicationWindow.setPaused(true);
+            }
+        });
+
+
+
+        Action exitAction = new AbstractAction("Exit") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave the game?", "Closing game", JOptionPane.YES_NO_OPTION);
+                if (response == 0) {
+                    System.exit(0);
+                }
+            }
+        };
+        exitAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
+        exitMenuItem.setAction(exitAction);
+        exitMenuItem.setToolTipText("Exit the game");  // Tooltip for the Exit menu item.
+
 
         saveMenuItem.addActionListener((event) -> {
             try {
@@ -119,7 +181,7 @@ public class Main extends JFrame {
         });
 
 
-        resumeMenuItem.setToolTipText("Resume the game"); // Tooltip for the Resume menu item.
+        resumeMenuItem.setToolTipText("Resume from game save"); // Tooltip for the Resume menu item.
         resumeMenuItem.addActionListener((event) -> {
             persistency.resumeGame();
         });
@@ -142,8 +204,16 @@ public class Main extends JFrame {
         fileMenu.add(exitMenuItem);
         fileMenu.add(saveMenuItem);
         fileMenu.add(resumeMenuItem);
-        fileMenu.add(helpMenuItem);
+        fileMenu.add(pauseMenuItem);
+
+        helpMenu.add(helpMenuItem);
+
+        levelMenu.add(level1);
+        levelMenu.add(level2);
+
         menuBar.add(fileMenu);
+        menuBar.add(levelMenu);
+        menuBar.add(helpMenu);
 
         return menuBar;
     }

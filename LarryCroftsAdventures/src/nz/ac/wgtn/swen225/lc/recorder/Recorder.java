@@ -10,7 +10,7 @@ import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.Camera;
-import nz.ac.wgtn.swen225.lc.renderer.Renderer;
+
 
 import java.io.File;
 import java.io.FileReader;
@@ -31,7 +31,7 @@ public class Recorder {
 
 
     public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard,
-                    int initLevel, int timeLeft, Tile[][] board) {
+                    int initLevel, int timeLeft, Tile[][] board, Chap chap) {
         this.movesList = movesList;
         this.x = x;
         this.y = y;
@@ -40,7 +40,7 @@ public class Recorder {
         this.initLevel = initLevel;
         this.timeLeft = timeLeft;
         this.board = board;
-        this.chap = App.getBoard().getChap();
+        this.chap = chap;
     }
 
     public Recorder(){}
@@ -53,7 +53,7 @@ public class Recorder {
     public void saveRecorder(int count) throws IOException {
         Persistency p = new Persistency();
         p.setSaveParameters(count, movesList, this.x, this.y, this.numberOfTreasuresPlayer,
-                this.numberOfTreasuresBoard, this.initLevel, this.timeLeft, this.board,this.chap);
+                this.numberOfTreasuresBoard, this.initLevel, this.timeLeft, this.board, this.chap);
         p.saveGame();
         
     }
@@ -74,7 +74,6 @@ public class Recorder {
                 moves.add(new Move(jsonMoves.get(i).getAsString(),1));
             }
             //pass file name to load the level the player started on and position where they started from
-            //new Persistency().loadGame(file);
             app.setup(file);
             return moves;
         } catch(IOException e) {
@@ -87,38 +86,27 @@ public class Recorder {
      * @param move move to be played back
      */
     public void step(Move move) throws IllegalMove {
-        Renderer renderer = App.getRenderer();
-        Camera camera = renderer.getCamera();
         Chap chap = App.getBoard().getChap();
-
         switch (move.move()){
             case "UP" -> {
-                camera.setState(Camera.State.UP);
+                App.getRenderer().getCamera().setState(Camera.State.UP);
                 chap.move(Chap.Direction.UP);
             }
             case "DOWN" -> {
-                camera.setState(Camera.State.DOWN);
+                App.getRenderer().getCamera().setState(Camera.State.DOWN);
                 chap.move(Chap.Direction.DOWN);
             }
             case "LEFT" -> {
-                camera.setState(Camera.State.LEFT);
+                App.getRenderer().getCamera().setState(Camera.State.LEFT);
                 chap.move(Chap.Direction.LEFT);
             }
             case "RIGHT" -> {
-                camera.setState(Camera.State.RIGHT);
+                App.getRenderer().getCamera().setState(Camera.State.RIGHT);
                 chap.move(Chap.Direction.RIGHT);
             }
         }
     }
 
-    /**
-     * method to auto playback the moves
-     * @param move move in the file chosen
-     * @param speed speed of the playback
-     */
-    public static void auto(Move move, int speed){
-
-    }
 
 
 }

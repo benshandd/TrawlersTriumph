@@ -8,7 +8,13 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
  * @author Anthony Kendrew (300607402)
  */
 public class Wall implements Tile {
+	/**
+	 * The x position of this tile.
+	 */
 	protected int x;
+	/**
+	 * The y position of this tile.
+	 */
 	protected int y;
 
 	/**
