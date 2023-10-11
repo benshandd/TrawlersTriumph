@@ -102,16 +102,15 @@ public class Main extends JFrame {
         saveMenuItem.addActionListener((event) -> {
             try {
                 // Get the current state of the game
-                Chap chap = app.getBoard().getChap();
                 int newFileNum = recorderPanel.getFileCount();
                 ArrayList<Move> actions = recorderPanel.getMovesList();
                 int playerX = App.getBoard().getChap().getX();
                 int playerY = App.getBoard().getChap().getY();
-                int playerTreasureCount = chap.getPlayerTreasureCount();
-                int boardTreasureCount = app.getBoard().getBoardTreasureCount();
+                int playerTreasureCount = App.getBoard().getChap().getPlayerTreasureCount();
+                int boardTreasureCount = App.getBoard().getBoardTreasureCount();
                 int level = App.getBoard().getLevel();
-                int timeLeft = app.getBoard().getTime();
-                Tile[][] board =  app.getBoard().getTiles();
+                int timeLeft = App.getBoard().getTime();
+                Tile[][] board =  App.getBoard().getTiles();
 
                 // Set the parameters for saving
                 persistency.setSaveParameters(newFileNum, actions, playerX, playerY, playerTreasureCount, boardTreasureCount, level, timeLeft, board);
