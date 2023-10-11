@@ -292,8 +292,21 @@ public class RecorderPanel extends JPanel {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-
         moves.clear();
+    }
+
+    /**
+     * save the lastest info of the board and chap
+     */
+    public void saveEndingInfo(){
+        Chap chap = app.getBoard().getChap();
+        chapX = chap.getX();
+        chapY = chap.getY();
+        chapTreasures = chap.getPlayerTreasureCount();
+        boardTreasureCount = app.getBoard().getBoardTreasureCount();
+        chapInitLevel = app.getBoard().getLevel();
+        timeLeft = app.getBoard().getTime();
+        board = app.getBoard().getTiles();
     }
 
 
