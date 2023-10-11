@@ -43,8 +43,6 @@ public class DomainTest {
 
 	@Test
 	public void testMoveLeftIllegal() {
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.LEFT));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.LEFT));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.LEFT));
 		assertThrows(IllegalMove.class, () -> chap.move(Chap.Direction.LEFT));
@@ -61,7 +59,7 @@ public class DomainTest {
 
 	@Test
 	public void testMoveRightIllegal() {
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertThrows(IllegalMove.class, () -> chap.move(Chap.Direction.RIGHT));
 	}
@@ -70,14 +68,15 @@ public class DomainTest {
 	public void testMoveDown() {
 		int x = chap.getX();
 		int y = chap.getY();
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.DOWN));
 		assertEquals(x, chap.getX());
-		assertEquals(y, chap.getY());
+		assertEquals(y + 1, chap.getY());
 	}
 
 	@Test
 	public void testMoveDownIllegal() {
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.DOWN));
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.DOWN));
 		assertThrows(IllegalMove.class, () -> chap.move(Chap.Direction.DOWN));
 	}
 
@@ -94,14 +93,13 @@ public class DomainTest {
 	public void testMoveUpIllegal() {
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
 		assertThrows(IllegalMove.class, () -> chap.move(Chap.Direction.UP));
 	}
 
 	@Test
 	public void testPickUpKey() {
 		assertFalse(chap.hasItem(new Key(Key.Colour.RED)));
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertTrue(chap.hasItem(new Key(Key.Colour.RED)));
@@ -110,15 +108,11 @@ public class DomainTest {
 	@Test
 	public void testCanOpenDoor() {
 		testPickUpKey();
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.LEFT));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		Tile tile = chap.getBoard().getTile(chap.getX() + 1, chap.getY());
 		assertTrue(tile instanceof Door);
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
-		tile = chap.getTile();
+		tile = chap.getBoard().getTile(chap.getX(), chap.getY());
 		assertTrue(tile instanceof Free);
 		assertFalse(chap.hasItem(new Key(Key.Colour.RED)));
 	}
@@ -126,9 +120,7 @@ public class DomainTest {
 	@Test
 	public void testCannotOpenDoor() {
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertThrows(IllegalMove.class, () -> chap.move(Chap.Direction.RIGHT));
 	}
@@ -136,9 +128,9 @@ public class DomainTest {
 	@Test
 	public void testCannotOpenDoorWrongKey() {
 		assertFalse(chap.hasItem(new Key(Key.Colour.BLUE)));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.DOWN));
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertTrue(chap.hasItem(new Key(Key.Colour.RED)));
 		assertFalse(chap.hasItem(new Key(Key.Colour.BLUE)));
 		assertThrows(IllegalMove.class, () -> chap.move(Chap.Direction.RIGHT));
@@ -147,8 +139,7 @@ public class DomainTest {
 	@Test
 	public void testPickUpTreasure() {
 		assertEquals(0, chap.getPlayerTreasureCount());
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
 		assertEquals(1, chap.getPlayerTreasureCount());
 	}
@@ -264,12 +255,9 @@ public class DomainTest {
 	@Test
 	public void testInfoFieldNotReplacedWithFree() {
 		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.LEFT));
 		assertTrue(chap.getTile() instanceof InfoField);
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.LEFT));
-		assertDoesNotThrow(() -> chap.move(Chap.Direction.RIGHT));
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.DOWN));
+		assertDoesNotThrow(() -> chap.move(Chap.Direction.UP));
 		assertTrue(chap.getTile() instanceof InfoField);
 	}
 }
