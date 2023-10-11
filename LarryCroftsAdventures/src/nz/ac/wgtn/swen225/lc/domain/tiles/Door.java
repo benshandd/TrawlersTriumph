@@ -61,4 +61,10 @@ public class Door extends Wall {
     public Key.Colour getColour() {
         return colour;
     }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        Door tile = (Door) super.clone();
+        return tile;
+    }
 }

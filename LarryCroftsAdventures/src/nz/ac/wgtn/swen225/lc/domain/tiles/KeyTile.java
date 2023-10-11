@@ -40,4 +40,10 @@ public class KeyTile extends Free {
     public Key.Colour getColour() {
         return colour;
     }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        KeyTile tile = (KeyTile) super.clone();
+        return tile;
+    }
 }

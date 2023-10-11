@@ -262,14 +262,14 @@ public class RecorderPanel extends JPanel {
     private void startRecording() {
         recordButton.setText("Stop Recording");
         count++;
-        Chap chap = app.getBoard().getChap();
+        Chap chap = App.getBoard().getChap();
         chapX = chap.getX();
         chapY = chap.getY();
         chapTreasures = chap.getPlayerTreasureCount();
-        boardTreasureCount = app.getBoard().getBoardTreasureCount();
-        chapInitLevel = app.getBoard().getLevel();
-        timeLeft = app.getBoard().getTime();
-        Tile[][] copy = Arrays.stream(originalArray)
+        boardTreasureCount = App.getBoard().getBoardTreasureCount();
+        chapInitLevel = App.getBoard().getLevel();
+        timeLeft = App.getBoard().getTime();
+        Tile[][] copy = Arrays.stream(App.getBoard().getTiles())
                 .map(row -> Arrays.stream(row)
                         .map(tile -> tile.clone())
                         .toArray(Tile[]::new))

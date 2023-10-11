@@ -22,4 +22,10 @@ public class ExitLock extends Wall {
     public boolean traversable(Chap chap) {
         return chap.canUnlockExit();
     }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        ExitLock tile = (ExitLock) super.clone();
+        return tile;
+    }
 }
