@@ -6,7 +6,7 @@ package nz.ac.wgtn.swen225.lc.domain.items;
  * @author Anthony Kendrew (300607402)
  */
 public class Key implements Item {
-    private Key.Colour colour;
+    private final Key.Colour colour;
 
     /**
      * Create a new key.
@@ -14,6 +14,9 @@ public class Key implements Item {
      */
     public Key(Key.Colour colour) {
         super();
+        if (colour == null) {
+            throw new IllegalArgumentException();
+        }
         this.colour = colour;
     }
 

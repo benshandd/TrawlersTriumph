@@ -13,15 +13,15 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Anthony Kendrew (300607402)
  */
 public class DomainTest {
-    private static Board board;
-    private static Chap chap;
+    private Board board;
+    private Chap chap;
 
     /**
      * Initialise the board and player.
      */
     @BeforeEach
     public void init() {
-        AudioUnit au = new AudioUnit();
+        //AudioUnit au = new AudioUnit();
         //board = new Board(1, au);
         chap = board.getChap();
     }

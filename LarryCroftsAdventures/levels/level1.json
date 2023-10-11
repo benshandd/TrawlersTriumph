@@ -110,7 +110,7 @@
       { "x": 4, "y": 5, "tile": "Wall", "item": "none" },
       { "x": 5, "y": 5, "tile": "Key_Blue", "item": "none" },
       { "x": 6, "y": 5, "tile": "Free", "item": "none" },
-      { "x": 7, "y": 5, "tile": "InfoBox", "item": "none", "message": "Test Message"},
+      { "x": 7, "y": 5, "tile": "InfoBox", "item": "none"},
       { "x": 8, "y": 5, "tile": "Free", "item": "none" },
       { "x": 9, "y": 5, "tile": "Key_Red", "item": "none" },
       { "x": 10, "y": 5, "tile": "Wall", "item": "none" },
