@@ -277,6 +277,7 @@ public class Renderer extends JPanel{
         animations.put(Images.BOTTLE, loadAnimation(ImageIO.read(new File(path + "Bottle.png"))));
         animations.put(Images.SEAGULL_RIGHT, loadAnimation(ImageIO.read(new File(path + "SeagullRight.png"))));
         animations.put(Images.WHIRLPOOL, loadAnimation(ImageIO.read(new File(path + "WhirlPool.png"))));
+        animations.put(Images.ENEMY, loadAnimation(ImageIO.read(new File(path + "Enemy.png"))));
     }
 
     /**
