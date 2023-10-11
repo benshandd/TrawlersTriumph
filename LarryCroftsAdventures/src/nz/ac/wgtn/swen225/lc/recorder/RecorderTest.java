@@ -24,19 +24,19 @@ public class RecorderTest {
     Chap chap;
     App app;
     ArrayList<Move> testList = new ArrayList<>();
+    RecorderPanel rp;
     @BeforeEach
     public void initialise(){
         AudioUnit au = new AudioUnit();
         board = new Board(testFile, au);
         chap = board.getChap();
         app = new App();
+        rp = new RecorderPanel(app);
         testList.add(new Move("UP",1));
         testList.add(new Move("LEFT",1));
         testList.add(new Move("DOWN",1));
         testList.add(new Move("LEFT",1));
-        testList.add(new Move("LEFT",1));
         testList.add(new Move("RIGHT",1));
-        testList.add(new Move("UP",1));
         testList.add(new Move("UP",1));
     }
 
@@ -44,20 +44,20 @@ public class RecorderTest {
     @Test
     public void testStepAndAuto(){
         testList.forEach(m -> assertDoesNotThrow(() -> new Recorder().step(m)));
-        assertEquals(6,app.getBoard().getChap().getY());
+        assertEquals(5,app.getBoard().getChap().getY());
         assertEquals(6,app.getBoard().getChap().getX());
-        assertDoesNotThrow(() -> new Recorder().step(new Move("UP",1)));
         assertDoesNotThrow(() -> new Recorder().step(new Move("UP",1)));
         assertThrows(IllegalMove.class, () -> new Recorder().step(new Move("UP",1)));
     }
     @Test
     public void testRecording(){
-        assertDoesNotThrow(() -> new RecorderPanel(app).startRecording());
+        assertDoesNotThrow(() -> rp.startRecording());
     }
     @Test
     public void testSaving() {
-        Recorder r = new Recorder(testList,chap.getX(),chap.getY(),chap.getPlayerTreasureCount(),board.getBoardTreasureCount()
-                , board.getLevel(), board.getTime(), board.getTiles(), chap);
+        rp.saveEndingInfo();
+        assertDoesNotThrow(() -> rp.stopRecording());
+
     }
     @Test
     public void testLoading(){

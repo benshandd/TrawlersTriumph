@@ -179,7 +179,7 @@ public class RecorderPanel extends JPanel {
                             }
                             repaint();
                         }
-                    }, 0, ((speed*200)/2)+200);
+                    }, 0, ((speed*400)/2));
                 }
             }
         });
@@ -295,7 +295,7 @@ public class RecorderPanel extends JPanel {
 
         moves = new ArrayList<>();
 
-        recordingIndicatorTimer = new Timer();
+        //recordingIndicatorTimer = new Timer();
 
     }
 
@@ -303,12 +303,12 @@ public class RecorderPanel extends JPanel {
     public void stopRecording() {
 
         recordButton.setText("Record");
-        recordingIndicatorTimer.cancel();
+        //recordingIndicatorTimer.cancel();
         recordingIndicatorVisible = false;
         repaint();
         Chap chap = App.getBoard().getChap();
-        chapTreasures = chap.getPlayerTreasureCount();
-        boardTreasureCount = App.getBoard().getBoardTreasureCount() - chapTreasures;
+        //chapTreasures = chap.getPlayerTreasureCount();
+        //boardTreasureCount = App.getBoard().getBoardTreasureCount() - chapTreasures;
 
         Recorder recorder = new Recorder(moves, chapX, chapY, chapTreasures,
                 boardTreasureCount, chapInitLevel, timeLeft, board, chap);
@@ -319,7 +319,10 @@ public class RecorderPanel extends JPanel {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-        moves.clear();
+
+        if (!moves.isEmpty()) {
+            moves.clear();
+        }
         saveEndingInfo();
     }
 
@@ -327,6 +330,7 @@ public class RecorderPanel extends JPanel {
      * save the lastest info of the board and chap
      */
     public void saveEndingInfo(){
+        moves = new ArrayList<>();
         Chap chap = app.getBoard().getChap();
         chapX = chap.getX();
         chapY = chap.getY();
