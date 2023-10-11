@@ -50,6 +50,7 @@ public class Renderer extends JPanel {
 	private boolean seagullActivated = false;
 
 	private App app;
+	public Timer timer;
 
 	/**
 	 * Constructor for the Renderer class.
@@ -57,6 +58,7 @@ public class Renderer extends JPanel {
 	 * @param board The game board to render.
 	 */
 	public Renderer(Board board, int focusAreaSize, AudioUnit au, App app) throws IOException {
+
 		this.board = board;
 		this.grid = board.getTiles();
 		this.app = app;
@@ -65,14 +67,17 @@ public class Renderer extends JPanel {
 		this.audioUnit = au;
 		loadImages();
 		loadAllAnimations();
+
 		startTimer();
+
 	}
 
 	/**
 	 * Starts timer that calls repaint on this JPanel to refresh what is on screen
 	 */
 	private void startTimer() {
-		Timer timer = new Timer(10, new ActionListener() {
+
+		 timer = new Timer(10, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				app.treasureLabel.setText(""
