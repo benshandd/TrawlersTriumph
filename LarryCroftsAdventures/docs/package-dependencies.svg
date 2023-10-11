@@ -11,9 +11,9 @@
     nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain
     nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain.items
     nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain.tiles
-    nz.ac.wgtn.swen225.lc.app.Main - -> nz.ac.wgtn.swen225.lc.persistency
-    nz.ac.wgtn.swen225.lc.app.Main - -> nz.ac.wgtn.swen225.lc.app
-    nz.ac.wgtn.swen225.lc.app.Main - -> nz.ac.wgtn.swen225.lc.recorder
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.persistency
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.app
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.recorder
     nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain
     nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain.tiles
     nz.ac.wgtn.swen225.lc.recorder - -> nz.ac.wgtn.swen225.lc.domain.tiles
@@ -38,7 +38,7 @@
     }
     class "nz.ac.wgtn.swen225.lc.renderer" [[nz\ac\wgtn\swen225\lc\renderer\package-summary.html]] {
     }
-    class "nz.ac.wgtn.swen225.lc.app.Main" [[nz\ac\wgtn\swen225\lc\app\Main\package-summary.html]] {
+    class "nz.ac.wgtn.swen225.lc.app.main" [[nz\ac\wgtn\swen225\lc\app\Main\package-summary.html]] {
     }
     class "nz.ac.wgtn.swen225.lc.persistency" [[nz\ac\wgtn\swen225\lc\persistency\package-summary.html]] {
     }
@@ -62,9 +62,9 @@
     nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain
     nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain.items
     nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain.tiles
-    nz.ac.wgtn.swen225.lc.app.Main - -> nz.ac.wgtn.swen225.lc.persistency
-    nz.ac.wgtn.swen225.lc.app.Main - -> nz.ac.wgtn.swen225.lc.app
-    nz.ac.wgtn.swen225.lc.app.Main - -> nz.ac.wgtn.swen225.lc.recorder
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.persistency
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.app
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.recorder
     nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain
     nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain.tiles
     nz.ac.wgtn.swen225.lc.recorder - -> nz.ac.wgtn.swen225.lc.domain.tiles
@@ -88,7 +88,7 @@
     }
     class "nz.ac.wgtn.swen225.lc.renderer" [[nz\ac\wgtn\swen225\lc\renderer\package-summary.html]] {
     }
-    class "nz.ac.wgtn.swen225.lc.app.Main" [[nz\ac\wgtn\swen225\lc\app\Main\package-summary.html]] {
+    class "nz.ac.wgtn.swen225.lc.app.main" [[nz\ac\wgtn\swen225\lc\app\Main\package-summary.html]] {
     }
     class "nz.ac.wgtn.swen225.lc.persistency" [[nz\ac\wgtn\swen225\lc\persistency\package-summary.html]] {
     }

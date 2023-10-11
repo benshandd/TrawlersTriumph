@@ -4,7 +4,7 @@
     hide empty fields
     hide empty methods
 
-    class "<size:14>Main\n<size:10>nz.ac.wgtn.swen225.lc.app.Main" as nz.ac.wgtn.swen225.lc.app.Main.Main [[Main.html]] {
+    class "<size:14>Main\n<size:10>nz.ac.wgtn.swen225.lc.app.main" as nz.ac.wgtn.swen225.lc.app.main.Main [[Main.html]] {
         {static} ~f: JFrame
         {static} ~l: JLabel
         {static} -persistency: Persistency
@@ -17,7 +17,7 @@
 
     class "<size:14>JFrame\n<size:10>javax.swing" as javax.swing.JFrame
 
-    javax.swing.JFrame <|- - nz.ac.wgtn.swen225.lc.app.Main.Main
+    javax.swing.JFrame <|- - nz.ac.wgtn.swen225.lc.app.main.Main
 
     center footer UMLDoclet 2.0.14, PlantUML 1.2021.9
 @enduml

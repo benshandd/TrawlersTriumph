@@ -1,11 +1,10 @@
-package nz.ac.wgtn.swen225.lc.app.Main;
+package nz.ac.wgtn.swen225.lc.app.main;
 
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.HelpDialog;
 import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
 import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
-import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
@@ -16,14 +15,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
-
-import static nz.ac.wgtn.swen225.lc.app.RecorderPanel.app;
 
 /**
  * The main class for Larry Croft's Adventures game.
