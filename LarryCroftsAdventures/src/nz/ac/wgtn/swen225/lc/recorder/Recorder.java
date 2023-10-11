@@ -27,6 +27,7 @@ public class Recorder {
     int initLevel;
     int timeLeft;
     Tile[][] board;
+     Chap chap;
 
 
     public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard,
@@ -39,6 +40,7 @@ public class Recorder {
         this.initLevel = initLevel;
         this.timeLeft = timeLeft;
         this.board = board;
+        this.chap = App.getBoard().getChap();
     }
 
     public Recorder(){}
@@ -51,7 +53,7 @@ public class Recorder {
     public void saveRecorder(int count) throws IOException {
         Persistency p = new Persistency();
         p.setSaveParameters(count, movesList, this.x, this.y, this.numberOfTreasuresPlayer,
-                this.numberOfTreasuresBoard, this.initLevel, this.timeLeft, this.board);
+                this.numberOfTreasuresBoard, this.initLevel, this.timeLeft, this.board,this.chap);
         p.saveGame();
     }
 

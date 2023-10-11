@@ -5,8 +5,8 @@
   "playerTreasureCount":0,
   "boardTreasureCount":10,
   "inventory": [
-    ["Key_Blue", "Key_Blue", "Key_Blue", "Key_Blue"],
-    ["Key_Blue", "Key_Blue", "Key_Blue", "Key_Blue"]
+    ["", "", "", ""],
+    ["", "", "", ""]
   ],
   "enemies":0,
   "actions": [
