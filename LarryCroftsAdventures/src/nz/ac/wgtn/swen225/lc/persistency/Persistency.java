@@ -22,299 +22,311 @@ import java.util.Stack;
  * saving of games.
  */
 public class Persistency {
-	/////////////////////
-	private Chap chap;
-	private File newFile;
-	public int originalBoardTreasureCount;
+    /////////////////////
+    private Chap chap;
+    private File newFile;
+    public int originalBoardTreasureCount;
 
-	private int newFileNum;
-	public static File level1 = new File("LarryCroftsAdventures/levels/level1.json");
-	public static File level2 = new File("LarryCroftsAdventures/levels/level2.json");
-	public Stack<String> actions;
-	public int playerX;
-	public int playerY;
-	public int playerTreasureCount;
-	// public Item[][] inventory = chap.getPlayerTreasureCount();;
-	public int boardTreasureCount;
 
-	public int timeLeft;
+    public static File level1 = new File("LarryCroftsAdventures/levels/level1.json");
+    public static File level2 = new File("LarryCroftsAdventures/levels/level2.json");
+    private int newFileNum;
+    public Stack<String> actions;
+    public int playerX;
+    public int playerY;
+    public int playerTreasureCount;
+    //public Item[][] inventory = chap.getPlayerTreasureCount();;
+    public int boardTreasureCount;
 
-	public int level;
+    public int timeLeft;
 
-	public String message;
+    public int level;
 
-	/////////////////////
-	public int newFileNumToSave;
-	public ArrayList<Move> actionsToSave;
-	public int playerXToSave;
-	public int playerYToSave;
-	public int playerTreasureCountToSave;
-	public int boardTreasureCountToSave;
-	public int levelToSave;
-	public int timeLeftToSave;
-	Tile[][] boardToSave;
-	/////////////////////
+    public String message;
 
-	public Persistency() {
-		actionsToSave = new ArrayList<>();
-	}
+    /////////////////////
+    public int newFileNumToSave;
+    public ArrayList<Move> actionsToSave;
+    public int playerXToSave;
+    public int playerYToSave;
+    public int playerTreasureCountToSave;
+    public int boardTreasureCountToSave;
+    public int levelToSave;
+    public int timeLeftToSave;
+    Tile[][] boardToSave;
 
-	/**
-	 * Loads game from a JSON file.
-	 *
-	 * @param fileName The name of the file containing the game state.
-	 * @return A 2D array representing the game board with tiles and items.
-	 * @throws FileNotFoundException If the specified file is not found.
-	 */
-	public Tile[][] loadGame(File fileName) throws FileNotFoundException {
-		Tile[][] maze = null;
-		try (JsonReader reader = new JsonReader(new FileReader(fileName))) {
-			// Read the JSON file and parse it into a JsonObject
-			JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+    /////////////////////
 
-			// Get board information
-			JsonArray boardArray = jsonObject.getAsJsonArray("board");
+    public Persistency() {
+        actionsToSave = new ArrayList<>();
+    }
 
-			int numRows = boardArray.size();
-			int numCols = boardArray.get(0).getAsJsonArray().size();
+    /**
+     * Loads game from a JSON file.
+     *
+     * @param fileName The name of the file containing the game state.
+     * @return A 2D array representing the game board with tiles and items.
+     * @throws FileNotFoundException If the specified file is not found.
+     */
+    public Tile[][] loadGame(File fileName) throws FileNotFoundException {
+        Tile[][] maze = null;
+        try (JsonReader reader = new JsonReader(new FileReader(fileName))) {
+            // Read the JSON file and parse it into a JsonObject
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
 
-			// Initialize the maze array based on board dimensions
-			maze = new Tile[numCols][numRows];
+            // Get board information
+            JsonArray boardArray = jsonObject.getAsJsonArray("board");
 
-			// Get player information
-			JsonObject playerObject = jsonObject.getAsJsonObject("player");
-			playerX = playerObject.get("x").getAsInt();
-			playerY = playerObject.get("y").getAsInt();
+            int numRows = boardArray.size();
+            int numCols = boardArray.get(0).getAsJsonArray().size();
 
-			// Get time, level, treasure amount and initialize message
-			timeLeft = jsonObject.get("timeLeft").getAsInt();
+            // Initialize the maze array based on board dimensions
+            maze = new Tile[numCols][numRows];
 
-			playerTreasureCount = jsonObject.get("playerTreasureCount").getAsInt();
-			boardTreasureCount = jsonObject.get("boardTreasureCount").getAsInt();
-			level = jsonObject.get("level").getAsInt();
-			message = null;
+            // Get player information
+            JsonObject playerObject = jsonObject.getAsJsonObject("player");
+            playerX = playerObject.get("x").getAsInt();
+            playerY = playerObject.get("y").getAsInt();
 
-			// Populate the maze array
-			for (int i = 0; i < numRows; i++) {
-				JsonArray columnArray = boardArray.get(i).getAsJsonArray();
-				for (int j = 0; j < numCols; j++) {
-					JsonObject cellObject = columnArray.get(j).getAsJsonObject(); // Access cell data
+            // Get time, level, treasure amount and initialize message
+            timeLeft = jsonObject.get("timeLeft").getAsInt();
 
-					// Get tile and item information from JSON
-					String tileType = cellObject.get("tile").getAsString();
-					String item = cellObject.get("item").getAsString();
-					if (cellObject.has("message")) {
-						message = cellObject.get("message").getAsString();
-					}
+            playerTreasureCount = jsonObject.get("playerTreasureCount").getAsInt();
+            boardTreasureCount = jsonObject.get("boardTreasureCount").getAsInt();
+            level = jsonObject.get("level").getAsInt();
+            message = null;
 
-					// Create each tile based on tileType and item
-					maze[j][i] = switch (tileType) {
-					case "Free" -> new Free(j, i);
-					case "Wall" -> new Wall(j, i);
-					case "Door_Yellow" -> new Door(Key.Colour.YELLOW, j, i);
-					case "Door_Red" -> new Door(Key.Colour.RED, j, i);
-					case "Door_Green" -> new Door(Key.Colour.GREEN, j, i);
-					case "Door_Blue" -> new Door(Key.Colour.BLUE, j, i);
-					case "Key_Yellow" -> new KeyTile(Key.Colour.YELLOW, j, i);
-					case "Key_Red" -> new KeyTile(Key.Colour.RED, j, i);
-					case "Key_Green" -> new KeyTile(Key.Colour.GREEN, j, i);
-					case "Key_Blue" -> new KeyTile(Key.Colour.BLUE, j, i);
-					case "InfoBox" -> new InfoField(j, i);
-					case "ExitLock" -> maze[j][i] = new ExitLock(j, i);
-					case "Exit" -> maze[j][i] = new Exit(j, i);
-					default -> new Free(j, i);
-					};
+            // Populate the maze array
+            for (int i = 0; i < numRows; i++) {
+                JsonArray columnArray = boardArray.get(i).getAsJsonArray();
+                for (int j = 0; j < numCols; j++) {
+                    JsonObject cellObject = columnArray.get(j).getAsJsonObject(); // Access cell data
 
-					switch (item) {
-					case "Treasure" -> maze[j][i] = new Treasure(j, i);
-					}
-					/*
-					 * if (jsonObject.has("enemies")) { JsonArray enemiesArray =
-					 * jsonObject.getAsJsonArray("enemies");
-					 * 
-					 * for (JsonElement enemyElement : enemiesArray) { JsonObject enemyObject =
-					 * enemyElement.getAsJsonObject();
-					 * 
-					 * int enemyX = enemyObject.get("x").getAsInt(); int enemyY =
-					 * enemyObject.get("y").getAsInt(); maze[enemyX][enemyY] = new EnemyTile(enemyX,
-					 * enemyY, Enemy.Direction.UP,Instant.now(), chap); } }
-					 */
-				}
+                    // Get tile and item information from JSON
+                    String tileType = cellObject.get("tile").getAsString();
+                    String item = cellObject.get("item").getAsString();
+                    if (cellObject.has("message")) {
+                        message = cellObject.get("message").getAsString();
+                    }
 
-			}
-			originalBoardTreasureCount = jsonObject.get("boardTreasureCount").getAsInt();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return maze;
-	}
+                    // Create each tile based on tileType and item
+                    maze[j][i] = switch (tileType) {
+                        case "Free" -> new Free(j, i);
+                        case "Wall" -> new Wall(j, i);
+                        case "Door_Yellow" -> new Door(Key.Colour.YELLOW, j, i);
+                        case "Door_Red" -> new Door(Key.Colour.RED, j, i);
+                        case "Door_Green" -> new Door(Key.Colour.GREEN, j, i);
+                        case "Door_Blue" -> new Door(Key.Colour.BLUE, j, i);
+                        case "Key_Yellow" -> new KeyTile(Key.Colour.YELLOW, j, i);
+                        case "Key_Red" -> new KeyTile(Key.Colour.RED, j, i);
+                        case "Key_Green" -> new KeyTile(Key.Colour.GREEN, j, i);
+                        case "Key_Blue" -> new KeyTile(Key.Colour.BLUE, j, i);
+                        case "InfoBox" -> new InfoField(j, i);
+                        case "ExitLock" -> maze[j][i] = new ExitLock(j, i);
+                        case "Exit" -> maze[j][i] = new Exit(j, i);
+                        default -> new Free(j, i);
+                    };
 
-	/**
-	 * Setter method to set the instance variables for saving parameters.
-	 */
-	public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasureCount,
-			int boardTreasureCount, int level, int timeLeft, Tile[][] board) {
-		this.newFileNumToSave = newFileNum;
-		this.actionsToSave = actions;
-		this.playerXToSave = x;
-		this.playerYToSave = y;
-		this.levelToSave = level;
-		this.playerTreasureCountToSave = playerTreasureCount;
-		this.boardTreasureCountToSave = boardTreasureCount;
-		this.timeLeftToSave = timeLeft;
-		this.boardToSave = board;
-	}
+                    switch (item) {
+                        case "Treasure" -> maze[j][i] = new Treasure(j, i);
+                    }
+                    /*
+                     * if (jsonObject.has("enemies")) {
+                     * JsonArray enemiesArray = jsonObject.getAsJsonArray("enemies");
+                     * 
+                     * for (JsonElement enemyElement : enemiesArray) {
+                     * JsonObject enemyObject = enemyElement.getAsJsonObject();
+                     * 
+                     * int enemyX = enemyObject.get("x").getAsInt();
+                     * int enemyY = enemyObject.get("y").getAsInt();
+                     * maze[enemyX][enemyY] = new EnemyTile(enemyX, enemyY, Enemy.Direction.UP,Instant.now(), chap);
+                     * }
+                     * }
+                     */
+                }
 
-	/**
-	 * Saves the current game state to a JSON file.
-	 */
-	/**
-	 * Saves the current game state to a JSON file.
-	 */
-	public void saveGame() throws IOException {
-		File savesDirectory = new File("LarryCroftsAdventures" + File.separator + "Saves");
-		savesDirectory.mkdir();
-		newFileNum++;
+            }
+            originalBoardTreasureCount = jsonObject.get("boardTreasureCount").getAsInt();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return maze;
+    }
 
-		// Create a new save file
-		newFile = new File(savesDirectory, "saved-game_" + newFileNum + ".json");
+    /**
+     * Setter method to set the instance variables for saving parameters.
+     */
+    public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasureCount,
+            int boardTreasureCount, int level, int timeLeft, Tile[][] board, Chap chap) {
+        this.newFileNumToSave = newFileNum;
+        this.actionsToSave = actions;
+        this.playerXToSave = x;
+        this.playerYToSave = y;
+        this.levelToSave = level;
+        this.playerTreasureCountToSave = playerTreasureCount;
+        this.boardTreasureCountToSave = boardTreasureCount;
+        this.timeLeftToSave = timeLeft;
+        this.boardToSave = board;
+        this.chap = chap;
+    }
 
-		FileWriter fileWriter = new FileWriter(newFile);
-		JsonWriter jsonWriter = new JsonWriter(fileWriter);
-		JsonObject gameData = new JsonObject();
-		Gson gson = new Gson();
+    /**
+     * Saves the current game state to a JSON file.
+     */
+    /**
+     * Saves the current game state to a JSON file.
+     */
+    public void saveGame() throws IOException {
+        File savesDirectory = new File("LarryCroftsAdventures" + File.separator + "Saves");
+        savesDirectory.mkdir();
+        newFileNum++;
 
-		JsonObject playerObject = new JsonObject();
-		playerObject.addProperty("x", playerXToSave);
-		playerObject.addProperty("y", playerYToSave);
+        // Create a new save file
+        newFile = new File(savesDirectory, "saved-game_" + newFileNum + ".json");
 
-		gameData.add("player", playerObject);
-		gameData.addProperty("timeLeft", timeLeftToSave);
-		gameData.addProperty("level", levelToSave);
-		gameData.addProperty("playerTreasureCount", playerTreasureCountToSave);
-		gameData.addProperty("boardTreasureCount", boardTreasureCountToSave);
+        FileWriter fileWriter = new FileWriter(newFile);
+        JsonWriter jsonWriter = new JsonWriter(fileWriter);
+        JsonObject gameData = new JsonObject();
+        Gson gson = new Gson();
 
-		JsonArray inventoryArray = new JsonArray();
-		for (Item[] row : chap.getInventory()) {
-			JsonArray rowArray = new JsonArray();
-			for (Item currentItem : row) {
-				String itemName = (currentItem != null) ? currentItem.getClass().getSimpleName() : "";
-				rowArray.add(new JsonPrimitive(itemName));
-			}
-			inventoryArray.add(rowArray);
-		}
-		gameData.add("inventory", inventoryArray);
+        JsonObject playerObject = new JsonObject();
+        playerObject.addProperty("x", playerXToSave);
+        playerObject.addProperty("y", playerYToSave);
 
-		JsonArray actionsArray = new JsonArray();
-		if (this.actionsToSave != null) {
-			for (Move move : this.actionsToSave) {
-				actionsArray.add(move.move());
-			}
-		}
-		gameData.add("actions", actionsArray);
+        gameData.add("player", playerObject);
+        gameData.addProperty("timeLeft", timeLeftToSave);
+        gameData.addProperty("level", levelToSave);
+        gameData.addProperty("playerTreasureCount", playerTreasureCountToSave);
+        gameData.addProperty("boardTreasureCount", boardTreasureCountToSave);
 
-		JsonArray boardArray = new JsonArray();
-		for (int i = 0; i < 15; i++) {
-			JsonArray rowArray = new JsonArray();
-			for (int j = 0; j < 15; j++) {
-				JsonObject cellObject = new JsonObject();
-				cellObject.addProperty("x", j);
-				cellObject.addProperty("y", i);
 
-				// Get the tile and item from the board
-				Tile currentTile = boardToSave[j][i];
-				switch (currentTile.getClass().getSimpleName()) {
-				case "Free":
-					cellObject.addProperty("tile", "Free");
-					break;
-				case "Wall":
-					cellObject.addProperty("tile", "Wall");
-					break;
-				case "Door":
-					Key.Colour doorColour = ((Door) currentTile).getColour();
-					if (doorColour == Key.Colour.RED) {
-						cellObject.addProperty("tile", "Door_Red");
-					}
-					if (doorColour == Key.Colour.BLUE) {
-						cellObject.addProperty("tile", "Door_Blue");
-					}
-					if (doorColour == Key.Colour.GREEN) {
-						cellObject.addProperty("tile", "Door_Green");
-					}
-					if (doorColour == Key.Colour.YELLOW) {
-						cellObject.addProperty("tile", "Door_Yellow");
-					}
-					break;
-				case "KeyTile":
-					Key.Colour keyColour = ((KeyTile) currentTile).getColour();
-					if (keyColour == Key.Colour.RED) {
-						cellObject.addProperty("tile", "Key_Red");
-					}
-					if (keyColour == Key.Colour.BLUE) {
-						cellObject.addProperty("tile", "Key_Blue");
-					}
-					if (keyColour == Key.Colour.GREEN) {
-						cellObject.addProperty("tile", "Key_Green");
-					}
-					if (keyColour == Key.Colour.YELLOW) {
-						cellObject.addProperty("tile", "Key_Yellow");
-					}
-					break;
-				case "InfoField":
-					cellObject.addProperty("tile", "InfoBox");
-					break;
-				case "ExitLock":
-					cellObject.addProperty("tile", "ExitLock");
-					break;
-				case "Exit":
-					cellObject.addProperty("tile", "Exit");
-					break;
-				default:
-					cellObject.addProperty("tile", "none");
-				}
+        JsonArray inventoryArray = new JsonArray();
+        // Iterate through the inventory and add each item to the JSON array
+        for (Item[] row : chap.getInventory()) {
+            JsonArray rowArray = new JsonArray();
+            for (Item item : row) {
+                if (item == null) {
+                    rowArray.add("none");
+                } else if (item instanceof Key key) {
+                    // Add the key colour to the JSON array
+                    rowArray.add("Key_" + ((Key) item).colour().name());
+                }
+            }
+            inventoryArray.add(rowArray);
+        }
 
-				String itemType = switch (currentTile.getClass().getSimpleName()) {
-				case "Treasure" -> "Treasure";
-				default -> "none";
-				};
-				cellObject.addProperty("item", itemType);
+        // Add the inventory array to the gameData object
+        gameData.add("inventory", inventoryArray);
 
-				rowArray.add(cellObject);
-			}
-			boardArray.add(rowArray);
-		}
-		gameData.add("board", boardArray);
 
-		jsonWriter.setIndent("    ");
 
-		// Write game data to the file
-		gson.toJson(gameData, jsonWriter);
+        JsonArray actionsArray = new JsonArray();
+        if (this.actionsToSave != null) {
+            for (Move move : this.actionsToSave) {
+                actionsArray.add(move.move());
+            }
+        }
+        gameData.add("actions", actionsArray);
 
-		// Close writers
-		System.out.println("Game saved...");
-		jsonWriter.close();
-		fileWriter.close();
-	}
+        JsonArray boardArray = new JsonArray();
+        for (int i = 0; i < 15; i++) {
+            JsonArray rowArray = new JsonArray();
+            for (int j = 0; j < 15; j++) {
+                JsonObject cellObject = new JsonObject();
+                cellObject.addProperty("x", j);
+                cellObject.addProperty("y", i);
 
-	public void resumeGame() {
-		JFileChooser fileChooser = new JFileChooser("LarryCroftsAdventures/Saves");
-		fileChooser.setDialogTitle("Choose a saved game file");
-		int result = fileChooser.showOpenDialog(null);
+                // Get the tile and item from the board
+                Tile currentTile = boardToSave[j][i];
+                switch (currentTile.getClass().getSimpleName()) {
+                    case "Free":
+                        cellObject.addProperty("tile", "Free");
+                        break;
+                    case "Wall":
+                        cellObject.addProperty("tile", "Wall");
+                        break;
+                    case "Door":
+                        Key.Colour doorColour = ((Door) currentTile).getColour();
+                        if (doorColour == Key.Colour.RED) {
+                            cellObject.addProperty("tile", "Door_Red");
+                        }
+                        if (doorColour == Key.Colour.BLUE) {
+                            cellObject.addProperty("tile", "Door_Blue");
+                        }
+                        if (doorColour == Key.Colour.GREEN) {
+                            cellObject.addProperty("tile", "Door_Green");
+                        }
+                        if (doorColour == Key.Colour.YELLOW) {
+                            cellObject.addProperty("tile", "Door_Yellow");
+                        }
+                        break;
+                    case "KeyTile":
+                        Key.Colour keyColour = ((KeyTile) currentTile).getColour();
+                        if (keyColour == Key.Colour.RED) {
+                            cellObject.addProperty("tile", "Key_Red");
+                        }
+                        if (keyColour == Key.Colour.BLUE) {
+                            cellObject.addProperty("tile", "Key_Blue");
+                        }
+                        if (keyColour == Key.Colour.GREEN) {
+                            cellObject.addProperty("tile", "Key_Green");
+                        }
+                        if (keyColour == Key.Colour.YELLOW) {
+                            cellObject.addProperty("tile", "Key_Yellow");
+                        }
+                        break;
+                    case "InfoField":
+                        cellObject.addProperty("tile", "InfoBox");
+                        break;
+                    case "ExitLock":
+                        cellObject.addProperty("tile", "ExitLock");
+                        break;
+                    case "Exit":
+                        cellObject.addProperty("tile", "Exit");
+                        break;
+                    default:
+                        cellObject.addProperty("tile", "none");
+                }
 
-		if (result == JFileChooser.APPROVE_OPTION) {
-			File selectedFile = fileChooser.getSelectedFile();
+                String itemType = switch (currentTile.getClass().getSimpleName()) {
+                    case "Treasure" -> "Treasure";
+                    default -> "none";
+                };
+                cellObject.addProperty("item", itemType);
 
-			try {
-				// Load the selected saved game file
-				Tile[][] loadedGame = loadGame(selectedFile);
-				JOptionPane.showMessageDialog(null, "Game resumed successfully!", "Resume Game",
-						JOptionPane.INFORMATION_MESSAGE);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Error loading the saved game file.", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
+                rowArray.add(cellObject);
+            }
+            boardArray.add(rowArray);
+        }
+        gameData.add("board", boardArray);
+
+        jsonWriter.setIndent("    ");
+
+        // Write game data to the file
+        gson.toJson(gameData, jsonWriter);
+
+        // Close writers
+        System.out.println("Game saved...");
+        jsonWriter.close();
+        fileWriter.close();
+    }
+    public void resumeGame() {
+        JFileChooser fileChooser = new JFileChooser("LarryCroftsAdventures/Saves");
+        fileChooser.setDialogTitle("Choose a saved game file");
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            try {
+                // Load the selected saved game file
+                Tile[][] loadedGame = loadGame(selectedFile);
+                JOptionPane.showMessageDialog(null, "Game resumed successfully!", "Resume Game", JOptionPane.INFORMATION_MESSAGE);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error loading the saved game file.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
 }

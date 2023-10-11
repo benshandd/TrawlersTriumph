@@ -4,11 +4,14 @@
     {"x": 10, "y": 10},
     {"x": 9, "y": 9}
   ],
-  "timeLeft": "100",
+  "timeLeft": "300",
   "level": 2,
   "playerTreasureCount":0,
   "boardTreasureCount":25,
-  "inventory": ["", "", "", "", "", "", "", ""],
+  "inventory": [
+    ["", "", "", ""],
+    ["", "", "", ""]
+  ],
   "actions": [
     "LEFT",
     "LEFT",
