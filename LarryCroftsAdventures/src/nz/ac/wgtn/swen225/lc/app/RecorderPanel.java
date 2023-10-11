@@ -300,6 +300,7 @@ public class RecorderPanel extends JPanel {
 
     // Helper method to stop recording and hide recording indicator
     public void stopRecording() {
+
         recordButton.setText("Record");
         recordingIndicatorTimer.cancel();
         recordingIndicatorVisible = false;

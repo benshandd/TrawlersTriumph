@@ -56,9 +56,8 @@ public class RecorderTest {
     }
     @Test
     public void testSaving() {
-//        Recorder r = new Recorder(testList,chap.getX(),chap.getY(),chap.getPlayerTreasureCount(),board.getBoardTreasureCount()
-//                , board.getLevel(), board.getTime(), board.getTiles(), chap);
-        assertDoesNotThrow(() -> new RecorderPanel(app).stopRecording());
+        Recorder r = new Recorder(testList,chap.getX(),chap.getY(),chap.getPlayerTreasureCount(),board.getBoardTreasureCount()
+                , board.getLevel(), board.getTime(), board.getTiles(), chap);
     }
     @Test
     public void testLoading(){
