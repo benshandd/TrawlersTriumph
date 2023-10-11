@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -268,7 +269,12 @@ public class RecorderPanel extends JPanel {
         boardTreasureCount = app.getBoard().getBoardTreasureCount();
         chapInitLevel = app.getBoard().getLevel();
         timeLeft = app.getBoard().getTime();
-        board = app.getBoard().getTiles();
+        Tile[][] copy = Arrays.stream(originalArray)
+                .map(row -> Arrays.stream(row)
+                        .map(tile -> tile.clone())
+                        .toArray(Tile[]::new))
+                .toArray(Tile[][]::new);
+        board = copy;
 
         moves = new ArrayList<>();
 
@@ -306,7 +312,7 @@ public class RecorderPanel extends JPanel {
         boardTreasureCount = app.getBoard().getBoardTreasureCount();
         chapInitLevel = app.getBoard().getLevel();
         timeLeft = app.getBoard().getTime();
-        board = app.getBoard().getTiles();
+        board = app.getBoard().getTiles().clone();
     }
 
 
