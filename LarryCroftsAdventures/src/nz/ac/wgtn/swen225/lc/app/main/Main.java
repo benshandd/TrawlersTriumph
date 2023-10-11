@@ -11,10 +11,7 @@ import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -86,13 +83,19 @@ public class Main extends JFrame {
         JMenuItem helpMenuItem = new JMenuItem("Help");
 
 
-        exitMenuItem.setToolTipText("Exit the game");  // Tooltip for the Exit menu item.
-        exitMenuItem.addActionListener((event) -> {
-            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave the game?", "Closing game", JOptionPane.YES_NO_OPTION);
-            if (response == 0) {
-                System.exit(0);
+        Action exitAction = new AbstractAction("Exit") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave the game?", "Closing game", JOptionPane.YES_NO_OPTION);
+                if (response == 0) {
+                    System.exit(0);
+                }
             }
-        });
+        };
+        exitAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK));
+        exitMenuItem.setAction(exitAction);
+        exitMenuItem.setToolTipText("Exit the game");  // Tooltip for the Exit menu item.
+
 
         saveMenuItem.addActionListener((event) -> {
             try {
