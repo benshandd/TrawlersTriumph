@@ -111,6 +111,7 @@ public class App extends JPanel implements ActionListener {
         if(timeLabel != null){
             this.remove(rightPanel);
         }
+        paused = false;
         audioUnit = new AudioUnit();
         audioUnit.startBackgroundMusic();
         audioUnit.startAmbience();
@@ -332,6 +333,8 @@ public class App extends JPanel implements ActionListener {
 
                 // Pause the game
                 setPaused(true);
+                setup(new File("LarryCroftsAdventures/levels/level" + board.getChap().getBoard().getLevel() + ".json"));
+
             }
         }
 
