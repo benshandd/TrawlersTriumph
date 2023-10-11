@@ -6,6 +6,7 @@ import com.google.gson.stream.JsonWriter;
 
 import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
@@ -33,6 +34,7 @@ public class Persistency {
     public int playerX;
     public int playerY;
     public int playerTreasureCount;
+    //public Item[][] inventory = chap.getPlayerTreasureCount();;
     public int boardTreasureCount;
 
     public int timeLeft;
@@ -86,6 +88,7 @@ public class Persistency {
 
             // Get time, level, treasure amount and initialize message
             timeLeft = jsonObject.get("timeLeft").getAsInt();
+
             playerTreasureCount = jsonObject.get("playerTreasureCount").getAsInt();
             boardTreasureCount = jsonObject.get("boardTreasureCount").getAsInt();
             level = jsonObject.get("level").getAsInt();
@@ -191,10 +194,20 @@ public class Persistency {
         gameData.addProperty("timeLeft", timeLeftToSave);
         gameData.addProperty("level", levelToSave);
         gameData.addProperty("playerTreasureCount", playerTreasureCountToSave);
-
         gameData.addProperty("boardTreasureCount", boardTreasureCountToSave);
 
-        // Add actions data to the gameData
+
+        JsonArray inventoryArray = new JsonArray();
+        for (Item[] row : chap.getInventory()) {
+            JsonArray rowArray = new JsonArray();
+            for (Item currentItem : row) {
+                String itemName = (currentItem != null) ? currentItem.getClass().getSimpleName() : "";
+                rowArray.add(new JsonPrimitive(itemName));
+            }
+            inventoryArray.add(rowArray);
+        }
+        gameData.add("inventory", inventoryArray);
+
         JsonArray actionsArray = new JsonArray();
         if (this.actionsToSave != null) {
             for (Move move : this.actionsToSave) {

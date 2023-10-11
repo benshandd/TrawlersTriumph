@@ -124,7 +124,9 @@ public class Main extends JFrame {
 
 
         resumeMenuItem.setToolTipText("Resume the game"); // Tooltip for the Resume menu item.
-        resumeMenuItem.addActionListener((event) -> persistency.resumeGame());
+        resumeMenuItem.addActionListener((event) -> {
+            persistency.resumeGame();
+        });
 
         helpMenuItem.setToolTipText("Help page with game rules"); // Tooltip for the HelpMenu menu item.
         helpMenuItem.addActionListener(new ActionListener() {

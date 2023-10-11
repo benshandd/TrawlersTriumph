@@ -4,6 +4,7 @@
   "level": 1,
   "playerTreasureCount":0,
   "boardTreasureCount":10,
+  "inventory": ["", "", "", "", "", "", "", ""],
   "enemies":0,
   "actions": [
     "LEFT",

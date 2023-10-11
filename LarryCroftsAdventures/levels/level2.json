@@ -8,6 +8,7 @@
   "level": 2,
   "playerTreasureCount":0,
   "boardTreasureCount":25,
+  "inventory": ["", "", "", "", "", "", "", ""],
   "actions": [
     "LEFT",
     "LEFT",
