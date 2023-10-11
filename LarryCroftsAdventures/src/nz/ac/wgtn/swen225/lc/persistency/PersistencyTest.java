@@ -10,53 +10,53 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PersistencyTest {
 
-    @Test
-    public void testLoadLevelOne() {
-        Persistency persistency = new Persistency();
-        File testFile = new File("LarryCroftsAdventures/levels/level1.json");
+	@Test
+	public void testLoadLevelOne() {
+		Persistency persistency = new Persistency();
+		File testFile = new File("LarryCroftsAdventures/levels/level1.json");
 
-        try {
-            Tile[][] loadedGame = persistency.loadGame(testFile);
-            assertNotNull(loadedGame);
-            assertEquals(8, persistency.playerX);
-            assertEquals(8, persistency.playerY);
-            assertEquals(100, persistency.timeLeft);
-            assertEquals(11, persistency.boardTreasureCount);
-            assertEquals(1, persistency.level);
+		try {
+			Tile[][] loadedGame = persistency.loadGame(testFile);
+			assertNotNull(loadedGame);
+			assertEquals(8, persistency.playerX);
+			assertEquals(8, persistency.playerY);
+			assertEquals(100, persistency.timeLeft);
+			assertEquals(11, persistency.boardTreasureCount);
+			assertEquals(1, persistency.level);
 
-            assertEquals(15, loadedGame.length);
-            for (Tile[] row : loadedGame) {
-                assertEquals(15, row.length);
-            }
+			assertEquals(15, loadedGame.length);
+			for (Tile[] row : loadedGame) {
+				assertEquals(15, row.length);
+			}
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            fail("Exception thrown when loading the game");
-        }
-    }
-    @Test
-    public void testLoadLevelTwo() {
-        Persistency persistency = new Persistency();
-        File testFile = new File("LarryCroftsAdventures/levels/level2.json");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			fail("Exception thrown when loading the game");
+		}
+	}
 
-        try {
-            Tile[][] loadedGame = persistency.loadGame(testFile);
-            assertNotNull(loadedGame);
-            assertEquals(30, persistency.playerX);
-            assertEquals(30, persistency.playerY);
-            assertEquals(100, persistency.timeLeft);
-            assertEquals(25, persistency.boardTreasureCount);
-            assertEquals(2, persistency.level);
+	@Test
+	public void testLoadLevelTwo() {
+		Persistency persistency = new Persistency();
+		File testFile = new File("LarryCroftsAdventures/levels/level2.json");
 
-            assertEquals(30, loadedGame.length);
-            for (Tile[] row : loadedGame) {
-                assertEquals(30, row.length);
-            }
+		try {
+			Tile[][] loadedGame = persistency.loadGame(testFile);
+			assertNotNull(loadedGame);
+			assertEquals(30, persistency.playerX);
+			assertEquals(30, persistency.playerY);
+			assertEquals(100, persistency.timeLeft);
+			assertEquals(25, persistency.boardTreasureCount);
+			assertEquals(2, persistency.level);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            fail("Exception thrown when loading the game");
-        }
-    }
+			assertEquals(30, loadedGame.length);
+			for (Tile[] row : loadedGame) {
+				assertEquals(30, row.length);
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			fail("Exception thrown when loading the game");
+		}
+	}
 }
-
