@@ -58,11 +58,14 @@ public class RecorderPanel extends JPanel {
     //speed of auto replay
     int speed;
 
+
+
     /**
      * Constructs a RecorderPanel and initializes its components.
      */
     public RecorderPanel(App app) {
         this.app = app;
+
         initializeComponents();
         addComponentsToPanel();
     }
@@ -92,6 +95,8 @@ public class RecorderPanel extends JPanel {
             }
         });
 
+       recordButton.setFocusable(false);
+
         // Add action listeners for the other buttons
         loadButton.addActionListener(new ActionListener() {
             @Override
@@ -110,6 +115,7 @@ public class RecorderPanel extends JPanel {
 
             }
         });
+        loadButton.setFocusable(false);
 
         stepButton.addActionListener(new ActionListener() {
             @Override
@@ -138,6 +144,7 @@ public class RecorderPanel extends JPanel {
                 }
             }
         });
+        stepButton.setFocusable(false);
 
         autoReplayButton.addActionListener(new ActionListener() {
             @Override
@@ -173,6 +180,7 @@ public class RecorderPanel extends JPanel {
                 }
             }
         });
+        autoReplayButton.setFocusable(false);
 
         addSlider();
 
