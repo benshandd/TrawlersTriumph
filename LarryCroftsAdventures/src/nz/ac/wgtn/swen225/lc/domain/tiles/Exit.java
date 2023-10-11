@@ -23,4 +23,10 @@ public class Exit extends Free {
         chap.setState(Chap.State.COMPLETED);
         return true;
     }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        Exit tile = (Exit) super.clone();
+        return tile;
+    }
 }

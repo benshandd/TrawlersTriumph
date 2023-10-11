@@ -7,7 +7,7 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
  *
  * @author Anthony Kendrew (300607402)
  */
-public interface Tile {
+public interface Tile extends Cloneable {
     /**
      * Checks whether this tile is traversable.
      * @param chap the player
@@ -36,4 +36,10 @@ public interface Tile {
      * @return the y position
      */
     int getY();
+
+    /**
+     * Deep clone method
+     * @return the deep copy of this object
+     */
+    Tile clone() throws CloneNotSupportedException;
 }

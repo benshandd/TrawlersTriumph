@@ -42,7 +42,7 @@ public class Main extends JFrame {
     public Main() {
         recorder = new Recorder();
         System.out.println("Hello world");
-        f = new JFrame("Larry Croft's Adventures");
+        f = new JFrame("Reel It In");
         l = new JLabel("Welcome");
 
         f.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // Set the default close operation to exit the application.

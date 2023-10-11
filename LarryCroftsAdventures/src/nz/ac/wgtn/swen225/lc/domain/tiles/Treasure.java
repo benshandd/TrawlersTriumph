@@ -27,4 +27,10 @@ public class Treasure extends Free {
         assert treasure + 1 == chap.getPlayerTreasureCount();
         return true;
     }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        Treasure tile = (Treasure) super.clone();
+        return tile;
+    }
 }

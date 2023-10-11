@@ -41,6 +41,11 @@ public class App extends JPanel implements ActionListener {
     private JPanel grid;
 
     private Timer timer;
+
+    public boolean paused = false;
+
+    private JLayeredPane layeredPane;
+    private PausedPanel pausedPanel;
     /**
      * Constructor for the App class.
      * Initializes the game board and sets up the graphical user interface.
@@ -50,6 +55,9 @@ public class App extends JPanel implements ActionListener {
         timer = new Timer(1000, this);
         timer.setInitialDelay(650);
         timer.start();
+
+
+
 
         try {
             ImageIcon backgroundImageIcon = new ImageIcon("LarryCroftsAdventures/assets/background.png"); // Change to your image path
@@ -79,9 +87,14 @@ public class App extends JPanel implements ActionListener {
                 if (getSize().height != 800 || getSize().width !=1400) {
                     remove(backgroundImageLabel);
                 }
+                pausedPanel.setBounds(0,0,getWidth(),getHeight());
             }
         });
         setup(new File("LarryCroftsAdventures/levels/level1.json"));
+
+
+
+
 
     }
 
@@ -99,6 +112,7 @@ public class App extends JPanel implements ActionListener {
         if(timeLabel != null){
             this.remove(rightPanel);
         }
+        paused = false;
         audioUnit = new AudioUnit();
         audioUnit.startBackgroundMusic();
         audioUnit.startAmbience();
@@ -120,7 +134,6 @@ public class App extends JPanel implements ActionListener {
 
         leftPanel = new JPanel(new GridLayout(2, 0, 0, 10));
         rightPanel = new JPanel(new GridLayout(9, 0, 0, 10));
-        centrePanel.setBorder(BorderFactory.createEmptyBorder(100, 20, 100, 20));
 
         rightPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         leftPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -133,21 +146,30 @@ public class App extends JPanel implements ActionListener {
         leftPanel.setPreferredSize(new Dimension(300, 700));
         leftPanel.setBackground(brown);
         leftPanel.add(new RecorderPanel(this));
+        leftPanel.add(new KeyBindingsPanel());
 
         rightPanel.setPreferredSize(new Dimension(300, 700));
         rightPanel.setBackground(brown);
         Font font = new Font("Sans-Serif", Font.BOLD, 40);
 
 
-        rightPanel.add(createLabel("LEVEL", font, Color.lightGray, Color.red));
+        rightPanel.add(createLabel("LEVEL", font, Color.white, Color.black));
         rightPanel.add(createLabel("" + board.getLevel(), font, Color.black, Color.green)); // get the level to display eventually
-        rightPanel.add(createLabel("TIME", font, Color.lightGray, Color.red));
+        rightPanel.add(createLabel("TIME", font, Color.white, Color.black));
         rightPanel.add(timeLabel);
-        rightPanel.add(createLabel("TREASURE", font, Color.lightGray, Color.red));
+        rightPanel.add(createLabel("FISH LEFT", font, Color.white, Color.black));
         rightPanel.add(treasureLabel = createLabel("" + (treasureLeft - board.getChap().getPlayerTreasureCount()), font, Color.black, Color.green)); //get the chips left
 
         rightPanel.add(createInventory(0));
         rightPanel.add(createInventory(1));
+
+
+
+
+        // Create the GamePausedPanel but initially hide it
+        pausedPanel = new PausedPanel();
+        pausedPanel.setVisible(false);
+        this.add(pausedPanel, BorderLayout.CENTER);
 
 
         this.add(centrePanel, BorderLayout.CENTER);
@@ -275,6 +297,13 @@ public class App extends JPanel implements ActionListener {
 
     }
 
+    // Update the pausedPanel's visibility
+    public void setPaused(boolean isPaused) {
+        pausedPanel.setVisible(isPaused);
+        centrePanel.setVisible(!isPaused);
+        paused = isPaused;
+    }
+
     /**
      * Handles action events triggered by the timer.
      *
@@ -283,28 +312,35 @@ public class App extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(board.getChap().getState() == Chap.State.COMPLETED){
+        if (board.getChap().getState() == Chap.State.COMPLETED) {
             int level = board.getChap().getBoard().getLevel();
             level++;
             setup(new File("LarryCroftsAdventures/levels/level" + level + ".json"));
         }
 
-        if (time > 0) {
+        if (time > 0 && !paused) {
             time--;
         } else {
-            //end the game
+            // Handle game over or pause conditions
+            if (!paused) {
+                // Game is over
+                JOptionPane.showMessageDialog(null,
+                        "Time's up! Do you want to replay the current level?",
+                        "Game Over",
+                        JOptionPane.PLAIN_MESSAGE);
+                time = board.getTime();
+                // Replay level or perform other game over actions
 
-            JOptionPane.showMessageDialog(null,
-                    "Time's up! Do you want to replay the current level?",
-                    "Game Over",
-                    JOptionPane.PLAIN_MESSAGE);
-            time = board.getTime();
+                // Pause the game
+                setPaused(true);
+                setup(new File("LarryCroftsAdventures/levels/level" + board.getChap().getBoard().getLevel() + ".json"));
 
-            //replay level
+            }
         }
 
         timeLabel.setText("" + time);
     }
+
 
     /**
      * Gets the renderer used for drawing the game board.

@@ -19,4 +19,10 @@ public class InfoField extends Free {
     public boolean performTileAction(Chap chap) {
         return false;
     }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        InfoField tile = (InfoField) super.clone();
+        return tile;
+    }
 }

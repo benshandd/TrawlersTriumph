@@ -33,6 +33,8 @@ public class KeyboardInputHandler {
     private static final String RESUME_GAME = "resume game";
     private static final String START_LEVEL_1 = "start level 1";
     private static final String START_LEVEL_2 = "start level 2";
+    private static final String START_LEVEL_3 = "start level 3";
+
     private static final String PAUSE_GAME = "pause game";
     private static final String CLOSE_PAUSE_DIALOG = "close pause dialog";
 
@@ -83,6 +85,9 @@ public class KeyboardInputHandler {
         // CTRL-2 to start a new game at level 2
         component.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_2, KeyEvent.CTRL_DOWN_MASK), START_LEVEL_2);
 
+        // CTRL-3 to start a new game at level 3
+        component.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_3, KeyEvent.CTRL_DOWN_MASK), START_LEVEL_3);
+
         // SPACE to pause the game
         component.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), PAUSE_GAME);
 
@@ -99,6 +104,8 @@ public class KeyboardInputHandler {
         component.getActionMap().put(RESUME_GAME, new ResumeGameAction());
         component.getActionMap().put(START_LEVEL_1, new StartGameAction(new File("LarryCroftsAdventures/levels/level1.json")));
         component.getActionMap().put(START_LEVEL_2, new StartGameAction(new File("LarryCroftsAdventures/levels/level2.json")));
+        component.getActionMap().put(START_LEVEL_3, new StartGameAction(new File("LarryCroftsAdventures/levels/level3.json")));
+
         component.getActionMap().put(PAUSE_GAME, new PauseGameAction());
         component.getActionMap().put(CLOSE_PAUSE_DIALOG, new ClosePauseDialogAction());
     }
@@ -118,67 +125,68 @@ public class KeyboardInputHandler {
         public void actionPerformed(ActionEvent e) {
             // Handle movement based on 'direction'
             // Implement your move logic here
-            System.out.println(direction);
-            Chap chap = component.getBoard().getChap();
-            Renderer renderer  = component.getRenderer();
-            Camera camera = renderer.getCamera();
+            if (!component.paused) {
+                System.out.println(direction);
+                Chap chap = component.getBoard().getChap();
+                Renderer renderer = component.getRenderer();
+                Camera camera = renderer.getCamera();
 
 
-            if (camera.getState() == Camera.State.IDLE){
-                switch (direction) {
-                    case "UP" -> {
-                        try {
-                            chap.move(Chap.Direction.UP);
-                            camera.setState(Camera.State.UP);
-                            if (RecorderPanel.recording) {
-                                RecorderPanel.moves.add(new Move("UP",RecorderPanel.time));
+                if (camera.getState() == Camera.State.IDLE) {
+                    switch (direction) {
+                        case "UP" -> {
+                            try {
+                                chap.move(Chap.Direction.UP);
+                                camera.setState(Camera.State.UP);
+                                if (RecorderPanel.recording) {
+                                    RecorderPanel.moves.add(new Move("UP", RecorderPanel.time));
+                                }
+                            } catch (IllegalMove ex) {
+                                System.out.println(ex.getMessage());
                             }
-                        } catch (IllegalMove ex) {
-                            System.out.println(ex.getMessage());
                         }
-                    }
-                    case "DOWN" -> {
-                        try {
-                            chap.move(Chap.Direction.DOWN);
-                            camera.setState(Camera.State.DOWN);
-                            if (RecorderPanel.recording) {
-                                RecorderPanel.moves.add(new Move("DOWN",RecorderPanel.time));
+                        case "DOWN" -> {
+                            try {
+                                chap.move(Chap.Direction.DOWN);
+                                camera.setState(Camera.State.DOWN);
+                                if (RecorderPanel.recording) {
+                                    RecorderPanel.moves.add(new Move("DOWN", RecorderPanel.time));
+                                }
+                            } catch (IllegalMove ex) {
+                                System.out.println(ex.getMessage());
                             }
-                        } catch (IllegalMove ex) {
-                            System.out.println(ex.getMessage());
                         }
-                    }
-                    case "LEFT" -> {
-                        try {
-                            chap.move(Chap.Direction.LEFT);
-                            camera.setState(Camera.State.LEFT);
-                            if (RecorderPanel.recording) {
-                                RecorderPanel.moves.add(new Move("LEFT",RecorderPanel.time));
+                        case "LEFT" -> {
+                            try {
+                                chap.move(Chap.Direction.LEFT);
+                                camera.setState(Camera.State.LEFT);
+                                if (RecorderPanel.recording) {
+                                    RecorderPanel.moves.add(new Move("LEFT", RecorderPanel.time));
+                                }
+                            } catch (IllegalMove ex) {
+                                System.out.println(ex.getMessage());
                             }
-                        } catch (IllegalMove ex) {
-                            System.out.println(ex.getMessage());
                         }
-                    }
-                    case "RIGHT" -> {
-                        try {
-                            chap.move(Chap.Direction.RIGHT);
-                            camera.setState(Camera.State.RIGHT);
-                            if (RecorderPanel.recording) {
-                                RecorderPanel.moves.add(new Move("RIGHT",RecorderPanel.time));
+                        case "RIGHT" -> {
+                            try {
+                                chap.move(Chap.Direction.RIGHT);
+                                camera.setState(Camera.State.RIGHT);
+                                if (RecorderPanel.recording) {
+                                    RecorderPanel.moves.add(new Move("RIGHT", RecorderPanel.time));
+                                }
+                            } catch (IllegalMove ex) {
+                                System.out.println(ex.getMessage());
                             }
-                        } catch (IllegalMove ex) {
-                            System.out.println(ex.getMessage());
                         }
-                    }
-                    default -> {
+                        default -> {
+                        }
                     }
                 }
+
+                component.repaint();
+
+
             }
-
-            component.repaint();
-
-
-
         }
     }
 
@@ -204,6 +212,7 @@ public class KeyboardInputHandler {
         public void actionPerformed(ActionEvent e) {
             // Handle CTRL-S action to save the game state
             System.out.println("Saving game");
+
         }
     }
 
@@ -233,7 +242,9 @@ public class KeyboardInputHandler {
         public void actionPerformed(ActionEvent e) {
             // Handle CTRL-1 and CTRL-2 to start a new game at the specified level
             System.out.println("Loading level " + level);
-            component.setup(level);
+            if(!component.paused) {
+                component.setup(level);
+            }
         }
     }
 
@@ -246,6 +257,7 @@ public class KeyboardInputHandler {
         public void actionPerformed(ActionEvent e) {
             // Handle SPACE action to pause the game and display a "game is paused" dialog
             System.out.println("Game paused");
+            component.setPaused(true);
         }
     }
 
@@ -257,6 +269,8 @@ public class KeyboardInputHandler {
         public void actionPerformed(ActionEvent e) {
             // Handle ESC action to close the "game is paused" dialog and resume the game
             System.out.println("Exiting pause");
+            component.setPaused(false);
+
         }
     }
 

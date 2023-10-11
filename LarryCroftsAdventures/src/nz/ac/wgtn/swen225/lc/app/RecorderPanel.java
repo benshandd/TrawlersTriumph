@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -58,11 +59,14 @@ public class RecorderPanel extends JPanel {
     //speed of auto replay
     int speed;
 
+
+
     /**
      * Constructs a RecorderPanel and initializes its components.
      */
     public RecorderPanel(App app) {
         this.app = app;
+
         initializeComponents();
         addComponentsToPanel();
     }
@@ -92,6 +96,8 @@ public class RecorderPanel extends JPanel {
             }
         });
 
+       recordButton.setFocusable(false);
+
         // Add action listeners for the other buttons
         loadButton.addActionListener(new ActionListener() {
             @Override
@@ -110,6 +116,7 @@ public class RecorderPanel extends JPanel {
 
             }
         });
+        loadButton.setFocusable(false);
 
         stepButton.addActionListener(new ActionListener() {
             @Override
@@ -138,6 +145,7 @@ public class RecorderPanel extends JPanel {
                 }
             }
         });
+        stepButton.setFocusable(false);
 
         autoReplayButton.addActionListener(new ActionListener() {
             @Override
@@ -173,6 +181,7 @@ public class RecorderPanel extends JPanel {
                 }
             }
         });
+        autoReplayButton.setFocusable(false);
 
         addSlider();
 
@@ -182,7 +191,7 @@ public class RecorderPanel extends JPanel {
      * adds JSlider to panel
      */
     private void addSlider(){
-        replaySpeedSlider = new JSlider(JSlider.HORIZONTAL, 0, 3, 1) {
+        replaySpeedSlider = new JSlider(JSlider.HORIZONTAL, 1, 3, 1) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -211,6 +220,7 @@ public class RecorderPanel extends JPanel {
         replaySpeedSlider.setPaintTicks(true);
         replaySpeedSlider.setPaintLabels(true);
 
+        replaySpeedSlider.setFocusable(false);
 
         replaySpeedSlider.addChangeListener(new ChangeListener() {
             @Override
@@ -261,14 +271,24 @@ public class RecorderPanel extends JPanel {
     private void startRecording() {
         recordButton.setText("Stop Recording");
         count++;
-        Chap chap = app.getBoard().getChap();
+        Chap chap = App.getBoard().getChap();
         chapX = chap.getX();
         chapY = chap.getY();
         chapTreasures = chap.getPlayerTreasureCount();
-        boardTreasureCount = app.getBoard().getBoardTreasureCount();
-        chapInitLevel = app.getBoard().getLevel();
-        timeLeft = app.getBoard().getTime();
-        board = app.getBoard().getTiles();
+        boardTreasureCount = App.getBoard().getBoardTreasureCount();
+        chapInitLevel = App.getBoard().getLevel();
+        timeLeft = App.getBoard().getTime();
+        board = Arrays.stream(App.getBoard().getTiles())
+                .map(row -> Arrays.stream(row)
+                        .map(tile -> {
+                            try {
+                                return tile.clone();
+                            } catch (CloneNotSupportedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .toArray(Tile[]::new))
+                .toArray(Tile[][]::new);
 
         moves = new ArrayList<>();
 
@@ -306,7 +326,7 @@ public class RecorderPanel extends JPanel {
         boardTreasureCount = app.getBoard().getBoardTreasureCount();
         chapInitLevel = app.getBoard().getLevel();
         timeLeft = app.getBoard().getTime();
-        board = app.getBoard().getTiles();
+        board = app.getBoard().getTiles().clone();
     }
 
 

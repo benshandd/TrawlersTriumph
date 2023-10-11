@@ -35,4 +35,10 @@ public class Wall implements Tile {
     public int getY() {
         return y;
     }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        Wall tile = (Wall) super.clone();
+        return tile;
+    }
 }
