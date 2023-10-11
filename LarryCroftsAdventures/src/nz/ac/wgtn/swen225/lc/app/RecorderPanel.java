@@ -191,7 +191,7 @@ public class RecorderPanel extends JPanel {
      * adds JSlider to panel
      */
     private void addSlider(){
-        replaySpeedSlider = new JSlider(JSlider.HORIZONTAL, 0, 3, 1) {
+        replaySpeedSlider = new JSlider(JSlider.HORIZONTAL, 1, 3, 1) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -220,6 +220,7 @@ public class RecorderPanel extends JPanel {
         replaySpeedSlider.setPaintTicks(true);
         replaySpeedSlider.setPaintLabels(true);
 
+        replaySpeedSlider.setFocusable(false);
 
         replaySpeedSlider.addChangeListener(new ChangeListener() {
             @Override

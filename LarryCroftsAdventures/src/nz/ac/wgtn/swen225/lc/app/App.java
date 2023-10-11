@@ -87,6 +87,7 @@ public class App extends JPanel implements ActionListener {
                 if (getSize().height != 800 || getSize().width !=1400) {
                     remove(backgroundImageLabel);
                 }
+                pausedPanel.setBounds(0,0,getWidth(),getHeight());
             }
         });
         setup(new File("LarryCroftsAdventures/levels/level1.json"));
@@ -167,7 +168,6 @@ public class App extends JPanel implements ActionListener {
 
         // Create the GamePausedPanel but initially hide it
         pausedPanel = new PausedPanel();
-        pausedPanel.setBounds(300, 0, 800, 800);
         pausedPanel.setVisible(false);
         this.add(pausedPanel, BorderLayout.CENTER);
 

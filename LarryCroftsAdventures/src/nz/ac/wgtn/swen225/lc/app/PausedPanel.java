@@ -14,5 +14,6 @@ public class PausedPanel extends JPanel {
         pausedLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         add(pausedLabel, BorderLayout.CENTER);
+        this.setBounds(300,0,800,800);
     }
 }
