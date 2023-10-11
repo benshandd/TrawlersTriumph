@@ -49,7 +49,6 @@ public class AudioUnit {
     private void addClip(AudioClip id, String file, float volume){
         String path = "LarryCroftsAdventures/assets/audioFiles/";
         // Ensure that the provided AudioClip enum is valid
-        assert isValidEnum(id);
         try{
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(new File(path + file)));
@@ -126,20 +125,5 @@ public class AudioUnit {
         for (Clip clip : audioClips.values()){
             clip.stop();
         }
-    }
-
-    /**
-     * Checks if an AudioClip enum is valid.
-     *
-     * @param audioClip The AudioClip enum to check.
-     * @return True if the enum is valid, false otherwise.
-     */
-    private boolean isValidEnum(AudioClip audioClip) {
-        for (AudioClip validEnum : AudioClip.values()) {
-            if (validEnum == audioClip) {
-                return true;
-            }
-        }
-        return false;
     }
 }
