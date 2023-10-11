@@ -27,6 +27,8 @@ public class Persistency {
     public int originalBoardTreasureCount;
 
     private int newFileNum;
+    public static File level1 = new File("LarryCroftsAdventures/levels/level1.json");
+    public static File level2 = new File("LarryCroftsAdventures/levels/level2.json");
     public Stack<String> actions;
     public int playerX;
     public int playerY;
