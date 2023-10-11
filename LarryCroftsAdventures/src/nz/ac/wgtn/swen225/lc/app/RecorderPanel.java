@@ -269,12 +269,17 @@ public class RecorderPanel extends JPanel {
         boardTreasureCount = App.getBoard().getBoardTreasureCount();
         chapInitLevel = App.getBoard().getLevel();
         timeLeft = App.getBoard().getTime();
-        Tile[][] copy = Arrays.stream(App.getBoard().getTiles())
+        board = Arrays.stream(App.getBoard().getTiles())
                 .map(row -> Arrays.stream(row)
-                        .map(tile -> tile.clone())
+                        .map(tile -> {
+                            try {
+                                return tile.clone();
+                            } catch (CloneNotSupportedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
                         .toArray(Tile[]::new))
                 .toArray(Tile[][]::new);
-        board = copy;
 
         moves = new ArrayList<>();
 
