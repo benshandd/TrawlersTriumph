@@ -9,6 +9,7 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
+import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 /**
  * The main class for Larry Croft's Adventures game.
@@ -38,6 +40,13 @@ public class Main extends JFrame {
         System.out.println("Hello world");
         f = new JFrame("Reel It In");
         l = new JLabel("Welcome");
+        String path = "LarryCroftsAdventures/assets/";
+        try{
+        ImageIcon img = new ImageIcon(ImageIO.read(new File(path + "icon.png")));
+        f.setIconImage(img.getImage());
+        } catch (Exception e){
+
+        }
 
         f.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // Set the default close operation to exit the application.
 
