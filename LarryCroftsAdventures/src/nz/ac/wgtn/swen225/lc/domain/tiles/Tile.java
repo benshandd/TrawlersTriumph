@@ -4,7 +4,6 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 
 /**
  * Represents a square on the board.
- *
  * @author Anthony Kendrew (300607402)
  */
 public interface Tile extends Cloneable {
@@ -17,7 +16,7 @@ public interface Tile extends Cloneable {
 
     /**
      * Performs the action that is attributed to this tile.
-     * This tile has no action, so this method does nothing
+     * This tile has no action, so this method does nothing.
      * @param chap the player object associated with the board this tile is on
      * @return true if the action was performed successfully or there is no action to perform, false if the action failed to be performed
      */
@@ -38,7 +37,7 @@ public interface Tile extends Cloneable {
     int getY();
 
     /**
-     * Deep clone method
+     * Deep clone method.
      * @return the deep copy of this object
      */
     Tile clone() throws CloneNotSupportedException;

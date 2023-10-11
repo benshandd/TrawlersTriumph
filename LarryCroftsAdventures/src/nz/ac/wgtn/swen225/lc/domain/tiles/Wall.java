@@ -4,7 +4,6 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 
 /**
  * Represents a tile that cannot be stepped on by the player.
- *
  * @author Anthony Kendrew (300607402)
  */
 public class Wall implements Tile {

@@ -9,16 +9,15 @@ import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
 /**
  * Represents the board for a given level.
- *
  * @author Anthony Kendrew (300607402)
  */
 public class Board {
     private Tile[][] board;
-    private Chap chap;
+    private final Chap chap;
     private int time;
-    private int level;
+    private final int level;
     private final int boardTreasureCount;
-    private AudioUnit audioUnit;
+    private final AudioUnit audioUnit;
 
     /**
      * Create a new Board. Generates a 2D array of tiles using {@link Persistency#loadGame(File) loadGame}.

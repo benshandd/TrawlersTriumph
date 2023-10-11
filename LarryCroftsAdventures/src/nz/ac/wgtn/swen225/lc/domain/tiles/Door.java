@@ -6,7 +6,6 @@ import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
 /**
  * Represents a tile containing a door.
- *
  * @author Anthony Kendrew (300607402)
  */
 public class Door extends Wall {
