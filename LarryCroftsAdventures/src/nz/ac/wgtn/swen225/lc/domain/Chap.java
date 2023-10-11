@@ -7,7 +7,6 @@ import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 
 /**
  * Represents the player in Larry Croft's Adventures
- *
  * @author Anthony Kendrew (300607402)
  */
 public class Chap {
@@ -18,7 +17,7 @@ public class Chap {
     private State state;
 
     /**
-     * Stores the state of the game
+     * Stores the state of the game.
      */
     public enum State { ONGOING, PAUSED, COMPLETED, DEAD };
 
@@ -128,7 +127,7 @@ public class Chap {
     }
 
     /**
-     * Update the state of the player
+     * Update the state of the player.
      * @param state the new state
      */
     public void setState(State state) {
@@ -136,7 +135,7 @@ public class Chap {
     }
 
     /**
-     * Get the player state
+     * Get the player state.
      * @return the state
      */
     public State getState() {
@@ -144,8 +143,7 @@ public class Chap {
     }
 
     /**
-     * Increment the treasure counter by one
-     * @return the number of treasures collected after this one
+     * Increment the treasure counter by one.
      */
     public void addTreasure() {
         ++playerTreasureCount;
@@ -193,7 +191,7 @@ public class Chap {
     public enum Direction {UP, DOWN, LEFT, RIGHT}
 
     /**
-     * Get board that Chap is on
+     * Get board that Chap is on.
      */
     public Board getBoard(){
         return board;

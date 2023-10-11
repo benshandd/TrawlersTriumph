@@ -10,11 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * JUnit tests for the domain package.
- *
  * @author Anthony Kendrew (300607402)
  */
 public class DomainTest {
-    private Board board;
     private Chap chap;
 
     /**
@@ -23,7 +21,7 @@ public class DomainTest {
     @BeforeEach
     public void init() {
         AudioUnit au = new AudioUnit();
-        board = new Board(Persistency.level1, au);
+        Board board = new Board(Persistency.level1, au);
         chap = board.getChap();
     }
 
