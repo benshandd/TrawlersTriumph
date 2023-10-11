@@ -18,22 +18,28 @@ public class Door extends Wall {
      */
     public Door(Key.Colour colour, int x, int y) {
         super(x, y);
+        if (colour == null) {
+            throw new IllegalArgumentException();
+        }
         this.colour = colour;
     }
 
     /**
-     * Attempt to open this door
+     * Attempt to open this door.
      */
     @Override
     public boolean performTileAction(Chap chap) {
         if (canOpen(chap)) {
             chap.getBoard().getAudioUnit().playSound(AudioUnit.AudioClip.DOOROPEN);
-            chap.removeItem(new Key(colour));
+            assert chap.removeItem(new Key(colour));
             return true;
         }
         return false;
     }
 
+    /**
+     * Checks whether the door can be opened or not.
+     */
     @Override
     public boolean traversable(Chap chap) {
         return canOpen(chap);
@@ -54,5 +60,11 @@ public class Door extends Wall {
      */
     public Key.Colour getColour() {
         return colour;
+    }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        Door tile = (Door) super.clone();
+        return tile;
     }
 }

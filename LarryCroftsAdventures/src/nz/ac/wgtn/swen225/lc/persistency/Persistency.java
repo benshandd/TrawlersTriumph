@@ -27,6 +27,8 @@ public class Persistency {
     public int originalBoardTreasureCount;
 
     private int newFileNum;
+    public static File level1 = new File("LarryCroftsAdventures/levels/level1.json");
+    public static File level2 = new File("LarryCroftsAdventures/levels/level2.json");
     public Stack<String> actions;
     public int playerX;
     public int playerY;
@@ -114,7 +116,7 @@ public class Persistency {
                         case "Key_Red" -> new KeyTile(Key.Colour.RED, j, i);
                         case "Key_Green" -> new KeyTile(Key.Colour.GREEN, j, i);
                         case "Key_Blue" -> new KeyTile(Key.Colour.BLUE, j, i);
-                        case "InfoBox" -> new InfoField(message, j, i);
+                        case "InfoBox" -> new InfoField(j, i);
                         case "ExitLock" -> maze[j][i] = new ExitLock(j, i);
                         case "Exit" -> maze[j][i] = new Exit(j, i);
                         default -> new Free(j, i);
@@ -250,7 +252,6 @@ public class Persistency {
                         break;
                     case "InfoField":
                         cellObject.addProperty("tile", "InfoBox");
-                        cellObject.addProperty("message", ((InfoField) currentTile).getMessage());
                         break;
                     case "ExitLock":
                         cellObject.addProperty("tile", "ExitLock");

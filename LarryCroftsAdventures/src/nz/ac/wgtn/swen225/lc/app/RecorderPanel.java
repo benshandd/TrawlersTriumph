@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -269,14 +270,24 @@ public class RecorderPanel extends JPanel {
     private void startRecording() {
         recordButton.setText("Stop Recording");
         count++;
-        Chap chap = app.getBoard().getChap();
+        Chap chap = App.getBoard().getChap();
         chapX = chap.getX();
         chapY = chap.getY();
         chapTreasures = chap.getPlayerTreasureCount();
-        boardTreasureCount = app.getBoard().getBoardTreasureCount();
-        chapInitLevel = app.getBoard().getLevel();
-        timeLeft = app.getBoard().getTime();
-        board = app.getBoard().getTiles();
+        boardTreasureCount = App.getBoard().getBoardTreasureCount();
+        chapInitLevel = App.getBoard().getLevel();
+        timeLeft = App.getBoard().getTime();
+        board = Arrays.stream(App.getBoard().getTiles())
+                .map(row -> Arrays.stream(row)
+                        .map(tile -> {
+                            try {
+                                return tile.clone();
+                            } catch (CloneNotSupportedException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .toArray(Tile[]::new))
+                .toArray(Tile[][]::new);
 
         moves = new ArrayList<>();
 
@@ -314,7 +325,7 @@ public class RecorderPanel extends JPanel {
         boardTreasureCount = app.getBoard().getBoardTreasureCount();
         chapInitLevel = app.getBoard().getLevel();
         timeLeft = app.getBoard().getTime();
-        board = app.getBoard().getTiles();
+        board = app.getBoard().getTiles().clone();
     }
 
 

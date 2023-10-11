@@ -2,6 +2,7 @@ package nz.ac.wgtn.swen225.lc.domain;
 
 import nz.ac.wgtn.swen225.lc.domain.items.*;
 
+import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 import org.junit.jupiter.api.*;
 
@@ -13,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Anthony Kendrew (300607402)
  */
 public class DomainTest {
-    private static Board board;
-    private static Chap chap;
+    private Board board;
+    private Chap chap;
 
     /**
      * Initialise the board and player.
@@ -22,7 +23,7 @@ public class DomainTest {
     @BeforeEach
     public void init() {
         AudioUnit au = new AudioUnit();
-        //board = new Board(1, au);
+        board = new Board(Persistency.level1, au);
         chap = board.getChap();
     }
 

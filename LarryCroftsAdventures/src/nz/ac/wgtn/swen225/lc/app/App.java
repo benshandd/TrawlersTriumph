@@ -221,7 +221,7 @@ public class App extends JPanel implements ActionListener {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {
                 if (items[i][j] != null) {
-                    Key.Colour keyColour = ((Key) items[i][j]).getColour();
+                    Key.Colour keyColour = ((Key) items[i][j]).colour();
                     String keyImagePath = path + "Key_Blue.png"; // Default image path
 
                     // Determine the image path based on the keyColour

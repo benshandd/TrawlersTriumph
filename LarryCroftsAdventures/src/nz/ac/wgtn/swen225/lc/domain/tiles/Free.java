@@ -35,4 +35,10 @@ public class Free implements Tile {
     public int getY() {
         return y;
     }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        Free tile = (Free) super.clone();
+        return tile;
+    }
 }

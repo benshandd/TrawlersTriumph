@@ -15,9 +15,18 @@ public class Exit extends Free {
         super(x, y);
     }
 
+    /**
+     * Sets the state of the player to 'completed'.
+     */
     @Override
     public boolean performTileAction(Chap chap) {
         chap.setState(Chap.State.COMPLETED);
         return true;
+    }
+
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        Exit tile = (Exit) super.clone();
+        return tile;
     }
 }
