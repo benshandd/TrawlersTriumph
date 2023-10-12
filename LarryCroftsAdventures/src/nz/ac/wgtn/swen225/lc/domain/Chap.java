@@ -33,6 +33,9 @@ public class Chap {
 	 *                            so far
 	 */
 	public Chap(Board board, Free tile, int playerTreasureCount) {
+		if (board == null || tile == null || playerTreasureCount < 0) {
+			throw new IllegalArgumentException();
+		}
 		this.board = board;
 		this.tile = tile;
 		this.playerTreasureCount = playerTreasureCount;
@@ -68,11 +71,16 @@ public class Chap {
 			throw new IllegalMove("Not traversable: " + direction);
 		}
 
+		// Move Chap to the next tile and set the tile to a Free
 		if (next.performTileAction(this)) {
 			tile = board.resetTile(next);
-		} else if (next instanceof InfoField infoField) {
+		}
+		// Move Chap to the next tile but don't reset it
+		else if (next instanceof InfoField infoField) {
 			tile = infoField;
 		}
+
+		assert board.getTile(x, y) instanceof Free;
 	}
 
 	/**
@@ -145,6 +153,9 @@ public class Chap {
 	 * @param state the new state
 	 */
 	public void setState(State state) {
+		if (state == null) {
+			throw new IllegalArgumentException();
+		}
 		this.state = state;
 	}
 
@@ -199,8 +210,11 @@ public class Chap {
 		return inventory;
 	}
 
-	public void setInventory(Item[][] inventory) {
-		this.inventory = inventory;
+	public void setInventory(Item[][] inv) {
+		if (inv == null) {
+			throw new IllegalArgumentException();
+		}
+		this.inventory = inv;
 	}
 	/**
 	 * Get the number of treasures collected by the player so far.

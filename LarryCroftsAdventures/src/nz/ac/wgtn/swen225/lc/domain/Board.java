@@ -32,9 +32,6 @@ public class Board {
 	public Board(File file, AudioUnit audioUnit) {
 		this.autoActors = new ArrayList<>();
 		Persistency persistency = new Persistency();
-
-
-
 		this.audioUnit = audioUnit;
 		try {
 			board = persistency.loadGame(file);
@@ -55,7 +52,6 @@ public class Board {
 		AutoActor autoActor2 = new AutoActor(3, 4, AutoActor.Direction.LEFT, Instant.now(), chap);
 		autoActors.add(autoActor1);
 		autoActors.add(autoActor2);
-
 	}
 
 	/**
