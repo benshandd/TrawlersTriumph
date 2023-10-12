@@ -116,6 +116,12 @@ public class RecorderPanel extends JPanel {
                 if (file != null) {
                     moves = new Recorder().loadSave(file, app);
                 }
+
+                JOptionPane.showMessageDialog(null,
+                        "If you choose to use auto replay, use the replay speed slider to " +
+                                "set the speed before pressing 'auto replay'",
+                        "Instructions",
+                        JOptionPane.PLAIN_MESSAGE);
             }
         });
         loadButton.setFocusable(false);
