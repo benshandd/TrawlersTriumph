@@ -34,6 +34,11 @@ public class Wall implements Tile {
 	}
 
 	@Override
+	public boolean performTileAction(Chap chap) {
+		throw new IllegalStateException("Walls cannot have an action");
+	}
+
+	@Override
 	public int getX() {
 		return x;
 	}

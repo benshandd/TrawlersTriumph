@@ -22,8 +22,8 @@ public interface Tile extends Cloneable {
 	 * so this method does nothing.
 	 * 
 	 * @param chap the player object associated with the board this tile is on
-	 * @return true if the action was performed successfully or there is no action
-	 *         to perform, false if the action failed to be performed
+	 * @return true if the action was performed successfully, false if the action failed to be performed
+	 * @throws IllegalStateException if the action is not allowed to be performed
 	 */
 	default boolean performTileAction(Chap chap) {
 		return true;
