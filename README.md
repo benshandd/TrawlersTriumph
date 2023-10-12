@@ -5,7 +5,7 @@ SWEN225 Group Project
 Reel It In is a top-down grid-based arcade style game in which you control a fishing boat. Your goal is to catch all the fish and return them to the dock to allow you through to the whirlpool portal that teleports you to the next level. 
 
 ## To run game:
-Run main method located in: nz/ac/wgtn/swen225/lc/app/Main/Main.java\
+Run main method located in: nz/ac/wgtn/swen225/lc/app/main/Main.java\
 **Important:** Please make sure to enable Java assertions before running the program! To do this, add `-ea` to the VM options.
 
 ## To play game:
