@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="158px" preserveAspectRatio="none" style="width:206px;height:158px;background:#FFFFFF;" version="1.1" viewBox="0 0 206 158" width="206px" zoomAndPan="magnify"><defs><filter height="300%" id="f1opzqx1ud92rz" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[2726b0fe1b8020dced1783bb7bc2c1df]
+class nz.ac.wgtn.swen225.lc.recorder.RecorderTest--><a href="RecorderTest.html" target="_top" title="RecorderTest.html" xlink:actuate="onRequest" xlink:href="RecorderTest.html" xlink:show="new" xlink:title="RecorderTest.html" xlink:type="simple"><rect codeLine="5" fill="#FEFECE" filter="url(#f1opzqx1ud92rz)" height="125.5973" id="nz.ac.wgtn.swen225.lc.recorder.RecorderTest" style="stroke:#A80036;stroke-width:1.5;" width="185" x="7" y="7"/><ellipse cx="22" cy="28.344" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M21.4688,35.2658 Q19.7188,35.2658 18.5781,34.5315 Q17.4531,33.7815 16.8906,32.4377 Q16.3438,31.0783 16.3438,29.2815 Q16.3438,27.2502 17,25.7971 Q17.6563,24.344 18.9375,23.5627 Q20.2188,22.7815 22.0938,22.7815 Q22.9844,22.7815 23.6563,22.969 Q24.3281,23.1408 25.0156,23.4846 L24.2031,25.5002 Q23.5781,25.1877 23.0313,25.0627 Q22.5,24.9377 22.0156,24.9377 Q20.8438,24.9377 20.1406,25.469 Q19.4375,26.0002 19.1406,26.9533 Q18.8438,27.9065 18.8438,29.1721 Q18.8438,31.1877 19.5625,32.1565 Q20.2813,33.1096 21.875,33.1096 Q22.4688,33.1096 23.0938,32.9533 Q23.7188,32.7971 24.5469,32.4221 L24.5469,34.6408 Q23.8125,34.9533 23.0156,35.1096 Q22.2344,35.2658 21.4688,35.2658 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="89" x="68" y="26.9659">RecorderTest</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="153" x="36" y="41.7579">nz.ac.wgtn.swen225.lc.recorder</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="191" y1="49.6879" y2="49.6879"/><ellipse cx="18" cy="60.6879" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="78" x="27" y="65.4468">initialise(): void</text><ellipse cx="18" cy="75.6698" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="123" x="27" y="80.4287">testStepAndAuto(): void</text><ellipse cx="18" cy="90.6517" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="108" x="27" y="95.4106">testRecording(): void</text><ellipse cx="18" cy="105.6336" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="89" x="27" y="110.3925">testSaving(): void</text><ellipse cx="18" cy="120.6155" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="97" x="27" y="125.3744">testLoading(): void</text></a><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="182" x="8.5" y="150.2873">UMLDoclet 2.0.14, PlantUML 1.2021.9</text><!--MD5=[f1f06e7dfbe3470001a131bbdaf9697f]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    class "<size:14>RecorderTest\n<size:10>nz.ac.wgtn.swen225.lc.recorder" as nz.ac.wgtn.swen225.lc.recorder.RecorderTest [[RecorderTest.html]] {
+        +initialise(): void
+        +testStepAndAuto(): void
+        +testRecording(): void
+        +testSaving(): void
+        +testLoading(): void
+    }
+
+    center footer UMLDoclet 2.0.14, PlantUML 1.2021.9
+@enduml
+
+PlantUML version 1.2021.9(Sun Jul 25 22:13:56 NZST 2021)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: NZ
+--></g></svg>
