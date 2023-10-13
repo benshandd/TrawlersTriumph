@@ -2,9 +2,11 @@ package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
+import nz.ac.wgtn.swen225.lc.renderer.Camera;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import javax.swing.*;
@@ -285,6 +287,71 @@ public class App extends JPanel implements ActionListener {
 		pausedPanel.setVisible(isPaused);
 		centrePanel.setVisible(!isPaused);
 		paused = isPaused;
+	}
+
+	public void moveAction(String direction) {
+		// Handle movement based on 'direction'
+		// Implement your move logic here
+		if (!paused) {
+			System.out.println(direction);
+			Chap chap = board.getChap();
+			Renderer renderer = centrePanel;
+			Camera camera = renderer.getCamera();
+
+			if (camera.getState() == Camera.State.IDLE) {
+				switch (direction) {
+					case "UP" -> {
+						try {
+							chap.move(Chap.Direction.UP);
+							camera.setState(Camera.State.UP);
+							if (RecorderPanel.recording) {
+								RecorderPanel.moves.add(new Move("UP", RecorderPanel.time));
+							}
+						} catch (IllegalMove ex) {
+							System.out.println(ex.getMessage());
+						}
+					}
+					case "DOWN" -> {
+						try {
+							chap.move(Chap.Direction.DOWN);
+							camera.setState(Camera.State.DOWN);
+							if (RecorderPanel.recording) {
+								RecorderPanel.moves.add(new Move("DOWN", RecorderPanel.time));
+							}
+						} catch (IllegalMove ex) {
+							System.out.println(ex.getMessage());
+						}
+					}
+					case "LEFT" -> {
+						try {
+							chap.move(Chap.Direction.LEFT);
+							camera.setState(Camera.State.LEFT);
+							if (RecorderPanel.recording) {
+								RecorderPanel.moves.add(new Move("LEFT", RecorderPanel.time));
+							}
+						} catch (IllegalMove ex) {
+							System.out.println(ex.getMessage());
+						}
+					}
+					case "RIGHT" -> {
+						try {
+							chap.move(Chap.Direction.RIGHT);
+							camera.setState(Camera.State.RIGHT);
+							if (RecorderPanel.recording) {
+								RecorderPanel.moves.add(new Move("RIGHT", RecorderPanel.time));
+							}
+						} catch (IllegalMove ex) {
+							System.out.println(ex.getMessage());
+						}
+					}
+					default -> {
+					}
+				}
+			}
+
+			repaint();
+
+		}
 	}
 
 	/**
