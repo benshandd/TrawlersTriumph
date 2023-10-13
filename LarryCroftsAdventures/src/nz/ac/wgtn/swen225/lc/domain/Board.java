@@ -9,7 +9,6 @@ import java.util.List;
 import nz.ac.wgtn.swen225.lc.domain.tiles.*;
 import nz.ac.wgtn.swen225.lc.persistency.AutoActor;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
-import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
 /**
  * Represents the board for a given level.
@@ -23,16 +22,23 @@ public class Board {
 	private int time;
 	private final int level;
 	private final int boardTreasureCount;
+<<<<<<< HEAD
 	private final AudioUnit audioUnit;
 	private static Persistency persistency;
+=======
+>>>>>>> 13a61c953d1c0954777f4a22578518bddb3c99f9
 
 	/**
 	 * Create a new Board. Generates a 2D array of tiles using
 	 * {@link Persistency#loadGame(File) loadGame}.
 	 */
-	public Board(File file, AudioUnit audioUnit) {
+	public Board(File file) {
 		this.autoActors = new ArrayList<>();
+<<<<<<< HEAD
 		this.audioUnit = audioUnit;
+=======
+		Persistency persistency = new Persistency();
+>>>>>>> 13a61c953d1c0954777f4a22578518bddb3c99f9
 		try {
 			persistency = new Persistency();
 			board = persistency.loadGame(file);
@@ -123,14 +129,5 @@ public class Board {
 	 */
 	public int getBoardTreasureCount() {
 		return boardTreasureCount;
-	}
-
-	/**
-	 * Get the audio unit of the board.
-	 * 
-	 * @return the audio unit
-	 */
-	public AudioUnit getAudioUnit() {
-		return audioUnit;
 	}
 }

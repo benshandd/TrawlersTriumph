@@ -1,9 +1,6 @@
 package nz.ac.wgtn.swen225.lc.app.main;
 
-import nz.ac.wgtn.swen225.lc.app.App;
-import nz.ac.wgtn.swen225.lc.app.HelpDialog;
-import nz.ac.wgtn.swen225.lc.app.Move;
-import nz.ac.wgtn.swen225.lc.app.RecorderPanel;
+import nz.ac.wgtn.swen225.lc.app.*;
 import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
@@ -32,31 +29,95 @@ public class Main extends JFrame {
     private static Persistency persistency;
     private static RecorderPanel recorderPanel;
     static App applicationWindow;
+
+    private MenuPanel menuPanel;
+
+
     /**
      * Constructor for the Main class. Initializes the game window and components.
      */
     public Main() {
         recorder = new Recorder();
         System.out.println("Hello world");
-        f = new JFrame("Reel It In");
-        l = new JLabel("Welcome");
+
         String path = "LarryCroftsAdventures/assets/";
         try{
         ImageIcon img = new ImageIcon(ImageIO.read(new File(path + "icon.png")));
-        f.setIconImage(img.getImage());
+        setIconImage(img.getImage());
         } catch (Exception e){
 
         }
 
-        f.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE); // Set the default close operation to exit the application.
 
 
+<<<<<<< HEAD
          applicationWindow = new App();
         Persistency persistency = new Persistency(applicationWindow);
+=======
+        menuPanel = new MenuPanel();
+        applicationWindow = new App();
+
+
+        getContentPane().add(menuPanel);
+        menuPanel.getStartButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                applicationWindow.setup(new File("LarryCroftsAdventures/levels/level1.json"));
+
+                // Remove the menu panel
+                getContentPane().remove(menuPanel);
+                revalidate();
+
+                // Create and add the application window
+                getContentPane().add(applicationWindow);
+                pack();
+                setLocationRelativeTo(null);
+                revalidate();
+                repaint();
+
+            }
+        });
+
+        menuPanel.getLevelSelectButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Check if a level has been selected in the MenuPanel
+
+                if (menuPanel.levelSelected) {
+                    getContentPane().remove(menuPanel);
+                    revalidate();
+
+                    // Get the selected level
+                    int selectedLevel = menuPanel.getSelectedLevel();
+
+                    // Create and add the application window with the selected level
+                    getContentPane().add(applicationWindow);
+                    applicationWindow.setup(new File("LarryCroftsAdventures/levels/level" + selectedLevel + ".json"));
+                    pack();
+                    setLocationRelativeTo(null);
+                    revalidate();
+                    repaint();
+                }
+                menuPanel.remove(menuPanel.getHelpButton());
+                menuPanel.remove(menuPanel.getStartButton());
+                menuPanel.getLevelSelectButton().setText("Start game");
+            }
+        });
+
+
+
+        setTitle("Reel it in");
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+
+>>>>>>> 13a61c953d1c0954777f4a22578518bddb3c99f9
         recorderPanel = new RecorderPanel(applicationWindow);
         new KeyboardInputHandler(applicationWindow); // Initialize keyboard input handling.
-        f.setJMenuBar(createMenuBar());  // Create and set the menu bar for the game
-        f.addWindowListener(new WindowAdapter() {
+        setJMenuBar(createMenuBar());  // Create and set the menu bar for the game
+        addWindowListener(new WindowAdapter() {
             /**
              * Handles the window closing event.
              *
@@ -70,12 +131,7 @@ public class Main extends JFrame {
             }
         });
 
-        f.getContentPane().setLayout(new BorderLayout());
-        f.getContentPane().add(applicationWindow, BorderLayout.CENTER);
-        f.pack();
-        f.setLocationRelativeTo(null); // Center the game window on the screen.
 
-        f.setVisible(true);  // Make the game window visible.
 
 
     }

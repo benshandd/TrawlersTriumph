@@ -123,68 +123,7 @@ public class KeyboardInputHandler {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// Handle movement based on 'direction'
-			// Implement your move logic here
-			if (!component.paused) {
-				System.out.println(direction);
-				Chap chap = component.getBoard().getChap();
-				Renderer renderer = component.getRenderer();
-				Camera camera = renderer.getCamera();
-
-				if (camera.getState() == Camera.State.IDLE) {
-					switch (direction) {
-					case "UP" -> {
-						try {
-							chap.move(Chap.Direction.UP);
-							camera.setState(Camera.State.UP);
-							if (RecorderPanel.recording) {
-								RecorderPanel.moves.add(new Move("UP", RecorderPanel.time));
-							}
-						} catch (IllegalMove ex) {
-							System.out.println(ex.getMessage());
-						}
-					}
-					case "DOWN" -> {
-						try {
-							chap.move(Chap.Direction.DOWN);
-							camera.setState(Camera.State.DOWN);
-							if (RecorderPanel.recording) {
-								RecorderPanel.moves.add(new Move("DOWN", RecorderPanel.time));
-							}
-						} catch (IllegalMove ex) {
-							System.out.println(ex.getMessage());
-						}
-					}
-					case "LEFT" -> {
-						try {
-							chap.move(Chap.Direction.LEFT);
-							camera.setState(Camera.State.LEFT);
-							if (RecorderPanel.recording) {
-								RecorderPanel.moves.add(new Move("LEFT", RecorderPanel.time));
-							}
-						} catch (IllegalMove ex) {
-							System.out.println(ex.getMessage());
-						}
-					}
-					case "RIGHT" -> {
-						try {
-							chap.move(Chap.Direction.RIGHT);
-							camera.setState(Camera.State.RIGHT);
-							if (RecorderPanel.recording) {
-								RecorderPanel.moves.add(new Move("RIGHT", RecorderPanel.time));
-							}
-						} catch (IllegalMove ex) {
-							System.out.println(ex.getMessage());
-						}
-					}
-					default -> {
-					}
-					}
-				}
-
-				component.repaint();
-
-			}
+			component.moveAction(direction);
 		}
 	}
 

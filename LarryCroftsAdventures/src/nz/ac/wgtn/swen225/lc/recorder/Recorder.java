@@ -5,59 +5,17 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.Move;
-import nz.ac.wgtn.swen225.lc.domain.Chap;
-import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
-import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
-import nz.ac.wgtn.swen225.lc.persistency.Persistency;
-import nz.ac.wgtn.swen225.lc.renderer.Camera;
 
-
+import javax.swing.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Recorder {
-    private ArrayList<Move> movesList;
-    private int x;
-    private int y;
-    private int numberOfTreasuresPlayer;
-    private int numberOfTreasuresBoard;
-    int initLevel;
-    int timeLeft;
-    Tile[][] board;
-     Chap chap;
-
-
-    public Recorder(ArrayList<Move> movesList, int x, int y, int numberOfTreasuresPlayer, int numberOfTreasuresBoard,
-                    int initLevel, int timeLeft, Tile[][] board, Chap chap) {
-        this.movesList = movesList;
-        this.x = x;
-        this.y = y;
-        this.numberOfTreasuresPlayer = numberOfTreasuresPlayer;
-        this.numberOfTreasuresBoard = numberOfTreasuresBoard;
-        this.initLevel = initLevel;
-        this.timeLeft = timeLeft;
-        this.board = board;
-        this.chap = chap;
-    }
-
-    public Recorder(){}
-
-    /**
-     * saves the recording
-     * @param count file count
-     * @throws IOException for the file writer
-     */
-    public void saveRecorder(int count) throws IOException {
-        Persistency p = new Persistency();
-        p.setSaveParameters(count, movesList, this.x, this.y, this.numberOfTreasuresPlayer,
-                this.numberOfTreasuresBoard, this.initLevel, this.timeLeft, this.board, this.chap);
-        p.saveGame();
-        
-    }
-
     /**
      * loads the moves from the chosen file
      * @param file chosen file
@@ -82,31 +40,68 @@ public class Recorder {
     }
 
     /**
-     * step by step playback moves
-     * @param move move to be played back
+     * Logic of the step funtion
+     * @param app app component to fetch the correct things
+     * @param file the loaded file
+     * @param moves the list of moves we are reading from
      */
-    public void step(Move move) throws IllegalMove {
-        Chap chap = App.getBoard().getChap();
-        switch (move.move()){
-            case "UP" -> {
-                App.getRenderer().getCamera().setState(Camera.State.UP);
-                chap.move(Chap.Direction.UP);
+    public static void step(App app,File file, ArrayList<Move> moves){
+        if (file == null){
+            JOptionPane.showMessageDialog(null,
+                    "You need to load a file first!",
+                    "File not chosen!",
+                    JOptionPane.PLAIN_MESSAGE);
+        } else {
+            app.repaint();
+            if (!moves.isEmpty()) {
+                app.moveAction(moves.remove(0).move());
+            } else{
+                JOptionPane.showMessageDialog(null,
+                        "All moves have been shown!",
+                        "Replay finished!",
+                        JOptionPane.PLAIN_MESSAGE);
             }
-            case "DOWN" -> {
-                App.getRenderer().getCamera().setState(Camera.State.DOWN);
-                chap.move(Chap.Direction.DOWN);
-            }
-            case "LEFT" -> {
-                App.getRenderer().getCamera().setState(Camera.State.LEFT);
-                chap.move(Chap.Direction.LEFT);
-            }
-            case "RIGHT" -> {
-                App.getRenderer().getCamera().setState(Camera.State.RIGHT);
-                chap.move(Chap.Direction.RIGHT);
-            }
+
         }
     }
 
+    /**
+     * auto replay logic
+     * @param app  app component to fetch the correct things
+     * @param file the loaded file
+     * @param moves the list of moves we are reading from
+     * @param speed the speed the user sets on the slider
+     */
+    public static void auto (App app,File file, ArrayList<Move> moves, int speed){
+        if (file == null){
+            JOptionPane.showMessageDialog(null,
+                    "You need to load a file first!",
+                    "File not chosen!",
+                    JOptionPane.PLAIN_MESSAGE);
+        } else {
+            //timer to be able to go through each action at a certain speed (set by slider)
+            Timer recordingIndicatorTimer = new Timer();
+            recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    if (!app.paused) {
+                        if (!moves.isEmpty()) {
+                            app.moveAction(moves.remove(0).move());
+                        } else {
+                            JOptionPane.showMessageDialog(null,
+                                    "All moves have been shown!",
+                                    "Replay finished!",
+                                    JOptionPane.PLAIN_MESSAGE);
+                            recordingIndicatorTimer.cancel();
+                        }
+                        app.repaint();
+                    }else {
+                        recordingIndicatorTimer.schedule(this, 2000);
+                    }
 
+                }
+            }, 0, 600/speed) ;
 
+        }
+    }
 }

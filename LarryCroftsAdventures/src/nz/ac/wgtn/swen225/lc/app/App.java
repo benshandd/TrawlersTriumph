@@ -2,10 +2,16 @@ package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
+<<<<<<< HEAD
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+=======
+import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
+>>>>>>> 13a61c953d1c0954777f4a22578518bddb3c99f9
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
+import nz.ac.wgtn.swen225.lc.renderer.Camera;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import javax.swing.*;
@@ -118,7 +124,7 @@ public class App extends JPanel implements ActionListener {
 		audioUnit = new AudioUnit();
 		audioUnit.startBackgroundMusic();
 		audioUnit.startAmbience();
-		board = new Board(file, audioUnit);
+		board = new Board(file);
 
 		timer.stop();
 		timer = new Timer(1000, this);
@@ -290,6 +296,75 @@ public class App extends JPanel implements ActionListener {
 		paused = isPaused;
 	}
 
+	public void moveAction(String direction) {
+		// Handle movement based on 'direction'
+		// Implement your move logic here
+		if (!paused) {
+			System.out.println(direction);
+			Chap chap = board.getChap();
+			Renderer renderer = centrePanel;
+			Camera camera = renderer.getCamera();
+
+			if (camera.getState() == Camera.State.IDLE) {
+				switch (direction) {
+					case "UP" -> {
+						try {
+							Tile tile = chap.move(Chap.Direction.UP);
+							camera.setState(Camera.State.UP);
+							renderer.playSound(tile);
+							if (RecorderPanel.recording) {
+								RecorderPanel.moves.add(new Move("UP", RecorderPanel.time));
+							}
+						} catch (IllegalMove ex) {
+							System.out.println(ex.getMessage());
+						}
+					}
+					case "DOWN" -> {
+						try {
+							Tile tile = chap.move(Chap.Direction.DOWN);
+							camera.setState(Camera.State.DOWN);
+							renderer.playSound(tile);
+							if (RecorderPanel.recording) {
+								RecorderPanel.moves.add(new Move("DOWN", RecorderPanel.time));
+							}
+						} catch (IllegalMove ex) {
+							System.out.println(ex.getMessage());
+						}
+					}
+					case "LEFT" -> {
+						try {
+							Tile tile = chap.move(Chap.Direction.LEFT);
+							camera.setState(Camera.State.LEFT);
+							renderer.playSound(tile);
+							if (RecorderPanel.recording) {
+								RecorderPanel.moves.add(new Move("LEFT", RecorderPanel.time));
+							}
+						} catch (IllegalMove ex) {
+							System.out.println(ex.getMessage());
+						}
+					}
+					case "RIGHT" -> {
+						try {
+							Tile tile = chap.move(Chap.Direction.RIGHT);
+							camera.setState(Camera.State.RIGHT);
+							renderer.playSound(tile);
+							if (RecorderPanel.recording) {
+								RecorderPanel.moves.add(new Move("RIGHT", RecorderPanel.time));
+							}
+						} catch (IllegalMove ex) {
+							System.out.println(ex.getMessage());
+						}
+					}
+					default -> {
+					}
+				}
+			}
+
+			repaint();
+
+		}
+	}
+
 	/**
 	 * Handles action events triggered by the timer.
 	 *
@@ -297,10 +372,44 @@ public class App extends JPanel implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (board.getChap().getState() == Chap.State.COMPLETED) {
-			int level = board.getChap().getBoard().getLevel();
-			level++;
-			setup(new File("LarryCroftsAdventures/levels/level" + level + ".json"));
+		if(board != null) {
+			if (board.getChap().getState() == Chap.State.COMPLETED) {
+
+				int level = board.getChap().getBoard().getLevel();
+				if(level == 2){
+					int choice = JOptionPane.showOptionDialog(
+							null,
+							"Congratulations! You Win!\nDo you want to:",
+							"Game Over",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.INFORMATION_MESSAGE,
+							null,
+							new String[] {"Go back to Level 1", "Quit"},
+							"default");
+
+					if (choice == JOptionPane.YES_OPTION) {
+						// Go back to Level 1
+						setup(new File("LarryCroftsAdventures/levels/level1.json"));
+					} else if (choice == JOptionPane.NO_OPTION) {
+						// Quit the game
+						System.exit(0);
+					}				} else {
+					level++;
+					setup(new File("LarryCroftsAdventures/levels/level" + level + ".json"));
+				}
+			}
+
+
+		}
+
+		if(time < 16){
+			if(time % 2 != 0) {
+				timeLabel.setBackground(Color.red);
+				timeLabel.setForeground(Color.white);
+			} else {
+				timeLabel.setBackground(Color.black);
+				timeLabel.setForeground(Color.green);
+			}
 		}
 
 		if (time > 0 && !paused) {

@@ -48,6 +48,7 @@ public class Chap {
 	 * @param direction the direction to move the character
 	 * @throws IllegalMove if the tile to the given direction is not traversable or
 	 *                     the edge of the board is encountered
+	 * @return the tile that the player moved to (before it was reset to a free tile)
 	 */
 	public Tile move(Direction direction) throws IllegalMove {
 		if (!state.equals(State.ONGOING)) {
@@ -80,7 +81,7 @@ public class Chap {
 			tile = infoField;
 		}
 		assert board.getTile(x, y) instanceof Free;
-		return tile;
+		return next;
 	}
 
 	/**
