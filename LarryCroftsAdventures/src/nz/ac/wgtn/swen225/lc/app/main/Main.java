@@ -48,12 +48,8 @@ public class Main extends JFrame {
 
         }
 
-
-
-<<<<<<< HEAD
          applicationWindow = new App();
         Persistency persistency = new Persistency(applicationWindow);
-=======
         menuPanel = new MenuPanel();
         applicationWindow = new App();
 
@@ -113,7 +109,6 @@ public class Main extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
->>>>>>> 13a61c953d1c0954777f4a22578518bddb3c99f9
         recorderPanel = new RecorderPanel(applicationWindow);
         new KeyboardInputHandler(applicationWindow); // Initialize keyboard input handling.
         setJMenuBar(createMenuBar());  // Create and set the menu bar for the game
@@ -130,10 +125,6 @@ public class Main extends JFrame {
                 } // Exit the application if the user confirms.
             }
         });
-
-
-
-
     }
 
     /**
