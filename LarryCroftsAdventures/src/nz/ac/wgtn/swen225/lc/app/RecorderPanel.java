@@ -1,7 +1,6 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Chap;
-import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
@@ -21,12 +20,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * RecorderPanel is a JPanel that provides recording and playback controls for the Larry Croft's Adventures game.
  * It allows the player to record and replay their actions in the game.
- *  @author Matthew Kerr (300613741)
+ *
+ * @author Matthew Kerr (300613741)
  */
 public class RecorderPanel extends JPanel {
 
@@ -62,12 +61,11 @@ public class RecorderPanel extends JPanel {
     int speed = 1;
 
 
-
     /**
      * Constructs a RecorderPanel and initializes its components.
      */
     public RecorderPanel(App app) {
-        this.app = app;
+        RecorderPanel.app = app;
 
         initializeComponents();
         addComponentsToPanel();
@@ -110,7 +108,7 @@ public class RecorderPanel extends JPanel {
                 fc.setDialogTitle("Choose a saved game");
                 int retVal = fc.showOpenDialog(null);
 
-                if (retVal == JFileChooser.APPROVE_OPTION){
+                if (retVal == JFileChooser.APPROVE_OPTION) {
                     file = fc.getSelectedFile();
                 }
                 //getting the moves out of the loaded file
@@ -153,7 +151,7 @@ public class RecorderPanel extends JPanel {
     /**
      * adds JSlider to panel
      */
-    private void addSlider(){
+    private void addSlider() {
         replaySpeedSlider = new JSlider(JSlider.HORIZONTAL, 1, 3, 1) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -194,7 +192,6 @@ public class RecorderPanel extends JPanel {
 
             }
         });
-
 
 
     }
@@ -272,7 +269,7 @@ public class RecorderPanel extends JPanel {
                 boardTreasureCount, chapInitLevel, timeLeft, board, chap);
         try {
             p.saveGame("recorded-game-");
-        }catch(IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -287,16 +284,16 @@ public class RecorderPanel extends JPanel {
     /**
      * save the lastest info of the board and chap
      */
-    public void saveEndingInfo(){
+    public void saveEndingInfo() {
         moves = new ArrayList<>();
-        Chap chap = app.getBoard().getChap();
+        Chap chap = App.getBoard().getChap();
         chapX = chap.getX();
         chapY = chap.getY();
         chapTreasures = chap.getPlayerTreasureCount();
-        boardTreasureCount = app.getBoard().getBoardTreasureCount();
-        chapInitLevel = app.getBoard().getLevel();
-        timeLeft = app.getBoard().getTime();
-        board = app.getBoard().getTiles().clone();
+        boardTreasureCount = App.getBoard().getBoardTreasureCount();
+        chapInitLevel = App.getBoard().getLevel();
+        timeLeft = App.getBoard().getTime();
+        board = App.getBoard().getTiles().clone();
     }
 
 
@@ -315,7 +312,7 @@ public class RecorderPanel extends JPanel {
 
     private static class RoundedBorder implements Border {
 
-        private int radius;
+        private final int radius;
 
 
         RoundedBorder(int radius) {
@@ -324,7 +321,7 @@ public class RecorderPanel extends JPanel {
 
 
         public Insets getBorderInsets(Component c) {
-            return new Insets(this.radius+1, this.radius+1, this.radius+2, this.radius);
+            return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
         }
 
 
@@ -334,10 +331,11 @@ public class RecorderPanel extends JPanel {
 
 
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-            g.drawRoundRect(x, y, width-1, height-1, radius, radius);
+            g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
         }
 
     }
+
     public int getFileCount() {
         return count;
     }

@@ -5,32 +5,30 @@ import nz.ac.wgtn.swen225.lc.app.input.KeyboardInputHandler;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
+import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import nz.ac.wgtn.swen225.lc.recorder.Recorder;
-import nz.ac.wgtn.swen225.lc.renderer.Renderer;
-
 /**
  * The main class for Larry Croft's Adventures game.
  * This class sets up the game's graphical user interface and main functionality.
- *  @author Matthew Kerr (300613741)
+ *
+ * @author Matthew Kerr (300613741)
  */
 public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
-    private Recorder recorder;
+    private final Recorder recorder;
     private static Persistency persistency;
     private static RecorderPanel recorderPanel;
     static App applicationWindow;
 
-    private MenuPanel menuPanel;
+    private final MenuPanel menuPanel;
 
 
     /**
@@ -41,10 +39,10 @@ public class Main extends JFrame {
         System.out.println("Hello world");
 
         String path = "LarryCroftsAdventures/assets/";
-        try{
-        ImageIcon img = new ImageIcon(ImageIO.read(new File(path + "icon.png")));
-        setIconImage(img.getImage());
-        } catch (Exception e){
+        try {
+            ImageIcon img = new ImageIcon(ImageIO.read(new File(path + "icon.png")));
+            setIconImage(img.getImage());
+        } catch (Exception e) {
 
         }
 
@@ -98,7 +96,6 @@ public class Main extends JFrame {
                 menuPanel.getLevelSelectButton().setText("Start game");
             }
         });
-
 
 
         setTitle("Reel it in");
@@ -157,7 +154,7 @@ public class Main extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Display the help dialog when the "Level1" menu item is clicked
-                 applicationWindow.setup(new File("LarryCroftsAdventures/levels/level1.json"));
+                applicationWindow.setup(new File("LarryCroftsAdventures/levels/level1.json"));
             }
         });
 
@@ -188,7 +185,6 @@ public class Main extends JFrame {
         });
 
 
-
         Action exitAction = new AbstractAction("Exit") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -211,15 +207,15 @@ public class Main extends JFrame {
                 int playerX = App.getBoard().getChap().getX();
                 int playerY = App.getBoard().getChap().getY();
                 int playerTreasureCount = App.getBoard().getChap().getPlayerTreasureCount();
-                int boardTreasureCount = App.getBoard().getBoardTreasureCount()- playerTreasureCount;
+                int boardTreasureCount = App.getBoard().getBoardTreasureCount() - playerTreasureCount;
                 int level = App.getBoard().getLevel();
                 int timeLeft = App.getBoard().getTime();
-                Tile[][] board =  App.getBoard().getTiles();
+                Tile[][] board = App.getBoard().getTiles();
                 Chap chap = App.getBoard().getChap();
                 // Set the parameters for saving
                 persistency.setSaveParameters(newFileNum, actions,
                         playerX, playerY, playerTreasureCount,
-                        boardTreasureCount, level, timeLeft, board,chap);
+                        boardTreasureCount, level, timeLeft, board, chap);
 
                 // Save the game
                 persistency.saveGame("saved-game-");

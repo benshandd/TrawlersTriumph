@@ -4,31 +4,31 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 
 /**
  * Represents a tile that has a collectible treasure.
- * 
+ *
  * @author Anthony Kendrew (300607402)
  */
 public class Treasure extends Free {
-	/**
-	 * Create a new treasure tile.
-	 */
-	public Treasure(int x, int y) {
-		super(x, y);
-	}
+    /**
+     * Create a new treasure tile.
+     */
+    public Treasure(int x, int y) {
+        super(x, y);
+    }
 
-	/**
-	 * Add a treasure to the treasure counter.
-	 */
-	@Override
-	public boolean performTileAction(Chap chap) {
-		int treasure = chap.getPlayerTreasureCount();
-		chap.addTreasure();
-		assert treasure + 1 == chap.getPlayerTreasureCount();
-		return true;
-	}
+    /**
+     * Add a treasure to the treasure counter.
+     */
+    @Override
+    public boolean performTileAction(Chap chap) {
+        int treasure = chap.getPlayerTreasureCount();
+        chap.addTreasure();
+        assert treasure + 1 == chap.getPlayerTreasureCount();
+        return true;
+    }
 
-	@Override
-	public Tile clone() throws CloneNotSupportedException {
-		Treasure tile = (Treasure) super.clone();
-		return tile;
-	}
+    @Override
+    public Tile clone() throws CloneNotSupportedException {
+        Treasure tile = (Treasure) super.clone();
+        return tile;
+    }
 }

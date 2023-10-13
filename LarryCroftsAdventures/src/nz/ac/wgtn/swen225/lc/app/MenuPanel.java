@@ -1,24 +1,25 @@
 package nz.ac.wgtn.swen225.lc.app;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * The menu screen for the game
  * Contains start, level select and help
- *  @author Matthew Kerr (300613741)
+ *
+ * @author Matthew Kerr (300613741)
  */
 public class MenuPanel extends JPanel {
-    private JButton startButton;
-    private JButton levelSelectButton;
-    private JButton helpButton;
+    private final JButton startButton;
+    private final JButton levelSelectButton;
+    private final JButton helpButton;
     private BufferedImage backgroundImage;
 
-    private String selectedLevel = "1";
+    private final String selectedLevel = "1";
 
     public boolean levelSelected = false;
 
@@ -110,8 +111,7 @@ public class MenuPanel extends JPanel {
             parentComponent = parentComponent.getParent();
         }
 
-        if (parentComponent instanceof JFrame) {
-            JFrame parentFrame = (JFrame) parentComponent;
+        if (parentComponent instanceof JFrame parentFrame) {
             HelpDialog helpDialog = new HelpDialog(parentFrame);
             helpDialog.setVisible(true);
         } else {
@@ -121,6 +121,7 @@ public class MenuPanel extends JPanel {
 
     /**
      * The paint component for drawing the background image on the menu
+     *
      * @param g the <code>Graphics</code> object to protect
      */
     @Override
@@ -133,6 +134,7 @@ public class MenuPanel extends JPanel {
 
     /**
      * Returns the start button
+     *
      * @return
      */
     public JButton getStartButton() {
@@ -141,6 +143,7 @@ public class MenuPanel extends JPanel {
 
     /**
      * Returns the level select button
+     *
      * @return
      */
     public JButton getLevelSelectButton() {
@@ -150,20 +153,21 @@ public class MenuPanel extends JPanel {
 
     /**
      * returns the selected level number
+     *
      * @return
      */
-    public int getSelectedLevel(){
-        if(selectedLevel.contains("1")) {
+    public int getSelectedLevel() {
+        if (selectedLevel.contains("1")) {
             return 1;
-     }
-        else {
-         return 2;
+        } else {
+            return 2;
         }
     }
 
 
     /**
      * returns the help button
+     *
      * @return
      */
     public JButton getHelpButton() {

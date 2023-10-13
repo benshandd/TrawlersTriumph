@@ -7,7 +7,7 @@ import java.util.ServiceLoader;
  */
 public class PluginLoader<T> {
     private static final String PLUGIN_PACKAGE = "nz.ac.wgtn.swen225.lc.plugins";
-    private ServiceLoader<T> serviceLoader;
+    private final ServiceLoader<T> serviceLoader;
 
     public PluginLoader(Class<T> type) {
         this.serviceLoader = ServiceLoader.load(type);
