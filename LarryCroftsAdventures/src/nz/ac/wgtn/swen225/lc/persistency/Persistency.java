@@ -4,6 +4,7 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 
+import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.Move;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
@@ -13,8 +14,10 @@ import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
 import javax.swing.*;
 import java.io.*;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -24,9 +27,10 @@ import java.util.Stack;
 public class Persistency {
     /////////////////////
     private Chap chap;
+    public ArrayList<AutoActor> actors;
+
     private File newFile;
     public int originalBoardTreasureCount;
-
 
     public static File level1 = new File("LarryCroftsAdventures/levels/level1.json");
     public static File level2 = new File("LarryCroftsAdventures/levels/level2.json");
@@ -54,10 +58,18 @@ public class Persistency {
     public int levelToSave;
     public int timeLeftToSave;
     Tile[][] boardToSave;
+    private App app;
 
     /////////////////////
 
+    public Persistency(App app) {
+        this.app = app;
+        actionsToSave = new ArrayList<>();
+        actors = new ArrayList<>();
+    }
+
     public Persistency() {
+        actors = new ArrayList<>();
         actionsToSave = new ArrayList<>();
     }
 
@@ -70,6 +82,7 @@ public class Persistency {
      */
     public Tile[][] loadGame(File fileName) throws FileNotFoundException {
         Tile[][] maze = null;
+        actors = new ArrayList<>();
         try (JsonReader reader = new JsonReader(new FileReader(fileName))) {
             // Read the JSON file and parse it into a JsonObject
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
@@ -77,6 +90,17 @@ public class Persistency {
             // Get board information
             JsonArray boardArray = jsonObject.getAsJsonArray("board");
             JsonArray inventoryArray = jsonObject.getAsJsonArray("inventory");
+
+            for (int i = 0; i < inventoryArray.size(); i++) {
+                JsonArray rowArray = inventoryArray.get(i).getAsJsonArray();
+                for (int j = 0; j < rowArray.size(); j++) {
+                    String itemName = rowArray.get(j).getAsString();
+                    if (!itemName.equals("none")) {
+                        invent[i][j] = new Key(Key.Colour.YELLOW);
+                    }
+                }
+            }
+            //chap.setInventory(invent);
 
             int numRows = boardArray.size();
             int numCols = boardArray.get(0).getAsJsonArray().size();
@@ -97,13 +121,16 @@ public class Persistency {
             level = jsonObject.get("level").getAsInt();
             message = null;
 
-            for (int i = 0; i < inventoryArray.size(); i++) {
-                JsonArray rowArray = inventoryArray.get(i).getAsJsonArray();
-                for (int j = 0; j < rowArray.size(); j++) {
-                    String itemName = rowArray.get(j).getAsString();
-                    if (!itemName.equals("none")) {
-                        invent[i][j] = getItemByName(itemName);
-                    }
+            if (jsonObject.has("enemies")) {
+                JsonArray enemiesArray = jsonObject.getAsJsonArray("enemies");
+                System.out.println(enemiesArray);
+                for (JsonElement enemyElement : enemiesArray) {
+                    JsonObject enemyObject = enemyElement.getAsJsonObject();
+
+                    int enemyX = enemyObject.get("x").getAsInt();
+                    int enemyY = enemyObject.get("y").getAsInt();
+                    AutoActor enemy = new AutoActor(enemyX, enemyY, AutoActor.Direction.UP, Instant.now(), chap);
+                    actors.add(enemy);
                 }
             }
 
@@ -141,21 +168,7 @@ public class Persistency {
                     switch (item) {
                         case "Treasure" -> maze[j][i] = new Treasure(j, i);
                     }
-                    /*
-                     * if (jsonObject.has("enemies")) {
-                     * JsonArray enemiesArray = jsonObject.getAsJsonArray("enemies");
-                     *
-                     * for (JsonElement enemyElement : enemiesArray) {
-                     * JsonObject enemyObject = enemyElement.getAsJsonObject();
-                     *
-                     * int enemyX = enemyObject.get("x").getAsInt();
-                     * int enemyY = enemyObject.get("y").getAsInt();
-                     * maze[enemyX][enemyY] = new EnemyTile(enemyX, enemyY, Enemy.Direction.UP,Instant.now(), chap);
-                     * }
-                     * }
-                     */
                 }
-
             }
             originalBoardTreasureCount = jsonObject.get("boardTreasureCount").getAsInt();
         } catch (IOException e) {
@@ -168,7 +181,7 @@ public class Persistency {
      * Setter method to set the instance variables for saving parameters.
      */
     public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasureCount,
-                                  int boardTreasureCount, int level, int timeLeft, Tile[][] board, Chap chap) {
+            int boardTreasureCount, int level, int timeLeft, Tile[][] board, Chap chap) {
         this.newFileNumToSave = newFileNum;
         this.actionsToSave = actions;
         this.playerXToSave = x;
@@ -179,6 +192,7 @@ public class Persistency {
         this.timeLeftToSave = timeLeft;
         this.boardToSave = board;
         this.chap = chap;
+        this.app = app;
     }
 
     /**
@@ -210,7 +224,6 @@ public class Persistency {
         gameData.addProperty("playerTreasureCount", playerTreasureCountToSave);
         gameData.addProperty("boardTreasureCount", boardTreasureCountToSave);
 
-
         JsonArray inventoryArray = new JsonArray();
         // Iterate through the inventory and add each item to the JSON array
 
@@ -221,15 +234,14 @@ public class Persistency {
                     rowArray.add("none");
                 } else if (item instanceof Key key) {
                     String colorName = ((Key) item).colour().name();
-                    rowArray.add("Key_" + colorName.substring(0, 1).toUpperCase() + colorName.substring(1).toLowerCase());
+                    rowArray.add(
+                            "Key_" + colorName.substring(0, 1).toUpperCase() + colorName.substring(1).toLowerCase());
                 }
             }
             inventoryArray.add(rowArray);
         }
         // Add the inventory array to the gameData object
         gameData.add("inventory", inventoryArray);
-
-
 
         JsonArray actionsArray = new JsonArray();
         if (this.actionsToSave != null) {
@@ -348,12 +360,17 @@ public class Persistency {
             try {
                 // Load the selected saved game file
                 Tile[][] loadedGame = loadGame(selectedFile);
-                JOptionPane.showMessageDialog(null, "Game resumed successfully!", "Resume Game", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Game resumed successfully!", "Resume Game",
+                        JOptionPane.INFORMATION_MESSAGE);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Error loading the saved game file.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error loading the saved game file.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+    public List<AutoActor> getActors() {
+        return actors;
     }
 
 }

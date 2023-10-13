@@ -1,6 +1,10 @@
 {
   "player": { "x": 7, "y": 6 },
   "timeLeft": "60",
+  "autoActors": [
+    {"x": 8, "y": 8},
+    {"x": 9, "y": 9}
+  ],
   "level": 1,
   "playerTreasureCount":0,
   "boardTreasureCount":10,
@@ -8,7 +12,7 @@
     ["", "", "", ""],
     ["", "", "", ""]
   ],
-  "enemies":0,
+  "autoActors":0,
   "actions": [
     "LEFT",
     "LEFT",

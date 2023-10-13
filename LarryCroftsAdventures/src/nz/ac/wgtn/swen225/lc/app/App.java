@@ -4,6 +4,7 @@ import nz.ac.wgtn.swen225.lc.domain.Board;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
+import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
 
@@ -37,6 +38,9 @@ public class App extends JPanel implements ActionListener {
 	private int treasureLeft;
 
 	private JLabel backgroundImageLabel; // Label for the background image
+	private static Persistency persistency;
+
+
 
 	private JPanel grid;
 
@@ -89,8 +93,7 @@ public class App extends JPanel implements ActionListener {
 				pausedPanel.setBounds(0, 0, getWidth(), getHeight());
 			}
 		});
-		setup(new File("LarryCroftsAdventures/levels/level1.json"));
-
+		setup(persistency.level1);
 	}
 
 	/**
@@ -217,18 +220,18 @@ public class App extends JPanel implements ActionListener {
 
 					// Determine the image path based on the keyColour
 					switch (keyColour) {
-					case RED:
-						keyImagePath = path + "Key_Red.png";
-						break;
-					case BLUE:
-						keyImagePath = path + "Key_Blue.png";
-						break;
-					case GREEN:
-						keyImagePath = path + "Key_Green.png";
-						break;
-					case YELLOW:
-						keyImagePath = path + "Key_Yellow.png";
-						break;
+						case RED:
+							keyImagePath = path + "Key_Red.png";
+							break;
+						case BLUE:
+							keyImagePath = path + "Key_Blue.png";
+							break;
+						case GREEN:
+							keyImagePath = path + "Key_Green.png";
+							break;
+						case YELLOW:
+							keyImagePath = path + "Key_Yellow.png";
+							break;
 					}
 
 					// Check if inventorySlots[i][j] is not null

@@ -29,7 +29,7 @@ public class Main extends JFrame {
     static JFrame f;
     static JLabel l;
     private Recorder recorder;
-    private static Persistency persistency = new Persistency();
+    private static Persistency persistency;
     private static RecorderPanel recorderPanel;
     static App applicationWindow;
     /**
@@ -52,6 +52,7 @@ public class Main extends JFrame {
 
 
          applicationWindow = new App();
+        Persistency persistency = new Persistency(applicationWindow);
         recorderPanel = new RecorderPanel(applicationWindow);
         new KeyboardInputHandler(applicationWindow); // Initialize keyboard input handling.
         f.setJMenuBar(createMenuBar());  // Create and set the menu bar for the game
@@ -169,7 +170,6 @@ public class Main extends JFrame {
                 int timeLeft = App.getBoard().getTime();
                 Tile[][] board =  App.getBoard().getTiles();
                 Chap chap = App.getBoard().getChap();
-
                 // Set the parameters for saving
                 persistency.setSaveParameters(newFileNum, actions, playerX, playerY, playerTreasureCount, boardTreasureCount, level, timeLeft, board,chap);
 

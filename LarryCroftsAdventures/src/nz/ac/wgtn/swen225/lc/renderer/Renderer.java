@@ -147,14 +147,23 @@ public class Renderer extends JPanel {
 	private void drawBoat(Graphics g) {
 		int boatX = (this.getWidth() / 2) - cellSize / 2;
 		int boatY = (this.getHeight() / 2) - cellSize / 2;
-		g.drawImage(animations.get(Images.BOAT).get(count / 16 % animations.get(Images.BOAT).size()), boatX, boatY,
-				cellSize, cellSize, null);
+		g.drawImage(animations.get(Images.BOAT).get(count / 16 % animations.get(Images.BOAT).size()), boatX, boatY, cellSize, cellSize, null);
 	}
 	private void drawAutoActors(Graphics g) {
 		for (AutoActor autoActor : board.getAutoActors()) {
-			 g.drawImage(images.get(Images.ENEMY), (int) worldXToPanelX(autoActor.getX()), (int) worldYToPanelY(autoActor.getY()), cellSize, cellSize, null);
+			int x = autoActor.getX();
+			int y = autoActor.getY();
+			System.out.println("x="+x);
+			System.out.println(y);
+			BufferedImage autoActorImage = animations.get(Images.ENEMY).get(count / 16 % animations.get(Images.ENEMY).size());
+			g.drawImage(autoActorImage, (int) worldXToPanelX(x), (int) worldYToPanelY(y), cellSize, cellSize, null);
 		}
 	}
+
+
+
+
+
 
 	/**
 	 * Draws Seagulls at random intervals at random y coordinates

@@ -4,6 +4,7 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Free;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ServiceLoader;
@@ -11,7 +12,7 @@ import java.util.ServiceLoader;
 /**
  * Represents an enemy in the game.
  */
-public class AutoActor {
+public class AutoActor implements Serializable {
 	private int x;
 	private int y;
 	private Direction direction;
@@ -95,32 +96,11 @@ public class AutoActor {
 		return directions[randomIndex];
 	}
 
-	public double getX() {
+	public int getX() {
 		return x;
 	}
 
-	public double getY() {
+	public int getY() {
 		return y;
-	}
-
-	/**
-	 * Loads custom actors using a plugin-based design.
-	 */
-	public static class PluginLoader {
-		private static final String PLUGIN_PACKAGE = "nz.ac.wgtn.swen225.lc.plugins";
-		private ServiceLoader<AutoActor> autoActorLoader;
-
-		public PluginLoader() {
-			autoActorLoader = ServiceLoader.load(AutoActor.class);
-		}
-
-		/**
-		 * Get a list of loaded custom actors.
-		 *
-		 * @return Iterable of custom actors.
-		 */
-		public Iterable<AutoActor> getCustomActors() {
-			return autoActorLoader;
-		}
 	}
 }

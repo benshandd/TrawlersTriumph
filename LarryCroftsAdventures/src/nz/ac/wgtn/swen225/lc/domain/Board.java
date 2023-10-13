@@ -24,6 +24,7 @@ public class Board {
 	private final int level;
 	private final int boardTreasureCount;
 	private final AudioUnit audioUnit;
+	private static Persistency persistency;
 
 	/**
 	 * Create a new Board. Generates a 2D array of tiles using
@@ -31,10 +32,11 @@ public class Board {
 	 */
 	public Board(File file, AudioUnit audioUnit) {
 		this.autoActors = new ArrayList<>();
-		Persistency persistency = new Persistency();
 		this.audioUnit = audioUnit;
 		try {
+			persistency = new Persistency();
 			board = persistency.loadGame(file);
+			autoActors = persistency.getActors();
 		} catch (FileNotFoundException e) {
 			System.err.println("File not found: " + e.getMessage());
 		} catch (Exception e) {
@@ -48,10 +50,7 @@ public class Board {
 		Free playerTile = new Free(startX, startY);
 		board[startX][startY] = playerTile;
 		chap = new Chap(this, playerTile, persistency.playerTreasureCount);
-		AutoActor autoActor1 = new AutoActor(1, 2, AutoActor.Direction.LEFT, Instant.now(), chap);
-		AutoActor autoActor2 = new AutoActor(3, 4, AutoActor.Direction.LEFT, Instant.now(), chap);
-		autoActors.add(autoActor1);
-		autoActors.add(autoActor2);
+
 	}
 
 	/**
@@ -70,9 +69,7 @@ public class Board {
 	public List<AutoActor> getAutoActors() {
 		return autoActors;
 	}
-	public void addAutoActor(AutoActor autoActor) {
-		autoActors.add(autoActor);
-	}
+
 	/**
 	 * Get a tile at the specified coordinates.
 	 * 
@@ -92,7 +89,6 @@ public class Board {
 	public Tile[][] getTiles() {
 		return board;
 	}
-
 	/**
 	 * Get the player.
 	 * 
