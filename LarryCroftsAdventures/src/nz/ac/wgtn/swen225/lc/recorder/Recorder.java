@@ -101,7 +101,7 @@ public class Recorder {
                     }
 
                 }
-            }, 0, ((speed * 400) / 2));
+            }, 0, 600/speed) ;
 
         }
     }
