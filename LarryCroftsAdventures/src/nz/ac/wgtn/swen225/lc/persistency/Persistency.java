@@ -36,7 +36,7 @@ public class Persistency {
     public int playerX;
     public int playerY;
     public int playerTreasureCount;
-    Item[][] invent = new Item[2][4];
+    public Item[][] invent = new Item[2][4];
     public int boardTreasureCount;
 
     public int timeLeft;
@@ -92,9 +92,14 @@ public class Persistency {
                 JsonArray rowArray = inventoryArray.get(i).getAsJsonArray();
                 for (int j = 0; j < rowArray.size(); j++) {
                     String itemName = rowArray.get(j).getAsString();
-                    if (!itemName.equals("none")) {
-                        invent[i][j] = new Key(Key.Colour.YELLOW);
-                    }
+                    invent[i][j] = switch (itemName){
+                        case "Key_Blue" -> new Key(Key.Colour.BLUE);
+                        case "Key_Yellow" -> new Key(Key.Colour.YELLOW);
+                        case "Key_Red" -> new Key(Key.Colour.RED);
+                        case "Key_Green" -> new Key(Key.Colour.GREEN);
+                        default -> null;
+                    };
+
                 }
             }
             //chap.setInventory(invent);
@@ -178,7 +183,7 @@ public class Persistency {
      * Setter method to set the instance variables for saving parameters.
      */
     public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasureCount,
-                                  int boardTreasureCount, int level, int timeLeft, Tile[][] board, Chap chap) {
+                                  int boardTreasureCount, int level, int timeLeft, Tile[][] board, Item[][] invent) {
         this.newFileNumToSave = newFileNum;
         this.actionsToSave = actions;
         this.playerXToSave = x;
@@ -188,7 +193,7 @@ public class Persistency {
         this.boardTreasureCountToSave = boardTreasureCount;
         this.timeLeftToSave = timeLeft;
         this.boardToSave = board;
-        this.chap = chap;
+        this.invent = invent;
         this.app = app;
     }
 
@@ -224,7 +229,7 @@ public class Persistency {
         JsonArray inventoryArray = new JsonArray();
         // Iterate through the inventory and add each item to the JSON array
 
-        for (Item[] row : chap.getInventory()) {
+        for (Item[] row : invent) {
             JsonArray rowArray = new JsonArray();
             for (Item item : row) {
                 if (item == null) {

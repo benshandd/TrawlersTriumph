@@ -215,7 +215,7 @@ public class Main extends JFrame {
                 // Set the parameters for saving
                 persistency.setSaveParameters(newFileNum, actions,
                         playerX, playerY, playerTreasureCount,
-                        boardTreasureCount, level, timeLeft, board, chap);
+                        boardTreasureCount, level, timeLeft, board, chap.getInventory());
 
                 // Save the game
                 persistency.saveGame("saved-game-");
