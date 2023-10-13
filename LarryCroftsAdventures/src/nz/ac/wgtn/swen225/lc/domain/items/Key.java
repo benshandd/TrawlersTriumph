@@ -21,6 +21,7 @@ public record Key(Key.Colour colour) implements Item {
 
     /**
      * Deep clone a key.
+     *
      * @return the cloned key
      */
     public Item clone() throws CloneNotSupportedException {
