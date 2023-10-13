@@ -1,6 +1,7 @@
 package nz.ac.wgtn.swen225.lc.app;
 
 import nz.ac.wgtn.swen225.lc.domain.Chap;
+import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
@@ -29,10 +30,10 @@ import java.util.Timer;
  */
 public class RecorderPanel extends JPanel {
 
-    private JButton recordButton;   //The button to start recording and stop recording
-    private JButton loadButton; //the button to load a recorded game
-    private JButton stepButton; //the button to step through each recorded move
-    private JButton autoReplayButton;   //auto replay button
+    private JButton recordButton;
+    private JButton loadButton;
+    private JButton stepButton;
+    private JButton autoReplayButton;
     private JSlider replaySpeedSlider;
 
     /**
@@ -46,10 +47,10 @@ public class RecorderPanel extends JPanel {
     public static boolean recording = false;
     private boolean recordingIndicatorVisible = false; // Flag to control the visibility of the recording indicator
     private Timer recordingIndicatorTimer; // Timer for the recording indicator
-    public static int time; //the time saved at the recording
-    public static int count = 0;    //counts the save number
+    public static int time;
+    public static int count = 0;
     File file = null;
-    public static App app;  //the instance of application
+    public static App app;
     int chapX;
     int chapY;
     int chapTreasures;
@@ -57,6 +58,7 @@ public class RecorderPanel extends JPanel {
     int boardTreasureCount;
     int timeLeft;
     Tile[][] board;
+    Item[][] inventory;
     //speed of auto replay
     int speed = 1;
 
@@ -188,7 +190,7 @@ public class RecorderPanel extends JPanel {
             public void stateChanged(ChangeEvent e) {
                 speed = replaySpeedSlider.getValue();
                 // Use the 'speed' value to adjust the game's replay speed
-
+                // Implement your replay speed adjustment logic here
 
             }
         });
@@ -227,9 +229,7 @@ public class RecorderPanel extends JPanel {
         return button;
     }
 
-    /**
-     *     Helper method to start recording and show recording indicator
-      */
+    // Helper method to start recording and show recording indicator
     public void startRecording() {
         recordButton.setText("Stop Recording");
         count++;
@@ -240,6 +240,20 @@ public class RecorderPanel extends JPanel {
         boardTreasureCount = App.getBoard().getBoardTreasureCount();
         chapInitLevel = App.getBoard().getLevel();
         timeLeft = App.getBoard().getTime();
+
+        inventory = Arrays.stream(chap.getInventory())
+                .map(row -> Arrays.stream(row)
+                        .map(item -> {
+                            try {
+                                return item.clone();
+                            } catch (CloneNotSupportedException e) {
+                                throw new RuntimeException(e);
+                            } catch (NullPointerException n){
+                                return null;
+                            }
+                        })
+                        .toArray(Item[]::new))
+                .toArray(Item[][]::new);
         // deep cloning the board
         board = Arrays.stream(App.getBoard().getTiles())
                 .map(row -> Arrays.stream(row)
@@ -258,9 +272,7 @@ public class RecorderPanel extends JPanel {
 
     }
 
-    /**
-     *     Helper method to stop recording and hide recording indicator
-     */
+    // Helper method to stop recording and hide recording indicator
     public void stopRecording() {
 
         recordButton.setText("Record");
@@ -270,7 +282,7 @@ public class RecorderPanel extends JPanel {
 
         Persistency p = new Persistency();
         p.setSaveParameters(count, moves, chapX, chapY, chapTreasures,
-                boardTreasureCount, chapInitLevel, timeLeft, board, chap);
+                boardTreasureCount, chapInitLevel, timeLeft, board, inventory);
         try {
             p.saveGame("recorded-game-");
         } catch (IOException e) {
@@ -298,6 +310,7 @@ public class RecorderPanel extends JPanel {
         chapInitLevel = App.getBoard().getLevel();
         timeLeft = App.getBoard().getTime();
         board = App.getBoard().getTiles().clone();
+        inventory = chap.getInventory().clone();
     }
 
 
@@ -314,9 +327,6 @@ public class RecorderPanel extends JPanel {
         }
     }
 
-    /**
-     * The class for creating a rounded button
-     */
     private static class RoundedBorder implements Border {
 
         private final int radius;
@@ -327,52 +337,25 @@ public class RecorderPanel extends JPanel {
         }
 
 
-        /**
-         * Creates the inset for the border rounding.
-         * @param c the component for which this border insets value applies
-         * @return the inset value of the border
-         */
         public Insets getBorderInsets(Component c) {
             return new Insets(this.radius + 1, this.radius + 1, this.radius + 2, this.radius);
         }
 
 
-        /**
-         * Returns the status of the border opaqueness
-         * @return whether the border is opaque or not
-         */
         public boolean isBorderOpaque() {
             return true;
         }
 
 
-        /**
-         * The painting of the border colour
-         * @param c the component for which this border is being painted
-         * @param g the paint graphics
-         * @param x the x position of the painted border
-         * @param y the y position of the painted border
-         * @param width the width of the painted border
-         * @param height the height of the painted border
-         */
         public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
             g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
         }
 
     }
 
-    /**
-     * Gets the number of files saved
-     * @return
-     */
     public int getFileCount() {
         return count;
     }
-
-    /**
-     * Gets the list of moves made
-     * @return
-     */
 
     public ArrayList<Move> getMovesList() {
         return moves;
