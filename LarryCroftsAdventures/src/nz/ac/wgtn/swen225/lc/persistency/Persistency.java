@@ -201,13 +201,13 @@ public class Persistency {
     /**
      * Saves the current game state to a JSON file.
      */
-    public void saveGame() throws IOException {
+    public void saveGame(String savename) throws IOException {
         File savesDirectory = new File("LarryCroftsAdventures" + File.separator + "Saves");
         savesDirectory.mkdir();
         newFileNum++;
 
         // Create a new save file
-        newFile = new File(savesDirectory, "saved-game_" + newFileNum + ".json");
+        newFile = new File(savesDirectory, savename + newFileNum + ".json");
 
         FileWriter fileWriter = new FileWriter(newFile);
         JsonWriter jsonWriter = new JsonWriter(fileWriter);

@@ -256,7 +256,6 @@ public class RecorderPanel extends JPanel {
 
         moves = new ArrayList<>();
 
-        //recordingIndicatorTimer = new Timer();
 
     }
 
@@ -264,22 +263,15 @@ public class RecorderPanel extends JPanel {
     public void stopRecording() {
 
         recordButton.setText("Record");
-        //recordingIndicatorTimer.cancel();
         recordingIndicatorVisible = false;
         repaint();
         Chap chap = App.getBoard().getChap();
-        //chapTreasures = chap.getPlayerTreasureCount();
-        //boardTreasureCount = App.getBoard().getBoardTreasureCount() - chapTreasures;
 
-        //Recorder recorder = new Recorder(moves, chapX, chapY, chapTreasures,
-                //boardTreasureCount, chapInitLevel, timeLeft, board, chap);
-
-        //recorder.saveRecorder(count);
         Persistency p = new Persistency();
         p.setSaveParameters(count, moves, chapX, chapY, chapTreasures,
                 boardTreasureCount, chapInitLevel, timeLeft, board, chap);
         try {
-            p.saveGame();
+            p.saveGame("recorded-game-");
         }catch(IOException e){
             throw new RuntimeException(e);
         }

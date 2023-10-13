@@ -48,11 +48,10 @@ public class Main extends JFrame {
 
         }
 
-         applicationWindow = new App();
-        Persistency persistency = new Persistency(applicationWindow);
+
         menuPanel = new MenuPanel();
         applicationWindow = new App();
-
+        persistency = new Persistency(applicationWindow);
 
         getContentPane().add(menuPanel);
         menuPanel.getStartButton().addActionListener(new ActionListener() {
@@ -218,10 +217,12 @@ public class Main extends JFrame {
                 Tile[][] board =  App.getBoard().getTiles();
                 Chap chap = App.getBoard().getChap();
                 // Set the parameters for saving
-                persistency.setSaveParameters(newFileNum, actions, playerX, playerY, playerTreasureCount, boardTreasureCount, level, timeLeft, board,chap);
+                persistency.setSaveParameters(newFileNum, actions,
+                        playerX, playerY, playerTreasureCount,
+                        boardTreasureCount, level, timeLeft, board,chap);
 
                 // Save the game
-                persistency.saveGame();
+                persistency.saveGame("saved-game-");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
