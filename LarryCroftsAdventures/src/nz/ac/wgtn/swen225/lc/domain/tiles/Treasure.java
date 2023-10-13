@@ -1,7 +1,6 @@
 package nz.ac.wgtn.swen225.lc.domain.tiles;
 
 import nz.ac.wgtn.swen225.lc.domain.Chap;
-import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
 /**
  * Represents a tile that has a collectible treasure.
@@ -21,7 +20,6 @@ public class Treasure extends Free {
 	 */
 	@Override
 	public boolean performTileAction(Chap chap) {
-		chap.getBoard().getAudioUnit().playFishSFX();
 		int treasure = chap.getPlayerTreasureCount();
 		chap.addTreasure();
 		assert treasure + 1 == chap.getPlayerTreasureCount();

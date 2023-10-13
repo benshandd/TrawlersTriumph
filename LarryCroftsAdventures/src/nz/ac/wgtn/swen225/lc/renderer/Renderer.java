@@ -111,6 +111,14 @@ public class Renderer extends JPanel {
 		count++;
 	}
 
+	public void playSound(Tile tile) {
+		switch (tile.getClass().getSimpleName()) {
+			case "Door" -> audioUnit.playSound(AudioUnit.AudioClip.DOOROPEN);
+			case "KeyTile" -> audioUnit.playSound(AudioUnit.AudioClip.KEYCOLLECT);
+			case "Treasure" -> audioUnit.playFishSFX();
+		}
+	}
+
 	/**
 	 * Draws all tiles that make up board
 	 * 

@@ -2,7 +2,6 @@ package nz.ac.wgtn.swen225.lc.domain.tiles;
 
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
-import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 
 /**
  * Represents a tile containing a door.
@@ -31,7 +30,6 @@ public class Door extends Wall {
 	@Override
 	public boolean performTileAction(Chap chap) {
 		if (canOpen(chap)) {
-			chap.getBoard().getAudioUnit().playSound(AudioUnit.AudioClip.DOOROPEN);
 			assert chap.removeItem(new Key(colour));
 			return true;
 		}
