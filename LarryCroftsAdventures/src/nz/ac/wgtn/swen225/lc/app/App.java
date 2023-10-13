@@ -368,10 +368,32 @@ public class App extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(board != null) {
 			if (board.getChap().getState() == Chap.State.COMPLETED) {
+
 				int level = board.getChap().getBoard().getLevel();
-				level++;
-				setup(new File("LarryCroftsAdventures/levels/level" + level + ".json"));
+				if(level == 2){
+					int choice = JOptionPane.showOptionDialog(
+							null,
+							"Congratulations! You Win!\nDo you want to:",
+							"Game Over",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.INFORMATION_MESSAGE,
+							null,
+							new String[] {"Go back to Level 1", "Quit"},
+							"default");
+
+					if (choice == JOptionPane.YES_OPTION) {
+						// Go back to Level 1
+						setup(new File("LarryCroftsAdventures/levels/level1.json"));
+					} else if (choice == JOptionPane.NO_OPTION) {
+						// Quit the game
+						System.exit(0);
+					}				} else {
+					level++;
+					setup(new File("LarryCroftsAdventures/levels/level" + level + ".json"));
+				}
 			}
+
+
 		}
 
 		if(time < 16){

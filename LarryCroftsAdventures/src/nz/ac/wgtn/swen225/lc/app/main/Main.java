@@ -32,6 +32,8 @@ public class Main extends JFrame {
     private static Persistency persistency = new Persistency();
     private static RecorderPanel recorderPanel;
     static App applicationWindow;
+
+
     /**
      * Constructor for the Main class. Initializes the game window and components.
      */
