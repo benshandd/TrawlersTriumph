@@ -14,14 +14,14 @@ import java.io.IOException;
  * @author Matthew Kerr (300613741)
  */
 public class MenuPanel extends JPanel {
-    private final JButton startButton;
-    private final JButton levelSelectButton;
-    private final JButton helpButton;
-    private BufferedImage backgroundImage;
+    private final JButton startButton;      //the start button
+    private final JButton levelSelectButton;        //the level select button
+    private final JButton helpButton;       //the help button
+    private BufferedImage backgroundImage;  //the menu background image
 
-    private final String selectedLevel = "1";
+    private final String selectedLevel = "1";   //the level select value
 
-    public boolean levelSelected = false;
+    public boolean levelSelected = false;   //the status of whether the level has been selected
 
     public MenuPanel() {
         // Load the background image

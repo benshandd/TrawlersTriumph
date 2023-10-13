@@ -8,6 +8,9 @@ import java.awt.*;
  * *  @author Matthew Kerr (300613741)
  */
 public class PausedPanel extends JPanel {
+    /**
+     * Creates a new panel that displays "Game is paused"
+     */
     public PausedPanel() {
         setOpaque(false); // Make it transparent
         setLayout(new BorderLayout());

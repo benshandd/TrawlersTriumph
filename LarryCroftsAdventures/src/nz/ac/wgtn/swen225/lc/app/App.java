@@ -26,32 +26,31 @@ import java.io.IOException;
 
 public class App extends JPanel implements ActionListener {
 
-    private JLabel timeLabel;
-    public JLabel treasureLabel = new JLabel();
-    JLabel[][] inventorySlots = new JLabel[2][4];
-    Color brown = new Color(174, 119, 100);
+    private JLabel timeLabel; //the label to display the time
+    public JLabel treasureLabel = new JLabel(); // the treasure left in the game
+    JLabel[][] inventorySlots = new JLabel[2][4];       //the items in the inventory as a double array
+    Color brown = new Color(174, 119, 100); //the colour of the gui background
 
-    private int time = 5;
-    JPanel leftPanel;
-    JPanel rightPanel;
-    static Renderer centrePanel;
-    static Board board;
-    private AudioUnit audioUnit;
+    private int time = 5;   //initialize the time to 5
+    JPanel leftPanel;       //the left panel gui
+    JPanel rightPanel;  //right panel gui
+    static Renderer centrePanel;    //centre render screen
+    static Board board; //the board data
+    private AudioUnit audioUnit;    //object for playing audio
 
-    private int treasureLeft;
+    private int treasureLeft;   //the number of fish left
 
     private JLabel backgroundImageLabel; // Label for the background image
-    private static Persistency persistency;
 
 
-    private JPanel grid;
+    private JPanel grid;    //the jpanel grid
 
-    private Timer timer;
+    private Timer timer;    //the timer for running the time
 
-    public boolean paused = false;
+    public boolean paused = false;      //the status of the pause
 
     private JLayeredPane layeredPane;
-    private PausedPanel pausedPanel;
+    private PausedPanel pausedPanel;    //the panel displayed when paused
 
     /**
      * Constructor for the App class. Initializes the game board and sets up the
@@ -299,13 +298,21 @@ public class App extends JPanel implements ActionListener {
 
     }
 
-    // Update the pausedPanel's visibility
+    /**
+     * Update the paused status of the game
+     * @param isPaused
+     */
     public void setPaused(boolean isPaused) {
         pausedPanel.setVisible(isPaused);
         centrePanel.setVisible(!isPaused);
         paused = isPaused;
     }
 
+    /**
+     * Moves the character, adds moves to recorder
+     * , updates camera and adds sound
+     * @param direction
+     */
     public void moveAction(String direction) {
         // Handle movement based on 'direction'
         // Implement your move logic here

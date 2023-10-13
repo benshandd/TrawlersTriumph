@@ -11,6 +11,10 @@ import java.awt.*;
  */
 
 public class KeyBindingsPanel extends JPanel {
+
+    /**
+     * Constructor to add all the values and descriptions to the panel and setup layout
+     */
     public KeyBindingsPanel() {
         setLayout(new GridLayout(8, 1, 10, 10));
         setBorder(new EmptyBorder(10, 10, 10, 10));
