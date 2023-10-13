@@ -1,5 +1,7 @@
 package nz.ac.wgtn.swen225.lc.domain.items;
 
+import nz.ac.wgtn.swen225.lc.domain.tiles.Door;
+
 /**
  * Represents a key that is stored in the inventory.
  *
@@ -15,6 +17,15 @@ public record Key(Key.Colour colour) implements Item {
         if (colour == null) {
             throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * Deep clone a key.
+     * @return the cloned key
+     */
+    public Item clone() throws CloneNotSupportedException {
+        Key item = (Key) super.clone();
+        return item;
     }
 
     /**
