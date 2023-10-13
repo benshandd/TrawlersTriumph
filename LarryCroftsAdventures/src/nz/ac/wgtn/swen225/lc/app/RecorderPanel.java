@@ -59,7 +59,7 @@ public class RecorderPanel extends JPanel {
     int timeLeft;
     Tile[][] board;
     //speed of auto replay
-    int speed;
+    int speed = 1;
 
 
 
