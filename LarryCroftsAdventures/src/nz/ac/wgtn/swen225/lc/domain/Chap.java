@@ -145,8 +145,7 @@ public class Chap {
 	 *         false otherwise
 	 */
 	public boolean canUnlockExit() {
-		return true;
-		//return playerTreasureCount >= board.getBoardTreasureCount();
+		return playerTreasureCount >= board.getBoardTreasureCount();
 	}
 
 	/**

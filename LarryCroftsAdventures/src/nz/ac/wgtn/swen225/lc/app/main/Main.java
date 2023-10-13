@@ -58,6 +58,8 @@ public class Main extends JFrame {
         menuPanel.getStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                applicationWindow.setup(new File("LarryCroftsAdventures/levels/level1.json"));
+
                 // Remove the menu panel
                 getContentPane().remove(menuPanel);
                 revalidate();
@@ -69,22 +71,40 @@ public class Main extends JFrame {
                 revalidate();
                 repaint();
 
-                // Initialize the game here or load a level
-                applicationWindow.setup(new File("LarryCroftsAdventures/levels/level1.json"));
             }
         });
 
-        setTitle("Reel it in");
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
+        menuPanel.getLevelSelectButton().addActionListener(new ActionListener() {
             @Override
-            public void windowClosing(WindowEvent e) {
-                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to leave the game?", "Closing game", JOptionPane.YES_NO_OPTION);
-                if (response == JOptionPane.YES_OPTION) {
-                    System.exit(0);
+            public void actionPerformed(ActionEvent e) {
+                // Check if a level has been selected in the MenuPanel
+
+                if (menuPanel.levelSelected) {
+                    getContentPane().remove(menuPanel);
+                    revalidate();
+
+                    // Get the selected level
+                    int selectedLevel = menuPanel.getSelectedLevel();
+
+                    // Create and add the application window with the selected level
+                    getContentPane().add(applicationWindow);
+                    applicationWindow.setup(new File("LarryCroftsAdventures/levels/level" + selectedLevel + ".json"));
+                    pack();
+                    setLocationRelativeTo(null);
+                    revalidate();
+                    repaint();
                 }
+                menuPanel.remove(menuPanel.getHelpButton());
+                menuPanel.remove(menuPanel.getStartButton());
+                menuPanel.getLevelSelectButton().setText("Start game");
             }
         });
+
+
+
+        setTitle("Reel it in");
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
