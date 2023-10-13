@@ -1,2 +1,4 @@
 bg.wav filter=lfs diff=lfs merge=lfs -text
 ambience.wav filter=lfs diff=lfs merge=lfs -text
+LarryCroftsAdventures/assets/bg.wav filter=lfs diff=lfs merge=lfs -text
+LarryCroftsAdventures/assets/ambience.wav filter=lfs diff=lfs merge=lfs -text
