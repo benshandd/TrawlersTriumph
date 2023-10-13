@@ -1,11 +1,15 @@
 package nz.ac.wgtn.swen225.lc.app.input;
 
 import nz.ac.wgtn.swen225.lc.app.App;
+import nz.ac.wgtn.swen225.lc.app.Move;
+import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * KeyboardInputHandler is a class responsible for handling keyboard input in
@@ -154,8 +158,20 @@ public class KeyboardInputHandler {
     private class ResumeGameAction extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
+            File file = null;
             // Handle CTRL-R action to resume a saved game
             System.out.println("Resuming game");
+            JFileChooser fc = new JFileChooser("LarryCroftsAdventures/Saves");
+            fc.setDialogTitle("Choose a saved game");
+            int retVal = fc.showOpenDialog(null);
+
+            if (retVal == JFileChooser.APPROVE_OPTION) {
+                 file = fc.getSelectedFile();
+            }
+            //getting the moves out of the loaded file
+            if (file != null) {
+                ArrayList<Move> move = new Recorder().loadSave(file, component);
+            }
         }
     }
 

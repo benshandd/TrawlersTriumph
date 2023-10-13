@@ -439,19 +439,23 @@ public class App extends JPanel implements ActionListener {
             }
         }
 
-        timeLabel.setText("" + time);
+        if(timeLabel!=null) {
+            timeLabel.setText("" + time);
+        }
     }
 
     /**
      * Flashes the timer red when running out of time
      */
     private void flashTimer(){
-        if (time % 2 != 0) {
-            timeLabel.setBackground(Color.red);
-            timeLabel.setForeground(Color.white);
-        } else {
-            timeLabel.setBackground(Color.black);
-            timeLabel.setForeground(Color.green);
+        if(timeLabel !=null) {
+            if (time % 2 != 0) {
+                timeLabel.setBackground(Color.red);
+                timeLabel.setForeground(Color.white);
+            } else {
+                timeLabel.setBackground(Color.black);
+                timeLabel.setForeground(Color.green);
+            }
         }
     }
 
