@@ -361,7 +361,7 @@ public class App extends JPanel implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(board.getChap() != null) {
+		if(board != null) {
 			if (board.getChap().getState() == Chap.State.COMPLETED) {
 				int level = board.getChap().getBoard().getLevel();
 				level++;
