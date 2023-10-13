@@ -21,7 +21,6 @@ public class Board {
 	private int time;
 	private final int level;
 	private final int boardTreasureCount;
-	private static Persistency persistency;
 
 	/**
 	 * Create a new Board. Generates a 2D array of tiles using
@@ -31,7 +30,6 @@ public class Board {
 		this.autoActors = new ArrayList<>();
 		Persistency persistency = new Persistency();
 		try {
-			persistency = new Persistency();
 			board = persistency.loadGame(file);
 			autoActors = persistency.getActors();
 		} catch (FileNotFoundException e) {
@@ -47,7 +45,6 @@ public class Board {
 		Free playerTile = new Free(startX, startY);
 		board[startX][startY] = playerTile;
 		chap = new Chap(this, playerTile, persistency.playerTreasureCount);
-
 	}
 
 	/**
@@ -63,6 +60,12 @@ public class Board {
 		board[x][y] = freeTile;
 		return freeTile;
 	}
+
+	/**
+	 * Get the auto actors.
+	 *
+	 * @return the list of auto actors
+	 */
 	public List<AutoActor> getAutoActors() {
 		return autoActors;
 	}
