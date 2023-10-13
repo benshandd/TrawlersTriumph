@@ -366,10 +366,22 @@ public class App extends JPanel implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (board.getChap().getState() == Chap.State.COMPLETED) {
-			int level = board.getChap().getBoard().getLevel();
-			level++;
-			setup(new File("LarryCroftsAdventures/levels/level" + level + ".json"));
+		if(board != null) {
+			if (board.getChap().getState() == Chap.State.COMPLETED) {
+				int level = board.getChap().getBoard().getLevel();
+				level++;
+				setup(new File("LarryCroftsAdventures/levels/level" + level + ".json"));
+			}
+		}
+
+		if(time < 16){
+			if(time % 2 != 0) {
+				timeLabel.setBackground(Color.red);
+				timeLabel.setForeground(Color.white);
+			} else {
+				timeLabel.setBackground(Color.black);
+				timeLabel.setForeground(Color.green);
+			}
 		}
 
 		if (time > 0 && !paused) {
