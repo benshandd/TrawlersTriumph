@@ -419,7 +419,9 @@ public class App extends JPanel implements ActionListener {
         }
 
         if (time < 16) {
-           flashTimer();
+           if (timeLabel != null) {
+               flashTimer();
+           }
         }
 
         if (time > 0 && !paused) {
