@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="158px" preserveAspectRatio="none" style="width:374px;height:158px;background:#FFFFFF;" version="1.1" viewBox="0 0 374 158" width="374px" zoomAndPan="magnify"><defs><filter height="300%" id="f1p2e5412437vw" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[9dc795ca8d2b9bfa0842f62df34c7352]
+class nz.ac.wgtn.swen225.lc.recorder.Recorder--><a href="Recorder.html" target="_top" title="Recorder.html" xlink:actuate="onRequest" xlink:href="Recorder.html" xlink:show="new" xlink:title="Recorder.html" xlink:type="simple"><rect codeLine="5" fill="#FEFECE" filter="url(#f1p2e5412437vw)" height="125.5973" id="nz.ac.wgtn.swen225.lc.recorder.Recorder" style="stroke:#A80036;stroke-width:1.5;" width="353" x="7" y="7"/><ellipse cx="102.75" cy="28.344" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M102.2188,35.2658 Q100.4688,35.2658 99.3281,34.5315 Q98.2031,33.7815 97.6406,32.4377 Q97.0938,31.0783 97.0938,29.2815 Q97.0938,27.2502 97.75,25.7971 Q98.4063,24.344 99.6875,23.5627 Q100.9688,22.7815 102.8438,22.7815 Q103.7344,22.7815 104.4063,22.969 Q105.0781,23.1408 105.7656,23.4846 L104.9531,25.5002 Q104.3281,25.1877 103.7813,25.0627 Q103.25,24.9377 102.7656,24.9377 Q101.5938,24.9377 100.8906,25.469 Q100.1875,26.0002 99.8906,26.9533 Q99.5938,27.9065 99.5938,29.1721 Q99.5938,31.1877 100.3125,32.1565 Q101.0313,33.1096 102.625,33.1096 Q103.2188,33.1096 103.8438,32.9533 Q104.4688,32.7971 105.2969,32.4221 L105.2969,34.6408 Q104.5625,34.9533 103.7656,35.1096 Q102.9844,35.2658 102.2188,35.2658 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61" x="169.25" y="26.9659">Recorder</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="153" x="123.25" y="41.7579">nz.ac.wgtn.swen225.lc.recorder</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="359" y1="49.6879" y2="49.6879"/><ellipse cx="18" cy="60.6879" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="327" x="27" y="65.4468">Recorder(ArrayList&lt;Move&gt;, int, int, int, int, int, int, Tile[], Chap)</text><ellipse cx="18" cy="75.6698" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="54" x="27" y="80.4287">Recorder()</text><ellipse cx="18" cy="90.6517" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="120" x="27" y="95.4106">saveRecorder(int): void</text><ellipse cx="18" cy="105.6336" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="192" x="27" y="110.3925">loadSave(File, App): ArrayList&lt;Move&gt;</text><ellipse cx="18" cy="120.6155" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="86" x="27" y="125.3744">step(Move): void</text></a><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="182" x="92.5" y="150.2873">UMLDoclet 2.0.14, PlantUML 1.2021.9</text><!--MD5=[ce2dd950ab19c6345aef5a2c3b8990da]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    class "<size:14>Recorder\n<size:10>nz.ac.wgtn.swen225.lc.recorder" as nz.ac.wgtn.swen225.lc.recorder.Recorder [[Recorder.html]] {
+        +Recorder(ArrayList<Move>, int, int, int, int, int, int, Tile[], Chap)
+        +Recorder()
+        +saveRecorder(int): void
+        +loadSave(File, App): ArrayList<Move>
+        +step(Move): void
+    }
+
+    center footer UMLDoclet 2.0.14, PlantUML 1.2021.9
+@enduml
+
+PlantUML version 1.2021.9(Sun Jul 25 22:13:56 NZST 2021)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: NZ
+--></g></svg>

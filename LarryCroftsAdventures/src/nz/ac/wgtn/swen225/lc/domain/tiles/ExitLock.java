@@ -24,6 +24,11 @@ public class ExitLock extends Wall {
 	}
 
 	@Override
+	public boolean performTileAction(Chap chap) {
+		return chap.canUnlockExit();
+	}
+
+	@Override
 	public Tile clone() throws CloneNotSupportedException {
 		ExitLock tile = (ExitLock) super.clone();
 		return tile;

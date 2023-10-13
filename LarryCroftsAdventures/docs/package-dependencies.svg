@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="583px" preserveAspectRatio="none" style="width:740px;height:583px;background:#FFFFFF;" version="1.1" viewBox="0 0 740 583" width="740px" zoomAndPan="magnify"><defs><filter height="300%" id="fxa3xkf5gp8xa" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[866c9cc9ab91c027feb2338a5123b61b]
+class nz.ac.wgtn.swen225.lc.renderer--><a href="nz/ac/wgtn/swen225/lc/renderer/package-summary.html" target="_top" title="nz/ac/wgtn/swen225/lc/renderer/package-summary.html" xlink:actuate="onRequest" xlink:href="nz/ac/wgtn/swen225/lc/renderer/package-summary.html" xlink:show="new" xlink:title="nz/ac/wgtn/swen225/lc/renderer/package-summary.html" xlink:type="simple"><rect codeLine="31" fill="#FEFECE" filter="url(#fxa3xkf5gp8xa)" height="26.3441" id="nz.ac.wgtn.swen225.lc.renderer" style="stroke:#A80036;stroke-width:1.5;" width="183" x="7" y="93.35"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="177" x="10" y="111.1781">nz.ac.wgtn.swen225.lc.renderer</text></a><!--MD5=[b5da435ffe7f89f2cf68e421aa5c8001]
+class nz.ac.wgtn.swen225.lc.domain--><a href="nz/ac/wgtn/swen225/lc/domain/package-summary.html" target="_top" title="nz/ac/wgtn/swen225/lc/domain/package-summary.html" xlink:actuate="onRequest" xlink:href="nz/ac/wgtn/swen225/lc/domain/package-summary.html" xlink:show="new" xlink:title="nz/ac/wgtn/swen225/lc/domain/package-summary.html" xlink:type="simple"><rect codeLine="33" fill="#FEFECE" filter="url(#fxa3xkf5gp8xa)" height="26.3441" id="nz.ac.wgtn.swen225.lc.domain" style="stroke:#A80036;stroke-width:1.5;" width="175" x="89" y="266.03"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="169" x="92" y="283.8581">nz.ac.wgtn.swen225.lc.domain</text></a><!--MD5=[80675ee8a8a40237714fa6048921d2e1]
+class nz.ac.wgtn.swen225.lc.domain.tiles--><a href="nz/ac/wgtn/swen225/lc/domain/tiles/package-summary.html" target="_top" title="nz/ac/wgtn/swen225/lc/domain/tiles/package-summary.html" xlink:actuate="onRequest" xlink:href="nz/ac/wgtn/swen225/lc/domain/tiles/package-summary.html" xlink:show="new" xlink:title="nz/ac/wgtn/swen225/lc/domain/tiles/package-summary.html" xlink:type="simple"><rect codeLine="35" fill="#FEFECE" filter="url(#fxa3xkf5gp8xa)" height="26.3441" id="nz.ac.wgtn.swen225.lc.domain.tiles" style="stroke:#A80036;stroke-width:1.5;" width="201" x="179" y="438.72"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="195" x="182" y="456.5481">nz.ac.wgtn.swen225.lc.domain.tiles</text></a><!--MD5=[314e2461d90fa9ffe403126ceb66d02e]
+class nz.ac.wgtn.swen225.lc.app--><a href="nz/ac/wgtn/swen225/lc/app/package-summary.html" target="_top" title="nz/ac/wgtn/swen225/lc/app/package-summary.html" xlink:actuate="onRequest" xlink:href="nz/ac/wgtn/swen225/lc/app/package-summary.html" xlink:show="new" xlink:title="nz/ac/wgtn/swen225/lc/app/package-summary.html" xlink:type="simple"><rect codeLine="37" fill="#FEFECE" filter="url(#fxa3xkf5gp8xa)" height="26.3441" id="nz.ac.wgtn.swen225.lc.app" style="stroke:#A80036;stroke-width:1.5;" width="154" x="240.5" y="179.69"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="148" x="243.5" y="197.5181">nz.ac.wgtn.swen225.lc.app</text></a><!--MD5=[2d24fb4ede28bb4821aa5399422f74f1]
+class nz.ac.wgtn.swen225.lc.persistency--><a href="nz/ac/wgtn/swen225/lc/persistency/package-summary.html" target="_top" title="nz/ac/wgtn/swen225/lc/persistency/package-summary.html" xlink:actuate="onRequest" xlink:href="nz/ac/wgtn/swen225/lc/persistency/package-summary.html" xlink:show="new" xlink:title="nz/ac/wgtn/swen225/lc/persistency/package-summary.html" xlink:type="simple"><rect codeLine="39" fill="#FEFECE" filter="url(#fxa3xkf5gp8xa)" height="26.3441" id="nz.ac.wgtn.swen225.lc.persistency" style="stroke:#A80036;stroke-width:1.5;" width="197" x="335" y="352.38"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="191" x="338" y="370.2081">nz.ac.wgtn.swen225.lc.persistency</text></a><!--MD5=[be8e8dff3399cbfa776ad0654860e1a4]
+class nz.ac.wgtn.swen225.lc.domain.items--><a href="nz/ac/wgtn/swen225/lc/domain/items/package-summary.html" target="_top" title="nz/ac/wgtn/swen225/lc/domain/items/package-summary.html" xlink:actuate="onRequest" xlink:href="nz/ac/wgtn/swen225/lc/domain/items/package-summary.html" xlink:show="new" xlink:title="nz/ac/wgtn/swen225/lc/domain/items/package-summary.html" xlink:type="simple"><rect codeLine="41" fill="#FEFECE" filter="url(#fxa3xkf5gp8xa)" height="26.3441" id="nz.ac.wgtn.swen225.lc.domain.items" style="stroke:#A80036;stroke-width:1.5;" width="209" x="252" y="525.07"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="203" x="255" y="542.8981">nz.ac.wgtn.swen225.lc.domain.items</text></a><!--MD5=[27905a513881cbf6439a3eeeb18bbbcf]
+class nz.ac.wgtn.swen225.lc.app.input--><a href="nz/ac/wgtn/swen225/lc/app/input/package-summary.html" target="_top" title="nz/ac/wgtn/swen225/lc/app/input/package-summary.html" xlink:actuate="onRequest" xlink:href="nz/ac/wgtn/swen225/lc/app/input/package-summary.html" xlink:show="new" xlink:title="nz/ac/wgtn/swen225/lc/app/input/package-summary.html" xlink:type="simple"><rect codeLine="43" fill="#FEFECE" filter="url(#fxa3xkf5gp8xa)" height="26.3441" id="nz.ac.wgtn.swen225.lc.app.input" style="stroke:#A80036;stroke-width:1.5;" width="185" x="225" y="93.35"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="179" x="228" y="111.1781">nz.ac.wgtn.swen225.lc.app.input</text></a><!--MD5=[e91cbf0c278ac03db04b311f1d7d367e]
+class nz.ac.wgtn.swen225.lc.app.main--><a href="nz/ac/wgtn/swen225/lc/app/main/package-summary.html" target="_top" title="nz/ac/wgtn/swen225/lc/app/main/package-summary.html" xlink:actuate="onRequest" xlink:href="nz/ac/wgtn/swen225/lc/app/main/package-summary.html" xlink:show="new" xlink:title="nz/ac/wgtn/swen225/lc/app/main/package-summary.html" xlink:type="simple"><rect codeLine="45" fill="#FEFECE" filter="url(#fxa3xkf5gp8xa)" height="26.3441" id="nz.ac.wgtn.swen225.lc.app.main" style="stroke:#A80036;stroke-width:1.5;" width="185" x="514" y="7"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="179" x="517" y="24.8281">nz.ac.wgtn.swen225.lc.app.main</text></a><!--MD5=[ada933626e1fc21eb2d1fed1a7a2636b]
+class nz.ac.wgtn.swen225.lc.recorder--><a href="nz/ac/wgtn/swen225/lc/recorder/package-summary.html" target="_top" title="nz/ac/wgtn/swen225/lc/recorder/package-summary.html" xlink:actuate="onRequest" xlink:href="nz/ac/wgtn/swen225/lc/recorder/package-summary.html" xlink:show="new" xlink:title="nz/ac/wgtn/swen225/lc/recorder/package-summary.html" xlink:type="simple"><rect codeLine="47" fill="#FEFECE" filter="url(#fxa3xkf5gp8xa)" height="26.3441" id="nz.ac.wgtn.swen225.lc.recorder" style="stroke:#A80036;stroke-width:1.5;" width="182" x="515.5" y="93.35"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="176" x="518.5" y="111.1781">nz.ac.wgtn.swen225.lc.recorder</text></a><!--MD5=[663d8cc28907856ef7a00702c5f3db13]
+link nz.ac.wgtn.swen225.lc.renderer to nz.ac.wgtn.swen225.lc.domain--><path codeLine="6" d="M97.17,120.07 C103.69,150.15 138.21,226.44 160.5,260.87 " fill="none" id="nz.ac.wgtn.swen225.lc.renderer-to-nz.ac.wgtn.swen225.lc.domain" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="163.69,264.64,162.0028,254.9367,160.9066,260.4863,155.357,259.3901,163.69,264.64" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[f27e728d09f470ccfcb3d55939306d5d]
+link nz.ac.wgtn.swen225.lc.domain to nz.ac.wgtn.swen225.lc.renderer--><path codeLine="23" d="M178.24,265.64 C172.13,235.53 137.63,159.25 114.97,124.83 " fill="none" id="nz.ac.wgtn.swen225.lc.domain-to-nz.ac.wgtn.swen225.lc.renderer" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="111.71,121.07,113.4741,130.7596,114.5262,125.2014,120.0844,126.2536,111.71,121.07" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[763599665a7fdbe3ff19369cfb23cf7a]
+link nz.ac.wgtn.swen225.lc.renderer to nz.ac.wgtn.swen225.lc.domain.tiles--><path codeLine="7" d="M91.98,119.96 C76.72,150.9 42.14,233.08 71.5,292.38 C107.37,364.81 193.93,413.15 243.34,435.89 " fill="none" id="nz.ac.wgtn.swen225.lc.renderer-to-nz.ac.wgtn.swen225.lc.domain.tiles" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="247.59,438.27,241.0519,430.9043,243.0382,436.201,237.7415,438.1872,247.59,438.27" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a169e0c6b34f7d628e0414e8704a5d76]
+link nz.ac.wgtn.swen225.lc.renderer to nz.ac.wgtn.swen225.lc.app--><path codeLine="8" d="M121.88,120.14 C157.38,135.47 224.16,161.25 269.97,177.37 " fill="none" id="nz.ac.wgtn.swen225.lc.renderer-to-nz.ac.wgtn.swen225.lc.app" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="274.45,179.29,267.2794,172.5385,269.7314,177.6363,264.6336,180.0883,274.45,179.29" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[6b6c72e60a58415c86fe7af1a027cbec]
+link nz.ac.wgtn.swen225.lc.app to nz.ac.wgtn.swen225.lc.renderer--><path codeLine="18" d="M294.8,179.29 C259.61,163.99 192.86,138.2 146.77,122.06 " fill="none" id="nz.ac.wgtn.swen225.lc.app-to-nz.ac.wgtn.swen225.lc.renderer" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="142.25,120.14,149.4324,126.8789,146.9715,121.7854,152.065,119.3245,142.25,120.14" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a140f381d1875d288bd120d5248d40e8]
+link nz.ac.wgtn.swen225.lc.persistency to nz.ac.wgtn.swen225.lc.domain--><path codeLine="9" d="M405.13,351.97 C362.88,336.61 284.04,310.68 230.67,294.56 " fill="none" id="nz.ac.wgtn.swen225.lc.persistency-to-nz.ac.wgtn.swen225.lc.domain" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="225.94,292.83,233.4023,299.2577,230.7272,294.2733,235.7115,291.5982,225.94,292.83" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a6c1b174983fa3274c24ce46ee6045da]
+link nz.ac.wgtn.swen225.lc.domain to nz.ac.wgtn.swen225.lc.persistency--><path codeLine="24" d="M205.56,292.83 C248.15,308.22 327.01,334.15 380.09,350.25 " fill="none" id="nz.ac.wgtn.swen225.lc.domain-to-nz.ac.wgtn.swen225.lc.persistency" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="384.78,351.97,377.3177,345.5423,379.9928,350.5267,375.0085,353.2018,384.78,351.97" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[df8cdb213b4390734d30c931c042cfa5]
+link nz.ac.wgtn.swen225.lc.persistency to nz.ac.wgtn.swen225.lc.domain.tiles--><path codeLine="10" d="M410.44,379.18 C382.92,394.25 336.92,419.45 307.41,435.61 " fill="none" id="nz.ac.wgtn.swen225.lc.persistency-to-nz.ac.wgtn.swen225.lc.domain.tiles" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="303.46,438.32,313.2754,437.5085,307.8462,435.9197,309.4349,430.4906,303.46,438.32" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[d7223182573af0563260642cbb10eaad]
+link nz.ac.wgtn.swen225.lc.persistency to nz.ac.wgtn.swen225.lc.domain.items--><path codeLine="11" d="M429.7,378.95 C423.74,397.88 411.42,434.99 397.5,465.07 C388.55,484.4 376.26,505.47 367.48,519.83 " fill="none" id="nz.ac.wgtn.swen225.lc.persistency-to-nz.ac.wgtn.swen225.lc.domain.items" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="364.41,523.8,372.5418,518.2436,367.0369,519.5456,365.7348,514.0407,364.41,523.8" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[242c25a42b729bad67417baf7bdaaaff]
+link nz.ac.wgtn.swen225.lc.app.input to nz.ac.wgtn.swen225.lc.app--><path codeLine="12" d="M317.5,119.96 C317.5,134.17 317.5,157.52 317.5,173.74 " fill="none" id="nz.ac.wgtn.swen225.lc.app.input-to-nz.ac.wgtn.swen225.lc.app" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="317.5,178.37,321.5,169.37,317.5,173.37,313.5,169.37,317.5,178.37" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[cdc05bcf86a89ef1e0a9f48a4f9534f1]
+link nz.ac.wgtn.swen225.lc.app.main to nz.ac.wgtn.swen225.lc.recorder--><path codeLine="13" d="M606.5,33.62 C606.5,47.82 606.5,71.18 606.5,87.4 " fill="none" id="nz.ac.wgtn.swen225.lc.app.main-to-nz.ac.wgtn.swen225.lc.recorder" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="606.5,92.02,610.5,83.02,606.5,87.02,602.5,83.02,606.5,92.02" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[e9436d8436554905a3782e6739805324]
+link nz.ac.wgtn.swen225.lc.app.main to nz.ac.wgtn.swen225.lc.persistency--><path codeLine="14" d="M641.57,33.84 C679.84,49.92 733.44,80.35 715.5,119.69 C662.9,235.02 526.17,317.01 464.49,349.31 " fill="none" id="nz.ac.wgtn.swen225.lc.app.main-to-nz.ac.wgtn.swen225.lc.persistency" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="460.47,351.92,470.3014,351.3346,464.9103,349.6213,466.6236,344.2302,460.47,351.92" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[012b25bdb2f8fa7f761222709a76adff]
+link nz.ac.wgtn.swen225.lc.app.main to nz.ac.wgtn.swen225.lc.app--><path codeLine="15" d="M585.25,33.72 C533.37,64.37 400.36,142.92 343.7,176.39 " fill="none" id="nz.ac.wgtn.swen225.lc.app.main-to-nz.ac.wgtn.swen225.lc.app" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="339.78,179.29,349.5645,178.1661,344.0875,176.7512,345.5024,171.2741,339.78,179.29" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[67acbbcf32521851328c91fdcb8002ee]
+link nz.ac.wgtn.swen225.lc.domain.tiles to nz.ac.wgtn.swen225.lc.domain.items--><path codeLine="16" d="M290.86,465.34 C304.17,479.92 326.28,504.13 341.11,520.38 " fill="none" id="nz.ac.wgtn.swen225.lc.domain.tiles-to-nz.ac.wgtn.swen225.lc.domain.items" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="344.09,523.74,340.9669,514.3994,340.7153,520.0507,335.064,519.799,344.09,523.74" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[0a9ff461dafcf85bfb6c1c0d7155c40e]
+link nz.ac.wgtn.swen225.lc.domain.tiles to nz.ac.wgtn.swen225.lc.domain--><path codeLine="17" d="M279.4,438.32 C268.84,408.1 222.83,331.31 195.16,297.1 " fill="none" id="nz.ac.wgtn.swen225.lc.domain.tiles-to-nz.ac.wgtn.swen225.lc.domain" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="191.55,293.76,194.2353,303.2357,194.7495,297.6023,200.383,298.1165,191.55,293.76" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[c3e39a08c1125dbe7e7c96623c7e47d1]
+link nz.ac.wgtn.swen225.lc.domain to nz.ac.wgtn.swen225.lc.domain.tiles--><path codeLine="22" d="M177.01,292.76 C187.98,322.97 234.01,399.75 261.29,433.98 " fill="none" id="nz.ac.wgtn.swen225.lc.domain-to-nz.ac.wgtn.swen225.lc.domain.tiles" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="264.85,437.32,262.262,427.8173,261.69,433.4451,256.0622,432.8732,264.85,437.32" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[5d0c17af8dd35e7eaadde64609ea7590]
+link nz.ac.wgtn.swen225.lc.app to nz.ac.wgtn.swen225.lc.domain--><path codeLine="19" d="M296.39,206.49 C271.22,221.54 229.18,246.7 202.16,262.86 " fill="none" id="nz.ac.wgtn.swen225.lc.app-to-nz.ac.wgtn.swen225.lc.domain" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="198.29,265.77,208.0683,264.5935,202.5838,263.2081,203.9692,257.7235,198.29,265.77" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[199982db103a50471dd13a6f3273ad37]
+link nz.ac.wgtn.swen225.lc.app to nz.ac.wgtn.swen225.lc.domain.items--><path codeLine="20" d="M354.51,206.43 C408.83,227.13 508.17,274.08 549.5,352.38 C590.77,430.56 463.69,494.77 396,522.49 " fill="none" id="nz.ac.wgtn.swen225.lc.app-to-nz.ac.wgtn.swen225.lc.domain.items" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="391.84,524.58,401.6832,524.9148,396.4754,522.7058,398.6844,517.4981,391.84,524.58" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[75b654967d1fecaf61c5be7c55447073]
+link nz.ac.wgtn.swen225.lc.app to nz.ac.wgtn.swen225.lc.domain.tiles--><path codeLine="21" d="M315.67,206.26 C309.51,247.9 289.55,382.91 282.23,432.45 " fill="none" id="nz.ac.wgtn.swen225.lc.app-to-nz.ac.wgtn.swen225.lc.domain.tiles" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="281.36,437.32,286.6297,428.9995,282.0891,432.3734,278.7152,427.8329,281.36,437.32" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[c0a2f0a5ae50098256c3eeaa9d7e4398]
+link nz.ac.wgtn.swen225.lc.domain to nz.ac.wgtn.swen225.lc.domain.items--><path codeLine="25" d="M170.46,292.84 C156.09,324.94 123.79,410.89 161.5,465.07 C182.45,495.16 217.47,512.73 252.1,522.98 " fill="none" id="nz.ac.wgtn.swen225.lc.domain-to-nz.ac.wgtn.swen225.lc.domain.items" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="256.65,524.57,249.0902,518.2573,251.8413,523.2002,246.8985,525.9513,256.65,524.57" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[f9eccd76603c65fd614790093e31df5d]
+link nz.ac.wgtn.swen225.lc.recorder to nz.ac.wgtn.swen225.lc.domain.tiles--><path codeLine="26" d="M608.03,120.08 C612.45,162.72 620.81,303.45 549.5,378.72 C524.71,404.89 437.75,424.99 369.14,437.26 " fill="none" id="nz.ac.wgtn.swen225.lc.recorder-to-nz.ac.wgtn.swen225.lc.domain.tiles" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="364.4,438.27,373.9602,440.6371,369.3232,437.397,372.5633,432.76,364.4,438.27" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[a471e2cd68d7427117f86998884f9610]
+link nz.ac.wgtn.swen225.lc.recorder to nz.ac.wgtn.swen225.lc.domain--><path codeLine="27" d="M584.68,120.18 C549.37,140.3 477.14,179.97 412.5,206.03 C352.36,230.29 280.84,251.09 232.42,264.04 " fill="none" id="nz.ac.wgtn.swen225.lc.recorder-to-nz.ac.wgtn.swen225.lc.domain" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="227.63,265.58,237.3562,267.1296,232.4616,264.2935,235.2977,259.3989,227.63,265.58" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[ffe00a4bcf84ae09af8cd663ea6a2637]
+link nz.ac.wgtn.swen225.lc.recorder to nz.ac.wgtn.swen225.lc.app--><path codeLine="28" d="M563.23,120.14 C510.41,135.56 421.31,161.57 366.15,177.66 " fill="none" id="nz.ac.wgtn.swen225.lc.recorder-to-nz.ac.wgtn.swen225.lc.app" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="361.59,179.29,371.35,180.61,366.39,177.89,369.11,172.93,361.59,179.29" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="182" x="272.72" y="575.1041">UMLDoclet 2.0.14, PlantUML 1.2021.9</text><!--MD5=[9a963d2667fc0c75c9d9678938a4c412]
+@startuml
+    set namespaceSeparator none
+    hide circle
+    hide empty fields
+    hide empty methods
+
+    nz.ac.wgtn.swen225.lc.renderer - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.renderer - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.renderer - -> nz.ac.wgtn.swen225.lc.app
+    nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain.items
+    nz.ac.wgtn.swen225.lc.app.input - -> nz.ac.wgtn.swen225.lc.app
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.recorder
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.persistency
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.app
+    nz.ac.wgtn.swen225.lc.domain.tiles - -> nz.ac.wgtn.swen225.lc.domain.items
+    nz.ac.wgtn.swen225.lc.domain.tiles - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.renderer
+    nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain.items
+    nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.domain - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.domain - -> nz.ac.wgtn.swen225.lc.renderer
+    nz.ac.wgtn.swen225.lc.domain - -> nz.ac.wgtn.swen225.lc.persistency
+    nz.ac.wgtn.swen225.lc.domain - -> nz.ac.wgtn.swen225.lc.domain.items
+    nz.ac.wgtn.swen225.lc.recorder - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.recorder - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.recorder - -> nz.ac.wgtn.swen225.lc.app
+
+    ' Package links
+    class "nz.ac.wgtn.swen225.lc.renderer" [[nz/ac/wgtn/swen225/lc/renderer/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.domain" [[nz/ac/wgtn/swen225/lc/domain/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.domain.tiles" [[nz/ac/wgtn/swen225/lc/domain/tiles/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.app" [[nz/ac/wgtn/swen225/lc/app/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.persistency" [[nz/ac/wgtn/swen225/lc/persistency/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.domain.items" [[nz/ac/wgtn/swen225/lc/domain/items/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.app.input" [[nz/ac/wgtn/swen225/lc/app/input/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.app.main" [[nz/ac/wgtn/swen225/lc/app/main/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.recorder" [[nz/ac/wgtn/swen225/lc/recorder/package-summary.html]] {
+    }
+
+    center footer UMLDoclet 2.0.14, PlantUML 1.2021.9
+@enduml
+
+@startuml
+    set namespaceSeparator none
+    hide circle
+    hide empty fields
+    hide empty methods
+
+    nz.ac.wgtn.swen225.lc.renderer - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.renderer - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.renderer - -> nz.ac.wgtn.swen225.lc.app
+    nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.persistency - -> nz.ac.wgtn.swen225.lc.domain.items
+    nz.ac.wgtn.swen225.lc.app.input - -> nz.ac.wgtn.swen225.lc.app
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.recorder
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.persistency
+    nz.ac.wgtn.swen225.lc.app.main - -> nz.ac.wgtn.swen225.lc.app
+    nz.ac.wgtn.swen225.lc.domain.tiles - -> nz.ac.wgtn.swen225.lc.domain.items
+    nz.ac.wgtn.swen225.lc.domain.tiles - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.renderer
+    nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain.items
+    nz.ac.wgtn.swen225.lc.app - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.domain - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.domain - -> nz.ac.wgtn.swen225.lc.renderer
+    nz.ac.wgtn.swen225.lc.domain - -> nz.ac.wgtn.swen225.lc.persistency
+    nz.ac.wgtn.swen225.lc.domain - -> nz.ac.wgtn.swen225.lc.domain.items
+    nz.ac.wgtn.swen225.lc.recorder - -> nz.ac.wgtn.swen225.lc.domain.tiles
+    nz.ac.wgtn.swen225.lc.recorder - -> nz.ac.wgtn.swen225.lc.domain
+    nz.ac.wgtn.swen225.lc.recorder - -> nz.ac.wgtn.swen225.lc.app
+
+    class "nz.ac.wgtn.swen225.lc.renderer" [[nz/ac/wgtn/swen225/lc/renderer/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.domain" [[nz/ac/wgtn/swen225/lc/domain/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.domain.tiles" [[nz/ac/wgtn/swen225/lc/domain/tiles/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.app" [[nz/ac/wgtn/swen225/lc/app/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.persistency" [[nz/ac/wgtn/swen225/lc/persistency/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.domain.items" [[nz/ac/wgtn/swen225/lc/domain/items/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.app.input" [[nz/ac/wgtn/swen225/lc/app/input/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.app.main" [[nz/ac/wgtn/swen225/lc/app/main/package-summary.html]] {
+    }
+    class "nz.ac.wgtn.swen225.lc.recorder" [[nz/ac/wgtn/swen225/lc/recorder/package-summary.html]] {
+    }
+
+    center footer UMLDoclet 2.0.14, PlantUML 1.2021.9
+@enduml
+
+PlantUML version 1.2021.9(Sun Jul 25 22:13:56 NZST 2021)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: NZ
+--></g></svg>

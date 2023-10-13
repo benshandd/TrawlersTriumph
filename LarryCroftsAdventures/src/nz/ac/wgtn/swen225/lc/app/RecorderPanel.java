@@ -116,6 +116,12 @@ public class RecorderPanel extends JPanel {
                 if (file != null) {
                     moves = new Recorder().loadSave(file, app);
                 }
+
+                JOptionPane.showMessageDialog(null,
+                        "If you choose to use auto replay, use the replay speed slider to " +
+                                "set the speed before pressing 'auto replay'",
+                        "Instructions",
+                        JOptionPane.PLAIN_MESSAGE);
             }
         });
         loadButton.setFocusable(false);
@@ -158,28 +164,34 @@ public class RecorderPanel extends JPanel {
                             "You need to load a file first!",
                             "File not chosen!",
                             JOptionPane.PLAIN_MESSAGE);
-                } else{
-                    //timer to be able to go through each action at a certain speed
+                } else {
+                    //timer to be able to go through each action at a certain speed (set by slider)
                     recordingIndicatorTimer = new Timer();
-                    recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
-                        @Override
-                        public void run() {
-                            try {
-                                if (!moves.isEmpty()) {
-                                    new Recorder().step(moves.remove(0));
-                                } else{
-                                    JOptionPane.showMessageDialog(null,
-                                            "All moves have been shown!",
-                                            "Replay finished!",
-                                            JOptionPane.PLAIN_MESSAGE);
-                                    recordingIndicatorTimer.cancel();
+                        recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
+                            @Override
+                            public void run() {
+                                if (app.getBoard().getChap().getState() == Chap.State.ONGOING) {
+                                    try {
+                                        if (!moves.isEmpty()) {
+                                            new Recorder().step(moves.remove(0));
+                                        } else {
+                                            JOptionPane.showMessageDialog(null,
+                                                    "All moves have been shown!",
+                                                    "Replay finished!",
+                                                    JOptionPane.PLAIN_MESSAGE);
+                                            recordingIndicatorTimer.cancel();
+                                        }
+                                    } catch (IllegalMove ex) {
+                                        throw new RuntimeException(ex);
+                                    }
+                                    repaint();
+                                }else {
+                                    recordingIndicatorTimer.schedule(this, 2000);
                                 }
-                            } catch (IllegalMove ex) {
-                                throw new RuntimeException(ex);
+
                             }
-                            repaint();
-                        }
-                    }, 0, ((speed*400)/2));
+                        }, 0, ((speed * 400) / 2));
+
                 }
             }
         });
