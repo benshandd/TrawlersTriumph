@@ -1,18 +1,18 @@
 {
     "player": {
-        "x": 5,
-        "y": 5
+        "x": 7,
+        "y": 6
     },
     "timeLeft": 60,
     "level": 1,
-    "playerTreasureCount": 1,
+    "playerTreasureCount": 0,
     "boardTreasureCount": 10,
     "inventory": [
         [
-            "Key_Blue",
-            "Key_Blue",
-            "Key_Red",
-            "Key_Red"
+            "none",
+            "none",
+            "none",
+            "none"
         ],
         [
             "none",
@@ -21,18 +21,7 @@
             "none"
         ]
     ],
-    "actions": [
-        "DOWN",
-        "DOWN",
-        "RIGHT",
-        "RIGHT",
-        "UP",
-        "UP",
-        "RIGHT",
-        "RIGHT",
-        "DOWN",
-        "DOWN"
-    ],
+    "actions": [],
     "board": [
         [
             {
@@ -528,7 +517,7 @@
             {
                 "x": 5,
                 "y": 5,
-                "tile": "Free",
+                "tile": "Key_Blue",
                 "item": "none"
             },
             {
@@ -620,8 +609,8 @@
             {
                 "x": 5,
                 "y": 6,
-                "tile": "Free",
-                "item": "none"
+                "tile": "none",
+                "item": "Treasure"
             },
             {
                 "x": 6,
