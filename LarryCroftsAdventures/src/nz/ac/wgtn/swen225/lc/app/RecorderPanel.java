@@ -3,6 +3,7 @@ package nz.ac.wgtn.swen225.lc.app;
 import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
+import nz.ac.wgtn.swen225.lc.persistency.Persistency;
 import nz.ac.wgtn.swen225.lc.recorder.Recorder;
 
 import javax.swing.*;
@@ -130,27 +131,7 @@ public class RecorderPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Implement step-by-step logic here
-                if (file == null){
-                    JOptionPane.showMessageDialog(null,
-                            "You need to load a file first!",
-                            "File not chosen!",
-                            JOptionPane.PLAIN_MESSAGE);
-                } else {
-                    app.repaint();
-                    if (!moves.isEmpty()) {
-                        try {
-                            new Recorder().step(moves.remove(0));
-                        } catch (IllegalMove ex) {
-                            System.out.println(ex.getMessage());
-                        }
-                    } else{
-                        JOptionPane.showMessageDialog(null,
-                                "All moves have been shown!",
-                                "Replay finished!",
-                                JOptionPane.PLAIN_MESSAGE);
-                    }
-
-                }
+                Recorder.step(app, file, moves);
             }
         });
         stepButton.setFocusable(false);
@@ -159,40 +140,8 @@ public class RecorderPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Implement auto replay logic here
-                if (file == null){
-                    JOptionPane.showMessageDialog(null,
-                            "You need to load a file first!",
-                            "File not chosen!",
-                            JOptionPane.PLAIN_MESSAGE);
-                } else {
-                    //timer to be able to go through each action at a certain speed (set by slider)
-                    recordingIndicatorTimer = new Timer();
-                        recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
-                            @Override
-                            public void run() {
-                                if (app.getBoard().getChap().getState() == Chap.State.ONGOING) {
-                                    try {
-                                        if (!moves.isEmpty()) {
-                                            new Recorder().step(moves.remove(0));
-                                        } else {
-                                            JOptionPane.showMessageDialog(null,
-                                                    "All moves have been shown!",
-                                                    "Replay finished!",
-                                                    JOptionPane.PLAIN_MESSAGE);
-                                            recordingIndicatorTimer.cancel();
-                                        }
-                                    } catch (IllegalMove ex) {
-                                        throw new RuntimeException(ex);
-                                    }
-                                    repaint();
-                                }else {
-                                    recordingIndicatorTimer.schedule(this, 2000);
-                                }
+                Recorder.auto(app, file, moves, speed);
 
-                            }
-                        }, 0, ((speed * 400) / 2));
-
-                }
             }
         });
         autoReplayButton.setFocusable(false);
@@ -322,15 +271,20 @@ public class RecorderPanel extends JPanel {
         //chapTreasures = chap.getPlayerTreasureCount();
         //boardTreasureCount = App.getBoard().getBoardTreasureCount() - chapTreasures;
 
-        Recorder recorder = new Recorder(moves, chapX, chapY, chapTreasures,
-                boardTreasureCount, chapInitLevel, timeLeft, board, chap);
+        //Recorder recorder = new Recorder(moves, chapX, chapY, chapTreasures,
+                //boardTreasureCount, chapInitLevel, timeLeft, board, chap);
 
+        //recorder.saveRecorder(count);
+        Persistency p = new Persistency();
+        p.setSaveParameters(count, moves, chapX, chapY, chapTreasures,
+                boardTreasureCount, chapInitLevel, timeLeft, board, chap);
         try {
-            recorder.saveRecorder(count);
-            JOptionPane.showMessageDialog(null, "Game saved successfully!", "Save success", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+            p.saveGame();
+        }catch(IOException e){
+            throw new RuntimeException(e);
         }
+
+        JOptionPane.showMessageDialog(null, "Game saved successfully!", "Save success", JOptionPane.INFORMATION_MESSAGE);
 
         if (!moves.isEmpty()) {
             moves.clear();

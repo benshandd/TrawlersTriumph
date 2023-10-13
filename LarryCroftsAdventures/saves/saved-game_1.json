@@ -9,10 +9,10 @@
     "boardTreasureCount": 10,
     "inventory": [
         [
-            "none",
-            "none",
-            "none",
-            "none"
+            "Key_Blue",
+            "Key_Blue",
+            "Key_Red",
+            "Key_Red"
         ],
         [
             "none",
@@ -21,7 +21,23 @@
             "none"
         ]
     ],
-    "actions": [],
+    "actions": [
+        "LEFT",
+        "LEFT",
+        "DOWN",
+        "UP",
+        "UP",
+        "UP",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "RIGHT",
+        "DOWN",
+        "DOWN",
+        "DOWN",
+        "DOWN",
+        "LEFT"
+    ],
     "board": [
         [
             {
