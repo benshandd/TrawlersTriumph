@@ -5,6 +5,7 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
+import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 import nz.ac.wgtn.swen225.lc.renderer.Camera;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
@@ -117,7 +118,7 @@ public class App extends JPanel implements ActionListener {
 		audioUnit = new AudioUnit();
 		audioUnit.startBackgroundMusic();
 		audioUnit.startAmbience();
-		board = new Board(file, audioUnit);
+		board = new Board(file);
 
 		timer.stop();
 		timer = new Timer(1000, this);
@@ -302,8 +303,9 @@ public class App extends JPanel implements ActionListener {
 				switch (direction) {
 					case "UP" -> {
 						try {
-							chap.move(Chap.Direction.UP);
+							Tile tile = chap.move(Chap.Direction.UP);
 							camera.setState(Camera.State.UP);
+							renderer.playSound(tile);
 							if (RecorderPanel.recording) {
 								RecorderPanel.moves.add(new Move("UP", RecorderPanel.time));
 							}
@@ -313,8 +315,9 @@ public class App extends JPanel implements ActionListener {
 					}
 					case "DOWN" -> {
 						try {
-							chap.move(Chap.Direction.DOWN);
+							Tile tile = chap.move(Chap.Direction.DOWN);
 							camera.setState(Camera.State.DOWN);
+							renderer.playSound(tile);
 							if (RecorderPanel.recording) {
 								RecorderPanel.moves.add(new Move("DOWN", RecorderPanel.time));
 							}
@@ -324,8 +327,9 @@ public class App extends JPanel implements ActionListener {
 					}
 					case "LEFT" -> {
 						try {
-							chap.move(Chap.Direction.LEFT);
+							Tile tile = chap.move(Chap.Direction.LEFT);
 							camera.setState(Camera.State.LEFT);
+							renderer.playSound(tile);
 							if (RecorderPanel.recording) {
 								RecorderPanel.moves.add(new Move("LEFT", RecorderPanel.time));
 							}
@@ -335,8 +339,9 @@ public class App extends JPanel implements ActionListener {
 					}
 					case "RIGHT" -> {
 						try {
-							chap.move(Chap.Direction.RIGHT);
+							Tile tile = chap.move(Chap.Direction.RIGHT);
 							camera.setState(Camera.State.RIGHT);
+							renderer.playSound(tile);
 							if (RecorderPanel.recording) {
 								RecorderPanel.moves.add(new Move("RIGHT", RecorderPanel.time));
 							}
