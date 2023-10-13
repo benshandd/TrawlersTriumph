@@ -181,7 +181,7 @@ public class Persistency {
      * Setter method to set the instance variables for saving parameters.
      */
     public void setSaveParameters(int newFileNum, ArrayList<Move> actions, int x, int y, int playerTreasureCount,
-            int boardTreasureCount, int level, int timeLeft, Tile[][] board, Chap chap) {
+                                  int boardTreasureCount, int level, int timeLeft, Tile[][] board, Chap chap) {
         this.newFileNumToSave = newFileNum;
         this.actionsToSave = actions;
         this.playerXToSave = x;
@@ -234,8 +234,7 @@ public class Persistency {
                     rowArray.add("none");
                 } else if (item instanceof Key key) {
                     String colorName = ((Key) item).colour().name();
-                    rowArray.add(
-                            "Key_" + colorName.substring(0, 1).toUpperCase() + colorName.substring(1).toLowerCase());
+                    rowArray.add("Key_" + colorName.substring(0, 1).toUpperCase() + colorName.substring(1).toLowerCase());
                 }
             }
             inventoryArray.add(rowArray);
@@ -360,17 +359,14 @@ public class Persistency {
             try {
                 // Load the selected saved game file
                 Tile[][] loadedGame = loadGame(selectedFile);
-                JOptionPane.showMessageDialog(null, "Game resumed successfully!", "Resume Game",
-                        JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Game resumed successfully!", "Resume Game", JOptionPane.INFORMATION_MESSAGE);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Error loading the saved game file.", "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error loading the saved game file.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
     public List<AutoActor> getActors() {
         return actors;
     }
-
 }

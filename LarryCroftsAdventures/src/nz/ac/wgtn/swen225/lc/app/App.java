@@ -5,11 +5,8 @@ import nz.ac.wgtn.swen225.lc.domain.Chap;
 import nz.ac.wgtn.swen225.lc.domain.IllegalMove;
 import nz.ac.wgtn.swen225.lc.domain.items.Item;
 import nz.ac.wgtn.swen225.lc.domain.items.Key;
-<<<<<<< HEAD
 import nz.ac.wgtn.swen225.lc.persistency.Persistency;
-=======
 import nz.ac.wgtn.swen225.lc.domain.tiles.Tile;
->>>>>>> 13a61c953d1c0954777f4a22578518bddb3c99f9
 import nz.ac.wgtn.swen225.lc.renderer.AudioUnit;
 import nz.ac.wgtn.swen225.lc.renderer.Camera;
 import nz.ac.wgtn.swen225.lc.renderer.Renderer;
@@ -226,18 +223,18 @@ public class App extends JPanel implements ActionListener {
 
 					// Determine the image path based on the keyColour
 					switch (keyColour) {
-						case RED:
-							keyImagePath = path + "Key_Red.png";
-							break;
-						case BLUE:
-							keyImagePath = path + "Key_Blue.png";
-							break;
-						case GREEN:
-							keyImagePath = path + "Key_Green.png";
-							break;
-						case YELLOW:
-							keyImagePath = path + "Key_Yellow.png";
-							break;
+					case RED:
+						keyImagePath = path + "Key_Red.png";
+						break;
+					case BLUE:
+						keyImagePath = path + "Key_Blue.png";
+						break;
+					case GREEN:
+						keyImagePath = path + "Key_Green.png";
+						break;
+					case YELLOW:
+						keyImagePath = path + "Key_Yellow.png";
+						break;
 					}
 
 					// Check if inventorySlots[i][j] is not null
