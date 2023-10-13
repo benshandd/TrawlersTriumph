@@ -5,7 +5,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import nz.ac.wgtn.swen225.lc.app.App;
 import nz.ac.wgtn.swen225.lc.app.Move;
-import nz.ac.wgtn.swen225.lc.domain.Chap;
 
 import javax.swing.*;
 import java.io.File;
@@ -85,7 +84,7 @@ public class Recorder {
             recordingIndicatorTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
-                    if (app.getBoard().getChap().getState() == Chap.State.ONGOING) {
+                    if (!app.paused) {
                         if (!moves.isEmpty()) {
                             app.moveAction(moves.remove(0).move());
                         } else {
